@@ -1,5 +1,5 @@
 # Instagram Clone
-This is a clone of the core functionality of Instagram that I built using Mongo, Express, React and Node. The project was deployed freely, and can be seen at:
+This is an application I created using Mongo, Express, React, and Node that replicates the core functionality of Instagram. The project is deployed and can be seen at:. A note that since the project is deployed freely, it will run slowly. 
 
 ## Features
 
