@@ -8,6 +8,7 @@ var helmet = require('helmet');
 var compression = require('compression'); 
 var app = express();
 app.use(express.static(path.join(__dirname, '../client/build')));
+require('dotenv').config();
 
 app.use(compression());
 app.use(helmet({
@@ -27,7 +28,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 });
 
-const port = process.env.PORT || 3007; 
+const port = process.env.PORT; 
 
 app.listen(port); 
 
