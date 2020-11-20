@@ -7,9 +7,10 @@ var usersRouter = require('./routes/users');
 var helmet = require('helmet');
 var compression = require('compression'); 
 var app = express();
-app.use(express.static(path.join(__dirname, '../client/build')));
+var mongoose = require('mongoose');
 require('dotenv').config();
 
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
 app.use(helmet({
   contentSecurityPolicy: false
@@ -28,8 +29,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 });
 
-const port = process.env.PORT; 
+var mongoDB = process.env.MONGO_URL; 
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+const port = process.env.PORT; 
 app.listen(port); 
 
 module.exports = app;
