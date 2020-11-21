@@ -1,25 +1,24 @@
 import '../stylesheets/App.css';
 import React from 'react';
 import {SignIn} from './SignIn';
+import {Register} from './Register';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 class App extends React.Component{
-
-  async _toyReq() {
-    const data = await fetch('/toy');
-    console.log(data);
-    document.getElementById('toy').innerHTML = data; 
-  }
 
   render() {
     return (
       <div className="App">
         <Router>
           <Switch>
+            <Route exact path = '/'>
+              <SignIn /> 
+            </Route>
+
+            <Route exact path = '/register'>
+              <Register /> 
+            </Route>
           </Switch>
-          <Route exact path = '/'>
-            <SignIn /> 
-          </Route>
         </Router>
       </div>
     )

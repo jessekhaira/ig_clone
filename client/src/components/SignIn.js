@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {Link} from "react-router-dom";
+import {Register} from './Register';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -16,6 +17,9 @@ class SignIn extends React.Component {
                     <input type = "password" placeholder = "Password"></input>
                     <input type = "submit" placeholder = "Log In"></input>
                 </form>
+                <div>
+                    <p>Don't have an account?<Link to = "/register"> Sign up</Link></p>
+                </div>
             </div>
         )
     }
