@@ -12,7 +12,6 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
  * @class @public 
  */
 class App extends React.Component{
-
   render() {
     return (
       <div className="App">
