@@ -4,7 +4,7 @@
 .auth_holder {
     @include flexbox-center(); 
     flex-direction: column;
-    height: 100%;
+    height: 90%;
 }
 
 .auth_info {

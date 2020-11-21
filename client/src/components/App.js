@@ -2,6 +2,7 @@ import '../stylesheets/App.css';
 import React from 'react';
 import {SignIn} from './SignIn';
 import {Register} from './Register';
+import {Footer} from './Footer';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 class App extends React.Component{
@@ -10,6 +11,7 @@ class App extends React.Component{
     return (
       <div className="App">
         <Router>
+          
           <Switch>
             <Route exact path = '/'>
               <SignIn /> 
@@ -19,6 +21,11 @@ class App extends React.Component{
               <Register /> 
             </Route>
           </Switch>
+
+          <Route>
+            <Footer /> 
+          </Route>
+
         </Router>
       </div>
     )
