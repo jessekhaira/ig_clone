@@ -8,11 +8,11 @@ class Register extends React.Component {
 
     render() {
         return(
-            <div id = "RegisterDiv">
+            <div id = "RegisterDiv" className = "auth_holder">
                 <h1 className = "instagram_name">Instagram Clone</h1>
                 <h2>Sign up to join in on the fun!</h2>
 
-                <form id = "RegisterForm">
+                <form id = "RegisterForm" className = "form_auth">
                     <input type = "email" placeholder = "Email"></input>
                     <input type = "text" placeholder = "Full Name"></input>
                     <input type = "text" placeholder = "Username"></input>

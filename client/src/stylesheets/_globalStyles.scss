@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box; 
+}
+
+:root {
+    --main-bg-color: #fafafa; 
+}
+
+body, #root, html, .App{
+    margin: 0; 
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-bg-color);
+}

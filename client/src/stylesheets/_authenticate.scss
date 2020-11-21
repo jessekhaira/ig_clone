@@ -1,0 +1,14 @@
+@import "_mixins.scss";
+
+
+.auth_holder {
+    @include flexbox-center(); 
+    flex-direction: column;
+    height: 100%;
+}
+
+.form_auth {
+    @include flexbox-center();
+    flex-direction: column;
+    
+}
