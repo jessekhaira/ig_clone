@@ -7,8 +7,40 @@
     height: 100%;
 }
 
+.auth_info {
+    @include flexbox-center();
+    flex-direction: column;
+    padding: 20px;
+}
+
 .form_auth {
     @include flexbox-center();
     flex-direction: column;
-    
+    width: 100%;
 }
+
+.name_form_auth {
+    background-color: white;
+    @include flexbox-center();
+    flex-direction: column;
+    border: 1px solid;
+    padding: 20px;
+    width: 100%;
+}
+
+.auth_link {
+    @include flexbox-center();
+    margin-top: 10px;
+    border: 1px solid;
+    padding: 5px 0px 5px 0px;
+    background-color: white;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+}
+
+
+

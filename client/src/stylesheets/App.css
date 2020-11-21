@@ -21,11 +21,47 @@ body, #root, html, .App {
   height: 100%;
 }
 
+.auth_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
 .form_auth {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+}
+
+.name_form_auth {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid;
+  padding: 20px;
+  width: 100%;
+}
+
+.auth_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 1px solid;
+  padding: 5px 0px 5px 0px;
+  background-color: white;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
 }
 
 /*# sourceMappingURL=App.css.map */
