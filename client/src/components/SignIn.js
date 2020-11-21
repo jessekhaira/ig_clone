@@ -10,7 +10,7 @@ class SignIn extends React.Component {
     render() {
         return(
             <div id = "register">
-                <h1>Instagram Clone</h1>
+                <h1 className = "instagram_name">Instagram Clone</h1>
 
                 <form id = "sign_in">
                     <input type = "email" placeholder = "Email or username"></input>
