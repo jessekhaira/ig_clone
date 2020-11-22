@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+// Mount middleware - routers 
 app.use('/login', login_router); 
 
 // SPA - backend is purely API, views are handled by React 

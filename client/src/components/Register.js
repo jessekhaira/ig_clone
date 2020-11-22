@@ -17,13 +17,23 @@ class Register extends React.Component {
                 
                     <div className = "name_form_auth">
                         <h1 className = "instagram_name">Instagram Clone</h1>
-                        <h2>Sign up to join in on the fun!</h2>
+                        <h2 id = "signInDescr">Sign up to join in on the fun!</h2>
                         <form id = "RegisterForm" className = "form_auth">
                             <input type = "email" placeholder = "Email" className = "authInputs"></input>
                             <input type = "text" placeholder = "Full Name" className = "authInputs"></input>
                             <input type = "text" placeholder = "Username" className = "authInputs"></input>
                             <input type = "password" placeholder = "Password" className = "authInputs"></input>
-                            <button type ="button" className = "authInputs submitInp" onClick = {this._register}>Sign Up</button>
+                            <button id = "signup_button" type ="button" className = "authInputs submitButton inactive">
+                                <h2 id = "signup_text" className = "submit_button_text">Sign Up</h2>
+                                <div id = "anim_holder" className="sk-chase">
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                </div>
+                            </button>                       
                         </form>
                     </div>
 
