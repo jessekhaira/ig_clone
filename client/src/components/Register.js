@@ -6,6 +6,10 @@ class Register extends React.Component {
         super(props);
     }
 
+    _register(e) {
+        console.log(e);
+    }
+
     render() {
         return(
             <div id = "RegisterDiv" className = "auth_holder">
@@ -19,7 +23,7 @@ class Register extends React.Component {
                             <input type = "text" placeholder = "Full Name" className = "authInputs"></input>
                             <input type = "text" placeholder = "Username" className = "authInputs"></input>
                             <input type = "password" placeholder = "Password" className = "authInputs"></input>
-                            <input type = "submit" placeholder = "Sign Up" className = "authInputs submitInp" value = "Sign Up"></input>
+                            <button type ="button" className = "authInputs submitInp" onClick = {this._register}>Sign Up</button>
                         </form>
                     </div>
 

@@ -84,6 +84,12 @@ input {
     border-color: transparent;
     border-radius: 5px;
     height: 30px;
+    width: 100%;
+}
+
+.inactive {
+    background-color: rgba(0,149,246,.3);
+    cursor: auto;
 }
 
 .authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
