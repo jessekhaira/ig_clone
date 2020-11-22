@@ -1,3 +1,4 @@
+@import "_mixins.scss";
 * {
     box-sizing: border-box; 
 }
@@ -10,5 +11,18 @@ body, #root, html, .App{
     margin: 0; 
     width: 100%;
     height: 100%;
+    @include system-fonts();
+}
+
+#footer {
+    @include flexbox-center();
+    height: 10%;
     background-color: var(--main-bg-color);
+
+    a {
+        text-decoration: none;
+        color:rgba(var(--f52,142,142,142),1);
+        font-size: 15px;
+    }
+
 }

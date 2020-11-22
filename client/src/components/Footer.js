@@ -2,8 +2,8 @@ import React from 'react';
 
 function Footer() {
     return(
-        <div>
-            <h1>footer</h1>
+        <div id = "footer">
+            <a href = "https://github.com/13jk59/ig_clone">Source Code Link</a>
         </div>
     )
 }

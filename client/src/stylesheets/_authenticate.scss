@@ -1,10 +1,11 @@
 @import "_mixins.scss";
-
+@import url('https://fontsfree.net/billabong-font-download.html');
 
 .auth_holder {
     @include flexbox-center(); 
     flex-direction: column;
     height: 90%;
+    background-color: var(--main-bg-color);
 }
 
 .auth_info {
@@ -28,6 +29,10 @@
     width: 100%;
 }
 
+.instagram_name {
+    font-family: 'Billabong', cursive;
+}
+
 .auth_link {
     @include flexbox-center();
     margin-top: 10px;
@@ -35,6 +40,7 @@
     padding: 5px 0px 5px 0px;
     background-color: white;
     width: 100%;
+    font-size: 14px;
 }
 
 input {
