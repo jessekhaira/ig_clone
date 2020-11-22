@@ -95,6 +95,10 @@ h2 {
   font-size: 13px;
   border: 2px solid var(--border-color);
 }
+.auth_link a {
+  text-decoration: none;
+  color: #0095f6;
+}
 
 input {
   width: 100%;

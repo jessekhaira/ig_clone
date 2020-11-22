@@ -57,6 +57,11 @@ h2 {
     width: 100%;
     font-size: 13px;
     border: 2px solid var(--border-color);
+
+    a {
+        text-decoration: none;
+        color: #0095f6; 
+    }
 }
 
 input {
