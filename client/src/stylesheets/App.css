@@ -5,6 +5,7 @@
 
 :root {
   --main-bg-color: #fafafa;
+  --font-color-gray: rgba(var(--f52,142,142,142),1);
 }
 
 body, #root, html, .App {
@@ -23,8 +24,13 @@ body, #root, html, .App {
 }
 #footer a {
   text-decoration: none;
-  color: rgba(var(--f52, 142, 142, 142), 1);
+  color: var(--font-color-gray);
   font-size: 15px;
+}
+
+.authInputs::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .auth_holder {
@@ -53,18 +59,35 @@ body, #root, html, .App {
 }
 
 .name_form_auth {
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   flex-direction: column;
   border: 1px solid;
   padding: 20px;
   width: 100%;
 }
 
+h2 {
+  margin-top: 0px;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-color-gray);
+  margin-bottom: 20px;
+}
+
 .instagram_name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   font-family: "Billabong", cursive;
+  margin-bottom: 0px;
+  width: 100%;
+  padding: 20px;
 }
 
 .auth_link {
@@ -82,6 +105,23 @@ body, #root, html, .App {
 input {
   width: 100%;
   padding: 10px;
+}
+
+.authInputs::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.authInputs::-webkit-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.authInputs:-ms-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.authInputs::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 /*# sourceMappingURL=App.css.map */

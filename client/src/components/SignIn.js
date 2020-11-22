@@ -14,9 +14,9 @@ class SignIn extends React.Component {
                     <div className = "name_form_auth">
                         <h1 className = "instagram_name">Instagram Clone</h1>
                         <form id = "sign_in" className = "form_auth">
-                            <input type = "email" placeholder = "Email or username"></input>
-                            <input type = "password" placeholder = "Password"></input>
-                            <input type = "submit" placeholder = "Log In"></input>
+                            <input type = "email" placeholder = "Email or username" className = "authInputs"></input>
+                            <input type = "password" placeholder = "Password" className = "authInputs"></input>
+                            <input type = "submit" placeholder = "Log In" className = "authInputs"></input>
                         </form>
                     </div>
                     <div className = "auth_link">

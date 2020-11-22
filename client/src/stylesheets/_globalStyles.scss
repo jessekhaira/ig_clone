@@ -5,6 +5,7 @@
 
 :root {
     --main-bg-color: #fafafa; 
+    --font-color-gray: rgba(var(--f52,142,142,142),1);
 }
 
 body, #root, html, .App{
@@ -21,8 +22,12 @@ body, #root, html, .App{
 
     a {
         text-decoration: none;
-        color:rgba(var(--f52,142,142,142),1);
+        color:var(--font-color-gray); 
         font-size: 15px;
     }
-
 }
+
+.authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+}
+  

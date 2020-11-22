@@ -21,16 +21,31 @@
 }
 
 .name_form_auth {
-    background-color: white;
     @include flexbox-center();
+    background-color: white;
     flex-direction: column;
     border: 1px solid;
     padding: 20px;
     width: 100%;
 }
 
+h2 {
+    margin-top: 0px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--font-color-gray);
+    margin-bottom: 20px;
+}
+
 .instagram_name {
+    @include flexbox-center();
+    text-align: center;
     font-family: 'Billabong', cursive;
+    margin-bottom: 0px;
+    width: 100%;
+    padding: 20px;
 }
 
 .auth_link {
@@ -48,5 +63,18 @@ input {
     padding: 10px;
 }
 
+.authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    @include system-fonts();
+}
+  
+.authInputs::-webkit-input-placeholder {
+    @include system-fonts();
+}
+  
+.authInputs:-ms-input-placeholder {
+    @include system-fonts();
+}
 
-
+.authInputs::-moz-placeholder {
+    @include system-fonts();
+}
