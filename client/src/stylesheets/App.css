@@ -61,7 +61,7 @@ body, #root, html, .App {
   background-color: white;
   flex-direction: column;
   border: 2px solid var(--border-color);
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   width: 100%;
 }
 
@@ -76,14 +76,11 @@ h2 {
 }
 
 .instagram_name {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   font-family: "Billabong", cursive;
-  margin-bottom: 0px;
+  padding: 25px;
+  margin-top: 0px;
   width: 100%;
-  padding: 20px;
+  margin-bottom: 0px;
 }
 
 .auth_link {
@@ -95,7 +92,7 @@ h2 {
   padding: 5px 0px 5px 0px;
   background-color: white;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
   border: 2px solid var(--border-color);
 }
 
@@ -106,6 +103,19 @@ input {
   height: 35px;
   border: 1px solid var(--border-color);
   background-color: var(--main-bg-color);
+}
+
+.submitInp {
+  text-align: center;
+  padding: 0px;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #0095f6;
+  color: white;
+  font-weight: bold;
+  border-color: transparent;
+  border-radius: 5px;
+  height: 30px;
 }
 
 .authInputs::placeholder {

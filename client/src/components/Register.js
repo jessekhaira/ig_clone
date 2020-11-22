@@ -19,7 +19,7 @@ class Register extends React.Component {
                             <input type = "text" placeholder = "Full Name" className = "authInputs"></input>
                             <input type = "text" placeholder = "Username" className = "authInputs"></input>
                             <input type = "password" placeholder = "Password" className = "authInputs"></input>
-                            <input type = "submit" placeholder = "Sign Up" className = "authInputs"></input>
+                            <input type = "submit" placeholder = "Sign Up" className = "authInputs submitInp" value = "Sign Up"></input>
                         </form>
                     </div>
 
