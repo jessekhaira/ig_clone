@@ -6,6 +6,7 @@
 :root {
     --main-bg-color: #fafafa; 
     --font-color-gray: rgba(var(--f52,142,142,142),1);
+    --border-color: #dbdbdb; 
 }
 
 body, #root, html, .App{
@@ -27,7 +28,3 @@ body, #root, html, .App{
     }
 }
 
-.authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
-}
-  

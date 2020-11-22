@@ -24,7 +24,7 @@
     @include flexbox-center();
     background-color: white;
     flex-direction: column;
-    border: 1px solid;
+    border: 2px solid var(--border-color);
     padding: 20px;
     width: 100%;
 }
@@ -56,15 +56,21 @@ h2 {
     background-color: white;
     width: 100%;
     font-size: 14px;
+    border: 2px solid var(--border-color);
 }
 
 input {
     width: 100%;
     padding: 10px;
+    margin-bottom: 6px;
+    height: 35px;
+    border: 1px solid var(--border-color);
+    background-color: var(--main-bg-color);
 }
 
 .authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     @include system-fonts();
+    font-size: 12px;
 }
   
 .authInputs::-webkit-input-placeholder {
