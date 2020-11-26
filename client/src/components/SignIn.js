@@ -20,6 +20,11 @@ class SignIn extends React.Component {
         this._preprocess_loginbutton()
     }
 
+    /**
+     * This method represents an asynchronous event listener for click events that occur for the login button. An HTTP POST request is sent 
+     * to the server with the users information and if the information is valid, the user will be routed to their profile page.
+     * @param {Event} e 
+     */
     async _login(e) {
         // showe the loader in the button
         try{
