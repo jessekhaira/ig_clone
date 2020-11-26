@@ -1,6 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+/**
+ * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.
+ * 
+ * @class @public 
+ */
 class Register extends React.Component {
     constructor(props) {
         super(props);
