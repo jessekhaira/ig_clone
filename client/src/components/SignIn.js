@@ -3,6 +3,12 @@ import {Link} from "react-router-dom";
 import {Register} from './Register';
 import {setDisplay} from '../utility/utility_functions';
 
+
+/**
+ * This class represents a React class component responsible for rendering the section of the UI corresponding to the sign in page.
+ * 
+ * @class @public 
+ */
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
