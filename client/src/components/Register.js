@@ -64,42 +64,47 @@ class Register extends React.Component {
     _attemptToCreateUser(email, full_name, username_inp, pw_inp) {
     }
 
+    _focus_text_input_to_date (e){
+        e.currentTarget.type = "date";
+    }
+
+    _blur_date_input_to_text (e){
+        e.currentTarget.type = "text";
+        e.currentTarget.placeholder = "Date of Birth";
+    }
+
     render() {
         return(
-            <Switch>
-                <Route exact path = '/register'>
-                    <div id = "RegisterDiv" className = "auth_holder">
-                        <div className = "auth_info">
-                            <div className = "name_form_auth">
-                                <h1 className = "instagram_name">Instagram Clone</h1>
-                                <h2 id = "signInDescr">Sign up to join in on the fun!</h2>
-                                <form id = "RegisterForm" className = "form_auth" onChange = {this._undisableSignupButton}>
-                                    <input id = "email_signup" type = "email" placeholder = "Email" className = "authInputs"></input>
-                                    <input id = "name_input" type = "text" placeholder = "Full Name" className = "authInputs"></input>
-                                    <input id = "username_input" type = "text" placeholder = "Username" className = "authInputs"></input>
-                                    <input id = "pw_input" type = "password" placeholder = "Password" className = "authInputs"></input>
-                                    <button id = "signup_button" type ="button" onClick = {this._signUp} className = "authInputs submitButton inactive">
-                                        <h2 id = "signup_text" className = "submit_button_text">Sign Up</h2>
-                                        <div id = "anim_holder" className="sk-chase">
-                                            <div className="sk-chase-dot"></div>
-                                            <div className="sk-chase-dot"></div>
-                                            <div className="sk-chase-dot"></div>
-                                            <div className="sk-chase-dot"></div>
-                                            <div className="sk-chase-dot"></div>
-                                            <div className="sk-chase-dot"></div>
-                                        </div>
-                                    </button>                       
-                                </form>
-                            </div>
-
-                            <div className = "auth_link">
-                                <p>Have an account? <Link to = "/">Log in</Link></p>
-                            </div>
-                        </div>
+            <div id = "RegisterDiv" className = "auth_holder">
+                <div className = "auth_info">
+                    <div className = "name_form_auth">
+                        <h1 className = "instagram_name">Instagram Clone</h1>
+                        <h2 id = "signInDescr">Sign up to join in on the fun!</h2>
+                        <form id = "RegisterForm" className = "form_auth" onChange = {this._undisableSignupButton}>
+                            <input id = "email_signup" type = "email" placeholder = "Email" className = "authInputs"></input>
+                            <input id = "name_input" type = "text" placeholder = "Full Name" className = "authInputs"></input>
+                            <input id = "username_input" type = "text" placeholder = "Username" className = "authInputs"></input>
+                            <input onFocus = {this._focus_text_input_to_date} onBlur={this._blur_date_input_to_text} id = "date_of_birth_input" type = "text" placeholder = "Date of Birth" className = "authInputs" ></input>
+                            <input id = "pw_input" type = "password" placeholder = "Password" className = "authInputs"></input>
+                            <button id = "signup_button" type ="button" onClick = {this._signUp} className = "authInputs submitButton inactive">
+                                <h2 id = "signup_text" className = "submit_button_text">Sign Up</h2>
+                                <div id = "anim_holder" className="sk-chase">
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                    <div className="sk-chase-dot"></div>
+                                </div>
+                            </button>                       
+                        </form>
                     </div>
-                </Route>
-            </Switch>
 
+                    <div className = "auth_link">
+                        <p>Have an account? <Link to = "/">Log in</Link></p>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

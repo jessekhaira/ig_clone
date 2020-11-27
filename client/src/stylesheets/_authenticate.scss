@@ -128,3 +128,8 @@
     cursor: auto;
 }
 
+#date_of_birth_input {
+    @include system-fonts();
+    font-size: 12px;
+}
+
