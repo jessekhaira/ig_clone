@@ -10,6 +10,8 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 class Register extends React.Component {
     constructor(props) {
         super(props);
+
+        this._signUp = this._signUp.bind(this); 
     }
 
     componentDidMount() {
@@ -25,6 +27,7 @@ class Register extends React.Component {
         // filter out the signup_button from the array - don't need to verify its input 
         form_inputs = form_inputs.filter(x => x.classList.length <2); 
         const signup_button = document.getElementById('signup_button');
+
         for (let form_input_tag of form_inputs) {
             // password length must be longer than 5
             if ((form_input_tag.id === 'pw_input' && form_input_tag.value.length <= 5) || (form_input_tag.value.length < 1)) {
@@ -42,27 +45,33 @@ class Register extends React.Component {
         const name_inp = document.getElementById('name_input');
         const username_inp = document.getElementById('username_input');
         const pw_inp = document.getElementById('pw_input'); 
+        const date_of_birth_inp = document.getElementById('date_of_birth_input');
 
         // we can ensure the email and username follow the correct format in the client, but in terms of making sure 
         // this email isn't already registered to a user, and the username isn't already taken, we'll have to send 
         // the POST to theserver and check 
         const is_email_valid = this._validateEmail(email_inp);
         const is_username_valid = this._validateUsername(username_inp); 
-        if (is_email_valid) {
-            this._attemptToCreateUser(email_inp.value, name_inp.value, username_inp.value, pw_inp.value);
+        const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth_inp); 
+        if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
+            this._attemptToCreateUser(email_inp.value, name_inp.value, username_inp.value, pw_inp.value, date_of_birth_inp.value);
         }
     }
 
-    _validateEmail() {
-
+    _validateEmail(email_inp) {
+        // must follow regex pattern xyz@__.com 
     }
 
-    _validateUsername() {
+    _validateUsername(username_inp) {
         // Usernames can only use letters, numbers, underscores and periods.
     }
 
-    _attemptToCreateUser(email, full_name, username_inp, pw_inp) {
+    _validateDateOfBirth(date_of_birth) {
+        // dates between 1918 and 2010 valid 
     }
+
+    _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
+    } 
 
     _focus_text_input_to_date (e){
         e.currentTarget.type = "date";
