@@ -41,25 +41,30 @@ class Register extends React.Component {
     }
 
     async _signUp() {
-        const email_inp = document.getElementById('email_signup');
-        const name_inp = document.getElementById('name_input');
-        const username_inp = document.getElementById('username_input');
-        const pw_inp = document.getElementById('pw_input'); 
-        const date_of_birth_inp = document.getElementById('date_of_birth_input');
+        const email_inp = document.getElementById('email_signup').value;
+        const name_inp = document.getElementById('name_input').value;
+        const username_inp = document.getElementById('username_input').value;
+        const pw_inp = document.getElementById('pw_input').value;
+        const date_of_birth_inp = document.getElementById('date_of_birth_input').value;
 
         // we can ensure the email and username follow the correct format in the client, but in terms of making sure 
         // this email isn't already registered to a user, and the username isn't already taken, we'll have to send 
         // the POST to theserver and check 
         const is_email_valid = this._validateEmail(email_inp);
+
+        console.log(is_email_valid); 
         const is_username_valid = this._validateUsername(username_inp); 
         const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth_inp); 
         if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
-            this._attemptToCreateUser(email_inp.value, name_inp.value, username_inp.value, pw_inp.value, date_of_birth_inp.value);
+            this._attemptToCreateUser(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp);
         }
     }
 
+
     _validateEmail(email_inp) {
         // must follow regex pattern xyz@__.com 
+        const regex_pattern = /\S+@\S+\.\S+/;
+        return regex_pattern.test(email_inp); 
     }
 
     _validateUsername(username_inp) {
