@@ -255,4 +255,22 @@ body, #root, html, .App {
   font-size: 12px;
 }
 
+.validation_error_div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.validation_error {
+  font-size: 13px;
+  color: red;
+  display: none;
+  width: 260px;
+  text-align: center;
+  margin-top: 5px;
+  padding: 0;
+  text-align: center;
+}
+
 /*# sourceMappingURL=App.css.map */

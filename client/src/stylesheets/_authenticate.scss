@@ -133,3 +133,20 @@
     font-size: 12px;
 }
 
+
+.validation_error_div {
+    width: 100%;
+    @include flexbox-center();
+}
+
+
+.validation_error {
+    font-size: 13px;
+    color: red;
+    display: none;
+    width: 260px;
+    text-align: center;
+    margin-top: 5px;
+    padding: 0;
+    text-align: center;
+}
