@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {setDisplay} from '../utility/utility_functions';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.
@@ -79,7 +80,12 @@ class Register extends React.Component {
     async _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
         // try to create the user if there are no issues in the backend
         try {
-            let register_result = fetch('/register', {
+            setDisplay(
+                ['block', 'flex', 'none'], document.getElementById('anim_holder'), 
+                document.getElementById('signup_button'),
+                document.getElementById('signup_text')
+            )
+            let register_result = await fetch('/register', {
                 method: "POST",
                 body: JSON.stringify({
                     email,
@@ -95,6 +101,14 @@ class Register extends React.Component {
         }
         catch (err) {
             console.log(err); 
+        }
+        
+        finally {
+            setDisplay(
+                ['none', 'block', 'flex'], document.getElementById('anim_holder'), 
+                document.getElementById('signup_button'),
+                document.getElementById('signup_text')
+            )
         }
     } 
 
@@ -114,7 +128,6 @@ class Register extends React.Component {
     _validateDateOfBirth(date_of_birth) {
         const list_dob = date_of_birth.split('-'); 
         const yyyy = list_dob[0];
-        
         if (yyyy > 2020 || yyyy < 1918) {
             return false; 
         }
