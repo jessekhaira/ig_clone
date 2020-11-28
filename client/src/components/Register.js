@@ -82,7 +82,26 @@ class Register extends React.Component {
         return true; 
     }
 
-    _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
+    async _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
+        // try to create the user if there are no issues in the backend
+        try {
+            let register_result = fetch('/register', {
+                method: "POST",
+                body: JSON.stringify({
+                    email,
+                    full_name, 
+                    username_inp,
+                    pw_inp,
+                    date_of_birth
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            }); 
+        }
+        catch (err) {
+            console.log(err); 
+        }
     } 
 
     _focus_text_input_to_date (e){
