@@ -52,7 +52,6 @@ class Register extends React.Component {
         // the POST to theserver and check 
         const is_email_valid = this._validateEmail(email_inp);
 
-        console.log(is_email_valid); 
         const is_username_valid = this._validateUsername(username_inp); 
         const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth_inp); 
         if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
@@ -69,10 +68,18 @@ class Register extends React.Component {
 
     _validateUsername(username_inp) {
         // Usernames can only use letters, numbers, underscores and periods.
+        const regex_pattern = /^[a-zA-Z0-9_]+$/;
+        return regex_pattern.test(username_inp); 
     }
 
     _validateDateOfBirth(date_of_birth) {
-        // dates between 1918 and 2010 valid 
+        const list_dob = date_of_birth.split('-'); 
+        const yyyy = list_dob[0];
+        
+        if (yyyy > 2020 || yyyy < 1918) {
+            return false; 
+        }
+        return true; 
     }
 
     _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
