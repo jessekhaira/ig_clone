@@ -14,7 +14,6 @@ var login_router = require('./routes/login').login_router;
 var register_router = require('./routes/register').register_router; 
 
 require('dotenv').config();
-
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
 app.use(helmet({
@@ -35,10 +34,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 });
 
-// var mongoDB = process.env.MONGO_URL; 
-// mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+var mongoDB = process.env.MONGO_URL; 
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const port = process.env.PORT; 
 app.listen(port); 
