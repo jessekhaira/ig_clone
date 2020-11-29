@@ -9,8 +9,18 @@ var compression = require('compression');
 var app = express();
 var mongoose = require('mongoose');
 
-//routers
+/**
+ * Express router to mount login related functions.
+ * @type {object}
+ * @const
+ */
 var login_router = require('./routes/login').login_router; 
+
+/**
+ * Express router to mount register related functions.
+ * @type {object}
+ * @const 
+ */
 var register_router = require('./routes/register').register_router; 
 
 require('dotenv').config();
