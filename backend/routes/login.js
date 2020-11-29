@@ -1,12 +1,22 @@
 var express = require('express');
-var router = express.Router();
 var validator = require('express-validator');
 
+/**
+ * Express router to mount login related functions.
+ * @type {object}
+ * @const
+ */
+var router = express.Router();
 
 /**
- * This API endpoint mounted on the router responds to GET request to the '/login' route. It has the responsibility of sanitizing
+ * This API endpoint mounted on the login router responds to GET request to the '/login' route. It has the responsibility of sanitizing
  * the input arguments recieved, and then validating if they belong to a user in the database. If they do, the client will be notified
  * that verification was succesful and to redirect to the appropriate view. 
+ * 
+ * @name post/login
+ * @function
+ * @param {string} path - Express path 
+ * @param {callback} middleware - Express middleware
  */
 router.post('/', [
     validator.body('username').escape(),
