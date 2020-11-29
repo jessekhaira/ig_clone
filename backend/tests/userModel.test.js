@@ -8,7 +8,6 @@ const { verify } = require('crypto');
 require('dotenv').config({path: path.resolve('.env')});
 const readFile = util.promisify(fs.readFile);
 var mongoDB = process.env.MONGO_URL; 
-console.log(process.env.MONGO_URL);
 
 var db = mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 
@@ -19,7 +18,7 @@ describe('test user mongoose model', () => {
         // // make sure we can verify passwords approriately
         // // verifies db connection is proper 
         const profile_picture_buffer = await readFile(path.resolve('tests/batman16.png'));
-        const testUser = new User({
+        const testUser1 = new User({
             email: "practice1@gmail.com", 
             full_name: "practice user", 
             username: "practice123",
@@ -27,11 +26,51 @@ describe('test user mongoose model', () => {
             date_of_birth: "2002-09-15",
             profile_picture: profile_picture_buffer
         });
+
+        const testUser2 = new User({
+            email: "practice2@gmail.com", 
+            full_name: "practice user", 
+            username: "test_2",
+            password: "123_practice",
+            date_of_birth: "2000-09-15",
+            profile_picture: profile_picture_buffer
+        });
+
+        const testUser3 = new User({
+            email: "practice3@gmail.com", 
+            full_name: "practice user", 
+            username: "test_3",
+            password: "123_practice",
+            date_of_birth: "2000-09-15",
+            profile_picture: profile_picture_buffer
+        });
         
         await User.deleteMany({username: 'practice123'});
-    
-        await testUser.save(); 
+        await User.deleteMany({username: 'test_2'});
+        await User.deleteMany({username: 'test_3'});
+
+        await testUser1.save(); 
+        await testUser2.save();
+        await testUser3.save(); 
     })
+
+    test('test followers and following', async function () {
+        const test2 = await User.findOne({username: 'test_2'});
+        const test3 = await User.findOne({username: 'test_3'});
+        const user_prac = await User.findOne({username: 'practice123'});
+
+        user_prac.followers.push(test2);
+        user_prac.followers.push(test3);
+        console.log(user_prac.password);
+        await user_prac.save(); 
+        
+        const test_get = await User.findOne({username: 'practice123'});
+
+        expect(test_get.followers.length).toEqual(2);
+        console.log(test_get.password);
+    })
+
+
 
     test('test password hash -- incorrect password entered should return false', async function () {
         const user_practice = await User.findOne({username: 'practice123'});

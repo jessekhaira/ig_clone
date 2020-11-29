@@ -45,24 +45,22 @@ const userSchema = new Schema({
 userSchema.methods = {
     hashPassword: plain_text_pw => bcrypt.hash(plain_text_pw, 10),
     verifyPassword: async function (pw_to_verify) {
-        console.log(this.password);
         return await bcrypt.compare(pw_to_verify, this.password); 
     }
 }
 
 userSchema.pre(
+    // only want this to run if the password has changed -- ie we can update followers and following
+    // but pw wont change
     'save', async function (next) {
+        if (!this.isModified('password')) {
+            return next(); 
+        }
+
         let user = this;
         const password = user.password;
         const hashedPassword = await user.hashPassword(password);
         user.password = hashedPassword;
-
-        console.log(password);
-        bcrypt.compare(password, hashedPassword, (err, data) => {
-            console.log(data); 
-        })
-
-        console.log(hashedPassword);
         next(); 
     }
 ); 
