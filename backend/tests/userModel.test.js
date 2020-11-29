@@ -13,7 +13,7 @@ var db = mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology:
 
 
 describe('test user mongoose model', () => {
-    test('test overall model -- make sure users can be saved to database', async function test_overall_functionality_of_users() {
+    test('make sure users can be saved to database', async function test_overall_functionality_of_users() {
         // // make sure passwords are being hashed properly
         // // make sure we can verify passwords approriately
         // // verifies db connection is proper 
@@ -61,13 +61,11 @@ describe('test user mongoose model', () => {
 
         user_prac.followers.push(test2);
         user_prac.followers.push(test3);
-        console.log(user_prac.password);
         await user_prac.save(); 
         
         const test_get = await User.findOne({username: 'practice123'});
 
         expect(test_get.followers.length).toEqual(2);
-        console.log(test_get.password);
     })
 
 

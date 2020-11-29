@@ -14,12 +14,3 @@ export function setDisplay(displays, ...args) {
     }
 }
 
-
-export function focus_text_input_to_date (e){
-    e.currentTarget.type = "date";
-}
-
-export function blur_date_input_to_text (e){
-    e.currentTarget.type = "text";
-    e.currentTarget.placeholder = "Date of Birth";
-}

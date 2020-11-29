@@ -82,6 +82,7 @@
     background-color: var(--main-bg-color);
 }
 
+
 .authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     @include system-fonts();
     font-size: 12px;
