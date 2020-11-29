@@ -4,6 +4,10 @@ var bcrypt = require('bcrypt');
 var Schema = mongoose.Schema;
 
 
+/**
+ * Schema for users
+ * @constructor User 
+ */
 const userSchema = new Schema({
     // values provided through POST request from frontend
     email: {type: String, maxlength: 100, required: true, index: {unique: true}}, 
@@ -29,6 +33,7 @@ const userSchema = new Schema({
             ref: 'User'
         }
     ],
+    // store the _ids of all the photos this user posts 
     photos: [
         {
             type: Schema.Types.ObjectId,
@@ -37,11 +42,12 @@ const userSchema = new Schema({
     ] 
 }); 
 
-// want to automatically hash the password before it's saved to the database
-// so we will use some Mongoose middleware to make that happen! Register a pre hook
-// so that 
 
-// define some helper methods for verifying password and for hashing password 
+
+/**
+ * @alias User.prototype.hashPassword Generates an encrypted password hash for this user given the plain text password
+ * @alias User.prototype.verifyPassword Verifies whether a plain text password matches the encrypted password stored
+ */
 userSchema.methods = {
     hashPassword: plain_text_pw => bcrypt.hash(plain_text_pw, 10),
     verifyPassword: async function (pw_to_verify) {
@@ -49,6 +55,9 @@ userSchema.methods = {
     }
 }
 
+/**
+ * Register a callback function that will run every time that a user document is saved with a pre hook. 
+ */
 userSchema.pre(
     // only want this to run if the password has changed -- ie we can update followers and following
     // but pw wont change
@@ -66,4 +75,5 @@ userSchema.pre(
 ); 
 
 
-exports.userModel = mongoose.model('User', userSchema); 
+let User = mongoose.model('User', userSchema); 
+exports.userModel = User; 
