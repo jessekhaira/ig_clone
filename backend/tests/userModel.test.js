@@ -1,25 +1,23 @@
 var mongoose = require('mongoose');
 var User = require('../models/users').userModel;
-require('dotenv').config({path: '../.env'});
 var fs = require('fs'); 
 const path = require('path'); 
 const util = require('util');
-const { use } = require('../app');
 const { default: expectCt } = require('helmet/dist/middlewares/expect-ct');
+const { verify } = require('crypto');
+require('dotenv').config({path: path.resolve('.env')});
 const readFile = util.promisify(fs.readFile);
-
-// establish db connection
 var mongoDB = process.env.MONGO_URL; 
 console.log(process.env.MONGO_URL);
-mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+var db = mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+
 
 describe('test user mongoose model', () => {
-    test('test overall functionality of user mongoose model', async function test_overall_functionality_of_users() {
-        // make sure passwords are being hashed properly
-        // make sure we can verify passwords approriately
-        // verifies db connection is proper 
+    test('test overall model -- make sure users can be saved to database', async function test_overall_functionality_of_users() {
+        // // make sure passwords are being hashed properly
+        // // make sure we can verify passwords approriately
+        // // verifies db connection is proper 
         const profile_picture_buffer = await readFile(path.resolve('tests/batman16.png'));
         const testUser = new User({
             email: "practice1@gmail.com", 
@@ -29,21 +27,30 @@ describe('test user mongoose model', () => {
             date_of_birth: "2002-09-15",
             profile_picture: profile_picture_buffer
         });
-    
+        
         await User.deleteMany({username: 'practice123'});
     
         await testUser.save(); 
-    
-        const user_found = await User.findOne({username: 'practice123'});
-        // verify this is false 
-        const false_pw = await user_found.verifyPassword('practice');
-        // verify this is true 
-        const true_pw = await user_found.verifyPassword('123_practice');
+    })
 
-        expect(false_pw).toEqual(false);
-        expect(true_pw).toEqual(true);
-        expect(user_found.profile_picture).toEqual(profile_picture_buffer);
-        }
-    )}
-)
+    test('test password hash -- incorrect password entered should return false', async function () {
+        const user_practice = await User.findOne({username: 'practice123'});
+        const verify_pw = await user_practice.verifyPassword('123__practice');
+        expect(verify_pw).toEqual(false);
+    })
+
+    test('test password hash -- correct password entered should return true', async function () {
+        const user_practice = await User.findOne({username: 'practice123'});
+        const verify_pw = await user_practice.verifyPassword('123_practice');
+        expect(verify_pw).toEqual(true);
+    })
+
+    test('test profile pictuer image storage -- data buffers should match', async function() {
+        const data_buffer1 = await readFile(path.resolve('tests/batman16.png'));
+        const user_practice = await User.findOne({username: 'practice123'});
+        expect(data_buffer1).toEqual(user_practice.profile_picture);
+        (await db).disconnect();
+    })
+});
+
 
