@@ -78,14 +78,15 @@ class Register extends React.Component {
     }
 
     async _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
-        // try to create the user if there are no issues in the backend
+        // try to create the user if there are no issues with validating the user 
+        // ie usernames have to be unique and emails have to be unique 
         try {
             setDisplay(
                 ['block', 'flex', 'none'], document.getElementById('anim_holder'), 
                 document.getElementById('signup_button'),
                 document.getElementById('signup_text')
             )
-            let register_result = await fetch('/register', {
+            const register_result = await fetch('/register', {
                 method: "POST",
                 body: JSON.stringify({
                     email,
@@ -98,9 +99,25 @@ class Register extends React.Component {
                     'Content-type': 'application/json; charset=UTF-8'
                 }
             }); 
+            const jsonified_res = await register_result.json();
+            if ("message" in jsonified_res) {
+                throw new Error(jsonified_res.message); 
+            }
+            else {
+                console.log('success // redirect to users home profile'); 
+            }
         }
         catch (err) {
-            console.log(err); 
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            err = String(err); 
+            if (err.includes(":")) {
+                err = err.split(":")[1]; 
+            }
+            else {
+                err.innerHTML = err;
+            }
+            error_display.innerHTML = err; 
+            error_display.style.display = 'block';
         }
         
         finally {
