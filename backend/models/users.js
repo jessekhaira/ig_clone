@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt'); 
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 var Schema = mongoose.Schema;
-
 
 /**
  * Schema for users
@@ -10,9 +10,9 @@ var Schema = mongoose.Schema;
  */
 const userSchema = new Schema({
     // values provided through POST request from frontend
-    email: {type: String, required: true, index: {unique: true}}, 
+    email: {type: String, required: true, unique: "This email is already registered to an user"}, 
     full_name: {type: String, required: true}, 
-    username: {type: String, required: true, index: {unique: true}},
+    username: {type: String, required: true, unique: "This username is already registered to an user"},
     password: {type: String, required: true},
     date_of_birth: {type: Date, required: true}, 
     // values for the users profile 
@@ -41,6 +41,8 @@ const userSchema = new Schema({
         }
     ] 
 }); 
+
+userSchema.plugin(beautifyUnique);
 
 
 

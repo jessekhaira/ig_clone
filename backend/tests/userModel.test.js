@@ -45,9 +45,13 @@ describe('test user mongoose model', () => {
             profile_picture: profile_picture_buffer
         });
         
-        await User.deleteMany({username: 'practice123'});
-        await User.deleteMany({username: 'test_2'});
-        await User.deleteMany({username: 'test_3'});
+        await User.deleteOne({username: 'practice123'});
+        await User.deleteOne({username: 'test_2'});
+        await User.deleteOne({username: 'test_3'});
+        await User.deleteMany({email: "practice252@gmail.com"});
+        await User.deleteMany({email: "practice251@gmail.com"});
+        await User.deleteMany({email: "practice20@gmail.com"});
+        await User.deleteMany({email: "practice24@gmail.com"});
 
         await testUser1.save(); 
         await testUser2.save();
