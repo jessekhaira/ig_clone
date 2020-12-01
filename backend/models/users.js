@@ -10,10 +10,10 @@ var Schema = mongoose.Schema;
  */
 const userSchema = new Schema({
     // values provided through POST request from frontend
-    email: {type: String, maxlength: 100, required: true, index: {unique: true}}, 
-    full_name: {type: String, maxlength: 100, required: true}, 
-    username: {type: String, maxlength: 100, required: true, index: {unique: true}},
-    password: {type: String, required: true, maxlength:120},
+    email: {type: String, required: true, index: {unique: true}}, 
+    full_name: {type: String, required: true}, 
+    username: {type: String, required: true, index: {unique: true}},
+    password: {type: String, required: true},
     date_of_birth: {type: Date, required: true}, 
     // values for the users profile 
     profile_description: {type:String, default:null}, 
