@@ -1,4 +1,5 @@
 var express = require('express');
+var validator = require('express-validator');
 
 /**
  * Express router to mount register related functions.
@@ -6,7 +7,6 @@ var express = require('express');
  * @const 
  */
 var router = express.Router();
-var validator = require('express-validator');
 
 /**
  * Route handling POST requests to create new users at the /register endpoint. 
@@ -16,6 +16,11 @@ var validator = require('express-validator');
  * @param {callback} middleware - Express middleware
  */
 router.post('/', [
+  validator.body('email'),
+  validator.body('full_name'),
+  validator.body('username_inp'),
+  validator.body('pw_inp'),
+  validator.body('date_of_birth'),
   (req,res,next) => {
     console.log(req.body); 
   }
