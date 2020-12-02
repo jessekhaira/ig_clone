@@ -34,6 +34,9 @@ router.post('/', [
 
     try {
       await new_user.save(); 
+      // authenticate this user and effectively do a login
+      // sending back a JSON web token to the client indicating authorization
+      // was succesful 
       res.status(201).json({success:"registration succesful"}); 
     }
     catch(err) {

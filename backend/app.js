@@ -1,27 +1,30 @@
 //dependencies
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var helmet = require('helmet');
-var compression = require('compression'); 
-var app = express();
-var mongoose = require('mongoose');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const helmet = require('helmet');
+const compression = require('compression'); 
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken'); 
+const { body } = require('express-validator');
 
 /**
  * Express router to mount login related functions.
  * @type {object}
  * @const
  */
-var login_router = require('./routes/login').login_router; 
+const login_router = require('./routes/login').login_router; 
 
 /**
  * Express router to mount register related functions.
  * @type {object}
  * @const 
  */
-var register_router = require('./routes/register').register_router; 
+const register_router = require('./routes/register').register_router; 
 
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -34,7 +37,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(bodyParser.json()); 
 
 // Mount middleware - routers 
 app.use('/login', login_router); 
