@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import {setDisplay} from '../utility/utility_functions';
 
 /**
@@ -61,10 +61,10 @@ class Register extends React.Component {
             this._attemptToCreateUser(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp);
         }
         // if there are multiple errors with the validation, just address the first one and display error for that
-        this._handleValidationError(is_email_valid, is_username_valid, is_date_of_birth_valid); 
+        this._handleValidationError(error_display, is_email_valid, is_username_valid, is_date_of_birth_valid); 
     }
 
-    _handleValidationError(is_email_valid, is_username_valid, is_date_of_birth_valid) {
+    _handleValidationError(error_display, is_email_valid, is_username_valid, is_date_of_birth_valid) {
         if (!is_email_valid) {
             error_display.innerHTML = 'Please enter a valid email address'; 
             error_display.style.display = 'block';
@@ -108,9 +108,10 @@ class Register extends React.Component {
                 throw new Error(jsonified_res.message); 
             }
             else {
-                console.log('success // redirect to users home profile'); 
+                return <Redirect to = "/"></Redirect>
             }
         }
+        
         catch (err) {
             const error_display = document.getElementsByClassName('validation_error')[0];
             err = String(err); 
