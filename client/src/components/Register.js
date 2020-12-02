@@ -61,7 +61,11 @@ class Register extends React.Component {
             this._attemptToCreateUser(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp);
         }
         // if there are multiple errors with the validation, just address the first one and display error for that
-        else if (!is_email_valid) {
+        this._handleValidationError(is_email_valid, is_username_valid, is_date_of_birth_valid); 
+    }
+
+    _handleValidationError(is_email_valid, is_username_valid, is_date_of_birth_valid) {
+        if (!is_email_valid) {
             error_display.innerHTML = 'Please enter a valid email address'; 
             error_display.style.display = 'block';
         }
