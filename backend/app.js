@@ -9,7 +9,6 @@ const compression = require('compression');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken'); 
 const { body } = require('express-validator');
 
 /**

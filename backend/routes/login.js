@@ -1,12 +1,13 @@
-var express = require('express');
-var validator = require('express-validator');
+const express = require('express');
+const validator = require('express-validator');
+const jwt = require('jsonwebtoken'); 
 
 /**
  * Express router to mount login related functions.
  * @type {object}
  * @const
  */
-var router = express.Router();
+const router = express.Router();
 
 /**
  * This API endpoint mounted on the login router responds to GET request to the '/login' route. It has the responsibility of sanitizing

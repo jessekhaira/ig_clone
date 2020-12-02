@@ -1,6 +1,7 @@
 const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
+const jwt = require('jsonwebtoken'); 
 
 /**
  * Express router to mount register related functions.
