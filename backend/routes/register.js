@@ -2,6 +2,8 @@ const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
 const jwt = require('jsonwebtoken'); 
+const path = require('path'); 
+require('dotenv').config({path: path.resolve(".env")}); 
 
 /**
  * Express router to mount register related functions.
@@ -25,6 +27,7 @@ router.post('/', [
   validator.body('date_of_birth'),
   async function(req,res,next) {
 
+    console.log(process.env.JWT_SECRET); 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
@@ -36,9 +39,13 @@ router.post('/', [
     try {
       await new_user.save(); 
       // authenticate this user and effectively do a login
-      // sending back a JSON web token to the client indicating authorization
-      // was succesful 
-      res.status(201).json({success:"registration succesful"}); 
+      // sending back access token and refresh token 
+      const accessToken = jwt.sign({username: new_user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
+      const refreshToken = jwt.sign({username: new_user.username}, process.env.REFRESH_TOKEN_SECRET);
+      res.status(201).json({
+        accessToken,
+        refreshToken
+      });
     }
     catch(err) {
       // assuming errors that come when trying to save user to database come from username being
