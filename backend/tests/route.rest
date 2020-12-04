@@ -1,2 +1,22 @@
 GET http://localhost:3007/
 
+### 
+POST http://localhost:3007/register 
+Content-Type: application/json
+
+{
+    "email": "practice251@gmail.com",
+    "full_name": "1231",
+    "username_inp": "123_1",
+    "pw_inp": "1234",
+    "date_of_birth": "2008-11-19"
+} 
+
+### 
+POST http://localhost:3007/login  
+Content-Type: application/json
+
+{
+    "username_or_email": "practice251@gmail.com",
+    "password": "1234"
+} 

@@ -39,7 +39,8 @@ const userSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Photo' 
         }
-    ] 
+    ],
+    requestToken: {type:String, default: null} 
 }); 
 
 userSchema.plugin(beautifyUnique);

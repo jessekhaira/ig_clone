@@ -52,7 +52,7 @@ class SignIn extends React.Component {
         const fetchResults = await fetch('/login', {
             method: 'POST',
             body: JSON.stringify({
-                username: user_email_inp,
+                username_or_email: user_email_inp,
                 password: pw_inp
             }),
             headers: {

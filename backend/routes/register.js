@@ -27,7 +27,6 @@ router.post('/', [
   validator.body('date_of_birth'),
   async function(req,res,next) {
 
-    console.log(process.env.JWT_SECRET); 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,

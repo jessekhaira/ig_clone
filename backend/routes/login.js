@@ -1,6 +1,7 @@
 const express = require('express');
 const validator = require('express-validator');
 const jwt = require('jsonwebtoken'); 
+const User = require('../models/users').userModel; 
 
 /**
  * Express router to mount login related functions.
@@ -20,19 +21,26 @@ const router = express.Router();
  * @param {callback} middleware - Express middleware
  */
 router.post('/', [
-    validator.body('username').escape(),
+    validator.body('username_or_email').escape(),
     validator.body('password').escape(),
 
     async (req, res, next) => {
-        // pseudocode:
-        // from the request body, take the email or username
-        // and search in the database for this username
-        // if the user is found, then convert plain text pw 
-        // to cryptographically secure pw and compare to pw held
-        // for this user object. If incorrect, send back an error
-        // detailing that pw is incorrect but user found. If correct,
-        // then signal to frontend to redirect to the users home page. 
-        // res.json({'res': 'response!'});
+        const username_or_email = req.body.username_or_email;
+        const password = req.body.password; 
+
+        // find user 
+        const user = await User.findOne({
+            $or: [
+            {
+                'email': username_or_email,
+            },
+            {
+                'username': username_or_email
+            }
+        ]
+        });
+
+        res.json({user}); 
     }
 ]
 ); 
