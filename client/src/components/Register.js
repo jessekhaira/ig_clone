@@ -108,7 +108,10 @@ class Register extends React.Component {
                 throw new Error(jsonified_res.message); 
             }
             else {
-                return <Redirect to = "/"></Redirect>
+                const accessToken = jsonified_res.accessToken;
+                const refreshToken = jsonified_res.refreshToken;
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken); 
             }
         }
         
