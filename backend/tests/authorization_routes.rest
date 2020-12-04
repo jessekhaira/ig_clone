@@ -7,7 +7,7 @@ Content-Type: application/json
 {
     "email": "practice251@gmail.com",
     "full_name": "1231",
-    "username_inp": "123_1",
+    "username": "123_1",
     "pw_inp": "1234",
     "date_of_birth": "2008-11-19"
 } 
@@ -40,6 +40,11 @@ Content-Type: application/json
     "password": "1234"
 } 
 
-###
+### refresh Token based on valid login refresh token -- should return new access token
 GET http://localhost:3007/accounts/refreshToken
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyM18xIiwiaWF0IjoxNjA3MDU0MTA1LCJleHAiOjE2MDczMTMzMDV9.wjgm5JJlXPHuoVfO_pM5EyC-8boy7mWs_QuHgw3flXk
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyM18xIiwiaWF0IjoxNjA3MTA3NDY1LCJleHAiOjE2MDczNjY2NjV9.pftWsZcVHlJt71xCCygTNJjlKXYxVItFM9viDUUhDlM
+
+### refresh Token based on unvalid refresh token -- shouldn't return new access token, http status 400
+GET http://localhost:3007/accounts/refreshToken
+Authorization: eyahbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyM18xIiwiaWF0IjoxNjA3MTA2NzIxLCJleHAiOjE2MDczNjU5MjF9.SF4U8VbTOho52RQCsKDNK8Oyorxn5AC06kwsAwt0qtM
+

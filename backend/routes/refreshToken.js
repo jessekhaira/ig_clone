@@ -25,19 +25,15 @@ router.get('/', async (req, res) => {
             // check whether refresh token stored in the db for this user is the same
             // as the refresh token passed here
             const user_db = (await User.findOne({username: username}));
-            console.log(user_db); 
             const db_refresh_token = user_db.refreshToken;
-            console.log(db_refresh_token); 
-        //     if (refreshToken !== db_refresh_token) {
-        //         return res.status(400);
-        //     }
-        //     console.log('yk'); 
-        //     const new_access_token = jwt.sign({username: user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
-        //     return res.status(201).json({new_access_token});
+            if (refreshToken !== db_refresh_token) {
+                return res.status(400).json({message: "invalid token"});
+            }
+            const new_access_token = jwt.sign({username: user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
+            return res.status(201).json({new_access_token});
         }
         catch(err) {
-            console.log(err); 
-            return res.status(400); 
+            return res.status(400).json({message: err.message});
         }
     }
 )

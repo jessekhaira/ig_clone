@@ -12,7 +12,7 @@ require('dotenv').config({path: path.resolve(".env")});
  */
 const router = express.Router();
 
-/**
+/** 
  * Route handling POST requests to create new users at the /register endpoint. 
  * @name post/register
  * @function
@@ -26,21 +26,23 @@ router.post('/', [
   validator.body('pw_inp'),
   validator.body('date_of_birth'),
   async function(req,res,next) {
+    const accessToken = jwt.sign({username: req.body.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
+    const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
-      username: req.body.username_inp,
+      username: req.body.username,
       password: req.body.pw_inp,
-      date_of_birth: req.body.date_of_birth
+      date_of_birth: req.body.date_of_birth,
+      refreshToken: refreshToken
     });
 
     try {
-      await new_user.save(); 
       // authenticate this user and effectively do a login
       // sending back access token and refresh token 
-      const accessToken = jwt.sign({username: new_user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
-      const refreshToken = jwt.sign({username: new_user.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
+      await new_user.save(); 
+
       res.status(201).json({
         accessToken,
         refreshToken
