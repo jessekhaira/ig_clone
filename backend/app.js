@@ -25,6 +25,13 @@ const login_router = require('./routes/login').login_router;
  */
 const register_router = require('./routes/register').register_router; 
 
+/**
+ * Express router to mount the function that refreshes access tokens for the client. 
+ * @type {object}
+ * @const 
+ */
+const refresh_token_router = require('./routes/refreshToken').refreshToken; 
+
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
@@ -41,6 +48,7 @@ app.use(bodyParser.json());
 // Mount middleware - routers 
 app.use('/login', login_router); 
 app.use('/register', register_router); 
+app.use('/refreshToken', refresh_token_router); 
 // SPA - backend is purely API, views are handled by React 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))

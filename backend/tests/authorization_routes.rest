@@ -39,3 +39,7 @@ Content-Type: application/json
     "username_or_email": "practice252@gmail.com",
     "password": "1234"
 } 
+
+###
+GET http://localhost:3007/refreshToken
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyM18xIiwiaWF0IjoxNjA3MDU0MTA1LCJleHAiOjE2MDczMTMzMDV9.wjgm5JJlXPHuoVfO_pM5EyC-8boy7mWs_QuHgw3flXk

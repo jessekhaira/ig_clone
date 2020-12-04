@@ -40,7 +40,7 @@ const userSchema = new Schema({
             ref: 'Photo' 
         }
     ],
-    requestToken: {type:String, default: null} 
+    refreshToken: {type:String, default: null} 
 }); 
 
 userSchema.plugin(beautifyUnique);
