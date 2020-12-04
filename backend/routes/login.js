@@ -50,7 +50,7 @@ router.post('/', [
             // if user is found, password is verified, then we make a jwt
             // access token and request token and return both of them to the client
             const accessToken = jwt.sign({username: user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
-            const refreshToken = jwt.sign({username: user.username}, process.env.REFRESH_TOKEN_SECRET);
+            const refreshToken = jwt.sign({username: user.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
             return res.status(201).json({accessToken, refreshToken}); 
         }

@@ -40,7 +40,7 @@ router.post('/', [
       // authenticate this user and effectively do a login
       // sending back access token and refresh token 
       const accessToken = jwt.sign({username: new_user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
-      const refreshToken = jwt.sign({username: new_user.username}, process.env.REFRESH_TOKEN_SECRET);
+      const refreshToken = jwt.sign({username: new_user.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
       res.status(201).json({
         accessToken,
         refreshToken
