@@ -2,6 +2,9 @@ const express = require('express');
 const validator = require('express-validator');
 const jwt = require('jsonwebtoken'); 
 const User = require('../models/users').userModel; 
+const bcrypt = require('bcrypt'); 
+const path = require('path'); 
+require('dotenv').config({path: path.resolve('.env')}); 
 
 /**
  * Express router to mount login related functions.
@@ -31,16 +34,26 @@ router.post('/', [
         // find user 
         const user = await User.findOne({
             $or: [
-            {
-                'email': username_or_email,
-            },
-            {
-                'username': username_or_email
-            }
-        ]
+                {'email': username_or_email},
+                {'username': username_or_email}
+            ]
         });
 
-        res.json({user}); 
+        if (!user) {
+            return res.status(401).json({message: "Username or email is invalid"});
+        }
+        const pw_verification = await user.verifyPassword(password); 
+        if (pw_verification === false) {
+            return res.status(401).json({message: "Password is incorrect"})
+        }
+        else {
+            // if user is found, password is verified, then we make a jwt
+            // access token and request token and return both of them to the client
+            const accessToken = jwt.sign({username: user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
+            const refreshToken = jwt.sign({username: user.username}, process.env.REFRESH_TOKEN_SECRET);
+
+            return res.status(201).json({accessToken, refreshToken}); 
+        }
     }
 ]
 ); 
