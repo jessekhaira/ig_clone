@@ -34,10 +34,15 @@ class SignIn extends React.Component {
                 document.getElementById('anim_holder'), document.getElementById('login_button'));
             document.getElementById('login_button').disabled = true; 
             const login_res = await this._tryToLogin(user_email_inp, pw_inp);
+            if ("message" in login_res) {
+                throw new Error(login_res.message);
+            }
         }
 
-        catch {
-            console.log('err!');
+        catch(err) {
+            const err_message = String(err);
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
         }
 
         finally {
@@ -60,7 +65,7 @@ class SignIn extends React.Component {
             }
         });
         const jsonData = await fetchResults.json();
-        console.log(jsonData); 
+        return jsonData; 
     }
 
     _preprocess_loginbutton() {
@@ -106,6 +111,9 @@ class SignIn extends React.Component {
                                 </div>
                             </button>
                         </form>
+                        <div className = "validation_error_div">
+                            <p className = "validation_error"></p>                       
+                        </div>
                     </div>
                     <div className = "auth_link">
                         <p>Don't have an account?<Link to = "/register"> Sign up</Link></p>

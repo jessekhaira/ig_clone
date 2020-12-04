@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {setDisplay} from '../utility/utility_functions';
+import {setDisplay, displayErrorInHTMLElement} from '../utility/utility_functions';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.
@@ -118,14 +118,7 @@ class Register extends React.Component {
         catch (err) {
             const error_display = document.getElementsByClassName('validation_error')[0];
             err = String(err); 
-            if (err.includes(":")) {
-                err = err.split(":")[1]; 
-            }
-            else {
-                err.innerHTML = err;
-            }
-            error_display.innerHTML = err; 
-            error_display.style.display = 'block';
+            this.props.displayErrorInHTMLElement(err, error_display, 'block'); 
         }
         
         finally {

@@ -12,6 +12,15 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
  * @class @public 
  */
 class App extends React.Component{
+
+  displayErrorInHTMLElement(err_msg, err_node, display) {
+    if (err_msg.includes(":")) {
+        err_msg = err_msg.split(":")[1]; 
+    }
+    err_node.innerHTML = err_msg; 
+    err_node.style.display = display; 
+  }
+
   render() {
     return (
       <div className="App">
@@ -19,11 +28,11 @@ class App extends React.Component{
           
           <Switch>
             <Route exact path = '/'>
-              <SignIn /> 
+              <SignIn displayErrorInHTMLElement = {this.displayErrorInHTMLElement} /> 
             </Route>
 
             <Route exact path = '/register'>
-              <Register /> 
+              <Register displayErrorInHTMLElement = {this.displayErrorInHTMLElement}/> 
             </Route>
           </Switch>
 
