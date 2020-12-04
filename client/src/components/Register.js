@@ -81,7 +81,7 @@ class Register extends React.Component {
         }
     }
 
-    async _attemptToCreateUser(email, full_name, username_inp, pw_inp, date_of_birth) {
+    async _attemptToCreateUser(email, full_name, username, pw_inp, date_of_birth) {
         // try to create the user if there are no issues with validating the user 
         // ie usernames have to be unique and emails have to be unique 
         try {
@@ -95,7 +95,7 @@ class Register extends React.Component {
                 body: JSON.stringify({
                     email,
                     full_name, 
-                    username_inp,
+                    username,
                     pw_inp,
                     date_of_birth
                 }),
