@@ -90,7 +90,7 @@ class Register extends React.Component {
                 document.getElementById('signup_button'),
                 document.getElementById('signup_text')
             )
-            const register_result = await fetch('/register', {
+            const register_result = await fetch('/accounts/register', {
                 method: "POST",
                 body: JSON.stringify({
                     email,

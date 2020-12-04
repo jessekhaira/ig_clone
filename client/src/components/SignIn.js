@@ -49,7 +49,7 @@ class SignIn extends React.Component {
 
     async _tryToLogin(user_email_inp, pw_inp) {
         // send sensitive info to create new session as a POST req not GET or PUT 
-        const fetchResults = await fetch('/login', {
+        const fetchResults = await fetch('/accounts/login', {
             method: 'POST',
             body: JSON.stringify({
                 username_or_email: user_email_inp,
