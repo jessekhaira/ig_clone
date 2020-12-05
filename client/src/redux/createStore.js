@@ -7,7 +7,7 @@ const loggerMiddleware = createLogger();
 // overall 
 export const reduxStore = configureStore({
     reducer: {
-        placeholder: 
+        placeholder: null 
     }
 });
 

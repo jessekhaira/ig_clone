@@ -75,12 +75,48 @@
 
 .authInputs {
     width: 100%;
-    padding: 10px;
+    padding: 7px;
     margin-bottom: 6px;
     height: 35px;
     border: 1px solid var(--border-color);
     background-color: var(--main-bg-color);
+    cursor: auto; 
 }
+
+.authInputsPlaceholderAnimPadding {
+    @extend .authInputs;
+    padding: 12px 0px 0px 10px;
+    cursor: auto;
+}
+
+
+.label_input_auth {
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 7.9px;
+    font-size: 12px;
+    color: rgba(var(--f52,142,142,142),1);
+    transition: 0.1s ease-in-out; 
+    user-select:none;
+    height: 2px;
+    pointer-events: none;
+}
+
+.label_input_auth_written {
+    @extend .label_input_auth; 
+    top: 2px;
+    left: 10px;
+    font-size: 10px;
+    bottom: 5px;
+}
+
+.input_holder {
+    position: relative;
+    width: 100%;
+}
+
+
 
 
 .authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

@@ -17,7 +17,22 @@ class SignIn extends React.Component {
     }
 
     componentDidMount() {
-        this._preprocess_loginbutton()
+        this._preprocess_loginbutton();
+    }
+
+    _change_anim_placeholders(e) {
+        const input_target = e.target;
+        const label_input_target =input_target.nextElementSibling; 
+        label_input_target.className = ''; 
+        input_target.className = '';
+        if (input_target.value.length === 0) {
+            label_input_target.classList.add('label_input_auth');
+            input_target.classList.add('authInputs');
+        }
+        else {
+            label_input_target.classList.add('label_input_auth_written');
+            input_target.classList.add('authInputsPlaceholderAnimPadding'); 
+        }
     }
 
     /**
@@ -104,8 +119,14 @@ class SignIn extends React.Component {
                     <div className = "name_form_auth">
                         <h1 className = "instagram_name">Instagram Clone</h1>
                         <form id = "sign_in" className = "form_auth" onChange = {this._formInputsChanged}>
-                            <input id = "email_user_login" type = "text" placeholder = "Email or username" className = "authInputs"></input>
-                            <input id = "pw_login" type = "password" placeholder = "Password" className = "authInputs"></input>
+                            <div className = "input_holder">
+                                <input id = "email_user_login" type = "text" className = "authInputs" onChange = {this._change_anim_placeholders}></input>
+                                <label htmlFor = "email_user_login" className = "label_input_auth">Username or email</label>
+                            </div>
+                            <div className = "input_holder">
+                                <input id = "pw_login" type = "password" className = "authInputs" onChange = {this._change_anim_placeholders}></input>
+                                <label htmlFor = "pw_login" className = "label_input_auth">Password</label>
+                            </div>
                             <button id = "login_button" type ="button" className = "authInputs submitButton inactive">
                                 <h2 id = "login_text" className = "submit_button_text">Log In</h2>
                                 <div id = "anim_holder" className="sk-chase">
