@@ -8,7 +8,7 @@ Content-Type: application/json
     "email": "practice251@gmail.com",
     "full_name": "1231",
     "username": "123_1",
-    "pw_inp": "1234",
+    "pw_inp": "123456",
     "date_of_birth": "2008-11-19"
 } 
 

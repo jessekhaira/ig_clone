@@ -1,12 +1,13 @@
-import {createStore, applyMiddleware} from 'redux';
-import ThunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
-
+import {configureStore} from '@reduxjs/toolkit';
+import {logger} from 'redux-logger';
 
 const loggerMiddleware = createLogger();
-export const reduxStore = createStore(() => 'init',
-    applyMiddleware(
-        ThunkMiddleware,
-        loggerMiddleware
-    )
-);
+
+// overall 
+export const reduxStore = configureStore({
+    reducer: {
+        placeholder: 
+    }
+});
+

@@ -107,12 +107,10 @@ class Register extends React.Component {
             if ("message" in jsonified_res) {
                 throw new Error(jsonified_res.message); 
             }
-            else {
-                const accessToken = jsonified_res.accessToken;
-                const refreshToken = jsonified_res.refreshToken;
-                localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('refreshToken', refreshToken); 
-            }
+            const accessToken = jsonified_res.accessToken;
+            const refreshToken = jsonified_res.refreshToken;
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken); 
         }
         
         catch (err) {

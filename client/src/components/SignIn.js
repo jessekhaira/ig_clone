@@ -26,17 +26,24 @@ class SignIn extends React.Component {
      * @param {Event} e 
      */
     async _login(e) {
-        // showe the loader in the button
+        // show the loader in the button
         try{
             const user_email_inp = document.getElementById('email_user_login').value;
             const pw_inp = document.getElementById('pw_login').value; 
             setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
                 document.getElementById('anim_holder'), document.getElementById('login_button'));
             document.getElementById('login_button').disabled = true; 
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            // every time we send a new request, we want the error message displayed (if any) to be reset
+            error_display.style.display = 'none'; 
             const login_res = await this._tryToLogin(user_email_inp, pw_inp);
             if ("message" in login_res) {
                 throw new Error(login_res.message);
             }
+            const accessToken = login_res.accessToken;
+            const refreshToken = login_res.refreshToken;
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken); 
         }
 
         catch(err) {
