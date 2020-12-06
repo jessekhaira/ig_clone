@@ -201,8 +201,7 @@ body, #root, html, .App {
   border: 1px solid var(--border-color);
   background-color: var(--main-bg-color);
   cursor: auto;
-  font-size: 11.5px;
-  font-weight: 100;
+  font-size: 12px;
 }
 
 .authInputsPlaceholderAnimPadding {
@@ -222,7 +221,6 @@ body, #root, html, .App {
   height: 2px;
   pointer-events: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 100;
 }
 
 .label_input_auth_written {
@@ -270,8 +268,7 @@ body, #root, html, .App {
 
 #date_of_birth_input {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 11.5px;
-  font-weight: 100;
+  font-size: 12px;
 }
 
 .validation_error_div {

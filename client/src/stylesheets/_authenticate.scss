@@ -82,8 +82,7 @@
     border: 1px solid var(--border-color);
     background-color: var(--main-bg-color);
     cursor: auto; 
-    font-size: 11.5px;
-    font-weight: 100;
+    font-size: 12px;
 }
 
 .authInputsPlaceholderAnimPadding {
@@ -105,7 +104,6 @@
     height: 2px;
     pointer-events: none;
     @include system-fonts();
-    font-weight: 100;
 
 }
 
@@ -154,8 +152,7 @@
 
 #date_of_birth_input {
     @include system-fonts();
-    font-size: 11.5px;
-    font-weight: 100;
+    font-size: 12px;
 }
 
 
