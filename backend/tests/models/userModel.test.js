@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var User = require("../models/users").userModel;
+var User = require("../../models/users").userModel;
 var fs = require("fs");
 const path = require("path");
 const util = require("util");
@@ -20,7 +20,7 @@ describe("test user mongoose model", () => {
     // // make sure we can verify passwords approriately
     // // verifies db connection is proper
     const profile_picture_buffer = await readFile(
-      path.resolve("tests/batman16.png")
+      path.resolve("tests/models/batman16.png")
     );
     const testUser1 = new User({
       email: "practice1@gmail.com",
@@ -56,7 +56,7 @@ describe("test user mongoose model", () => {
     await User.deleteMany({ email: "practice251@gmail.com" });
     await User.deleteMany({ email: "practice20@gmail.com" });
     await User.deleteMany({ email: "practice24@gmail.com" });
-
+    await User.deleteMany({email:"lol@pz.com"}); 
     await testUser1.save();
     await testUser2.save();
     await testUser3.save();
@@ -89,7 +89,7 @@ describe("test user mongoose model", () => {
   });
 
   test("test profile pictuer image storage -- data buffers should match", async function () {
-    const data_buffer1 = await readFile(path.resolve("tests/batman16.png"));
+    const data_buffer1 = await readFile(path.resolve("tests/models/batman16.png"));
     const user_practice = await User.findOne({ username: "practice123" });
     expect(data_buffer1).toEqual(user_practice.profile_picture);
     (await db).disconnect();

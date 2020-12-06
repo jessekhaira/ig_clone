@@ -53,13 +53,26 @@ app.use('/accounts/refreshToken', refresh_token_router);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 });
-
-const mongoDB = process.env.MONGO_URL; 
-mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 const port = process.env.PORT; 
-app.listen(port); 
+let mongoDB = process.env.MONGO_URL;
+let db;
+// use different databases for development and for deployment (and technically for testing too)
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  // dev database 
+  mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+  db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+}
+
+else if (process.env.NODE_ENV === 'PRODUCTION') {
+  // production database
+}
+
+// don't want to create a server if we're testing -- testing will handle creating server given
+// the node app 
+if (process.env.NODE_ENV !== 'TESTING') {
+  app.listen(port);
+}
+
 
 module.exports = app;
