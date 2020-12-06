@@ -12,6 +12,10 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
  * @class @public 
  */
 class App extends React.Component{
+  constructor(props) {
+    super(props);
+    console.log(a3); 
+  }
 
   displayErrorInHTMLElement(err_msg, err_node, display) {
     if (err_msg.includes(":")) {
