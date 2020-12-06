@@ -1,6 +1,7 @@
 import {createLogger} from 'redux-logger';
-import {configureStore} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {logger} from 'redux-logger';
+import thunk from 'redux-thunk';
 import {currentUserReducer} from './features/currentUserSlice';
 const loggerMiddleware = createLogger();
 
@@ -8,6 +9,7 @@ const loggerMiddleware = createLogger();
 export const reduxStore = configureStore({
     reducer: {
         current_user: currentUserReducer
-    }
+    },
+    middleware: [logger, thunk]
 });
 

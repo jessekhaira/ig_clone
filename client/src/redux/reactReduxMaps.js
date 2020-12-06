@@ -8,7 +8,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        set_current_user: () => dispatch(set_current_user()),
+        set_current_user: (current_user) => dispatch(set_current_user(current_user)),
         remove_current_user: () => dispatch(remove_current_user())
     }
 }

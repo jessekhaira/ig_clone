@@ -4,6 +4,8 @@ import {SignIn} from './SignIn';
 import {Register} from './Register';
 import {Footer} from './Footer';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {connect} from 'react-redux';
+import {mapDispatchToProps, mapStateToProps} from '../redux/reactReduxMaps';
 
 /**
  * This class represents a React Component that acts as the main wrapper for the components
@@ -14,7 +16,6 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 class App extends React.Component{
   constructor(props) {
     super(props);
-    console.log(a3); 
   }
 
   displayErrorInHTMLElement(err_msg, err_node, display) {
@@ -71,4 +72,6 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(App); 
+
+export {connectedComponent as App}; 
