@@ -7,7 +7,7 @@ import {statusReducer} from './features/statusSlice'
 
 const loggerMiddleware = createLogger();
 
-// overall 
+
 export const reduxStore = configureStore({
     reducer: {
         current_user: currentUserReducer,
