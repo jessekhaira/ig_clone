@@ -1,7 +1,6 @@
 import {createAction, createReducer} from '@reduxjs/toolkit';
 
 
-const initState = {currentUser: ''};
 const set_current_user = createAction('SET_USER');
 const remove_current_user = createAction('REMOVE_USER');
 const INIT_STATE = {current_user: ''}; 
