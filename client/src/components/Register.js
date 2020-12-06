@@ -20,10 +20,6 @@ class Register extends React.Component {
         document.getElementsByClassName('validation_error')[0].style.display = 'none'; 
     }
 
-    _register(e) {
-        console.log(e);
-    }
-
     _undisableSignupButton() {
         let form_inputs = [...document.getElementsByClassName('authInputs')];
         // filter out the signup_button from the array - don't need to verify its input 
