@@ -21,6 +21,22 @@ class App extends React.Component{
     err_node.style.display = display; 
   }
 
+  _animate_input_labels(e) {
+    const input_target = e.target;
+    const label_input_target =input_target.nextElementSibling; 
+    label_input_target.className = ''; 
+    input_target.className = '';
+    if (input_target.value.length === 0) {
+        label_input_target.classList.add('label_input_auth');
+        input_target.classList.add('authInputs');
+    }
+    else {
+        label_input_target.classList.add('label_input_auth_written');
+        input_target.classList.add('authInputsPlaceholderAnimPadding'); 
+    }
+}
+
+
   render() {
     return (
       <div className="App">
@@ -28,11 +44,16 @@ class App extends React.Component{
           
           <Switch>
             <Route exact path = '/'>
-              <SignIn displayErrorInHTMLElement = {this.displayErrorInHTMLElement} /> 
+              <SignIn 
+              displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
+              _animate_input_labels = {this._animate_input_labels}
+              /> 
             </Route>
 
             <Route exact path = '/register'>
-              <Register displayErrorInHTMLElement = {this.displayErrorInHTMLElement}/> 
+              <Register 
+              displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
+              _animate_input_labels = {this._animate_input_labels}/> 
             </Route>
           </Switch>
 

@@ -85,7 +85,7 @@
 
 .authInputsPlaceholderAnimPadding {
     @extend .authInputs;
-    padding: 12px 0px 0px 10px;
+    padding: 12px 0px 0px 9px;
     cursor: auto;
 }
 
@@ -101,6 +101,9 @@
     user-select:none;
     height: 2px;
     pointer-events: none;
+    @include system-fonts();
+    font-weight: 100;
+
 }
 
 .label_input_auth_written {
@@ -116,25 +119,6 @@
     width: 100%;
 }
 
-
-
-
-.authInputs::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    @include system-fonts();
-    font-size: 12px;
-}
-  
-.authInputs::-webkit-input-placeholder {
-    @include system-fonts();
-}
-  
-.authInputs:-ms-input-placeholder {
-    @include system-fonts();
-}
-
-.authInputs::-moz-placeholder {
-    @include system-fonts();
-}
 
 .submitButton {
     justify-content: center;
@@ -167,7 +151,8 @@
 
 #date_of_birth_input {
     @include system-fonts();
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 100;
 }
 
 

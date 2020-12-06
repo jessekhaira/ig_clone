@@ -168,11 +168,28 @@ class Register extends React.Component {
                         <h1 className = "instagram_name">Instagram Clone</h1>
                         <h2 id = "signInDescr">Sign up to join in on the fun!</h2>
                         <form id = "RegisterForm" className = "form_auth" onChange = {this._undisableSignupButton}>
-                            <input id = "email_signup" type = "email" placeholder = "Email" className = "authInputs"></input>
-                            <input id = "name_input" type = "text" placeholder = "Full Name" className = "authInputs"></input>
-                            <input id = "username_input" type = "text" placeholder = "Username" className = "authInputs"></input>
+                            <div className = "input_holder">
+                                <input id = "email_user_register" type = "email" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
+                                <label htmlFor = "email_user_register" className = "label_input_auth">Email</label>
+                            </div>
+
+                            <div className = "input_holder">
+                                <input id = "name_input" type = "text" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
+                                <label htmlFor = "name_input" className = "label_input_auth">Full Name</label>
+                            </div>
+
+                            <div className = "input_holder">
+                                <input id = "username_input" type = "text" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
+                                <label htmlFor = "username_input" className = "label_input_auth">Username</label>
+                            </div>
+
                             <input onFocus = {this._focus_text_input_to_date} onBlur={this._blur_date_input_to_text} id = "date_of_birth_input" type = "text" placeholder = "Date of Birth" className = "authInputs" ></input>
-                            <input id = "pw_input" type = "password" placeholder = "Password" className = "authInputs"></input>
+                            
+                            <div className = "input_holder">
+                                <input id = "pw_input" type = "password"  className = "authInputs" onChange = {this.props._animate_input_labels}></input>
+                                <label htmlFor = "pw_input" className = "label_input_auth">Password</label>
+                            </div>
+
                             <button id = "signup_button" type ="button" onClick = {this._signUp} className = "authInputs submitButton inactive">
                                 <h2 id = "signup_text" className = "submit_button_text">Sign Up</h2>
                                 <div id = "anim_holder" className="sk-chase">

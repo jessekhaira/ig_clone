@@ -19,22 +19,6 @@ class SignIn extends React.Component {
     componentDidMount() {
         this._preprocess_loginbutton();
     }
-
-    _change_anim_placeholders(e) {
-        const input_target = e.target;
-        const label_input_target =input_target.nextElementSibling; 
-        label_input_target.className = ''; 
-        input_target.className = '';
-        if (input_target.value.length === 0) {
-            label_input_target.classList.add('label_input_auth');
-            input_target.classList.add('authInputs');
-        }
-        else {
-            label_input_target.classList.add('label_input_auth_written');
-            input_target.classList.add('authInputsPlaceholderAnimPadding'); 
-        }
-    }
-
     /**
      * This method represents an asynchronous event listener for click events that occur for the login button. An HTTP POST request is sent 
      * to the server with the users information and if the information is valid, the user will be routed to their profile page.
@@ -120,11 +104,11 @@ class SignIn extends React.Component {
                         <h1 className = "instagram_name">Instagram Clone</h1>
                         <form id = "sign_in" className = "form_auth" onChange = {this._formInputsChanged}>
                             <div className = "input_holder">
-                                <input id = "email_user_login" type = "text" className = "authInputs" onChange = {this._change_anim_placeholders}></input>
+                                <input id = "email_user_login" type = "text" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
                                 <label htmlFor = "email_user_login" className = "label_input_auth">Username or email</label>
                             </div>
                             <div className = "input_holder">
-                                <input id = "pw_login" type = "password" className = "authInputs" onChange = {this._change_anim_placeholders}></input>
+                                <input id = "pw_login" type = "password" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
                                 <label htmlFor = "pw_login" className = "label_input_auth">Password</label>
                             </div>
                             <button id = "login_button" type ="button" className = "authInputs submitButton inactive">
