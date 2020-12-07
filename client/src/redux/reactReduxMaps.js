@@ -1,21 +1,16 @@
-import {set_current_user, remove_current_user} from './features/currentUserSlice';
-import {set_status_failed, set_status_idle, set_status_loading, set_status_succeeded} from './features/statusSlice';
+import {remove_curr_error, logUserIn, register_user_logIn} from './features/currentUserSlice';
 
 function mapStateToProps(state) {
     return {
         current_user: state.current_user.current_user,
-        status: state.status
+        current_user_status: state.current_user.current_user_status, 
+        error_setting_current_user: state.current_user.error_setting_current_user
     }
 }
-
 function mapDispatchToProps(dispatch) {
     return {
-        set_current_user: (current_user) => dispatch(set_current_user(current_user)),
-        remove_current_user: () => dispatch(remove_current_user()),
-        set_status_failed: () => dispatch(set_status_failed()),
-        set_status_idle: () => dispatch(set_status_idle()),
-        set_status_loading: () => dispatch(set_status_loading()),
-        set_status_succeeded: () => dispatch(set_status_succeeded())
+        remove_curr_error: () => dispatch(remove_curr_error()),
+        logUserIn: (user_email_inp, pw_inp) => dispatch(logUserIn(user_email_inp, pw_inp))
     }
 }
 
