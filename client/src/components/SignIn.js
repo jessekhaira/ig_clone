@@ -2,7 +2,8 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Register} from './Register';
 import {setDisplay} from '../utility/utility_functions';
-
+import {connect} from 'react-redux';
+import {mapDispatchToProps_SignIn, mapStateToProps_SignIn} from '../redux/reactReduxMaps';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the sign in page.
@@ -19,59 +20,44 @@ class SignIn extends React.Component {
     componentDidMount() {
         this._preprocess_loginbutton();
     }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.log_in_status === 'idle') {
+            document.getElementById('login_button').disabled = false; 
+            setDisplay(['flex', 'none', 'block'], document.getElementById('login_text'),
+            document.getElementById('anim_holder'), document.getElementById('login_button'));
+        }
+        if (this.props.log_in_err !== '') {
+            const err_message = this.props.log_in_err;
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
+        }
+
+        if (this.props.log_in_err === '') {
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            // every time we send a new request, we want the error message displayed (if any) to be reset
+            error_display.style.display = 'none'; 
+        }
+
+        if (this.props.log_in_status === 'pending') {
+            setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
+            document.getElementById('anim_holder'), document.getElementById('login_button'));
+            document.getElementById('login_button').disabled = true; 
+        }
+    }
+
     /**
      * This method represents an asynchronous event listener for click events that occur for the login button. An HTTP POST request is sent 
      * to the server with the users information and if the information is valid, the user will be routed to their profile page.
      * @param {Event} e 
      */
-    async _login(e) {
+    _login(e) {
         // show the loader in the button
-        try{
-            const user_email_inp = document.getElementById('email_user_login').value;
-            const pw_inp = document.getElementById('pw_login').value; 
-            setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
-                document.getElementById('anim_holder'), document.getElementById('login_button'));
-            document.getElementById('login_button').disabled = true; 
-            const error_display = document.getElementsByClassName('validation_error')[0];
-            // every time we send a new request, we want the error message displayed (if any) to be reset
-            error_display.style.display = 'none'; 
-            const login_res = await this._tryToLogin(user_email_inp, pw_inp);
-            if ("message" in login_res) {
-                throw new Error(login_res.message);
-            }
-            const accessToken = login_res.accessToken;
-            const refreshToken = login_res.refreshToken;
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken); 
-        }
-
-        catch(err) {
-            const err_message = String(err);
-            const error_display = document.getElementsByClassName('validation_error')[0];
-            this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
-        }
-
-        finally {
-            document.getElementById('login_button').disabled = false; 
-            setDisplay(['flex', 'none', 'block'], document.getElementById('login_text'),
-            document.getElementById('anim_holder'), document.getElementById('login_button'));
-        }
-    }
-
-    async _tryToLogin(user_email_inp, pw_inp) {
-        // send sensitive info to create new session as a POST req not GET or PUT 
-        const fetchResults = await fetch('/accounts/login', {
-            method: 'POST',
-            body: JSON.stringify({
-                username_or_email: user_email_inp,
-                password: pw_inp
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        });
-        const jsonData = await fetchResults.json();
-        return jsonData; 
+        const user_email_inp = document.getElementById('email_user_login').value;
+        const pw_inp = document.getElementById('pw_login').value; 
+        // every async call should remove any errors present in previous async call 
+        this.props.remove_curr_error(); 
+        this.props.logUserIn({username_or_email: user_email_inp, password: pw_inp});
     }
 
     _preprocess_loginbutton() {
@@ -136,4 +122,7 @@ class SignIn extends React.Component {
     }
 }
 
-export {SignIn}; 
+let connectedComponent = connect(mapStateToProps_SignIn, mapDispatchToProps_SignIn)(SignIn);
+
+
+export {connectedComponent as SignIn}; 

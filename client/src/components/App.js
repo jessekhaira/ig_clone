@@ -5,7 +5,7 @@ import {Register} from './Register';
 import {Footer} from './Footer';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {connect} from 'react-redux';
-import {mapDispatchToProps, mapStateToProps} from '../redux/reactReduxMaps';
+import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/reactReduxMaps';
 
 /**
  * This class represents a React Component that acts as the main wrapper for the components
@@ -52,10 +52,6 @@ class App extends React.Component{
               <SignIn 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
-              current_user_status = {this.props.current_user_status}
-              error_setting_curr_user = {this.props.error_setting_curr_user}
-              remove_curr_error = {this.props.remove_curr_error}
-              logUserIn = {this.props.logUserIn}
               /> 
             </Route>
 
@@ -63,9 +59,6 @@ class App extends React.Component{
               <Register 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
-              current_user_status = {this.props.current_user_status}
-              error_setting_curr_user = {this.props.error_setting_curr_user}
-              remove_curr_error = {this.props.remove_curr_error}
               /> 
             </Route>
           </Switch>
@@ -80,6 +73,6 @@ class App extends React.Component{
   }
 }
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(App); 
+const connectedComponent = connect(mapStateToProps_mainApp, mapDispatchToProps_mainApp)(App); 
 
 export {connectedComponent as App}; 

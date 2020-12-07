@@ -19,7 +19,8 @@ function mapStateToProps_SignIn(state) {
 
 function mapDispatchToProps_SignIn(dispatch) {
     return{
-        logUserIn: (user_email_inp, pw_inp) => dispatch(logUserIn(user_email_inp, pw_inp))
+        logUserIn: (user_email_inp, pw_inp) => dispatch(logUserIn(user_email_inp, pw_inp)),
+        remove_curr_error: () => dispatch(remove_curr_error())
     }
 }
 
@@ -32,7 +33,8 @@ function mapStateToProps_Register(state) {
 
 function mapDispatchToProps_Register(dispatch) {
     return {
-        register_user_logIn: null 
+        register_user_logIn: null,
+        remove_curr_error: () => dispatch(remove_curr_error())
     }
 }
 

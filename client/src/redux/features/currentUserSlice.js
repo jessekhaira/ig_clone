@@ -59,9 +59,8 @@ const register_user_logIn = createAsyncThunk(
 )
 
 
-
 /**
- * Reducer that manages the state related to the current user logged in to the application.
+ * Reducer that manages the state for the signin and register pages 
  */
 const currentUserReducer = createReducer(INIT_STATE, (builder) => {
     builder
@@ -71,10 +70,11 @@ const currentUserReducer = createReducer(INIT_STATE, (builder) => {
         })
         .addCase('users/loginUser/rejected', (state, action) => {
             state.log_in_err = action.error.message; 
-            state.current_user_status = 'idle'; 
+            state.log_in_status = 'idle'; 
         })
         .addCase('users/loginUser/pending', (state, action) => {
             state.log_in_status = 'pending'; 
+            state.log_in_err = ''; 
         })
         .addCase('users/registerUser/fulfilled', (state, action) => {
             state.current_user = action.payload; 
