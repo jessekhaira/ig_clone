@@ -52,13 +52,21 @@ class App extends React.Component{
               <SignIn 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
+              current_user_status = {this.props.current_user_status}
+              error_setting_curr_user = {this.props.error_setting_curr_user}
+              remove_curr_error = {this.props.remove_curr_error}
+              logUserIn = {this.props.logUserIn}
               /> 
             </Route>
 
             <Route exact path = '/register'>
               <Register 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
-              _animate_input_labels = {this._animate_input_labels}/> 
+              _animate_input_labels = {this._animate_input_labels}
+              current_user_status = {this.props.current_user_status}
+              error_setting_curr_user = {this.props.error_setting_curr_user}
+              remove_curr_error = {this.props.remove_curr_error}
+              /> 
             </Route>
           </Switch>
 
