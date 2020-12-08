@@ -3,8 +3,8 @@ import {remove_curr_error, logUserIn, register_user_logIn} from './features/curr
 function mapStateToProps_mainApp(state) {
     return {
         current_user: state.current_user.current_user,
-        set_curr_user_status: state.current_user.status,
-        set_curr_user_error: state.current_user.error 
+        curr_user_status: state.current_user.status,
+        curr_user_error: state.current_user.error 
     }
 }
 

@@ -21,25 +21,25 @@ class SignIn extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.set_curr_user_status === 'idle') {
+        if (this.props.curr_user_status === 'idle') {
             document.getElementById('login_button').disabled = false; 
             setDisplay(['flex', 'none', 'block'], document.getElementById('login_text'),
             document.getElementById('anim_holder'), document.getElementById('login_button'));
         }
 
-        if (this.props.set_curr_user_status === 'pending') {
+        if (this.props.curr_user_status === 'pending') {
             setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
             document.getElementById('anim_holder'), document.getElementById('login_button'));
             document.getElementById('login_button').disabled = true; 
         }
 
-        if (this.props.set_curr_user_error !== '') {
-            const err_message = this.props.set_curr_user_error;
+        if (this.props.curr_user_error !== '') {
+            const err_message = this.props.curr_user_error;
             const error_display = document.getElementsByClassName('validation_error')[0];
             this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
         }
 
-        if (this.props.set_curr_user_error === '') {
+        if (this.props.curr_user_error === '') {
             const error_display = document.getElementsByClassName('validation_error')[0];
             // every time we send a new request, we want the error message displayed (if any) to be reset
             error_display.style.display = 'none'; 

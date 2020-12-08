@@ -53,9 +53,8 @@ class App extends React.Component{
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
               logUserIn = {this.props.logUserIn}
-              set_curr_user_status = {this.props.set_curr_user_status}
-              set_curr_user_error = {this.props.set_curr_user_error}
-              remove_curr_error = {this.props.remove_curr_error}
+              curr_user_status = {this.props.curr_user_status}
+              curr_user_error = {this.props.curr_user_error}
               /> 
             </Route>
 
@@ -63,6 +62,9 @@ class App extends React.Component{
               <Register 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
+              register_user_logIn = {this.props.register_user_logIn}
+              curr_user_status = {this.props.curr_user_status}
+              curr_user_error = {this.props.curr_user_error}
               /> 
             </Route>
           </Switch>
