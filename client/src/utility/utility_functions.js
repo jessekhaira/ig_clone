@@ -14,3 +14,15 @@ export function setDisplay(displays, ...args) {
     }
 }
 
+export function _preprocess_loginbutton(loginButton, eventListenerRemove) {
+    loginButton.disabled = true; 
+    loginButton.removeEventListener('click', eventListenerRemove); 
+}
+
+export function displayErrorInHTMLElement(err_msg, err_node, display) {
+    if (err_msg.includes(":")) {
+        err_msg = err_msg.split(":")[1]; 
+    }
+    err_node.innerHTML = err_msg; 
+    err_node.style.display = display; 
+}

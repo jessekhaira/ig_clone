@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {setDisplay, displayErrorInHTMLElement} from '../utility/utility_functions';
+import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../utility/utility_functions';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.
@@ -11,14 +11,16 @@ import {setDisplay, displayErrorInHTMLElement} from '../utility/utility_function
 class Register extends React.Component {
     constructor(props) {
         super(props);
-
         this._signUp = this._signUp.bind(this); 
+        this._undisableSignupButton = this._undisableSignupButton.bind(this);
     }
 
     componentDidMount() {
-        document.getElementById('signup_button').disabled = true; 
+        const signup_button = document.getElementById('signup_button');
+        _preprocess_loginbutton(document.getElementById('signup_button'), this._signUp);
         document.getElementsByClassName('validation_error')[0].style.display = 'none'; 
     }
+
 
     componentDidUpdate() {
         if (this.props.curr_user_status === 'pending') {
@@ -39,7 +41,7 @@ class Register extends React.Component {
 
         if (this.props.curr_user_error !== '') {
             const error_display = document.getElementsByClassName('validation_error')[0];
-            this.props.displayErrorInHTMLElement(this.props.curr_user_error, error_display, 'block'); 
+            displayErrorInHTMLElement(this.props.curr_user_error, error_display, 'block'); 
         }
         else if (this.props.curr_user_error === '') {
             const error_display = document.getElementsByClassName('validation_error')[0];
@@ -49,14 +51,12 @@ class Register extends React.Component {
     }
 
     _undisableSignupButton() {
-        let form_inputs = [...document.getElementsByClassName('authInputs')];
-        // filter out the signup_button from the array - don't need to verify its input 
-        form_inputs = form_inputs.filter(x => x.classList.length <2); 
         const signup_button = document.getElementById('signup_button');
-
-        for (let form_input_tag of form_inputs) {
+        let inp_holders = [...document.getElementsByClassName('input_holder')];
+        for (let inp_holder of inp_holders) {
             // password length must be longer than 5
-            if ((form_input_tag.id === 'pw_input' && form_input_tag.value.length <= 5) || (form_input_tag.value.length < 1)) {
+            const form_input_tag = inp_holder.children[0];
+            if (form_input_tag.value.length < 1 || (form_input_tag.id ==='pw_input' && form_input_tag.value.length <= 5)) {
                 signup_button.disabled = true; 
                 signup_button.classList.add('inactive'); 
                 return; 
@@ -64,9 +64,10 @@ class Register extends React.Component {
         }
         signup_button.disabled = false; 
         signup_button.classList.remove('inactive'); 
+        signup_button.addEventListener('click', this._signUp);
     }
 
-    async _signUp() {
+    _signUp() {
         const email = document.getElementById('email_signup').value;
         const full_name = document.getElementById('name_input').value;
         const username = document.getElementById('username_input').value;
@@ -78,6 +79,7 @@ class Register extends React.Component {
         const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth); 
         if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
             this.props.register_user_logIn({email, full_name, username, pw_inp, date_of_birth});
+            return;
         }
         // if there are multiple errors with the validation, just address the first one and display error for that
         const error_display = document.getElementsByClassName('validation_error')[0];
@@ -164,7 +166,7 @@ class Register extends React.Component {
                                 <label htmlFor = "pw_input" className = "label_input_auth">Password</label>
                             </div>
 
-                            <button id = "signup_button" type ="button" onClick = {this._signUp} className = "authInputs submitButton inactive">
+                            <button id = "signup_button" type ="button" className = "authInputs submitButton inactive">
                                 <h2 id = "signup_text" className = "submit_button_text">Sign Up</h2>
                                 <div id = "anim_holder" className="sk-chase">
                                     <div className="sk-chase-dot"></div>

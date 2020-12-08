@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {Register} from './Register';
-import {setDisplay} from '../utility/utility_functions';
+import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../utility/utility_functions';
 import {connect} from 'react-redux';
 
 /**
@@ -17,7 +17,7 @@ class SignIn extends React.Component {
     }
 
     componentDidMount() {
-        this._preprocess_loginbutton();
+        _preprocess_loginbutton(document.getElementById('login_button'), this._login);
     }
 
     componentDidUpdate(prevProps) {
@@ -36,7 +36,7 @@ class SignIn extends React.Component {
         if (this.props.curr_user_error !== '') {
             const err_message = this.props.curr_user_error;
             const error_display = document.getElementsByClassName('validation_error')[0];
-            this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
+            displayErrorInHTMLElement(err_message, error_display, 'block'); 
         }
 
         if (this.props.curr_user_error === '') {
@@ -57,13 +57,7 @@ class SignIn extends React.Component {
         const pw_inp = document.getElementById('pw_login').value; 
         this.props.logUserIn({username_or_email: user_email_inp, password: pw_inp});
     }
-
-    _preprocess_loginbutton() {
-        const loginButton = document.getElementById('login_button');
-        loginButton.disabled = true; 
-        loginButton.removeEventListener('click', this._login); 
-    }
-
+    
     _formInputsChanged() {
         const email_username_inp = document.getElementById('email_user_login');
         const pw_login = document.getElementById('pw_login');

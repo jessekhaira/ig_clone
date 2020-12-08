@@ -18,13 +18,6 @@ class App extends React.Component{
     super(props);
   }
 
-  displayErrorInHTMLElement(err_msg, err_node, display) {
-    if (err_msg.includes(":")) {
-        err_msg = err_msg.split(":")[1]; 
-    }
-    err_node.innerHTML = err_msg; 
-    err_node.style.display = display; 
-  }
 
   _animate_input_labels(e) {
     const input_target = e.target;
@@ -39,7 +32,7 @@ class App extends React.Component{
         label_input_target.classList.add('label_input_auth_written');
         input_target.classList.add('authInputsPlaceholderAnimPadding'); 
     }
-}
+  }
 
 
   render() {
@@ -50,7 +43,6 @@ class App extends React.Component{
           <Switch>
             <Route exact path = '/'>
               <SignIn 
-              displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
               logUserIn = {this.props.logUserIn}
               curr_user_status = {this.props.curr_user_status}
@@ -60,7 +52,6 @@ class App extends React.Component{
 
             <Route exact path = '/register'>
               <Register 
-              displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
               register_user_logIn = {this.props.register_user_logIn}
               curr_user_status = {this.props.curr_user_status}
