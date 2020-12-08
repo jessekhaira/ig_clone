@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 // sharing states between registering and signing in because they are related to the same thing
 // setting the current user 
 const remove_curr_user = createAction('REMOVE_CURR_USER');
+const set_curr_user = createAction('SET_CURR_USER'); 
 const INIT_STATE = {current_user: '', status:'', error: ''};
 
 const logUserIn = createAsyncThunk(
@@ -83,6 +84,12 @@ const currentUserReducer = createReducer(INIT_STATE, (builder) => {
         .addCase('users/setCurrUser/pending', (state, action) => {
             state.status = 'pending';
             state.error = '';  
+        })
+        .addCase(set_curr_user, (state, action) => {
+            state.current_user = action.payload; 
+        })
+        .addCase(remove_curr_user, (state, action) => {
+            state.current_user = ''; 
         })
 }); 
 
