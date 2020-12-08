@@ -1,4 +1,5 @@
 import '../stylesheets/App.css';
+import jwt_decode from "jwt-decode";
 import React from 'react';
 import {SignIn} from './SignIn';
 import {Register} from './Register';
@@ -16,8 +17,15 @@ import {UserProfile} from './UserProfile';
 class App extends React.Component{
   constructor(props) {
     super(props);
-    console.log(localStorage.getItem('accessToken')); 
-    localStorage.removeItem('accessToken')
+  }
+
+  componentDidMount() {
+    // all of the user info can technically be stored in the local storage
+    // redux really just used for practice  
+    if (this.props.current_user === '' && localStorage.getItem('accessToken')) {
+      const curr_user = jwt_decode(localStorage.getItem('accessToken')).username;
+      this.props.set_curr_user(curr_user); 
+    }
   }
 
 
@@ -41,20 +49,21 @@ class App extends React.Component{
     return (
       <div className="App">
         <Router>
-          {/* unless user is logged in, then none of the protected routes will be shown */}
+          {/* unless user is logged in, then none of the protected views will be shown -- has to be
+          a token in the localStorage indicating this user has been authorized to see any user profiles*/}
           {localStorage.getItem('accessToken') !== null ?
             <Switch>
               <Route exact path = '/:username' component = {UserProfile}>
               </Route>
 
-              <Route  path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
+              <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
               </Route>
 
             </Switch>
             :
             <Switch>
 
-              <Route exact path = '/register'>
+              <Route exact path = '/accounts/register'>
                 <Register 
                 _animate_input_labels = {this._animate_input_labels}
                 register_user_logIn = {this.props.register_user_logIn}
@@ -63,7 +72,7 @@ class App extends React.Component{
                 /> 
               </Route>
 
-              <Route path = '/'>
+              <Route exact path = '/accounts/login'>
                 <SignIn 
                 _animate_input_labels = {this._animate_input_labels}
                 logUserIn = {this.props.logUserIn}
@@ -72,9 +81,10 @@ class App extends React.Component{
                 /> 
               </Route>
 
+              <Route path = '/' render = {() =><Redirect to = '/accounts/login' />} />
+
             </Switch>
           }
-
           <Route>
             <Footer /> 
           </Route>

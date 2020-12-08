@@ -184,7 +184,7 @@ class Register extends React.Component {
                     </div>
 
                     <div className = "auth_link">
-                        <p>Have an account? <Link to = "/">Log in</Link></p>
+                        <p>Have an account? <Link to = "/accounts/login">Log in</Link></p>
                     </div>
                 </div>
             </div>

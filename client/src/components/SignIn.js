@@ -106,7 +106,7 @@ class SignIn extends React.Component {
                         </div>
                     </div>
                     <div className = "auth_link">
-                        <p>Don't have an account?<Link to = "/register"> Sign up</Link></p>
+                        <p>Don't have an account?<Link to = "/accounts/register"> Sign up</Link></p>
                     </div>
                 </div>
             </div>
