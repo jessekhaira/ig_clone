@@ -52,6 +52,10 @@ class App extends React.Component{
               <SignIn 
               displayErrorInHTMLElement = {this.displayErrorInHTMLElement}
               _animate_input_labels = {this._animate_input_labels}
+              logUserIn = {this.props.logUserIn}
+              set_curr_user_status = {this.props.set_curr_user_status}
+              set_curr_user_error = {this.props.set_curr_user_error}
+              remove_curr_error = {this.props.remove_curr_error}
               /> 
             </Route>
 

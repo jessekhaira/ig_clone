@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import {Register} from './Register';
 import {setDisplay} from '../utility/utility_functions';
 import {connect} from 'react-redux';
-import {mapDispatchToProps_SignIn, mapStateToProps_SignIn} from '../redux/reactReduxMaps';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the sign in page.
@@ -22,27 +21,28 @@ class SignIn extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.log_in_status === 'idle') {
+        if (this.props.set_curr_user_status === 'idle') {
             document.getElementById('login_button').disabled = false; 
             setDisplay(['flex', 'none', 'block'], document.getElementById('login_text'),
             document.getElementById('anim_holder'), document.getElementById('login_button'));
         }
-        if (this.props.log_in_err !== '') {
-            const err_message = this.props.log_in_err;
+
+        if (this.props.set_curr_user_status === 'pending') {
+            setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
+            document.getElementById('anim_holder'), document.getElementById('login_button'));
+            document.getElementById('login_button').disabled = true; 
+        }
+
+        if (this.props.set_curr_user_error !== '') {
+            const err_message = this.props.set_curr_user_error;
             const error_display = document.getElementsByClassName('validation_error')[0];
             this.props.displayErrorInHTMLElement(err_message, error_display, 'block'); 
         }
 
-        if (this.props.log_in_err === '') {
+        if (this.props.set_curr_user_error === '') {
             const error_display = document.getElementsByClassName('validation_error')[0];
             // every time we send a new request, we want the error message displayed (if any) to be reset
             error_display.style.display = 'none'; 
-        }
-
-        if (this.props.log_in_status === 'pending') {
-            setDisplay(['none', 'block', 'flex'], document.getElementById('login_text'), 
-            document.getElementById('anim_holder'), document.getElementById('login_button'));
-            document.getElementById('login_button').disabled = true; 
         }
     }
 
@@ -55,8 +55,6 @@ class SignIn extends React.Component {
         // show the loader in the button
         const user_email_inp = document.getElementById('email_user_login').value;
         const pw_inp = document.getElementById('pw_login').value; 
-        // every async call should remove any errors present in previous async call 
-        this.props.remove_curr_error(); 
         this.props.logUserIn({username_or_email: user_email_inp, password: pw_inp});
     }
 
@@ -122,7 +120,6 @@ class SignIn extends React.Component {
     }
 }
 
-let connectedComponent = connect(mapStateToProps_SignIn, mapDispatchToProps_SignIn)(SignIn);
 
 
-export {connectedComponent as SignIn}; 
+export {SignIn}; 

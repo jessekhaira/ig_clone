@@ -3,12 +3,11 @@ import jwt_decode from "jwt-decode";
 
 // sharing states between registering and signing in because they are related to the same thing
 // setting the current user 
-const remove_curr_error = createAction('REMOVE_ERROR');
 const remove_curr_user = createAction('REMOVE_CURR_USER');
-const INIT_STATE = {current_user: '', log_in_status: '', log_in_err: '', register_status: '', register_err: ''};
+const INIT_STATE = {current_user: '', status:'', error: ''};
 
 const logUserIn = createAsyncThunk(
-    'users/loginUser',
+    'users/setCurrUser',
     async(logInParams, thunkAPI) => {
         const password = logInParams.password;
         const username_or_email = logInParams.username_or_email; 
@@ -38,7 +37,7 @@ const logUserIn = createAsyncThunk(
 );
 
 const register_user_logIn = createAsyncThunk(
-    'users/registerUser',
+    'users/setCurrUser',
     async(email, full_name, username, pw_inp, date_of_birth) => {
         const register_result = await fetch('/accounts/register', {
             method: "POST",
@@ -64,29 +63,18 @@ const register_user_logIn = createAsyncThunk(
  */
 const currentUserReducer = createReducer(INIT_STATE, (builder) => {
     builder
-        .addCase('users/loginUser/fulfilled', (state, action) => {
+        .addCase('users/setCurrUser/fulfilled', (state, action) => {
             state.current_user = action.payload; 
-            state.log_in_status = 'idle'; 
+            state.status = 'idle'; 
         })
-        .addCase('users/loginUser/rejected', (state, action) => {
-            state.log_in_err = action.error.message; 
-            state.log_in_status = 'idle'; 
+        .addCase('users/setCurrUser/rejected', (state, action) => {
+            state.error = action.error.message; 
+            state.status = 'idle'; 
         })
-        .addCase('users/loginUser/pending', (state, action) => {
-            state.log_in_status = 'pending'; 
-            state.log_in_err = ''; 
-        })
-        .addCase('users/registerUser/fulfilled', (state, action) => {
-            state.current_user = action.payload; 
-            state.register_status = 'idle'; 
-        })
-        .addCase('users/registerUser/rejected', (state, action) => {
-            state.register_err = action.error.message; 
-            state.register_status = 'idle'; 
-        })
-        .addCase('users/registerUser/pending', (state, action) => {
-            state.register_status = 'pending'; 
+        .addCase('users/setCurrUser/pending', (state, action) => {
+            state.status = 'pending';
+            state.error = '';  
         })
 }); 
 
-export {remove_curr_error, remove_curr_user ,logUserIn, register_user_logIn, currentUserReducer}; 
+export {remove_curr_user ,logUserIn, register_user_logIn, currentUserReducer}; 
