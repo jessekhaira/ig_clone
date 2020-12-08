@@ -93,4 +93,4 @@ const currentUserReducer = createReducer(INIT_STATE, (builder) => {
         })
 }); 
 
-export {remove_curr_user ,logUserIn, register_user_logIn, currentUserReducer}; 
+export {remove_curr_user ,logUserIn, set_curr_user,register_user_logIn, currentUserReducer}; 
