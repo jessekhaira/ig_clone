@@ -38,7 +38,8 @@ const logUserIn = createAsyncThunk(
 
 const register_user_logIn = createAsyncThunk(
     'users/setCurrUser',
-    async(email, full_name, username, pw_inp, date_of_birth) => {
+    async(register_params) => {
+        const {email, full_name, username, pw_inp, date_of_birth} = register_params; 
         const register_result = await fetch('/accounts/register', {
             method: "POST",
             body: JSON.stringify({
@@ -53,7 +54,15 @@ const register_user_logIn = createAsyncThunk(
             }
         }); 
         const jsonified_res = await register_result.json();
-        return jsonified_res; 
+        if ("message" in jsonified_res) {
+            throw new Error(jsonified_res.message); 
+        }
+        const accessToken = jsonified_res.accessToken;
+        const refreshToken = jsonified_res.refreshToken;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken); 
+        // set the current user as this users username 
+        return username; 
     }
 )
 

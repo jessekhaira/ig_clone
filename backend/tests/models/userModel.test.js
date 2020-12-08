@@ -56,7 +56,9 @@ describe("test user mongoose model", () => {
     await User.deleteMany({ email: "practice251@gmail.com" });
     await User.deleteMany({ email: "practice20@gmail.com" });
     await User.deleteMany({ email: "practice24@gmail.com" });
+    await User.deleteMany({ email: "practice21@gmail.com" });
     await User.deleteMany({email:"lol@pz.com"}); 
+    await User.deleteMany({email:"123123@x.com"}); 
     await testUser1.save();
     await testUser2.save();
     await testUser3.save();

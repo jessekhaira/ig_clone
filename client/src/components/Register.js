@@ -20,6 +20,34 @@ class Register extends React.Component {
         document.getElementsByClassName('validation_error')[0].style.display = 'none'; 
     }
 
+    componentDidUpdate() {
+        if (this.props.curr_user_status === 'pending') {
+            setDisplay(
+                ['block', 'flex', 'none'], document.getElementById('anim_holder'), 
+                document.getElementById('signup_button'),
+                document.getElementById('signup_text')
+            )
+        }
+
+        else if (this.props.curr_user_status === 'idle') {
+            setDisplay(
+                ['none', 'block', 'flex'], document.getElementById('anim_holder'), 
+                document.getElementById('signup_button'),
+                document.getElementById('signup_text')
+            )
+        }
+
+        if (this.props.curr_user_error !== '') {
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            this.props.displayErrorInHTMLElement(this.props.curr_user_error, error_display, 'block'); 
+        }
+        else if (this.props.curr_user_error === '') {
+            const error_display = document.getElementsByClassName('validation_error')[0];
+            error_display.style.display = 'none'; 
+        }
+
+    }
+
     _undisableSignupButton() {
         let form_inputs = [...document.getElementsByClassName('authInputs')];
         // filter out the signup_button from the array - don't need to verify its input 
@@ -39,24 +67,20 @@ class Register extends React.Component {
     }
 
     async _signUp() {
-        const email_inp = document.getElementById('email_signup').value;
-        const name_inp = document.getElementById('name_input').value;
-        const username_inp = document.getElementById('username_input').value;
+        const email = document.getElementById('email_signup').value;
+        const full_name = document.getElementById('name_input').value;
+        const username = document.getElementById('username_input').value;
         const pw_inp = document.getElementById('pw_input').value;
-        const date_of_birth_inp = document.getElementById('date_of_birth_input').value;
-        const error_display = document.getElementsByClassName('validation_error')[0];
-        // every time we send a new request, we want the error message displayed (if any) to be reset
-        error_display.style.display = 'none'; 
-        // we can ensure the email and username follow the correct format in the client, but in terms of making sure 
-        // this email isn't already registered to a user, and the username isn't already taken, we'll have to send 
-        // the POST to theserver and check 
-        const is_email_valid = this._validateEmail(email_inp);
-        const is_username_valid = this._validateUsername(username_inp); 
-        const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth_inp); 
+        const date_of_birth = document.getElementById('date_of_birth_input').value;
+        // we can ensure the email and username follow the correct format in the client
+        const is_email_valid = this._validateEmail(email);
+        const is_username_valid = this._validateUsername(username); 
+        const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth); 
         if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
-            this._attemptToCreateUser(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp);
+            this.props.register_user_logIn({email, full_name, username, pw_inp, date_of_birth});
         }
         // if there are multiple errors with the validation, just address the first one and display error for that
+        const error_display = document.getElementsByClassName('validation_error')[0];
         this._handleValidationError(error_display, is_email_valid, is_username_valid, is_date_of_birth_valid); 
     }
 
@@ -77,52 +101,6 @@ class Register extends React.Component {
         }
     }
 
-    async _attemptToCreateUser(email, full_name, username, pw_inp, date_of_birth) {
-        // try to create the user if there are no issues with validating the user 
-        // ie usernames have to be unique and emails have to be unique 
-        try {
-            setDisplay(
-                ['block', 'flex', 'none'], document.getElementById('anim_holder'), 
-                document.getElementById('signup_button'),
-                document.getElementById('signup_text')
-            )
-            const register_result = await fetch('/accounts/register', {
-                method: "POST",
-                body: JSON.stringify({
-                    email,
-                    full_name, 
-                    username,
-                    pw_inp,
-                    date_of_birth
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
-                }
-            }); 
-            const jsonified_res = await register_result.json();
-            if ("message" in jsonified_res) {
-                throw new Error(jsonified_res.message); 
-            }
-            const accessToken = jsonified_res.accessToken;
-            const refreshToken = jsonified_res.refreshToken;
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken); 
-        }
-        
-        catch (err) {
-            const error_display = document.getElementsByClassName('validation_error')[0];
-            err = String(err); 
-            this.props.displayErrorInHTMLElement(err, error_display, 'block'); 
-        }
-        
-        finally {
-            setDisplay(
-                ['none', 'block', 'flex'], document.getElementById('anim_holder'), 
-                document.getElementById('signup_button'),
-                document.getElementById('signup_text')
-            )
-        }
-    } 
 
 
     _validateEmail(email_inp) {

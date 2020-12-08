@@ -11,7 +11,7 @@ function mapStateToProps_mainApp(state) {
 function mapDispatchToProps_mainApp(dispatch) {
     return {
         logUserIn: (username_or_email, password) => dispatch(logUserIn(username_or_email, password)),
-        register_user_logIn: null
+        register_user_logIn: (email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp) => dispatch(register_user_logIn(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp))
     }
 }
 
