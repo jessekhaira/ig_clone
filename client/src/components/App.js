@@ -55,8 +55,6 @@ class App extends React.Component{
 
 
   render() {
-    // when this component mounts we dispatch an action 
-    const refresh_token_expired = false; 
     return (
       <div className="App">
         <Router>
