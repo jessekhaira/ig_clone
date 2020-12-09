@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom
 import {connect} from 'react-redux';
 import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/reactReduxMaps';
 import {UserProfile} from './UserProfile';
+import {NavBar} from './NavBar'; 
 /**
  * This class represents a React Component that acts as the main wrapper for the components
  * for this application. In addition, this component is responsible for routing with react-router.
@@ -20,11 +21,19 @@ class App extends React.Component{
   }
 
   componentDidMount() {
-    // all of the user info can technically be stored in the local storage
+    // all of the user info can technically be stored in the local storage 
     // redux really just used for practice  
-    if (this.props.current_user === '' && localStorage.getItem('accessToken')) {
-      const curr_user = jwt_decode(localStorage.getItem('accessToken')).username;
-      this.props.set_curr_user(curr_user); 
+    if (localStorage.getItem('refreshToken')) {
+      const curr_user = jwt_decode(localStorage.getItem('refreshToken'));
+      if (this.props.current_user === '') {
+        this.props.set_curr_user(curr_user.username); 
+      }
+
+      // refresh token expired, clear out local storage, if refresh token not expired
+      // allow access to the protected views 
+      if (curr_user.exp < Date.now() / 1000) {
+        localStorage.clear(); 
+      }
     }
   }
 
@@ -46,20 +55,30 @@ class App extends React.Component{
 
 
   render() {
+    // when this component mounts we dispatch an action 
+    const refresh_token_expired = false; 
     return (
       <div className="App">
         <Router>
           {/* unless user is logged in, then none of the protected views will be shown -- has to be
-          a token in the localStorage indicating this user has been authorized to see any user profiles*/}
-          {localStorage.getItem('accessToken') !== null ?
-            <Switch>
-              <Route exact path = '/:username' component = {UserProfile}>
+          a refresh token in the local storage that isn't expired*/}
+          {localStorage.getItem('refreshToken') !== null ?
+            <Router>
+              <Route>
+                <NavBar /> 
               </Route>
+              
+              <Switch>
 
-              <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
-              </Route>
+                <Route exact path = '/:username' component = {UserProfile}>
+                </Route>
 
-            </Switch>
+                <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
+                </Route>
+
+              </Switch>
+
+            </Router>
             :
             <Switch>
 
