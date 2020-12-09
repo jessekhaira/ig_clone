@@ -8,7 +8,8 @@ class UserProfile extends React.Component{
 
     componentDidMount() {
         // fetch all information related to this user, if nothing found then
-        // display appropriate message 
+        // display appropriate message
+        
     }
 
     render() {

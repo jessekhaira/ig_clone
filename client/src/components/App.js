@@ -68,7 +68,11 @@ class App extends React.Component{
               
               <Switch>
 
-                <Route exact path = '/:username' component = {UserProfile}>
+                <Route exact path = '/:username' render = {(props) => {
+                  <div>
+                    <UserProfile /> 
+                  </div>
+                }}>
                 </Route>
 
                 <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
