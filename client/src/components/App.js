@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/reactReduxMaps';
 import {UserProfile} from './UserProfile';
 import {NavBar} from './NavBar'; 
+import {AuthorizationContainer} from './AuthorizationContainer';
 /**
  * This class represents a React Component that acts as the main wrapper for the components
  * for this application. In addition, this component is responsible for routing with react-router.
@@ -18,6 +19,8 @@ import {NavBar} from './NavBar';
 class App extends React.Component{
   constructor(props) {
     super(props);
+    localStorage.clear(); 
+
   }
 
   componentDidMount() {
@@ -38,22 +41,6 @@ class App extends React.Component{
   }
 
 
-  _animate_input_labels(e) {
-    const input_target = e.target;
-    const label_input_target =input_target.nextElementSibling; 
-    label_input_target.className = ''; 
-    input_target.className = '';
-    if (input_target.value.length === 0) {
-        label_input_target.classList.add('label_input_auth');
-        input_target.classList.add('authInputs');
-    }
-    else {
-        label_input_target.classList.add('label_input_auth_written');
-        input_target.classList.add('authInputsPlaceholderAnimPadding'); 
-    }
-  }
-
-
   render() {
     return (
       <div className="App">
@@ -62,6 +49,7 @@ class App extends React.Component{
           a refresh token in the local storage that isn't expired*/}
           {localStorage.getItem('refreshToken') !== null ?
             <Router>
+              
               <Route>
                 <NavBar /> 
               </Route>
@@ -80,30 +68,16 @@ class App extends React.Component{
 
             </Router>
             :
+
             <Switch>
-
-              <Route exact path = '/accounts/register'>
-                <Register 
-                _animate_input_labels = {this._animate_input_labels}
-                register_user_logIn = {this.props.register_user_logIn}
-                curr_user_status = {this.props.curr_user_status}
-                curr_user_error = {this.props.curr_user_error}
-                /> 
+              <Route path = '/accounts'>
+                <AuthorizationContainer /> 
               </Route>
 
-              <Route exact path = '/accounts/login'>
-                <SignIn 
-                _animate_input_labels = {this._animate_input_labels}
-                logUserIn = {this.props.logUserIn}
-                curr_user_status = {this.props.curr_user_status}
-                curr_user_error = {this.props.curr_user_error}
-                /> 
-              </Route>
-
-              <Route path = '/' render = {() =><Redirect to = '/accounts/login' />} />
-
+              <Route path = '/' render = {() =><Redirect to = '/accounts' />} />
             </Switch>
           }
+
           <Route>
             <Footer /> 
           </Route>

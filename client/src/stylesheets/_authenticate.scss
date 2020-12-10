@@ -8,7 +8,7 @@
 .auth_holder {
     @include flexbox-center(); 
     flex-direction: column;
-    height: 90%;
+    height: 100%;
     background-color: var(--main-bg-color);
 }
 
@@ -49,6 +49,10 @@
     margin-top: 0px;
     width: 100%;
     margin-bottom: 0px;
+}
+
+.AuthorizationContainer {
+    height:90%;
 }
 
 .auth_link {
