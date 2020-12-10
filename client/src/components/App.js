@@ -1,15 +1,11 @@
 import '../stylesheets/App.css';
 import jwt_decode from "jwt-decode";
 import React from 'react';
-import {SignIn} from './SignIn';
-import {Register} from './Register';
 import {Footer} from './Footer';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {connect} from 'react-redux';
-import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/reactReduxMaps';
-import {UserProfile} from './UserProfile';
 import {NavBar} from './NavBar'; 
 import {AuthorizationContainer} from './AuthorizationContainer';
+import {LoggedInViews} from './LoggedInViews';
 /**
  * This class represents a React Component that acts as the main wrapper for the components
  * for this application. In addition, this component is responsible for routing with react-router.
@@ -49,22 +45,14 @@ class App extends React.Component{
           a refresh token in the local storage that isn't expired*/}
           {localStorage.getItem('refreshToken') !== null ?
             <Router>
-              
+
               <Route>
                 <NavBar /> 
               </Route>
               
-              <Switch>
-
-                <Route exact path = '/:username' render = {(props) => {
-                    <UserProfile /> 
-                }}>
-                </Route>
-
-                <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
-                </Route>
-
-              </Switch>
+              <Route path = '/'>
+                <LoggedInViews /> 
+              </Route>
 
             </Router>
             :
@@ -88,6 +76,5 @@ class App extends React.Component{
   }
 }
 
-const connectedComponent = connect(mapStateToProps_mainApp, mapDispatchToProps_mainApp)(App); 
 
-export {connectedComponent as App}; 
+export {App}; 

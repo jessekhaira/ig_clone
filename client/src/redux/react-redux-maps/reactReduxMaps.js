@@ -1,4 +1,4 @@
-import {remove_curr_error, set_curr_user,logUserIn, register_user_logIn} from './features/currentUserSlice';
+import {remove_curr_error, set_curr_user,logUserIn, register_user_logIn} from '../features/currentUserSlice';
 
 function mapStateToProps_mainApp(state) {
     return {

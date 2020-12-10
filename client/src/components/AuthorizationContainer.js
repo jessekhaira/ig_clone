@@ -4,13 +4,9 @@ import {SignIn} from './SignIn';
 import {Register} from './Register';
 import {BrowserRouter as Router, Switch, Route, Redirect, useRouteMatch} from "react-router-dom";
 import {connect} from 'react-redux';
-import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/reactReduxMaps';
-/**
- * This class represents a React Component that acts as the main wrapper for the components
- * for this application. In addition, this component is responsible for routing with react-router.
- * 
- * @class @public 
- */
+import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/react-redux-maps/reactReduxMaps';
+
+
 class AuthorizationContainer extends React.Component{
   constructor(props) {
     super(props);
