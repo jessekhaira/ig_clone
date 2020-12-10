@@ -14,12 +14,10 @@ class NavBar extends React.Component{
                 </div>
 
                 <div id = "search_bar">
-                    <div id = "search_info">
-                        <icon>Search Icon</icon>
-                        
+                    <div id = "search_icon_div">
+                        <i class="fas fa-search search_icon"></i>
                     </div>
-                    <label for = "search"></label>
-                    <input id = "search" type = "text" placeholder = "Search" />
+                    <input id = "search_input" type = "text" placeholder = "Search"></input>
                 </div>
 
                 <div id = "navbar_options">
