@@ -313,6 +313,9 @@ body, #root, html, .App {
 #search_bar {
   display: flex;
   justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
   border: 1px solid var(--border-color);
   width: 215px;
   height: 28px;

@@ -13,7 +13,7 @@
 }
 
 #search_bar {
-    // @include flexbox-center();
+    @include flexbox-center();
     display: flex;
     justify-content: center;
     border: 1px solid var(--border-color);
