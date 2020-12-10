@@ -293,4 +293,19 @@ body, #root, html, .App {
   text-align: center;
 }
 
+.LoggedInViews {
+  height: 84%;
+  background-color: var(--main-bg-color);
+}
+
+#navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6%;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px solid var(--border-color);
+}
+
 /*# sourceMappingURL=App.css.map */

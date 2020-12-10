@@ -1,0 +1,14 @@
+
+.LoggedInViews {
+    height:84%;
+    background-color: var(--main-bg-color);
+}
+
+#navbar{
+    @include flexbox-center();
+    height: 6%;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px solid var(--border-color);
+}
+
