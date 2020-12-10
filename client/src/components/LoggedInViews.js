@@ -18,6 +18,16 @@ class LoggedInViews extends React.Component{
     if (this.props.current_user === '') {
       this.props.set_curr_user(curr_user.username); 
     }
+
+    setTimeout(() => this.props.remove_curr_user(), 10000);
+  }
+
+  componentDidUpdate() {
+    // if our state has updated and we've removed the refresh token from the local storage, 
+    //notify the parent component by updating the parent components state 
+    if (localStorage.getItem('refreshToken') === null) {
+      this.props.child_parent_comm(false); 
+    }
   }
 
   render() {

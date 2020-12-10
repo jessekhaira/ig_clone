@@ -15,8 +15,19 @@ import {LoggedInViews} from './LoggedInViews';
 class App extends React.Component{
   constructor(props) {
     super(props);
-    // localStorage.clear(); 
+    // want to be able to update this component based on state changes in the children component
+    // and don't want to have to explicitly connect this component to redux store. IE if user logs in
+    // the state changes and we want this component to re-render to start rendering the logged in views
+    this.state = {loggedIn: false};
+    this.child_parent_comm = this.child_parent_comm.bind(this); 
   }
+
+  child_parent_comm (loggedIn) {
+    this.setState((state, props) => ({
+      loggedIn
+    }));
+  };
+
 
   componentDidMount() {
     if (localStorage.getItem('refreshToken')) {
@@ -30,12 +41,13 @@ class App extends React.Component{
   }
 
 
+
   render() {
     return (
       <div className="App">
         <Router>
           {/* unless user is logged in, then none of the protected views will be shown -- has to be
-          a refresh token in the local storage that isn't expired*/}
+          a refresh token in the local storage that isn't expired. We can also use the logged in status here*/}
           {localStorage.getItem('refreshToken') !== null ?
             <Router>
 
@@ -44,7 +56,9 @@ class App extends React.Component{
               </Route>
               
               <Route path = '/'>
-                <LoggedInViews /> 
+                <LoggedInViews 
+                child_parent_comm = {this.child_parent_comm} 
+                /> 
               </Route>
 
             </Router>
@@ -52,7 +66,9 @@ class App extends React.Component{
 
             <Switch>
               <Route path = '/accounts'>
-                <AuthorizationContainer /> 
+                <AuthorizationContainer
+                child_parent_comm = {this.child_parent_comm} 
+                /> 
               </Route>
 
               <Route path = '/' render = {() =><Redirect to = '/accounts' />} />

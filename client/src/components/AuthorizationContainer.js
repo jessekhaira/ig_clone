@@ -12,6 +12,16 @@ class AuthorizationContainer extends React.Component{
     super(props);
   }
 
+  componentDidUpdate() {
+    // state has updated doesn't mean user has logged in -- we could have an error
+    // so we base off the refresh token in the local storage. If it is set, we notify 
+    // the parent app container to re-render by updating its state because we have successfully 
+    // logged in -- refresh token has been set succesfully,
+    if(localStorage.getItem('refreshToken') !== null) {
+      this.props.child_parent_comm(true); 
+    }
+  }
+
   _animate_input_labels(e) {
     const input_target = e.target;
     const label_input_target =input_target.nextElementSibling; 
@@ -34,26 +44,25 @@ class AuthorizationContainer extends React.Component{
       <div className="AuthorizationContainer">
         <Router>
             <Switch>
-              <Route exact path = '/accounts/login'>
-                <SignIn 
-                _animate_input_labels = {this._animate_input_labels}
-                logUserIn = {this.props.logUserIn}
-                curr_user_status = {this.props.curr_user_status}
-                curr_user_error = {this.props.curr_user_error}
-                /> 
-              </Route>
+                <Route exact path = '/accounts/login'>
+                  <SignIn
+                  _animate_input_labels = {this._animate_input_labels}
+                  logUserIn = {this.props.logUserIn}
+                  curr_user_status = {this.props.curr_user_status}
+                  curr_user_error = {this.props.curr_user_error}
+                  /> 
+                </Route>
 
-              <Route exact path = '/accounts/register'>
-                <Register 
-                    _animate_input_labels = {this._animate_input_labels}
-                    register_user_logIn = {this.props.register_user_logIn}
-                    curr_user_status = {this.props.curr_user_status}
-                    curr_user_error = {this.props.curr_user_error}
-                    /> 
-              </Route>
+                <Route exact path = '/accounts/register'>
+                  <Register 
+                      _animate_input_labels = {this._animate_input_labels}
+                      register_user_logIn = {this.props.register_user_logIn}
+                      curr_user_status = {this.props.curr_user_status}
+                      curr_user_error = {this.props.curr_user_error}
+                      /> 
+                </Route>
 
-              <Route path = '/' render = {() =><Redirect to = '/accounts/login' />} />
-
+                <Route path = '/' render = {() =><Redirect to = '/accounts/login' />} />
             </Switch>
         </Router>
       </div>
