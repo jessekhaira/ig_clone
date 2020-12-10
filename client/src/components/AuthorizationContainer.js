@@ -4,7 +4,7 @@ import {SignIn} from './SignIn';
 import {Register} from './Register';
 import {BrowserRouter as Router, Switch, Route, Redirect, useRouteMatch} from "react-router-dom";
 import {connect} from 'react-redux';
-import {mapDispatchToProps_mainApp, mapStateToProps_mainApp} from '../redux/react-redux-maps/reactReduxMaps';
+import {mapDispatchToProps_authComponents,  mapStateToProps_authComponents} from '../redux/react-redux-maps/AuthorizationReactRedux';
 
 
 class AuthorizationContainer extends React.Component{
@@ -61,6 +61,6 @@ class AuthorizationContainer extends React.Component{
   }
 }
 
-const connectedComponent = connect(mapStateToProps_mainApp, mapDispatchToProps_mainApp)(AuthorizationContainer); 
+const connectedComponent = connect(mapStateToProps_authComponents, mapDispatchToProps_authComponents)(AuthorizationContainer); 
 
 export {connectedComponent as AuthorizationContainer};

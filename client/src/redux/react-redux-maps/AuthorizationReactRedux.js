@@ -1,6 +1,6 @@
 import {remove_curr_error, set_curr_user,logUserIn, register_user_logIn} from '../features/currentUserSlice';
 
-function mapStateToProps_mainApp(state) {
+function mapStateToProps_authComponents(state) {
     return {
         current_user: state.current_user.current_user,
         curr_user_status: state.current_user.status,
@@ -8,7 +8,7 @@ function mapStateToProps_mainApp(state) {
     }
 }
 
-function mapDispatchToProps_mainApp(dispatch) {
+function mapDispatchToProps_authComponents(dispatch) {
     return {
         logUserIn: (username_or_email, password) => dispatch(logUserIn(username_or_email, password)),
         register_user_logIn: (email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp) => dispatch(register_user_logIn(email_inp, name_inp, username_inp, pw_inp, date_of_birth_inp)),
@@ -16,4 +16,4 @@ function mapDispatchToProps_mainApp(dispatch) {
     }
 }
 
-export {mapStateToProps_mainApp, mapDispatchToProps_mainApp} 
+export {mapStateToProps_authComponents, mapDispatchToProps_authComponents} 
