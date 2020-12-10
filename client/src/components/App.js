@@ -15,19 +15,12 @@ import {LoggedInViews} from './LoggedInViews';
 class App extends React.Component{
   constructor(props) {
     super(props);
-    localStorage.clear(); 
-
+    // localStorage.clear(); 
   }
 
   componentDidMount() {
-    // all of the user info can technically be stored in the local storage 
-    // redux really just used for practice  
     if (localStorage.getItem('refreshToken')) {
       const curr_user = jwt_decode(localStorage.getItem('refreshToken'));
-      if (this.props.current_user === '') {
-        this.props.set_curr_user(curr_user.username); 
-      }
-
       // refresh token expired, clear out local storage, if refresh token not expired
       // allow access to the protected views 
       if (curr_user.exp < Date.now() / 1000) {
