@@ -306,7 +306,7 @@ body, #root, html, .App {
   align-items: center;
   height: 6%;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   border: 1px solid var(--border-color);
 }
 #navbar #search_bar {
@@ -383,38 +383,7 @@ body, #root, html, .App {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 8px;
-  padding-right: 8px;
-  height: 100%;
-}
-#navbar #navbar_options .options_imgs {
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-}
-#navbar #navbar_options .margin_class {
-  margin: 0px 12px 0px 12px;
-}
-#navbar #navbar_options .navbar_icons {
-  transform: scale(1.5);
-  cursor: pointer;
-}
-#navbar #navbar_options #home_icon {
-  color: white;
-  -webkit-text-fill-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
-}
-#navbar #navbar_options #profile_icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid;
-  border-radius: 50%;
-  padding: 2.5px;
-}
-#navbar #navbar_options #profile_img {
-  border-radius: 50%;
+  border: 5px solid black;
 }
 
-/*# sourceMappingURL=App.css.map */
+/*# sourceMappingURL=App.cs.map */

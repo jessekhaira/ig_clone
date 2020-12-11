@@ -2,79 +2,121 @@
     @include flexbox-center();
     height: 6%;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     border: 1px solid var(--border-color);
-}
 
-#search_bar {
-    @include flexbox-center();
-    display: flex;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-    width: 215px;
-    height: 28px;
-    background-color: var(--main-bg-color);
-    border-radius: 5%;
-    padding-left: 8px;
-    padding-right: 8px;
-
-    .position_icon {
-        position: absolute;
-        right: -4px;
-        transform: scale(0.9);
-        color: var(--darker-border-color);
-        display: none;
-    }
-
-    #icon_input_div {
-        @include flexbox-center(); 
-        width: auto; 
-        position: relative;
-        width: 100%;
-    }
-
-    #inp_display_text {
-        @include system-fonts();
-        text-align: left;
-        color: #8d8c8c;
-        font-size: 14px;
-        font-weight: 100;
-        max-width: 140px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    #search_input {
-        @include system-fonts();
-        text-align: left;
-        border: none;
-        display: none;
-        width: 100%;
-        background-color: var(--main-bg-color); 
-    }
-
-    #search_input::placeholder {
-        @include system-fonts();
-        color: #8d8c8c;
-        font-size: 14px;
-        font-weight: 100;
-    }
-
-    #search_input:focus {
-        outline: none;
-    }
-
-    #search_icon_div{
-        @include flexbox-center;
-    }
-
-    .search_icon {
+    #search_bar {
+        @include flexbox-center();
         display: flex;
-        justify-content: flex-end;
-        position: relative;
-        top: 1px;
-        right: 2px;
-        color: var(--darker-border-color);
-        transform: scale(0.6);
+        justify-content: center;
+        border: 1px solid var(--border-color);
+        width: 215px;
+        height: 28px;
+        background-color: var(--main-bg-color);
+        border-radius: 5%;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        .position_icon {
+            position: absolute;
+            right: -4px;
+            transform: scale(0.9);
+            color: var(--darker-border-color);
+            display: none;
+        }
+
+        #icon_input_div {
+            @include flexbox-center(); 
+            width: auto; 
+            position: relative;
+            width: 100%;
+        }
+
+        #inp_display_text {
+            @include system-fonts();
+            text-align: left;
+            color: #8d8c8c;
+            font-size: 14px;
+            font-weight: 100;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #search_input {
+            @include system-fonts();
+            text-align: left;
+            border: none;
+            display: none;
+            width: 100%;
+            background-color: var(--main-bg-color); 
+        }
+
+        #search_input::placeholder {
+            @include system-fonts();
+            color: #8d8c8c;
+            font-size: 14px;
+            font-weight: 100;
+        }
+
+        #search_input:focus {
+            outline: none;
+        }
+
+        #search_icon_div{
+            @include flexbox-center;
+        }
+
+        .search_icon {
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            top: 1px;
+            right: 2px;
+            color: var(--darker-border-color);
+            transform: scale(0.6);
+        }
+    }
+
+    #navbar_options {
+        @include flexbox-center();
+        padding-left: 8px;
+        padding-right: 8px;
+        height: 100%;
+
+        .options_imgs {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .margin_class {
+            margin: 0px 12px 0px 12px;
+        }
+        
+        .navbar_icons {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        #home_icon {
+            // text-shadow: 0 0 2px #000;
+            color: white;
+            -webkit-text-fill-color: white;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+        }
+
+        #profile_icon {
+            @include flexbox-center();
+            border: 1px solid;
+            border-radius: 50%;
+            padding: 2.5px;
+        }
+
+        #profile_img {
+            border-radius: 50%;
+        }
+
     }
 }

@@ -9,6 +9,15 @@ import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponen
 class LoggedInViews extends React.Component{
   constructor(props) {
     super(props);
+    
+    this.state = {currEndpoint:''}; 
+    this._changeInEndpoint_ReRenderViews = this._changeInEndpoint_ReRenderViews.bind(this); 
+  }
+
+  _changeInEndpoint_ReRenderViews(newEndpoint) {
+    this.setState((state, props) => ({
+      currEndpoint: newEndpoint
+    })); 
   }
 
   componentDidMount() {
@@ -32,16 +41,28 @@ class LoggedInViews extends React.Component{
     return (
       <div className="LoggedInViews">
         <Router>
-            <Switch>
-                <Route exact path = '/:username' render = {(props) => {
-                    <UserProfile /> 
-                }}>
-                </Route>
+          <Route>
+            <NavBar 
+            _changeInEndpoint_ReRenderViews = {this._changeInEndpoint_ReRenderViews} 
+            /> 
+          </Route>
+              
+          <Switch>
+              <Route exact path = '/:username' render = {(props) => {
+                  <UserProfile /> 
+              }}>
+              </Route>
 
-                <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
-                </Route>
+              <Route exact path = '/explore' render = {(props) => {
+                <div>
+                  <h1>ASDAS</h1>
+                </div>
+              }} /> 
 
-            </Switch>
+              <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
+              </Route>
+
+          </Switch>
         </Router>
       </div>
     )

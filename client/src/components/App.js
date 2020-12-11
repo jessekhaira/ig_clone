@@ -50,11 +50,6 @@ class App extends React.Component{
           a refresh token in the local storage that isn't expired. We can also use the logged in status here*/}
           {localStorage.getItem('refreshToken') !== null ?
             <Router>
-
-              <Route>
-                <NavBar /> 
-              </Route>
-              
               <Route path = '/'>
                 <LoggedInViews 
                 child_parent_comm = {this.child_parent_comm} 
