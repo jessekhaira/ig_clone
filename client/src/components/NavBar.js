@@ -12,7 +12,6 @@ class NavBar extends React.Component{
 
     _searchBarFocus(e) {
         e.preventDefault();  
-        console.log(e);   
         const search_bar = document.getElementById('search_bar');
         const icon_input_div = document.getElementById('icon_input_div');
         document.getElementById('delete_inp_text_icon').style.display = 'block'; 
@@ -26,7 +25,6 @@ class NavBar extends React.Component{
 
     _searchBarBlur(e) {
         e.preventDefault(); 
-        console.log(e); 
         const search_bar = document.getElementById('search_bar');
         const icon_input_div = document.getElementById('icon_input_div');
         search_bar.style.justifyContent = 'center';
@@ -41,7 +39,7 @@ class NavBar extends React.Component{
 
     _searchDelete(e) {
         e.preventDefault(); 
-        console.log(e); 
+        e.stopPropagation(); 
         const search_bar = document.getElementById('search_bar');
         search_bar.blur(); 
         const inp_tag = document.getElementById('search_input');
@@ -57,7 +55,7 @@ class NavBar extends React.Component{
                     <h1 className = "instagram_name">Instagram Clone</h1>
                 </div>
 
-                <div id = "search_bar" onClick = {this._searchBarFocus} onBlur = {this._searchBarBlur}>
+                <div id = "search_bar" onMouseDown = {this._searchBarFocus} onBlur = {this._searchBarBlur}>
                     <div id = "icon_input_div">
                         <i class="fas fa-search search_icon"></i>
                         <div id = "inp_display_text">Search</div>
