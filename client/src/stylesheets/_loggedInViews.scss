@@ -1,47 +1,5 @@
-
 .LoggedInViews {
     height:84%;
     background-color: var(--main-bg-color);
 }
 
-#navbar{
-    @include flexbox-center();
-    height: 6%;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 1px solid var(--border-color);
-}
-
-#search_bar {
-    @include flexbox-center();
-    display: flex;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-    width: 215px;
-    height: 28px;
-    background-color: var(--main-bg-color);
-
-    #search_input {
-        @include system-fonts();
-        text-align: left;
-        width: 30%;
-        border: none;
-    }
-    #search_input::placeholder {
-        @include system-fonts();
-        color: #8d8c8c;
-        font-size: 14px;
-        font-weight: 100;
-      }
-
-    #search_icon_div{
-        @include flexbox-center;
-    }
-
-    .search_icon {
-        display: flex;
-        justify-content: flex-end;
-        color: var(--darker-border-color);
-        transform: scale(0.7);
-    }
-}
