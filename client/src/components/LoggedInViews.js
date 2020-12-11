@@ -18,8 +18,6 @@ class LoggedInViews extends React.Component{
     if (this.props.current_user === '') {
       this.props.set_curr_user(curr_user.username); 
     }
-
-    setTimeout(() => this.props.remove_curr_user(), 10000);
   }
 
   componentDidUpdate() {
