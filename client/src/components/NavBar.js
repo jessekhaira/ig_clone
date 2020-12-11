@@ -71,6 +71,7 @@ class NavBar extends React.Component{
                 </div>
 
                 <div id = "navbar_options">
+
                     <i id = "home_icon" className="fas fa-home navbar_icons margin_class" onClick = {this._redirectParentContainer}></i>
                     <img id = "dm_icon" onClick = {this._redirectParentContainer} className = "options_imgs margin_class" src = "https://static.thenounproject.com/png/3084968-200.png"></img>
                     <i class="far fa-compass navbar_icons margin_class" onClick = {this._redirectParentContainer}></i>

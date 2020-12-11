@@ -11,13 +11,10 @@ class LoggedInViews extends React.Component{
     super(props);
     
     this.state = {currEndpoint:''}; 
-    this._changeInEndpoint_ReRenderViews = this._changeInEndpoint_ReRenderViews.bind(this); 
   }
 
-  _changeInEndpoint_ReRenderViews(newEndpoint) {
-    this.setState((state, props) => ({
-      currEndpoint: newEndpoint
-    })); 
+  redirectRouter(endpoint) {
+    
   }
 
   componentDidMount() {

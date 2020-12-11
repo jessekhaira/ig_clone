@@ -296,7 +296,7 @@ body, #root, html, .App {
 }
 
 .LoggedInViews {
-  height: 84%;
+  height: 90%;
   background-color: var(--main-bg-color);
 }
 
@@ -304,10 +304,13 @@ body, #root, html, .App {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
   height: 6%;
+  width: 100%;
   flex-direction: row;
   justify-content: space-evenly;
   border: 1px solid var(--border-color);
+  background-color: white;
 }
 #navbar #search_bar {
   display: flex;
@@ -402,7 +405,7 @@ body, #root, html, .App {
 #navbar #navbar_options #home_icon {
   color: white;
   -webkit-text-fill-color: white;
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 0.7px;
   -webkit-text-stroke-color: black;
 }
 #navbar #navbar_options #profile_icon {
