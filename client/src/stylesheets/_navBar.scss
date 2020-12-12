@@ -116,11 +116,12 @@
             @include flexbox-center();
             border: 1px solid;
             border-radius: 50%;
-            padding: 2.5px;
+            padding: 3px;
         }
 
         #profile_img {
-            border-radius: 50%;
+            position: relative;
+            border-radius: 60%;
         }
 
     }
