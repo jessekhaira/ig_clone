@@ -320,6 +320,14 @@ body, #root, html, .App {
   border: 1px solid var(--border-color);
   background-color: white;
 }
+#navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+#navbar a:focus {
+  text-decoration: none;
+  background-color: transparent !important;
+}
 #navbar #search_bar {
   display: flex;
   justify-content: center;

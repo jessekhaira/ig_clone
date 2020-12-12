@@ -49,10 +49,12 @@ class NavBar extends React.Component{
         return(
             <div id = "navbar_container">
                 <nav id = "navbar">
-                    <div id = "ig_name">
-                        <h1 className = "instagram_name">Instagram Clone</h1>
-                    </div>
-
+                    <Link to = '/'>
+                        <div id = "ig_name">
+                            <h1 className = "instagram_name">Instagram Clone</h1>
+                        </div>
+                    </Link>
+                    
                     <div id = "search_bar" onMouseDown = {this._searchBarFocus} onBlur = {this._searchBarBlur}>
                         <div id = "icon_input_div">
                             <i class="fas fa-search search_icon"></i>

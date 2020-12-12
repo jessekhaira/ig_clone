@@ -11,6 +11,16 @@
     border: 1px solid var(--border-color);
     background-color: white;
 
+    a {
+        text-decoration: none;  
+        color: inherit;
+    }
+
+    a:focus {
+        text-decoration: none;
+        background-color: transparent !important;
+    }
+
     #search_bar {
         @include flexbox-center();
         display: flex;
