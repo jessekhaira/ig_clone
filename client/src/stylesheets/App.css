@@ -427,6 +427,14 @@ body, #root, html, .App {
 #navbar #navbar_options #profile_img {
   border-radius: 50%;
 }
+#navbar #profile_settings {
+  position: absolute;
+  top: 54px;
+  height: 190px;
+  width: 194px;
+  border: 1px solid;
+  position: absolute;
+}
 
 #explore_div {
   display: flex;
