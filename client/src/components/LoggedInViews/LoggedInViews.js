@@ -45,8 +45,7 @@ class LoggedInViews extends React.Component{
             <Route exact path = "/direct/inbox/" render = {(props) => (
               <DMInbox /> 
             )} /> 
-            
-            {/* redirecting for now -- can implement explore page component later */}
+
             <Route exact path = '/explore' render = {(props) => 
               <Explore /> 
             } />
@@ -55,7 +54,6 @@ class LoggedInViews extends React.Component{
               <UserProfile />
             )} /> 
 
-            {/* redirecting for now -- can implement home page component later */}
             <Route path = '/' render = {() => (
               <HomePage /> 
             )} /> 
