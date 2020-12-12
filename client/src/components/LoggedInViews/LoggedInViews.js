@@ -4,8 +4,8 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom
 import {UserProfile} from './UserProfile';
 import {NavBar} from './NavBar'; 
 import {connect} from 'react-redux';
-import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../redux/react-redux-maps/LoggedInReactRedux';
-import {SignIn} from './SignIn'
+import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../../redux/react-redux-maps/LoggedInReactRedux';
+import {Explore} from './Explore';
 
 class LoggedInViews extends React.Component{
   constructor(props) {
@@ -35,7 +35,6 @@ class LoggedInViews extends React.Component{
         <Router>
           <Route>
             <NavBar 
-            history = {this.props.history}
             /> 
           </Route>
               
@@ -43,7 +42,7 @@ class LoggedInViews extends React.Component{
 
             {/* redirecting for now -- can implement explore page component later */}
             <Route exact path = '/explore' render = {(props) => 
-              <Redirect to = {`/${this.props.current_user}`} /> 
+              <Explore /> 
             } />
 
             <Route exact path = '/:username' render = {(props) => (

@@ -6,8 +6,6 @@ import {withRouter} from 'react-router-dom';
 class NavBar extends React.Component{
     constructor(props) {
         super(props); 
-        
-        this._updateHistoryObjectRouter = this._updateHistoryObjectRouter.bind(this);
     }
 
 
@@ -47,11 +45,6 @@ class NavBar extends React.Component{
         inp_tag.value = ''; 
     }
 
-    _updateHistoryObjectRouter(e) {
-        this.props.history.push('/explore');
-    }
-
-
     render() {
         return(
             <div id = "navbar_container">
@@ -70,13 +63,21 @@ class NavBar extends React.Component{
                     </div>
 
                     <div id = "navbar_options">
+                        <Link to = "/">
+                            <i id = "home_icon" className="fas fa-home navbar_icons margin_class"></i>
+                        </Link>
 
-                        <i id = "home_icon" className="fas fa-home navbar_icons margin_class" onClick = {this._redirectParentContainer}></i>
-                        <img id = "dm_icon" onClick = {this._redirectParentContainer} className = "options_imgs margin_class" src = "https://static.thenounproject.com/png/3084968-200.png"></img>
-                        <i id = "explore"class="far fa-compass navbar_icons margin_class" onClick = {this._updateHistoryObjectRouter}></i>
-                        <i id = "notifications" class="far fa-heart navbar_icons margin_class" onClick = {this._redirectParentContainer}></i>
+                        <Link to = "/direct/inbox/">
+                            <img id = "dm_icon" className = "options_imgs margin_class" src = "https://static.thenounproject.com/png/3084968-200.png"></img>
+                        </Link>
+                       
+                        <Link to = "/explore">
+                            <i id = "explore"class="far fa-compass navbar_icons margin_class"></i>
+                        </Link>
+
+                        <i id = "notifications" class="far fa-heart navbar_icons margin_class" ></i>
                         <div id = "profile_icon" className = "margin_class">
-                            <img id = "profile_img" onClick = {this._redirectParentContainer} className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
+                            <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
                         </div>
                     </div>
                 </nav>

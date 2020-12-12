@@ -4,7 +4,7 @@ import {SignIn} from './SignIn';
 import {Register} from './Register';
 import {BrowserRouter as Router, Switch, Route, Redirect, useRouteMatch} from "react-router-dom";
 import {connect} from 'react-redux';
-import {mapDispatchToProps_authComponents,  mapStateToProps_authComponents} from '../redux/react-redux-maps/AuthorizationReactRedux';
+import {mapDispatchToProps_authComponents,  mapStateToProps_authComponents} from '../../redux/react-redux-maps/AuthorizationReactRedux';
 
 
 class AuthorizationContainer extends React.Component{

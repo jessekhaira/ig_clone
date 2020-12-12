@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Register} from './Register';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../utility/utility_functions';
+import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../../utility/utility_functions';
 import {connect} from 'react-redux';
 
 /**

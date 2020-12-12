@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../utility/utility_functions';
+import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../../utility/utility_functions';
 
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.

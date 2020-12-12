@@ -3,9 +3,8 @@ import jwt_decode from "jwt-decode";
 import React from 'react';
 import {Footer} from './Footer';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {NavBar} from './NavBar'; 
-import {AuthorizationContainer} from './AuthorizationContainer';
-import {LoggedInViews} from './LoggedInViews';
+import {AuthorizationContainer} from './AuthorizationViews/AuthorizationContainer';
+import {LoggedInViews} from './LoggedInViews/LoggedInViews';
 /**
  * This class represents a React Component that acts as the main wrapper for the components
  * for this application. In addition, this component is responsible for routing with react-router.
