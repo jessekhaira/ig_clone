@@ -76,8 +76,24 @@ class NavBar extends React.Component{
                         </Link>
 
                         <i id = "notifications" class="far fa-heart navbar_icons margin_class" ></i>
-                        <div id = "profile_icon" className = "margin_class">
+                        <div id = "profile_icon" className = "margin_class" onClick = {this._showProfileSettings}>
                             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
+                            <div id = "profile_settings">
+                                <div id = "go_to_profile_div">
+                                </div>
+
+                                <div id = "saved_div">
+                                </div>
+
+                                <div id = "settings_div">
+                                </div>
+
+                                <div id = "switch_accounts_div">
+                                </div>
+
+                                <div id = "log_out_div">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
