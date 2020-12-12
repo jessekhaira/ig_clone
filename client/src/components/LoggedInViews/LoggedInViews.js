@@ -6,6 +6,8 @@ import {NavBar} from './NavBar';
 import {connect} from 'react-redux';
 import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../../redux/react-redux-maps/LoggedInReactRedux';
 import {Explore} from './Explore';
+import {HomePage} from './HomePage'; 
+import {DMInbox} from './DMInbox';
 
 class LoggedInViews extends React.Component{
   constructor(props) {
@@ -40,6 +42,10 @@ class LoggedInViews extends React.Component{
               
           <Switch>
 
+            <Route exact path = "/direct/inbox/" render = {(props) => (
+              <DMInbox /> 
+            )} /> 
+            
             {/* redirecting for now -- can implement explore page component later */}
             <Route exact path = '/explore' render = {(props) => 
               <Explore /> 
@@ -50,7 +56,9 @@ class LoggedInViews extends React.Component{
             )} /> 
 
             {/* redirecting for now -- can implement home page component later */}
-            <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />} />
+            <Route path = '/' render = {() => (
+              <HomePage /> 
+            )} /> 
 
           </Switch>
         </Router>

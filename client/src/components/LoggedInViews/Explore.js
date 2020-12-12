@@ -10,7 +10,7 @@ class Explore extends React.Component{
     render() {
         return(
             <div id = "explore_div">
-                <h1>Feature not implemented yet. Try again later?</h1>
+                <h1>Explore page not implemented yet. Try again later?</h1>
             </div>
         )
     }
