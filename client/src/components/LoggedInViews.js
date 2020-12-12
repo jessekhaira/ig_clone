@@ -5,16 +5,11 @@ import {UserProfile} from './UserProfile';
 import {NavBar} from './NavBar'; 
 import {connect} from 'react-redux';
 import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../redux/react-redux-maps/LoggedInReactRedux';
+import {SignIn} from './SignIn'
 
 class LoggedInViews extends React.Component{
   constructor(props) {
     super(props);
-    
-    this.state = {currEndpoint:''}; 
-  }
-
-  redirectRouter(endpoint) {
-    
   }
 
   componentDidMount() {
@@ -40,24 +35,23 @@ class LoggedInViews extends React.Component{
         <Router>
           <Route>
             <NavBar 
-            _changeInEndpoint_ReRenderViews = {this._changeInEndpoint_ReRenderViews} 
+            history = {this.props.history}
             /> 
           </Route>
               
           <Switch>
-              <Route exact path = '/:username' render = {(props) => {
-                  <UserProfile /> 
-              }}>
-              </Route>
 
-              <Route exact path = '/explore' render = {(props) => {
-                <div>
-                  <h1>ASDAS</h1>
-                </div>
-              }} /> 
+            {/* redirecting for now -- can implement explore page component later */}
+            <Route exact path = '/explore' render = {(props) => 
+              <Redirect to = {`/${this.props.current_user}`} /> 
+            } />
 
-              <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />}>
-              </Route>
+            <Route exact path = '/:username' render = {(props) => (
+              <UserProfile />
+            )} /> 
+
+            {/* redirecting for now -- can implement home page component later */}
+            <Route path = '/' render = {() => <Redirect to= {`/${this.props.current_user}`} />} />
 
           </Switch>
         </Router>

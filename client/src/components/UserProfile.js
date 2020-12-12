@@ -15,7 +15,7 @@ class UserProfile extends React.Component{
     render() {
         return(
             <div>
-
+                <h1>user profile</h1>
             </div>
         )
     }

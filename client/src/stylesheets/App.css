@@ -300,6 +300,14 @@ body, #root, html, .App {
   background-color: var(--main-bg-color);
 }
 
+#prac {
+  font-size: 52px;
+}
+
+#navbar_container {
+  height: 6%;
+}
+
 #navbar {
   display: flex;
   justify-content: center;
