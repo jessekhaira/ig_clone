@@ -2,7 +2,11 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 
-
+/**
+ * This class represents a React Component that represents the navigation
+ * bar of the application, which will be shown to the user when logged in. 
+ * @class @public 
+ */
 class NavBar extends React.Component{
     constructor(props) {
         super(props); 
