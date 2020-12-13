@@ -86,18 +86,45 @@ class NavBar extends React.Component{
                             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
                             <div id = "profile_settings">
                                 <div id = "go_to_profile_div" className = "profile_settings_options">
+                                    <div className = "profile_settings_icons">
+                                        <img className = "icons_settings" src = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"></img>
+                                    </div>
+                                    <div className = "profile_settings_descr">
+                                        <p>Profile</p>
+                                    </div>
                                 </div>
 
                                 <div id = "saved_div" className = "profile_settings_options">
+                                    <div className = "profile_settings_icons">
+                                        <img className = "icons_settings" src = "https://image.flaticon.com/icons/png/512/2956/2956783.png"></img>
+                                    </div>
+                                    <div className = "profile_settings_descr">
+                                        <p>Saved</p>
+                                    </div>
                                 </div>
 
                                 <div id = "settings_div" className = "profile_settings_options">
+                                    <div className = "profile_settings_icons">
+                                        <img className = "icons_settings" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
+                                    </div>
+                                    <div className = "profile_settings_descr">
+                                        <p>Settings</p>
+                                    </div>
                                 </div>
 
                                 <div id = "switch_accounts_div" className = "profile_settings_options">
+                                    <div className = "profile_settings_icons">
+                                        <img className = "icons_settings" src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Refresh_icon.svg/1200px-Refresh_icon.svg.png"></img>
+                                    </div>
+                                    <div className = "profile_settings_descr">
+                                        <p>Switch Accounts</p>
+                                    </div>
                                 </div>
-
+                                <hr id = "hr_settings"></hr>
                                 <div id = "log_out_div" className = "profile_settings_options">
+                                    <div className = "profile_settings_descr logout">
+                                        <p>Log Out</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

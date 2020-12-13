@@ -140,16 +140,54 @@
     #profile_settings {
         position: absolute;   
         top: 54px;
+        right: 180px;
         height: 190px;
-        width: 194px;
-        border: 1px solid;
-        position: absolute;
+        width: 16%;
+        background-color: white;
+        box-shadow: 0 0 5px 1px rgba(var(--jb7,0,0,0),.0975);
+        padding: 5px;
     }
 
     .profile_settings_options {
+        display: flex;
+        justify-content: flex-start;
         width:100%;
         height: 20%;
-        border: 1px solid; 
+        padding-left: 10px;
+        font-size: 14px;
+        cursor: pointer;
+
+        .profile_settings_icons {
+            @include flexbox-center();
+            margin-right: 12px;
+        }
+        
+        .profile_settings_descr {
+            @include flexbox-center();
+        }
+    }
+
+    .profile_settings_options:hover {
+        background-color: var(--main-bg-color);
+    }
+
+    #log_out_div {
+        .logout {
+            margin-left: 5px;
+        }
+    }
+
+    #hr_settings {
+        height: 1px;
+        margin:0;
+        border: 0;
+        width: 100%;
+        background-color: rgba(var(--b38,219,219,219),1);
+    }
+
+    .icons_settings {
+        width: 22px;
+        height: 22px;
     }
 }
 
