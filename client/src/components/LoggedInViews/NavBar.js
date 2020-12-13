@@ -14,6 +14,19 @@ class NavBar extends React.Component{
         this._logout = this._logout.bind(this); 
     }
 
+    componentDidMount() {
+        this._addWindowEventListener();
+    }
+
+    _addWindowEventListener() {
+        window.addEventListener('click', (e) => {
+            if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
+                console.log(e.target);
+                document.getElementById('profile_settings').style.display = 'none'; 
+            }
+        })
+    }
+
 
     _searchBarFocus(e) {
         e.preventDefault();  
@@ -56,6 +69,7 @@ class NavBar extends React.Component{
     }
 
     _showProfileSettings(e) {
+        e.preventDefault();
         const profile_settings = document.getElementById('profile_settings');
         profile_settings.style.display = (profile_settings.style.display === 'block' ? 'none':'block');
     }
