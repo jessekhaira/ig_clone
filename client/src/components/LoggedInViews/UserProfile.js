@@ -1,6 +1,11 @@
 import React from 'react';
 
 
+/**
+ * This class represents a React Component that renders the template for
+ * a users personal profile.  
+ * @class @public 
+ */
 class UserProfile extends React.Component{
     constructor(props) {
         super(props); 
