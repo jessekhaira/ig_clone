@@ -12,19 +12,22 @@ class NavBar extends React.Component{
         super(props); 
 
         this._logout = this._logout.bind(this); 
+        this._documentClickListener = this._documentClickListener.bind(this);
     }
 
     componentDidMount() {
-        this._addWindowEventListener();
+        document.addEventListener('click', this._documentClickListener);
     }
 
-    _addWindowEventListener() {
-        window.addEventListener('click', (e) => {
-            if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
-                console.log(e.target);
-                document.getElementById('profile_settings').style.display = 'none'; 
-            }
-        })
+    componentWillUnmount() {
+        document.removeEventListener('click', this._documentClickListener); 
+    }
+
+    _documentClickListener(e) {
+        console.log(e);
+        if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
+            document.getElementById('profile_settings').style.display = 'none'; 
+        }
     }
 
 
