@@ -1,7 +1,11 @@
 import React from 'react';
 
 
-
+/**
+ * This class represents a React Component that renders the template for
+ * a users home page. 
+ * @class @public 
+ */
 class HomePage extends React.Component{
     constructor(props) {
         super(props); 
