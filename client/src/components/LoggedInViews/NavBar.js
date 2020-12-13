@@ -24,7 +24,6 @@ class NavBar extends React.Component{
     }
 
     _documentClickListener(e) {
-        console.log(e);
         if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
             document.getElementById('profile_settings').style.display = 'none'; 
         }
@@ -126,7 +125,7 @@ class NavBar extends React.Component{
 
                                 <div id = "saved_div" className = "profile_settings_options">
                                     <div className = "profile_settings_icons">
-                                        <img className = "icons_settings" src = "https://image.flaticon.com/icons/png/512/2956/2956783.png"></img>
+                                        <img className = "icons_settings" src = "https://cdn2.iconfinder.com/data/icons/electronic-line-3/64/Bookmark_favourite_pin_saved_interface_icon-512.png"></img>
                                     </div>
                                     <div className = "profile_settings_descr">
                                         <p>Saved</p>

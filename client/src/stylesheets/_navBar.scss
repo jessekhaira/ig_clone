@@ -140,7 +140,9 @@
     }
 
 
-          
+    // the div that shows when the user clicks on their icon 
+    // positioning it properly below the user icon + 
+    // drawing a triangle ontop of the div 
 
     #profile_settings {
         position: absolute;   
@@ -188,6 +190,8 @@
     }
 
 
+
+
     .profile_settings_options {
         display: flex;
         justify-content: flex-start;
@@ -209,6 +213,7 @@
 
     .profile_settings_options:hover {
         background-color: var(--main-bg-color);
+        z-index: 50;
     }
 
     #log_out_div {

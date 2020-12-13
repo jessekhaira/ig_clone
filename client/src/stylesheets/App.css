@@ -505,6 +505,7 @@ body, #root, html, .App {
 }
 #navbar .profile_settings_options:hover {
   background-color: var(--main-bg-color);
+  z-index: 50;
 }
 #navbar #log_out_div .logout {
   margin-left: 5px;
