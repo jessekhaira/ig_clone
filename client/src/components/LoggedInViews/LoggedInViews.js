@@ -37,6 +37,8 @@ class LoggedInViews extends React.Component{
         <Router>
           <Route>
             <NavBar 
+            current_user = {this.props.current_user}
+            remove_curr_user = {this.props.remove_curr_user}
             /> 
           </Route>
               

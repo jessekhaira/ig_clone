@@ -10,6 +10,8 @@ import {withRouter} from 'react-router-dom';
 class NavBar extends React.Component{
     constructor(props) {
         super(props); 
+
+        this._logout = this._logout.bind(this); 
     }
 
 
@@ -49,6 +51,10 @@ class NavBar extends React.Component{
         inp_tag.value = ''; 
     }
 
+    _logout(e) {
+        this.props.remove_curr_user(); 
+    }
+
     render() {
         return(
             <div id = "navbar_container">
@@ -85,14 +91,16 @@ class NavBar extends React.Component{
                         <div id = "profile_icon" className = "margin_class" onClick = {this._showProfileSettings}>
                             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
                             <div id = "profile_settings">
-                                <div id = "go_to_profile_div" className = "profile_settings_options">
-                                    <div className = "profile_settings_icons">
-                                        <img className = "icons_settings" src = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"></img>
+                                <Link to = {`/${this.props.current_user}`}>
+                                    <div id = "go_to_profile_div" className = "profile_settings_options">
+                                        <div className = "profile_settings_icons">
+                                            <img className = "icons_settings" src = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"></img>
+                                        </div>
+                                        <div className = "profile_settings_descr">
+                                            <p>Profile</p>
+                                        </div>
                                     </div>
-                                    <div className = "profile_settings_descr">
-                                        <p>Profile</p>
-                                    </div>
-                                </div>
+                                </Link>
 
                                 <div id = "saved_div" className = "profile_settings_options">
                                     <div className = "profile_settings_icons">
@@ -120,8 +128,9 @@ class NavBar extends React.Component{
                                         <p>Switch Accounts</p>
                                     </div>
                                 </div>
+
                                 <hr id = "hr_settings"></hr>
-                                <div id = "log_out_div" className = "profile_settings_options">
+                                <div id = "log_out_div" className = "profile_settings_options" onClick = {this._logout}>
                                     <div className = "profile_settings_descr logout">
                                         <p>Log Out</p>
                                     </div>
