@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import {ProfileIconSettings} from './ProfileIconSettings';
+import {Notifications} from './Notifications';
 
 /**
  * This class represents a React Component that represents the navigation
@@ -98,7 +99,7 @@ class NavBar extends React.Component{
                             <i id = "explore"class="far fa-compass navbar_icons margin_class"></i>
                         </Link>
 
-                        <i id = "notifications" class="far fa-heart navbar_icons margin_class" ></i>
+                        <Notifications />
                         <ProfileIconSettings 
                             remove_curr_user = {this.props.remove_curr_user}
                             current_user = {this.props.current_user} />
