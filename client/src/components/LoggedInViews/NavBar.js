@@ -55,6 +55,11 @@ class NavBar extends React.Component{
         this.props.remove_curr_user(); 
     }
 
+    _showProfileSettings(e) {
+        const profile_settings = document.getElementById('profile_settings');
+        profile_settings.style.display = (profile_settings.style.display === 'block' ? 'none':'block');
+    }
+
     render() {
         return(
             <div id = "navbar_container">
