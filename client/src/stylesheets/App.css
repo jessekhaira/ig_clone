@@ -9,6 +9,7 @@
   --border-color: #dbdbdb;
   --darker-border-color: #c2bdbd;
   --darker-border-color: #a7a6a6;
+  --jb7: 0,0,0;
 }
 
 body, #root, html, .App {
@@ -319,6 +320,7 @@ body, #root, html, .App {
   justify-content: space-evenly;
   border: 1px solid var(--border-color);
   background-color: white;
+  z-index: 5;
 }
 #navbar a {
   text-decoration: none;
@@ -439,13 +441,45 @@ body, #root, html, .App {
 }
 #navbar #profile_settings {
   position: absolute;
-  top: 54px;
+  top: 55px;
   right: 180px;
   height: 190px;
   width: 16%;
   background-color: white;
-  box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), 0.0975);
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.4);
   padding: 5px;
+}
+#navbar #profile_settings::after {
+  z-index: -10;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 0px;
+  margin-left: 0;
+  bottom: 0;
+  left: 186px;
+  top: -9px;
+  box-sizing: border-box;
+  border: 12px solid #fff;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.4);
+}
+#navbar #profile_settings::before {
+  z-index: 20;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0px;
+  margin-left: 0;
+  bottom: 0;
+  left: 186px;
+  top: -9px;
+  box-sizing: border-box;
+  border: 12px solid black;
+  border-color: white;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
 }
 #navbar .profile_settings_options {
   display: flex;
