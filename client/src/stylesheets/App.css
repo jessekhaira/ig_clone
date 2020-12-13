@@ -445,6 +445,11 @@ body, #root, html, .App {
   border: 1px solid;
   position: absolute;
 }
+#navbar .profile_settings_options {
+  width: 100%;
+  height: 20%;
+  border: 1px solid;
+}
 
 #explore_div {
   display: flex;

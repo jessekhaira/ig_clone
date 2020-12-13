@@ -85,19 +85,19 @@ class NavBar extends React.Component{
                         <div id = "profile_icon" className = "margin_class" onClick = {this._showProfileSettings}>
                             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
                             <div id = "profile_settings">
-                                <div id = "go_to_profile_div">
+                                <div id = "go_to_profile_div" className = "profile_settings_options">
                                 </div>
 
-                                <div id = "saved_div">
+                                <div id = "saved_div" className = "profile_settings_options">
                                 </div>
 
-                                <div id = "settings_div">
+                                <div id = "settings_div" className = "profile_settings_options">
                                 </div>
 
-                                <div id = "switch_accounts_div">
+                                <div id = "switch_accounts_div" className = "profile_settings_options">
                                 </div>
 
-                                <div id = "log_out_div">
+                                <div id = "log_out_div" className = "profile_settings_options">
                                 </div>
                             </div>
                         </div>
