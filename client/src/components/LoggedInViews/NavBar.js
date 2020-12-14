@@ -13,18 +13,104 @@ class NavBar extends React.Component{
     constructor(props) {
         super(props); 
         this._documentClickListener = this._documentClickListener.bind(this);
+        this._setLocalStorageHighlight = this._setLocalStorageHighlight.bind(this); 
+
+        this.mapping_for_highlightingIcons = {
+            profile_settings: 'profile_img',
+            link_home: 'home_icon',
+            link_home_igname: 'home_icon',
+            link_dm: 'dm_icon',
+            link_explore: 'explore',
+            notifications_div: 'notifications_icon'
+        }; 
     }
 
     componentDidMount() {
         document.getElementById('profile_settings').style.display = 'none'; 
         document.addEventListener('click', this._documentClickListener);
-
-        console.log(this.props); 
+        this._setHighlightOnMount();
     }
 
     componentWillUnmount() {
         document.removeEventListener('click', this._documentClickListener); 
     }
+
+    _setLocalStorageHighlight(e) {
+        // just all the conditions for the tags that we want to highlight 
+        console.log(e.target); 
+        let new_highlight = null; 
+        const target_id = e.target.id; 
+        if (target_id in this.mapping_for_highlightingIcons) {
+            new_highlight = this.mapping_for_highlightingIcons[target_id]; 
+        }
+        else {
+            new_highlight = target_id; 
+        }
+        // edge case for notifications icon which should truly toggle when clicked twice
+        this._unhighlightIcon(localStorage.getItem('curr_highlight_icon'));
+        if (new_highlight === 'notifications_icon' && 'notifications_icon' === localStorage.getItem('curr_highlight_icon')) {
+            localStorage.removeItem('curr_highlight_icon');
+            return; 
+        }
+        localStorage.setItem('curr_highlight_icon', new_highlight);
+        this._highlightIcon(new_highlight); 
+    }
+
+
+    _setHighlightOnMount() {
+        const currHighlighted = localStorage.getItem('curr_highlight_icon');
+        // null means first time component is being mounted, not on a refresh or 
+        // anything so we set our profile icon to be highlighted since thats the first
+        // logged in view users see 
+        if (currHighlighted === null) {
+            localStorage.setItem('curr_highlight_icon', 'profile_img'); 
+            const profile_icon = document.getElementById('profile_img');
+            profile_icon.style.border = '1px solid';
+        }
+        else {
+            this._highlightIcon(localStorage.getItem('curr_highlight_icon'));
+        }
+    }
+
+    _highlightIcon(item) {
+        switch(item) {
+            case 'profile_img':
+            case 'dm_icon':
+                document.getElementById(item).style.border = '1px solid';
+                break;
+            case 'home_icon':
+                document.getElementById(item).style.webkitTextFillColor = 'black'; 
+                break; 
+            case 'explore':
+                document.getElementById(item).style.webkitTextStrokeColor = 'black'; 
+                break;
+            case 'notifications_icon':
+                document.getElementById(item).classList.toggle('fas');
+                break
+            default:
+                return 
+        }
+    } 
+    _unhighlightIcon(item) {
+        switch(item) {
+            case 'profile_img':
+            case 'dm_icon':
+                document.getElementById(item).style.border = 'none';
+                break;
+            case 'home_icon':
+                document.getElementById(item).style.webkitTextFillColor = 'white';
+                break 
+            case 'explore':
+                document.getElementById(item).style.webkitTextStrokeColor = 'white'; 
+                break;
+            case 'notifications_icon':
+                document.getElementById(item).classList.toggle('fas');
+                break
+            default:
+                return 
+        }
+    }
+
 
     _documentClickListener(e) {
         if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
@@ -70,13 +156,15 @@ class NavBar extends React.Component{
         inp_tag.value = ''; 
     }
 
+
+
     render() {
         return(
             <div id = "navbar_container">
                 <nav id = "navbar">
-                    <Link to = '/'>
+                    <Link id = "link_home_igname" to = '/' onClick = {this._setLocalStorageHighlight}>
                         <div id = "ig_name">
-                            <h1 className = "instagram_name">Instagram Clone</h1>
+                            <h1 id = "link_home_igname" className = "instagram_name">Instagram Clone</h1>
                         </div>
                     </Link>
                     
@@ -90,28 +178,34 @@ class NavBar extends React.Component{
                     </div>
 
                     <div id = "navbar_options">
-                        <Link to = "/">
+                        <Link to = "/" id ="link_home" onClick = {this._setLocalStorageHighlight}>
                             <i id = "home_icon" className="fas fa-home navbar_icons margin_class"></i>
                         </Link>
 
-                        <Link to = "/direct/inbox/">
+                        <Link to = "/direct/inbox/" id = "link_dm" onClick = {this._setLocalStorageHighlight}>
                             <img id = "dm_icon" className = "options_imgs margin_class" src = "https://static.thenounproject.com/png/3084968-200.png"></img>
                         </Link>
                        
-                        <Link to = "/explore">
-                            <i id = "explore"class="far fa-compass navbar_icons margin_class"></i>
+                        <Link id = "link_explore" to = "/explore" onClick = {this._setLocalStorageHighlight}>
+                            <i id = "explore" class="far fa-compass navbar_icons margin_class"></i>
                         </Link>
 
-                        <Notifications />
+                        <Notifications 
+                            _setLocalStorageHighlight = {this._setLocalStorageHighlight}
+                        />
                         <ProfileIconSettings 
                             remove_curr_user = {this.props.remove_curr_user}
-                            current_user = {this.props.current_user} />
+                            current_user = {this.props.current_user} 
+                            _setLocalStorageHighlight = {this._setLocalStorageHighlight}
+                            />
                     </div>
                 </nav>
             </div>
         )
     }
 }
+
+
 
 const navbar_withrouter = withRouter(NavBar); 
 

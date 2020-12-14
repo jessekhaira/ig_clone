@@ -7,13 +7,14 @@ function ProfileIconSettings(props) {
     }
 
     function _showProfileSettings(e) {
+        props._setLocalStorageHighlight(e); 
         e.preventDefault();
         const profile_settings = document.getElementById('profile_settings');
         const bubble = document.getElementsByClassName('top_triangle')[0];
         bubble.style.display = bubble.style.display === 'block' ? 'none': 'block'; 
         profile_settings.style.display = (profile_settings.style.display === 'block' ? 'none':'block');
     }
-    
+
     return(
         <div id = "profile_icon" className = "margin_class" onClick = {_showProfileSettings}>
             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>

@@ -416,11 +416,20 @@ body, #root, html, .App {
   height: 30px;
   cursor: pointer;
 }
+#navbar #navbar_options #explore {
+  -webkit-text-stroke-width: 0.6px;
+  -webkit-text-stroke-color: white;
+}
 #navbar #navbar_options #dm_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
   position: relative;
-  top: 3px;
   width: 22px;
   height: 22px;
+  padding: 2px;
+  border-radius: 40%;
 }
 #navbar #navbar_options .margin_class {
   margin: 0px 12px 0px 12px;
@@ -430,10 +439,11 @@ body, #root, html, .App {
   cursor: pointer;
 }
 #navbar #navbar_options #home_icon {
-  color: white;
+  box-sizing: content-box;
   -webkit-text-fill-color: white;
-  -webkit-text-stroke-width: 0.7px;
+  -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: black;
+  border-radius: 40%;
 }
 #navbar #navbar_options #profile_icon {
   position: relative;
@@ -520,7 +530,8 @@ body, #root, html, .App {
   height: 22px;
 }
 #navbar #notifications_icon {
-  color: black;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
 }
 #navbar #notifications_div {
   position: relative;
