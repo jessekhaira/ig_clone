@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import {ProfileIconSettings} from './ProfileIconSettings';
 import {Notifications} from './Notifications';
@@ -17,6 +17,7 @@ class NavBar extends React.Component{
 
         this.mapping_for_highlightingIcons = {
             profile_settings: 'profile_img',
+            profile_icon: 'profile_img', 
             link_home: 'home_icon',
             link_home_igname: 'home_icon',
             link_dm: 'dm_icon',
@@ -94,12 +95,8 @@ class NavBar extends React.Component{
     _unhighlightIcon(item) {
         switch(item) {
             case 'profile_img':
-            case 'dm_icon':
                 document.getElementById(item).style.border = 'none';
                 break;
-            case 'home_icon':
-                document.getElementById(item).style.webkitTextFillColor = 'white';
-                break 
             case 'explore':
                 document.getElementById(item).style.webkitTextStrokeColor = 'white'; 
                 break;
@@ -162,7 +159,7 @@ class NavBar extends React.Component{
         return(
             <div id = "navbar_container">
                 <nav id = "navbar">
-                    <Link id = "link_home_igname" to = '/' onClick = {this._setLocalStorageHighlight}>
+                    <Link id = "link_home_igname" to = '/'>
                         <div id = "ig_name">
                             <h1 id = "link_home_igname" className = "instagram_name">Instagram Clone</h1>
                         </div>
@@ -178,17 +175,12 @@ class NavBar extends React.Component{
                     </div>
 
                     <div id = "navbar_options">
-                        <Link to = "/" id ="link_home" onClick = {this._setLocalStorageHighlight}>
-                            <i id = "home_icon" className="fas fa-home navbar_icons margin_class"></i>
-                        </Link>
-
-                        <Link to = "/direct/inbox/" id = "link_dm" onClick = {this._setLocalStorageHighlight}>
-                            <img id = "dm_icon" className = "options_imgs margin_class" src = "https://static.thenounproject.com/png/3084968-200.png"></img>
-                        </Link>
-                       
-                        <Link id = "link_explore" to = "/explore" onClick = {this._setLocalStorageHighlight}>
-                            <i id = "explore" class="far fa-compass navbar_icons margin_class"></i>
-                        </Link>
+                        <NavLink exact to = "/" id ="home_icon" activeClassName = "home_icon_active" className = "fas fa-home navbar_icons margin_class" 
+                        />
+                        <NavLink to = "/direct/inbox/" id = "dm_icon" className ="options_imgs margin_class far fa-paper-plane" activeClassName = "fas fa-paper-plane"
+                        />                       
+                        <NavLink id = "explore" to = "/explore"  className = "far fa-compass navbar_icons margin_class" activeClassName = "explore_active"
+                        />
 
                         <Notifications 
                             _setLocalStorageHighlight = {this._setLocalStorageHighlight}
