@@ -62,7 +62,10 @@ class AuthorizationContainer extends React.Component{
                       /> 
                 </Route>
 
-                <Route path = '/' render = {() =><Redirect to = '/accounts/login' />} />
+                <Route path = '/' render = {() =>
+                  <Redirect to = '/accounts/login' />
+                  } /> 
+                
             </Switch>
         </Router>
       </div>

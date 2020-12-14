@@ -18,6 +18,8 @@ class NavBar extends React.Component{
     componentDidMount() {
         document.getElementById('profile_settings').style.display = 'none'; 
         document.addEventListener('click', this._documentClickListener);
+
+        console.log(this.props); 
     }
 
     componentWillUnmount() {
