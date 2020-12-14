@@ -142,6 +142,7 @@
         #profile_img {
             position: relative;
             border: 1px solid;
+            border-color: white;
             border-radius: 60%;
             padding: 3px;
             margin-bottom: 0px;
@@ -158,12 +159,13 @@
             height: 190px;
             width: 210px;
             background-color: white;
-            box-shadow: 0px 9px 12px -4px rgba(0,0,0,0.4);
+            box-shadow: 0px 9px 12px -9px rgba(0,0,0,0.4);
             padding: 5px;
             overflow: hidden;
         }
 
         .top_triangle {
+            display: none;
             position: absolute;
             width: 25px;
             height: 12px;
@@ -236,8 +238,27 @@
         height: 22px;
     }
 
-    #notifications {
+    // notifactions section
+    #notifications_icon {
         color: black;
     }
+
+    #notifications_div {
+        position: relative;
+    }
+
+    #notifications_holder {
+        border-radius: 5px;
+        position: absolute;
+        top: 38px;
+        height: 100px;
+        width: 500px;
+        right: -55px;
+        background-color: white;
+        box-shadow: 0px 9px 12px -9px rgba(0,0,0,0.4);
+
+    }
+
+
 }
 

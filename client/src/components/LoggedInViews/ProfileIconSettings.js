@@ -9,6 +9,8 @@ function ProfileIconSettings(props) {
     function _showProfileSettings(e) {
         e.preventDefault();
         const profile_settings = document.getElementById('profile_settings');
+        const bubble = document.getElementsByClassName('top_triangle')[0];
+        bubble.style.display = bubble.style.display === 'block' ? 'none': 'block'; 
         profile_settings.style.display = (profile_settings.style.display === 'block' ? 'none':'block');
     }
     

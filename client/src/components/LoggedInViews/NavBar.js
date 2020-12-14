@@ -27,6 +27,7 @@ class NavBar extends React.Component{
     _documentClickListener(e) {
         if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
             document.getElementById('profile_settings').style.display = 'none'; 
+            document.getElementsByClassName('top_triangle')[0].style.display = 'none';
         }
     }
 
