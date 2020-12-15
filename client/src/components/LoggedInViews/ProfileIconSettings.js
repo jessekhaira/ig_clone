@@ -7,7 +7,6 @@ function ProfileIconSettings(props) {
     }
 
     function _showProfileSettings(e) {
-        props._setLocalStorageHighlight(e); 
         e.preventDefault();
         const profile_settings = document.getElementById('profile_settings');
         const bubble = document.getElementsByClassName('top_triangle')[0];
