@@ -33,6 +33,7 @@ class NavBar extends React.Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
+            console.log('here');
             this._unHighlightIconBasedOnRoute(prevProps.location.pathname); 
             this._highlightIconBasedOnRoute(this.props.location.pathname); 
         }
@@ -43,24 +44,13 @@ class NavBar extends React.Component{
         // just doing the event handling for filling in the heart icon here 
         // have to be able to turn off the heart icon when user clicks anywhere off the heart
         // so it makes sense to do it here 
+        const notif_icon = document.getElementById('notifications_icon');
+        const profile_img = document.getElementById('profile_img');
         if (e.target.id === 'notifications_div' || e.target.id === 'notifications_icon') {
             this._turnOnNotificationsLight(); 
         }
-        else if (e.target.id !== 'notifications_div' || e.target.id !== 'notifications_icon') {
-            this._turnOffNotificationsLight(); 
-        }
-
-        // have to also handle the user profile component as well here
-        // circle user profile and uncircle it as user clicks from any place on the navbar
-        // making sure to leave it circled if the user is currently viewing their profile 
-        if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
-            console.log('asdasd');
+        else if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
-        }
-        else if (e.target.id !== 'profile_icon' || e.target.id !== 'profile_img' ) {
-            document.getElementById('profile_settings').style.display = 'none'; 
-            document.getElementsByClassName('top_triangle')[0].style.display = 'none';
-            this._turnOffProfileLight();
         }
     }
 
@@ -68,7 +58,7 @@ class NavBar extends React.Component{
         switch (endpoint) {
             case '/explore':
                 document.getElementById('explore').classList.add('fas');
-                break;
+                break
             case '/direct/inbox/':
                 document.getElementById('dm_icon').classList.add('fas');
                 break
@@ -125,6 +115,10 @@ class NavBar extends React.Component{
     }
 
     _turnOnProfileLight() {
+        const already_turned_on = document.getElementById('profile_img').style.border === '1px solid';
+        if (already_turned_on) {
+            return this._turnOffProfileLight(); 
+        }
         document.getElementById('profile_img').style.border = '1px solid'; 
         if (this._routesNotForUserProfile(this.props.location.pathname))  {
             this._unHighlightIconBasedOnRoute(this.props.location.pathname); 

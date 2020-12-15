@@ -102,21 +102,9 @@
         padding-right: 8px;
         height: 100%;
 
-        #profile_img {
-            position: relative;
-            top: 3px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-
         #explore {
             -webkit-text-stroke-width: 0.6px;
             -webkit-text-stroke-color: white;
-        }
-
-        .explore_active {
-            -webkit-text-stroke-color: black !important;
         }
 
         #dm_icon {
@@ -154,12 +142,16 @@
         }
 
         #profile_img {
+            @include flexbox-center();
             position: relative;
-            border: 1px solid;
-            border-color: white;
             border-radius: 60%;
             padding: 3px;
             margin-bottom: 0px;
+            box-sizing: content-box;
+            width: 22px;
+            height: 22px;
+            right: 5px;
+            cursor: pointer;
         }
 
         // the div that shows when the user clicks on their icon 
