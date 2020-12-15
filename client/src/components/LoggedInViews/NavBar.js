@@ -23,7 +23,6 @@ class NavBar extends React.Component{
     componentDidMount() {
         document.getElementById('profile_settings').style.display = 'none'; 
         document.addEventListener('click', this._documentClickListener);
-        console.log(this.props.location.pathname); 
         this._highlightIconBasedOnRoute(this.props.location.pathname);
     }
 
@@ -33,7 +32,6 @@ class NavBar extends React.Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-            console.log('here');
             this._unHighlightIconBasedOnRoute(prevProps.location.pathname); 
             this._highlightIconBasedOnRoute(this.props.location.pathname); 
         }
@@ -41,16 +39,31 @@ class NavBar extends React.Component{
 
 
     _documentClickListener(e) {
-        // just doing the event handling for filling in the heart icon here 
-        // have to be able to turn off the heart icon when user clicks anywhere off the heart
-        // so it makes sense to do it here 
+        const prof_settings = document.getElementById('profile_settings');
+        const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
         const notif_icon = document.getElementById('notifications_icon');
-        const profile_img = document.getElementById('profile_img');
-        if (e.target.id === 'notifications_div' || e.target.id === 'notifications_icon') {
-            this._turnOnNotificationsLight(); 
-        }
-        else if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
+        const profile_img = document.getElementById('profile_img');  
+        // event handlign for filling in the notifications heart and the profile img here
+        if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
+        }
+        else if (e.target.id === 'notifications_div' || e.target.id === 'notifications_icon') {
+            this._turnOnNotificationsLight(e); 
+        }
+        else {
+            // just turn off the profile settings dropdown + the notifications drop down if we click on 
+            // a part of the page that isn't the notifications or profile icon. If user wants them displayed
+            // can just click directly on the icons, but if we click anywhere outside, they are hidden
+            // and we go back to lighting up the current route 
+            prof_settings.style.display = 'none';
+            prof_triangle.style.display = 'none';  
+            if (notif_icon.classList.contains('fas')) {
+                this._turnOffNotificationsLight();
+            }
+            if (profile_img.style.border === '1px solid') {
+                this._turnOffProfileLight(); 
+            }  
+
         }
     }
 
@@ -86,9 +99,10 @@ class NavBar extends React.Component{
         }
     }
 
-    _turnOnNotificationsLight() {
+    _turnOnNotificationsLight(e) {
         const notif_icon = document.getElementById('notifications_icon');
         const already_turned_on = notif_icon.classList.contains('fas');
+
         // already turned on is same logic as turn off notif light 
         if (already_turned_on) {
             return this._turnOffNotificationsLight(); 
@@ -96,6 +110,16 @@ class NavBar extends React.Component{
         document.getElementById('notifications_icon').classList.add('fas'); 
         const endpoint = this.props.location.pathname;
         this._unHighlightIconBasedOnRoute(endpoint);
+
+        // turn OFF the profile settings if we open the notifications drop down 
+        // only one can be active at any time 
+        const prof_settings = document.getElementById('profile_settings');
+        const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
+        prof_settings.style.display = 'none';
+        prof_triangle.style.display = 'none'; 
+        // turn off the profile img only if we aren't currently on the user route
+        if (this._routesNotForUserProfile(endpoint))
+            document.getElementById('profile_img').style.border = 'none'; 
     }
 
     _turnOffNotificationsLight() {
@@ -105,16 +129,20 @@ class NavBar extends React.Component{
         // if its already turned on and we click it again, then we turn it off
         // and 
         const already_turned_on = notif_icon.classList.contains('fas');
-        // notif is already off, no need to do anything 
-        if (!already_turned_on) {
-            return; 
-        }
         notif_icon.classList.remove('fas');
         const endpoint = this.props.location.pathname;
         this._highlightIconBasedOnRoute(endpoint); 
     }
 
     _turnOnProfileLight() {
+        // turn OFF the notification settings if we open profile settings 
+        // only one can be active at any time 
+        const prof_settings = document.getElementById('profile_settings');
+        const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
+        document.getElementById('notifications_icon').classList.remove('fas'); 
+        prof_settings.style.display = (prof_settings.style.display === 'block'? 'none':'block');
+        prof_triangle.style.display = (prof_triangle.style.display === 'block' ? 'none': 'block'); 
+
         const already_turned_on = document.getElementById('profile_img').style.border === '1px solid';
         if (already_turned_on) {
             return this._turnOffProfileLight(); 
