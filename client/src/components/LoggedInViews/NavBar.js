@@ -16,13 +16,15 @@ class NavBar extends React.Component{
         this._documentClickListener = this._documentClickListener.bind(this);
         this._turnOnNotificationsLight = this._turnOnNotificationsLight.bind(this); 
         this._turnOffNotificationsLight = this._turnOffNotificationsLight.bind(this); 
+        this._turnOnProfileLight = this._turnOnProfileLight.bind(this);
+        this._turnOffProfileLight = this._turnOffProfileLight.bind(this); 
     }
 
     componentDidMount() {
         document.getElementById('profile_settings').style.display = 'none'; 
         document.addEventListener('click', this._documentClickListener);
         console.log(this.props.location.pathname); 
-        this._highlightIcon(this.props.location.pathname);
+        this._highlightIconBasedOnRoute(this.props.location.pathname);
     }
 
     componentWillUnmount() {
@@ -31,21 +33,13 @@ class NavBar extends React.Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-            const new_endpoint = this.props.location.pathname;
-            const old_endpoint = prevProps.location.pathname; 
-            this._unHighlightIcon(old_endpoint); 
-            this._highlightIcon(new_endpoint); 
-
+            this._unHighlightIconBasedOnRoute(prevProps.location.pathname); 
+            this._highlightIconBasedOnRoute(this.props.location.pathname); 
         }
     }
 
 
     _documentClickListener(e) {
-        console.log(e.target); 
-        if (e.target.id !== 'profile_icon' && e.target.id !== 'profile_img' ) {
-            document.getElementById('profile_settings').style.display = 'none'; 
-            document.getElementsByClassName('top_triangle')[0].style.display = 'none';
-        }
         // just doing the event handling for filling in the heart icon here 
         // have to be able to turn off the heart icon when user clicks anywhere off the heart
         // so it makes sense to do it here 
@@ -57,13 +51,20 @@ class NavBar extends React.Component{
         }
 
         // have to also handle the user profile component as well here
-        // circle user profile and uncircle it as user clicks 
-        if (e.target.id === 'profile_img' || e.target.id === 'profile_icon') {
-
+        // circle user profile and uncircle it as user clicks from any place on the navbar
+        // making sure to leave it circled if the user is currently viewing their profile 
+        if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
+            console.log('asdasd');
+            this._turnOnProfileLight();
+        }
+        else if (e.target.id !== 'profile_icon' || e.target.id !== 'profile_img' ) {
+            document.getElementById('profile_settings').style.display = 'none'; 
+            document.getElementsByClassName('top_triangle')[0].style.display = 'none';
+            this._turnOffProfileLight();
         }
     }
 
-    _highlightIcon(endpoint) {
+    _highlightIconBasedOnRoute(endpoint) {
         switch (endpoint) {
             case '/explore':
                 document.getElementById('explore').classList.add('fas');
@@ -75,12 +76,11 @@ class NavBar extends React.Component{
                 document.getElementById('home_icon').classList.add('home_icon_active');
                 break
             default: 
-                console.log('x');
                 document.getElementById('profile_img').style.border = '1px solid';
         }
     }
 
-    _unHighlightIcon(endpoint) {
+    _unHighlightIconBasedOnRoute(endpoint) {
         switch (endpoint) {
             case '/explore':
                 document.getElementById('explore').classList.remove('fas');
@@ -96,7 +96,7 @@ class NavBar extends React.Component{
         }
     }
 
-    _turnOnNotificationsLight(off = false) {
+    _turnOnNotificationsLight() {
         const notif_icon = document.getElementById('notifications_icon');
         const already_turned_on = notif_icon.classList.contains('fas');
         // already turned on is same logic as turn off notif light 
@@ -105,7 +105,7 @@ class NavBar extends React.Component{
         }
         document.getElementById('notifications_icon').classList.add('fas'); 
         const endpoint = this.props.location.pathname;
-        this._unHighlightIcon(endpoint);
+        this._unHighlightIconBasedOnRoute(endpoint);
     }
 
     _turnOffNotificationsLight() {
@@ -116,13 +116,38 @@ class NavBar extends React.Component{
         // and 
         const already_turned_on = notif_icon.classList.contains('fas');
         // notif is already off, no need to do anything 
-        console.log(already_turned_on); 
         if (!already_turned_on) {
             return; 
         }
         notif_icon.classList.remove('fas');
         const endpoint = this.props.location.pathname;
-        this._highlightIcon(endpoint); 
+        this._highlightIconBasedOnRoute(endpoint); 
+    }
+
+    _turnOnProfileLight() {
+        document.getElementById('profile_img').style.border = '1px solid'; 
+        if (this._routesNotForUserProfile(this.props.location.pathname))  {
+            this._unHighlightIconBasedOnRoute(this.props.location.pathname); 
+        }       
+    }
+    
+    _turnOffProfileLight() {
+        // you turn off the profile light if you aren't currently on /:username endpoint 
+        if (this._routesNotForUserProfile(this.props.location.pathname)) {
+            document.getElementById('profile_img').style.border = 'none'; 
+            this._highlightIconBasedOnRoute(this.props.location.pathname);
+        }                
+    }
+
+    _routesNotForUserProfile(location) {
+        if (
+            location === '/' ||
+            location === '/direct/inbox/' ||
+            location === '/explore'
+        ) {
+            return true;
+        }
+        return false; 
     }
 
 
@@ -208,6 +233,8 @@ class NavBar extends React.Component{
         )
     }
 }
+
+
 
 
 
