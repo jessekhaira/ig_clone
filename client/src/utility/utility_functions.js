@@ -26,3 +26,15 @@ export function displayErrorInHTMLElement(err_msg, err_node, display) {
     err_node.innerHTML = err_msg; 
     err_node.style.display = display; 
 }
+
+export function _toggleDisplays(display, ...args) {
+    for (let elem of args) {
+        elem.style.display = (elem.style.display === display ? 'none': display);
+    }
+}
+
+export function _setDisplayNone(...args) {
+    for (let elem of args) {
+        elem.style.display = 'none'; 
+    }
+}

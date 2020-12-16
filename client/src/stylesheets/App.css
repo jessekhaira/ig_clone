@@ -305,6 +305,27 @@ body, #root, html, .App {
   font-size: 52px;
 }
 
+#explore_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#home_page_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#DMInbox_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 #profile_icon {
   position: relative;
   cursor: pointer;
@@ -337,7 +358,6 @@ body, #root, html, .App {
 }
 
 .top_triangle {
-  display: none;
   position: absolute;
   width: 25px;
   height: 12px;
@@ -499,6 +519,12 @@ body, #root, html, .App {
   box-shadow: 0px 9px 12px -9px rgba(0, 0, 0, 0.4);
 }
 
+.notif_triangle {
+  position: absolute;
+  top: 26px;
+  left: 8px;
+}
+
 #navbar_container {
   height: 6%;
 }
@@ -560,27 +586,6 @@ body, #root, html, .App {
 }
 #navbar #navbar_options .home_icon_active {
   -webkit-text-fill-color: black !important;
-}
-
-#explore_div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-#home_page_div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-#DMInbox_div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 
 /*# sourceMappingURL=App.css.map */

@@ -3,7 +3,8 @@ import {Link, NavLink} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import {ProfileIconSettings} from './ProfileIconSettings';
 import {Notifications} from './Notifications';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions';
 
 /**
  * This class represents a React Component that represents the navigation
@@ -43,6 +44,8 @@ class NavBar extends React.Component{
         const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
         const notif_icon = document.getElementById('notifications_icon');
         const profile_img = document.getElementById('profile_img');  
+        const notif_dropdown = document.getElementById('notifications_holder');
+        const notif_triangle = document.getElementsByClassName('notif_triangle')[0]; 
         // event handlign for filling in the notifications heart and the profile img here
         if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
@@ -55,8 +58,7 @@ class NavBar extends React.Component{
             // a part of the page that isn't the notifications or profile icon. If user wants them displayed
             // can just click directly on the icons, but if we click anywhere outside, they are hidden
             // and we go back to lighting up the current route 
-            prof_settings.style.display = 'none';
-            prof_triangle.style.display = 'none';  
+            _setDisplayNone(prof_settings, prof_triangle, notif_dropdown, notif_triangle);
             if (notif_icon.classList.contains('fas')) {
                 this._turnOffNotificationsLight();
             }
@@ -101,22 +103,24 @@ class NavBar extends React.Component{
 
     _turnOnNotificationsLight(e) {
         const notif_icon = document.getElementById('notifications_icon');
-        const already_turned_on = notif_icon.classList.contains('fas');
+        const already_turned_on = notif_icon.classList.contains('fas');      
 
-        // already turned on is same logic as turn off notif light 
+        // turn OFF the profile settings if we open the notifications drop down 
+        // only one can be active at any time, and toggle the notification displays 
+        _toggleDisplays('block',  document.getElementById('notifications_holder'), 
+            document.getElementsByClassName('notif_triangle')[0]);
+
+        _setDisplayNone(document.getElementById('profile_settings'),  
+        document.getElementsByClassName('profile_triangle')[0]); 
+
+    
         if (already_turned_on) {
             return this._turnOffNotificationsLight(); 
         }
-        document.getElementById('notifications_icon').classList.add('fas'); 
+
+        notif_icon.classList.add('fas'); 
         const endpoint = this.props.location.pathname;
         this._unHighlightIconBasedOnRoute(endpoint);
-
-        // turn OFF the profile settings if we open the notifications drop down 
-        // only one can be active at any time 
-        const prof_settings = document.getElementById('profile_settings');
-        const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
-        prof_settings.style.display = 'none';
-        prof_triangle.style.display = 'none'; 
         // turn off the profile img only if we aren't currently on the user route
         if (this._routesNotForUserProfile(endpoint))
             document.getElementById('profile_img').style.border = 'none'; 
@@ -137,11 +141,14 @@ class NavBar extends React.Component{
     _turnOnProfileLight() {
         // turn OFF the notification settings if we open profile settings 
         // only one can be active at any time 
-        const prof_settings = document.getElementById('profile_settings');
-        const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
         document.getElementById('notifications_icon').classList.remove('fas'); 
-        prof_settings.style.display = (prof_settings.style.display === 'block'? 'none':'block');
-        prof_triangle.style.display = (prof_triangle.style.display === 'block' ? 'none': 'block'); 
+
+        // toggle the profile settings dropdown, and explicitly set display none for notifications
+        // dropdowns 
+        _toggleDisplays('block', document.getElementById('profile_settings'), 
+            document.getElementsByClassName('profile_triangle')[0]); 
+        _setDisplayNone(document.getElementById('notifications_holder'), 
+            document.getElementsByClassName('notif_triangle')[0]);
 
         const already_turned_on = document.getElementById('profile_img').style.border === '1px solid';
         if (already_turned_on) {
