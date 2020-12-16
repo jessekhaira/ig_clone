@@ -518,14 +518,15 @@ body, #root, html, .App {
 #notifications_holder {
   border-radius: 5px;
   position: absolute;
+  margin: 0px;
   top: 38px;
   min-height: 100px;
   max-height: 200px;
-  width: 500px;
+  width: 560px;
   right: -55px;
   background-color: white;
   box-shadow: 0px 9px 12px -9px rgba(0, 0, 0, 0.4);
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #follow_requests {
@@ -535,8 +536,12 @@ body, #root, html, .App {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   justify-content: space-between;
   height: 55%;
+  width: 100%;
   position: relative;
   margin-bottom: 15px;
+  margin-right: 0px;
+  padding: 0px;
+  border-right: none;
 }
 #follow_requests #follow_req_info_container {
   display: flex;
@@ -570,20 +575,64 @@ body, #root, html, .App {
 }
 
 #notificationDiv .notification {
-  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  justify-content: space-between;
   height: 50px;
   margin-bottom: 0px;
+  width: 100%;
+}
+#notificationDiv .notif_profile_img {
+  margin-left: 15px;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}
+#notificationDiv .notif_username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+#notificationDiv .notif_username_div {
+  margin-right: 3px;
+  margin-left: 8px;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#notificationDiv .notif_descr {
+  display: inline;
+  margin-right: 7px;
 }
 #notificationDiv .notification_hr {
   margin: 0px;
+  width: 100%;
+  border: none;
+  height: 0.1px;
+  background-color: #d8d8d8;
+}
+#notificationDiv .notif_time_elapsed {
+  color: #929191;
+}
+#notificationDiv .photo_notif_targets {
+  width: 33px;
+  height: 33px;
+  margin-right: 6px;
+}
+#notificationDiv .userInformation_notif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .side_triangle {
   position: relative;
   transform-origin: right;
-  left: 10px;
+  left: -5px;
   top: 9px;
-  width: 55px;
+  width: 24px;
   height: 25px;
   overflow: hidden;
 }

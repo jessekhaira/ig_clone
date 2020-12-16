@@ -17,14 +17,16 @@
 #notifications_holder {
     border-radius: 5px;
     position: absolute;
+    margin: 0px;
     top: 38px;
     min-height: 100px;
     max-height: 200px;
-    width: 500px;
+    width: 560px;
     right: -55px;
     background-color: white;
     box-shadow: 0px 9px 12px -9px rgba(0,0,0,0.4);
-    overflow: auto;
+    overflow-y: auto;
+    // overflow-x: hidden;
 }
 
 #follow_requests {
@@ -32,13 +34,16 @@
     @include system-fonts();
     justify-content: space-between;
     height: 55%;
+    width: 100%;
     position: relative;
     margin-bottom: 15px;
+    margin-right: 0px;
+    padding: 0px;
+    border-right: none;
     #follow_req_info_container {
         @include flexbox-center();
         position: relative;
         top: 6px;
-        // border: 1px solid;
         
     }
     #num_follow_req {
@@ -68,21 +73,70 @@
 
 #notificationDiv {
     .notification {
-        border: 1px solid;
+        @include flexbox-center();
+        font-size: 14px;
+        justify-content: space-between;
         height: 50px;
         margin-bottom: 0px;
+        width: 100%;
     }
+
+
+    .notif_profile_img {
+        margin-left: 15px;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+    }
+    
+    .notif_username {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: bold;
+    }
+
+    .notif_username_div {
+        margin-right: 3px;
+        margin-left: 8px;
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .notif_descr {
+        display: inline;
+        margin-right: 7px;
+    }
+
+ 
     .notification_hr {
         margin: 0px;
+        width: 100%;
+        border: none;
+        height: 0.1px;
+        background-color: rgb(216, 216, 216);
+    }
+
+    .notif_time_elapsed {
+        color: rgb(146, 145, 145);
+    }
+
+    .photo_notif_targets {
+        width: 33px;
+        height: 33px;
+        margin-right: 6px;
+    }
+    .userInformation_notif {
+        @include flexbox-center();
     }
 }
 
 .side_triangle {
     position: relative;
     transform-origin: right;
-    left: 10px;
+    left: -5px;
     top: 9px;
-    width: 55px;
+    width: 24px;
     height: 25px;
     overflow: hidden;
 }
