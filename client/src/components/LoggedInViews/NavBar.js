@@ -8,7 +8,8 @@ import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions'
 
 /**
  * This class represents a React Component that represents the navigation
- * bar of the application, which will be shown to the user when logged in. 
+ * bar of the application, which will be shown to the user on all routes 
+ * when logged in. 
  * @class @public 
  */
 class NavBar extends React.Component{
