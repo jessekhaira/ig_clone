@@ -1,5 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
+import { fetchDummyNotifications, setDisplay } from '../../utility/utility_functions';
 
 
 /**
@@ -9,11 +10,50 @@ import {useEffect, useState} from 'react';
  */
 function Notifications(props) {
 
+    useEffect(() => {
+        document.getElementById('notifications_holder').style.display = 'none'; 
+        document.getElementsByClassName('notif_triangle')[0].style.display = 'none'; 
+    })
+
+
+    async function fetchNotifications() {
+        // Can implement an api endpoint in backend that returns 
+        // all notifications for a given user but for now, pretending we have 
+        // objects already
+        
+        // hide follow req display and notifications display
+        const follow_req_display = document.getElementById('follow_requests');
+        const notif_div = document.getElementById('notificationDiv');
+        const spinner_div = document.getElementsByClassName('sk-chase-notif')[0];
+        setDisplay(['none','none','block'], follow_req_display, notif_div, spinner_div);
+
+        try {
+            const dummyNotifications = await fetchDummyNotifications(); 
+            console.log(dummyNotifications); 
+        }
+        catch(err) {
+            console.log(err.message);
+        }
+
+        finally {
+            setDisplay(['flex','block','none'], follow_req_display, notif_div, spinner_div);
+        }
+    }
+
+
     return(
-        <div id = "notifications_div">
+        <div id = "notifications_div" onClick = {fetchNotifications}>
             <i id = "notifications_icon" class="far fa-heart navbar_icons margin_class" ></i>
             <div className = "top_triangle notif_triangle"></div>
             <div id ="notifications_holder">
+                <div id = "spinner_div_notifications" className="sk-chase sk-chase-notif">
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                </div>
                 <div id = "follow_requests">
                     <div id = "follow_req_info_container">
                         <div id = "num_follow_req">1</div>

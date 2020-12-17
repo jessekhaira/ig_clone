@@ -14,6 +14,11 @@ export function setDisplay(displays, ...args) {
     }
 }
 
+export async function fetchDummyNotifications() {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(250), 500)
+      });
+}
 export function _preprocess_loginbutton(loginButton, eventListenerRemove) {
     loginButton.disabled = true; 
     loginButton.removeEventListener('click', eventListenerRemove); 
