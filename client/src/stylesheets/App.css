@@ -515,13 +515,23 @@ body, #root, html, .App {
   left: 8px;
 }
 
+.new_notifications {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  left: 18px;
+  bottom: -12px;
+  background-color: #f05c5c;
+  border-radius: 50%;
+}
+
 #notifications_holder {
   border-radius: 5px;
   position: absolute;
   margin: 0px;
   top: 38px;
   min-height: 100px;
-  max-height: 200px;
+  max-height: 300px;
   width: 560px;
   right: -55px;
   background-color: white;
@@ -599,7 +609,17 @@ body, #root, html, .App {
 #notificationDiv .notif_username_div {
   margin-right: 3px;
   margin-left: 8px;
-  max-width: 250px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#notificationDiv .notif_descr_div {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#notificationDiv .notif_descr {
   overflow: hidden;
   text-overflow: ellipsis;
 }

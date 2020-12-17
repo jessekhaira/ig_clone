@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 
 function ProfileIconSettings(props) {
@@ -6,11 +6,16 @@ function ProfileIconSettings(props) {
         props.remove_curr_user(); 
     }
 
+    const [firstTimeMounted, setFirstTimeMounted] = useState(true); 
+
     useEffect(() => {
-        document.getElementById('profile_settings').style.display = 'none'; 
-        document.getElementsByClassName('profile_triangle')[0].style.display = 'none'; 
+        if (firstTimeMounted === true) {
+            document.getElementById('profile_settings').style.display = 'none'; 
+            document.getElementsByClassName('profile_triangle')[0].style.display = 'none'; 
+            setFirstTimeMounted(false);
+        }
     });
-    
+
     return(
         <div id = "profile_icon" className = "margin_class">
             <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>

@@ -11,9 +11,22 @@ import { fetchDummyNotifications, setDisplay } from '../../utility/utility_funct
 function Notifications(props) {
 
     useEffect(() => {
-        document.getElementById('notifications_holder').style.display = 'none'; 
-        document.getElementsByClassName('notif_triangle')[0].style.display = 'none'; 
-    })
+        if (firstTimeMounted === true) {
+            document.getElementById('notifications_holder').style.display = 'none'; 
+            document.getElementsByClassName('notif_triangle')[0].style.display = 'none'; 
+            setFirstTimeMounted(false); 
+        }
+    });
+
+    // useEffect(async function() {
+
+    // }); 
+
+    // as soon as component mounts we send a request to the server to find out if there are any
+    // non-stale notifications lying in wait for the user -- at which point we 
+
+    const [followRequests, setFollowRequests] = useState({}); 
+    const [firstTimeMounted, setFirstTimeMounted] = useState(true); 
 
 
     async function fetchNotifications() {
@@ -29,8 +42,12 @@ function Notifications(props) {
 
         try {
             const dummyNotifications = await fetchDummyNotifications(); 
-            console.log(dummyNotifications); 
+            const follow_req = dummyNotifications.follow_requests;
+            setFollowRequests(follow_req); 
+            addNewNotificationsToNotifDiv(dummyNotifications.notifications);
+            document.getElementById('num_follow_req').innerHTML = follow_req.length; 
         }
+
         catch(err) {
             console.log(err.message);
         }
@@ -40,11 +57,28 @@ function Notifications(props) {
         }
     }
 
+    function addNewNotificationsToNotifDiv(notifications) {
+        const notifDivHolder = document.getElementById('notificationDiv');
+        // erase all children in the holder in preparation for the new children
+        // (they may be the same, but the backend decides which notifications to send when)
+        notifDivHolder.textContent = '';
+        for (let notif of notifications) {
+            const notif_div = createNotificationDivs(notif);
+            console.log(notif_div);
+            notifDivHolder.appendChild(notif_div); 
+            const hr_tag = document.createElement('hr');
+            hr_tag.classList.add('notification_hr');
+            notifDivHolder.appendChild(hr_tag);
+        }
+        console.log(notifDivHolder.children);
+    }
+
 
     return(
         <div id = "notifications_div" onClick = {fetchNotifications}>
             <i id = "notifications_icon" class="far fa-heart navbar_icons margin_class" ></i>
             <div className = "top_triangle notif_triangle"></div>
+            <div className = "new_notifications"></div>
             <div id ="notifications_holder">
                 <div id = "spinner_div_notifications" className="sk-chase sk-chase-notif">
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
@@ -65,45 +99,6 @@ function Notifications(props) {
                     <div className = "side_triangle"></div>
                 </div>
                 <div id = "notificationDiv">
-                    <div className = "notification">
-                        <div className = "userInformation_notif">
-                            <div className = "notif_profile_img_div ">
-                                <img className = "notif_profile_img" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-                            </div>
-                            <div className = "notif_username_div">
-                                <p className = "notif_username">1231232131231231213123123121</p>
-                            </div>
-                            <div className = "notif_descr_div">
-                                <p className = "notif_descr">liked your photo</p>
-                            </div> 
-                            <div className = "notif_time_elapsed_div">
-                                <p className = "notif_time_elapsed">2d</p>
-                            </div>
-                        </div>
-                        <div className = "photo_notif_targets_div">
-                            <img className = "photo_notif_targets" src = "https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></img>
-                        </div>
-                    </div>
-                    <hr className = "notification_hr"></hr>
-                    <div className = "notification">
-
-                    </div>
-                    <hr className = "notification_hr"></hr>
-                    <div className = "notification">
-
-                    </div>
-                    <hr className = "notification_hr"></hr>
-                    <div className = "notification">
-                        
-                    </div>
-                    <hr className = "notification_hr"></hr>
-                    <div className = "notification">
-
-                    </div>
-                    <hr className = "notification_hr"></hr>
-                    <div className = "notification">
-                        
-                    </div>
                 </div>
             </div>
         </div>
@@ -114,26 +109,86 @@ function Notifications(props) {
  * Utility function that creates an HTML element that represents a properly formatted notification present
  * within the notification dropdown. 
  */
-function createNotificationDivs() {
-
+function createNotificationDivs(notif_object) {
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    const infoAboutNotificationContainer = createUserInfoNotifDivs(notif_object);
+    const targetPhotoLikedContainer = createTargetPhotoNotifDiv(notif_object); 
+    notification.appendChild(infoAboutNotificationContainer);
+    notification.appendChild(targetPhotoLikedContainer);
+    return notification; 
+    
 }
 
-function createUserInfoNotifDivs(){
+function createUserInfoNotifDivs(notif_object){
     function createProfileImgDiv() {
-    
+        const profile_imgDiv = document.createElement('div');
+        profile_imgDiv.classList.add('notif_profile_img_div');
+        const img_tag = document.createElement('img');
+        img_tag.classList.add('notif_profile_img');
+        img_tag.src = notif_object.user_profile_pic;
+        profile_imgDiv.appendChild(img_tag);
+        return profile_imgDiv; 
     }
+
     function createUsernameDiv() {
-
+        const notifUsernameDiv = document.createElement('div');
+        notifUsernameDiv.classList.add('notif_username_div')
+        const username = document.createElement('p');
+        username.classList.add('notif_username');
+        username.innerHTML = notif_object.username;
+        notifUsernameDiv.appendChild(username);
+        return notifUsernameDiv;
     }
-    function createDescriptionDiv() {
 
+    function createDescriptionDiv() {
+        const notif_descr_div = document.createElement('div');
+        notif_descr_div.classList.add('notif_descr_div');
+        let description = null;
+        switch(notif_object.action) {
+            case "liked":
+                description = "liked your photo";
+                break;
+            case "comment":
+                description = `commented: ${notif_object.comment}`;
+                break;
+        }
+        const p_tag = document.createElement('p');
+        p_tag.classList.add('notif_descr');
+        p_tag.innerHTML = description;
+        notif_descr_div.appendChild(p_tag);
+        return notif_descr_div;
+        
     }
     function createTimeElapsedDiv(){
-
+        const notif_time_elapsed_div = document.createElement('div');
+        notif_time_elapsed_div.classList.add('notif_time_elapsed_div');
+        const p_tag = document.createElement('p');
+        p_tag.classList.add('notif_time_elapsed');
+        p_tag.innerHTML = notif_object.time_elapsed; 
+        notif_time_elapsed_div.appendChild(p_tag);
+        return notif_time_elapsed_div;
     }
+
+    const userInfoNotifHolder = document.createElement('div');
+    userInfoNotifHolder.classList.add('userInformation_notif');
+    const childrenDivs = [createProfileImgDiv(), createUsernameDiv(), createDescriptionDiv(), createTimeElapsedDiv()];
+    for (let i=0; i<childrenDivs.length; i++) {
+        userInfoNotifHolder.appendChild(childrenDivs[i]);
+    }
+
+    return userInfoNotifHolder;
+
 }
 
-function createTargetPhotoNotifDiv() {
+function createTargetPhotoNotifDiv(notif_object) {
+    const photo_notif_targets_div = document.createElement('div');
+    photo_notif_targets_div.classList.add('photo_notif_targets_div');
+    const img_tag = document.createElement('img');
+    img_tag.classList.add('photo_notif_targets');
+    img_tag.src = notif_object.target_img;
+    photo_notif_targets_div.appendChild(img_tag);
+    return photo_notif_targets_div;
 }
 
 
