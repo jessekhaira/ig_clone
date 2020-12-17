@@ -16,8 +16,20 @@ export function setDisplay(displays, ...args) {
 
 
 /**
- * 
+ * Function used for frontend development
+ * Simulates the response expected from the backend when asked if there are any new 
+ * notifications for the given user 
  */
+export async function newNotificationsForUser() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(true); 
+        }, 250);
+      });
+}
+
+
+
 /**
  * Function used for frontend development
  * Simulates the response expected from the backend for notifications for a given user 

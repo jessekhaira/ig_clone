@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import { fetchDummyNotifications, setDisplay } from '../../utility/utility_functions';
+import { fetchDummyNotifications, setDisplay, newNotificationsForUser} from '../../utility/utility_functions';
 
 
 /**
@@ -12,33 +12,47 @@ function Notifications(props) {
 
     useEffect(() => {
         if (firstTimeMounted === true) {
-            document.getElementById('notifications_holder').style.display = 'none'; 
+            document.getElementById('heartIconDropdown').style.display = 'none'; 
             document.getElementsByClassName('notif_triangle')[0].style.display = 'none'; 
             setFirstTimeMounted(false); 
         }
     });
 
-    // useEffect(async function() {
+    useEffect(async ()  => {
+        // don't want to and make api call if we're currently looking at notifications 
+        if (document.getElementById('heartIconDropdown').style.display === 'none') {
+            try {
+                const new_notifs_user = await newNotificationsForUser();
+                (new_notifs_user ? 
+                    document.getElementsByClassName('new_notifications')[0].style.display = 'block':
+                    document.getElementsByClassName('new_notifications')[0].style.display = 'none'
+                ); 
+            }
+            catch(err) {
+                console.log(err.message); 
+            }
+        }
 
-    // }); 
-
-    // as soon as component mounts we send a request to the server to find out if there are any
-    // non-stale notifications lying in wait for the user -- at which point we 
+    }); 
 
     const [followRequests, setFollowRequests] = useState({}); 
     const [firstTimeMounted, setFirstTimeMounted] = useState(true); 
 
 
-    async function fetchNotifications() {
+    async function fetchNotifications(e) {
         // Can implement an api endpoint in backend that returns 
         // all notifications for a given user but for now, pretending we have 
         // objects already
-        
+        if (e.target.classList[0] === 'new_notifications') {
+            return; 
+        }
         // hide follow req display and notifications display
-        const follow_req_display = document.getElementById('follow_requests');
+        const follow_req_display = document.getElementById('follow_requests_container');
         const notif_div = document.getElementById('notificationDiv');
         const spinner_div = document.getElementsByClassName('sk-chase-notif')[0];
-        setDisplay(['none','none','block'], follow_req_display, notif_div, spinner_div);
+        const new_notif_circle = document.getElementsByClassName('new_notifications')[0];
+
+        setDisplay(['none','none','block', 'none'], follow_req_display, notif_div, spinner_div, new_notif_circle);
 
         try {
             const dummyNotifications = await fetchDummyNotifications(); 
@@ -73,13 +87,19 @@ function Notifications(props) {
         console.log(notifDivHolder.children);
     }
 
+    function showFollowRequests(e) {
+        const follow_req_display = document.getElementById('follow_requests_container');
+        const notif_div = document.getElementById('notificationDiv');
+        
+    }
+
 
     return(
-        <div id = "notifications_div" onClick = {fetchNotifications}>
-            <i id = "notifications_icon" class="far fa-heart navbar_icons margin_class" ></i>
+        <div id = "heartIconContainer" onClick = {fetchNotifications}>
+            <i id = "heart_icon" class="far fa-heart navbar_icons margin_class" ></i>
             <div className = "top_triangle notif_triangle"></div>
             <div className = "new_notifications"></div>
-            <div id ="notifications_holder">
+            <div id ="heartIconDropdown">
                 <div id = "spinner_div_notifications" className="sk-chase sk-chase-notif">
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
@@ -88,7 +108,7 @@ function Notifications(props) {
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                 </div>
-                <div id = "follow_requests">
+                <div id = "follow_requests_container" onClick = {showFollowRequests}>
                     <div id = "follow_req_info_container">
                         <div id = "num_follow_req">1</div>
                         <div id = "follow_req_info">
@@ -99,6 +119,9 @@ function Notifications(props) {
                     <div className = "side_triangle"></div>
                 </div>
                 <div id = "notificationDiv">
+                </div>
+                <div id ="follow_requests_div">
+                    <div id ="prac_folow_req"></div>
                 </div>
             </div>
         </div>

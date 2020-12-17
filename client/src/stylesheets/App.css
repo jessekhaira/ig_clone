@@ -500,12 +500,12 @@ body, #root, html, .App {
   transform: scale(0.6);
 }
 
-#notifications_icon {
+#heart_icon {
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: white;
 }
 
-#notifications_div {
+#heartIconContainer {
   position: relative;
 }
 
@@ -517,15 +517,15 @@ body, #root, html, .App {
 
 .new_notifications {
   position: absolute;
-  width: 5px;
-  height: 5px;
-  left: 18px;
+  width: 6px;
+  height: 6px;
+  left: 17.8px;
   bottom: -12px;
   background-color: #f05c5c;
   border-radius: 50%;
 }
 
-#notifications_holder {
+#heartIconDropdown {
   border-radius: 5px;
   position: absolute;
   margin: 0px;
@@ -540,7 +540,7 @@ body, #root, html, .App {
   overflow-x: hidden;
 }
 
-#follow_requests {
+#follow_requests_container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -554,14 +554,14 @@ body, #root, html, .App {
   padding: 0px;
   border-right: none;
 }
-#follow_requests #follow_req_info_container {
+#follow_requests_container #follow_req_info_container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   top: 6px;
 }
-#follow_requests #num_follow_req {
+#follow_requests_container #num_follow_req {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -574,12 +574,12 @@ body, #root, html, .App {
   background-color: var(--notification-color);
   margin-left: 15px;
 }
-#follow_requests h3 {
+#follow_requests_container h3 {
   font-size: 14px;
   margin-bottom: 0px;
   font-weight: 600;
 }
-#follow_requests p {
+#follow_requests_container p {
   color: rgba(var(--f52, 142, 142, 142), 1);
   margin-top: 5px;
   font-size: 14px;

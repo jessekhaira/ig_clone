@@ -42,15 +42,15 @@ class NavBar extends React.Component{
     _documentClickListener(e) {
         const prof_settings = document.getElementById('profile_settings');
         const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
-        const notif_icon = document.getElementById('notifications_icon');
+        const notif_icon = document.getElementById('heart_icon');
         const profile_img = document.getElementById('profile_img');  
-        const notif_dropdown = document.getElementById('notifications_holder');
+        const notif_dropdown = document.getElementById('heartIconDropdown');
         const notif_triangle = document.getElementsByClassName('notif_triangle')[0]; 
         // event handlign for filling in the notifications heart and the profile img here
         if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
         }
-        else if (e.target.id === 'notifications_div' || e.target.id === 'notifications_icon') {
+        else if (e.target.id === 'notifications_div' || e.target.id === 'heart_icon') {
             this._turnOnNotificationsLight(e); 
         }
         else {
@@ -110,12 +110,12 @@ class NavBar extends React.Component{
     }
 
     _turnOnNotificationsLight(e) {
-        const notif_icon = document.getElementById('notifications_icon');
+        const notif_icon = document.getElementById('heart_icon');
         const already_turned_on = notif_icon.classList.contains('fas');      
 
         // turn OFF the profile settings if we open the notifications drop down 
         // only one can be active at any time, and toggle the notification displays 
-        _toggleDisplays('block',  document.getElementById('notifications_holder'), 
+        _toggleDisplays('block',  document.getElementById('heartIconDropdown'), 
             document.getElementsByClassName('notif_triangle')[0]);
 
         _setDisplayNone(document.getElementById('profile_settings'),  
@@ -137,7 +137,7 @@ class NavBar extends React.Component{
     _turnOffNotificationsLight() {
         // clicking anywhere outside notifications turns off the notifications light
         // and turns on the light of the endpoint we are currently on 
-        const notif_icon = document.getElementById('notifications_icon');
+        const notif_icon = document.getElementById('heart_icon');
         // if its already turned on and we click it again, then we turn it off
         // and 
         const already_turned_on = notif_icon.classList.contains('fas');
@@ -149,13 +149,13 @@ class NavBar extends React.Component{
     _turnOnProfileLight() {
         // turn OFF the notification settings if we open profile settings 
         // only one can be active at any time 
-        document.getElementById('notifications_icon').classList.remove('fas'); 
+        document.getElementById('heart_icon').classList.remove('fas'); 
 
         // toggle the profile settings dropdown, and explicitly set display none for notifications
         // dropdowns 
         _toggleDisplays('block', document.getElementById('profile_settings'), 
             document.getElementsByClassName('profile_triangle')[0]); 
-        _setDisplayNone(document.getElementById('notifications_holder'), 
+        _setDisplayNone(document.getElementById('heartIconDropdown'), 
             document.getElementsByClassName('notif_triangle')[0]);
 
         const already_turned_on = document.getElementById('profile_img').style.border === '1px solid';
