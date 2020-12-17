@@ -2,6 +2,11 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 
 
+/**
+ * This functional component represents the notifications icon + associated notifications dropdown 
+ * present on the navigation bar. Whenever the notifications icon is clicked, an HTTP get request
+ * is sent to the backend to retrieve all the new follow requests and notifications for this user. 
+ */
 function Notifications(props) {
 
     return(
@@ -65,6 +70,10 @@ function Notifications(props) {
     )
 }
 
+/**
+ * Utility function that creates an HTML element that represents a properly formatted notification present
+ * within the notification dropdown. 
+ */
 function createNotificationDivs() {
 
 }
