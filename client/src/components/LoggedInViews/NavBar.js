@@ -69,6 +69,10 @@ class NavBar extends React.Component{
         }
     }
 
+    /**
+     * This method accepts a string representing the current route the user is on, and highlights the icon
+     * on the navbar which corresponds to the route.
+     */
     _highlightIconBasedOnRoute(endpoint) {
         switch (endpoint) {
             case '/explore':
@@ -85,6 +89,10 @@ class NavBar extends React.Component{
         }
     }
 
+    /**
+     * This method accepts a string representing a particular route endpoint, and unhighlights the icon 
+     * on the navbar which corresponds to the route.
+     */
     _unHighlightIconBasedOnRoute(endpoint) {
         switch (endpoint) {
             case '/explore':
