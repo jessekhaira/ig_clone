@@ -74,8 +74,17 @@ function createUserInfoNotifDivs(){
     
     }
     function createUsernameDiv() {
-        
+
     }
+    function createDescriptionDiv() {
+
+    }
+    function createTimeElapsedDiv(){
+
+    }
+}
+
+function createTargetPhotoNotifDiv() {
 }
 
 
