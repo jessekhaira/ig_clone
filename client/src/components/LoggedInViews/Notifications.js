@@ -69,5 +69,14 @@ function createNotificationDivs() {
 
 }
 
+function createUserInfoNotifDivs(){
+    function createProfileImgDiv() {
+    
+    }
+    function createUsernameDiv() {
+        
+    }
+}
+
 
 export {Notifications}; 
