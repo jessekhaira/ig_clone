@@ -70,23 +70,6 @@ function Notifications(props) {
             setDisplay(['flex','block','none'], follow_req_display, notif_div, spinner_div);
         }
     }
-
-    function addNewNotificationsToNotifDiv(notifications) {
-        const notifDivHolder = document.getElementById('notificationDiv');
-        // erase all children in the holder in preparation for the new children
-        // (they may be the same, but the backend decides which notifications to send when)
-        notifDivHolder.textContent = '';
-        for (let notif of notifications) {
-            const notif_div = createNotificationDivs(notif);
-            console.log(notif_div);
-            notifDivHolder.appendChild(notif_div); 
-            const hr_tag = document.createElement('hr');
-            hr_tag.classList.add('notification_hr');
-            notifDivHolder.appendChild(hr_tag);
-        }
-        console.log(notifDivHolder.children);
-    }
-
     function showFollowRequests(e) {
         const follow_req_display = document.getElementById('follow_requests_container');
         const notif_div = document.getElementById('notificationDiv');
@@ -127,6 +110,23 @@ function Notifications(props) {
         </div>
     )
 }
+
+function addNewNotificationsToNotifDiv(notifications) {
+    const notifDivHolder = document.getElementById('notificationDiv');
+    // erase all children in the holder in preparation for the new children
+    // (they may be the same, but the backend decides which notifications to send when)
+    notifDivHolder.textContent = '';
+    for (let notif of notifications) {
+        const notif_div = createNotificationDivs(notif);
+        console.log(notif_div);
+        notifDivHolder.appendChild(notif_div); 
+        const hr_tag = document.createElement('hr');
+        hr_tag.classList.add('notification_hr');
+        notifDivHolder.appendChild(hr_tag);
+    }
+    console.log(notifDivHolder.children);
+}
+
 
 /**
  * Utility function that creates an HTML element that represents a properly formatted notification present
