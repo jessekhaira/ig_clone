@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-
+import {simulateSearchResults} from '../../utility/utility_functions';
 
 
 function SearchBar(props) {
@@ -29,7 +29,8 @@ function SearchBar(props) {
     async function _sendSearchRequest() {
         const input_tag = document.getElementById('search_input');
         if (input_tag.value.length > 0) {
-
+            const search_results = await simulateSearchResults();
+            addSearchResultDivs(search_results.searchResults); 
         }
     }
 
@@ -42,18 +43,67 @@ function SearchBar(props) {
                 <i id = "delete_inp_text_icon" class="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
             <div id = "search_dropdown_container">
-                <div className = "profile_img_names_container search_container">
-                    <div id = "search_img">
-                        <img className = "profile_img search_img" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-                    </div>
-                    <div className = "request_names search_req">
-                        <h3>user_1232132132132141251823193123213012312321312312312312321312891239123</h3>
-                        <p>user_1232132132132141251823193123213012312321312312312312321312891239123</p>
-                    </div>
-                </div>
             </div>
             <div className = "top_triangle search_triangle"></div>
         </div>
    )
 }
+
+
+function addSearchResultDivs(search_results) {
+    const search_dropdown_container = document.getElementById('search_dropdown_container');
+    for (const search_result of search_results) {
+        const div_containingResult = createSearchResDiv(search_result);
+        search_dropdown_container.appendChild(div_containingResult);
+        
+        const hr_tag = document.createElement('hr');
+        hr_tag.classList.add('notification_hr');
+
+        search_dropdown_container.appendChild(div_containingResult);
+        search_dropdown_container.appendChild(hr_tag);
+    }
+}
+
+function createSearchResDiv(search_result) {
+    function createSearchImgDiv() {
+        const searchImgDiv = document.createElement('div');
+        const imgDiv = document.createElement('img');
+
+        imgDiv.src = search_result.user_profile_pic;
+        imgDiv.classList.add('profile_img');
+        imgDiv.classList.add('search_img');
+
+        searchImgDiv.appendChild(imgDiv);
+        return searchImgDiv; 
+    }
+
+    function createSearchRequestNamesDiv() {
+        const search_names_div = document.createElement('div');
+        search_names_div.classList.add('request_names');
+        search_names_div.classList.add('search_req');
+
+        const username = document.createElement('h3');
+        username.innerHTML = search_result.username;
+        const fullname = document.createElement('p');
+        fullname.innerHTML = search_result.full_name;
+
+        search_names_div.appendChild(username);
+        search_names_div.appendChild(fullname);
+        return search_names_div;
+    }
+
+    const searchContainer = document.createElement('div');
+    searchContainer.classList.add('profile_img_names_container');
+    searchContainer.classList.add('search_container');
+
+    const searchImgDiv = createSearchImgDiv();
+    const namesDiv = createSearchRequestNamesDiv(); 
+
+    searchContainer.appendChild(searchImgDiv);
+    searchContainer.appendChild(namesDiv);
+    return searchContainer; 
+}
+
+
+
 export {SearchBar}; 

@@ -78,6 +78,7 @@
     }
 
     #search_dropdown_container {
+        overflow: auto;
         position: absolute;
         min-height: 50px;
         max-height: 364px;
