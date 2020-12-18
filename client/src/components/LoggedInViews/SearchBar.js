@@ -113,6 +113,7 @@ function SearchBar(props) {
         const username = search_result_div.querySelectorAll('h3')[0].innerHTML;
         history.push(`/${username}`);
         props._searchBarBlur(); 
+        document.getElementById('search_input').value = '';
         document.getElementById('inp_display_text').innerHTML = 'Search';
     }
     
