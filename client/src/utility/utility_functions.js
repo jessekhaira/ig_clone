@@ -97,6 +97,11 @@ export async function simulateSearchResults2() {
       });
 }
 
+
+/**
+ * Function used for frontend development
+ * Simulates the response expected from the backend for search
+ */
 export async function simulateSearchResults3() {
     return new Promise(resolve => {
         setTimeout(() => {
