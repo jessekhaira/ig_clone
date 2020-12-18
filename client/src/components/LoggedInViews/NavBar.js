@@ -228,7 +228,9 @@ class NavBar extends React.Component{
                         </div>
                     </Link>
                     
-                    <SearchBar /> 
+                    <SearchBar 
+                        _searchBarBlur = {this._searchBarBlur}
+                    /> 
 
                     <div id = "navbar_options">
                         <Link to = "/">

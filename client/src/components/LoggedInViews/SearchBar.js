@@ -4,6 +4,10 @@ import {simulateSearchResults1, simulateSearchResults2, simulateSearchResults3, 
 
 
 function SearchBar(props) {
+    // we have to be able to programmatically navigate based on search results so we need the
+    // history hook 
+    const history = useHistory();
+
     function _clickOnSearchBar(e) {
         e.preventDefault();  
         const search_bar = document.getElementById('search_bar');
@@ -30,7 +34,7 @@ function SearchBar(props) {
     function _searchDelete(e) {
         e.preventDefault(); 
         e.stopPropagation(); 
-        document.getElementById('navbar').click(); 
+        props._searchBarBlur(); 
         document.getElementById('search_input').value = '';
         document.getElementById('inp_display_text').innerHTML = 'Search';
 
@@ -48,7 +52,6 @@ function SearchBar(props) {
         else {
             for (const [i,search_result] of search_results.entries()) {
                 const div_containingResult = createSearchResDiv(search_result);
-                console.log(i);
                 if (i === 0) {
                     div_containingResult.classList.add('firstSearchResult');
                 }
@@ -101,7 +104,16 @@ function SearchBar(props) {
     }
 
     function _searchResultReRouteOnClick(e) {
-        console.log(e.target);
+        // prevent document from handling this click event 
+        e.stopPropagation(); 
+        // user can click on anything inside this div and the e.target can be a multitude
+        // of different divs, so we're just going to change the target to be the entire div 
+        // for the search result and then fetch the h3 which contains the username in its inner html 
+        const search_result_div = e.target.closest('.search_container');
+        const username = search_result_div.querySelectorAll('h3')[0].innerHTML;
+        history.push(`/${username}`);
+        props._searchBarBlur(); 
+        document.getElementById('inp_display_text').innerHTML = 'Search';
     }
     
 
