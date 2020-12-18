@@ -47,11 +47,15 @@ class NavBar extends React.Component{
         const notif_dropdown = document.getElementById('heartIconDropdown');
         const notif_triangle = document.getElementsByClassName('notif_triangle')[0]; 
         // event handlign for filling in the notifications heart and the profile img here
+
         if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
         }
         else if (e.target.id === 'notifications_div' || e.target.id === 'heart_icon') {
             this._turnOnNotificationsLight(e); 
+        }
+        else if (document.getElementById('heartIconContainer').contains(e.target)) {
+            return;
         }
         else {
             // just turn off the profile settings dropdown + the notifications drop down if we click on 

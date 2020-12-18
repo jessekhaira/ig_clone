@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import { fetchDummyNotifications, setDisplay, newNotificationsForUser} from '../../utility/utility_functions';
+import { fetchDummyNotifications, setDisplay, newNotificationsForUser, _setDisplayNone} from '../../utility/utility_functions';
 
 
 /**
@@ -10,6 +10,10 @@ import { fetchDummyNotifications, setDisplay, newNotificationsForUser} from '../
  */
 function Notifications(props) {
 
+    /**
+     * This effect acts to set the display of the heart icon dropdown and its associated top triangle 
+     * to none when the component FIRST mounts, not on later mounts (ex: refreshing page). 
+     */
     useEffect(() => {
         if (firstTimeMounted === true) {
             document.getElementById('heartIconDropdown').style.display = 'none'; 
@@ -18,9 +22,16 @@ function Notifications(props) {
         }
     });
 
+
+    /**
+     * This effect acts to query the backend whether or not this particular user has any new notifications.
+     * Call should be done every time the component mounts unless the heart icon dropdown is already displaying
+     * or if we're already in the middle of an api call 
+     */
     useEffect(async ()  => {
         // don't want to and make api call if we're currently looking at notifications 
-        if (document.getElementById('heartIconDropdown').style.display === 'none') {
+        if (document.getElementById('heartIconDropdown').style.display === 'none' && 
+            !currentlyFetchingNotif) {
             try {
                 const new_notifs_user = await newNotificationsForUser();
                 (new_notifs_user ? 
@@ -33,10 +44,17 @@ function Notifications(props) {
             }
         }
 
+
     }); 
 
+    /**
+     * State object that keeps track of all the follow requests for this given user. When we query
+     * the backend for all the new notifications for this user, we also fetch the follow requests
+     * along with it and the follow requests must be shared by multiple different functions. 
+     */
     const [followRequests, setFollowRequests] = useState({}); 
     const [firstTimeMounted, setFirstTimeMounted] = useState(true); 
+    const [currentlyFetchingNotif, setCurrentlyFetchingNotif] = useState(false); 
 
 
     async function fetchNotifications(e) {
@@ -51,10 +69,11 @@ function Notifications(props) {
         const notif_div = document.getElementById('notificationDiv');
         const spinner_div = document.getElementsByClassName('sk-chase-notif')[0];
         const new_notif_circle = document.getElementsByClassName('new_notifications')[0];
-
-        setDisplay(['none','none','block', 'none'], follow_req_display, notif_div, spinner_div, new_notif_circle);
+        const follower_requests_actual = document.getElementById('follow_requests_div');
+        setDisplay(['none','none','block', 'none', 'none'], follow_req_display, notif_div, spinner_div, new_notif_circle, follower_requests_actual);
 
         try {
+            setCurrentlyFetchingNotif(true); 
             const dummyNotifications = await fetchDummyNotifications(); 
             const follow_req = dummyNotifications.follow_requests;
             setFollowRequests(follow_req); 
@@ -67,19 +86,23 @@ function Notifications(props) {
         }
 
         finally {
-            setDisplay(['flex','block','none'], follow_req_display, notif_div, spinner_div);
+            setDisplay(['flex','block','none', 'none'], follow_req_display, notif_div, spinner_div, new_notif_circle);
+            setCurrentlyFetchingNotif(false); 
         }
     }
+
     function showFollowRequests(e) {
         const follow_req_display = document.getElementById('follow_requests_container');
         const notif_div = document.getElementById('notificationDiv');
-        
+        const follow_req_div = document.getElementById('follow_requests_div');
+        setDisplay(['none', 'none', 'block'], follow_req_display, notif_div, follow_req_div);
+        addNewFollowRequestsToFollowReqDiv(followRequests);
     }
 
 
     return(
-        <div id = "heartIconContainer" onClick = {fetchNotifications}>
-            <i id = "heart_icon" class="far fa-heart navbar_icons margin_class" ></i>
+        <div id = "heartIconContainer">
+            <i id = "heart_icon" class="far fa-heart navbar_icons margin_class" onClick = {fetchNotifications}></i>
             <div className = "top_triangle notif_triangle"></div>
             <div className = "new_notifications"></div>
             <div id ="heartIconDropdown">
@@ -94,7 +117,7 @@ function Notifications(props) {
                 <div id = "follow_requests_container" onClick = {showFollowRequests}>
                     <div id = "follow_req_info_container">
                         <div id = "num_follow_req">1</div>
-                        <div id = "follow_req_info">
+                        <div className = "follow_req_info">
                             <h3>Follow Requests</h3>
                             <p>Approve or ignore requests</p>
                         </div>
@@ -104,13 +127,100 @@ function Notifications(props) {
                 <div id = "notificationDiv">
                 </div>
                 <div id ="follow_requests_div">
-                    <div id ="prac_folow_req"></div>
+                    <div className = "follow_request">
+                        <div className="follow_request_info">
+                            <div className = "notif_profile_img_div">
+                                <img className = "notif_profile_img" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
+                            </div>
+                            <div className = "request_names">
+                                <h3>12313123123123121232131231231231312321312312312312</h3>
+                                <p>123213123112321321312313231231231231231231231231231</p>
+                            </div>
+                        </div>
+                        <div className = "follow_req_buttons">
+                            <div id = "confirm_button" className = "button_fr">Confirm</div>
+                            <div id = "delete_button" className = "button_fr">Delete</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
 
+
+
+// all functions below related to adding follow requests programmatically
+function addNewFollowRequestsToFollowReqDiv(follow_reqs) {
+    const follow_req_div = document.getElementById('follow_requests_div');
+    follow_req_div.textContent = '';
+    for (let follow_req of follow_reqs) {
+        const newFollowReqDiv = createFollowRequest(follow_req);
+        const hr_tag = document.createElement('hr');
+        hr_tag.classList.add('notification_hr'); 
+       
+        follow_req_div.appendChild(newFollowReqDiv);
+        follow_req_div.appendChild(hr_tag);
+    }
+}
+
+function createFollowRequest(follow_req) {
+
+    function createFollowRequestInfo() {
+        const followReqInfoDiv = document.createElement('div');
+        followReqInfoDiv.classList.add('follow_request_info');
+
+        const profile_img_div = document.createElement('div');
+        const profile_img = document.createElement('img');
+        profile_img.classList.add('notif_profile_img');
+        profile_img.src = follow_req.user_profile_pic; 
+        profile_img_div.appendChild(profile_img); 
+
+        const name_holding_div = document.createElement('div');
+        name_holding_div.classList.add('request_names');
+        const username = document.createElement('h3');
+        const fullname = document.createElement('p');
+        username.innerHTML = follow_req.username;
+        fullname.innerHTML = follow_req.full_name;
+        name_holding_div.appendChild(username);
+        name_holding_div.appendChild(fullname);
+
+        followReqInfoDiv.appendChild(profile_img_div);
+        followReqInfoDiv.appendChild(name_holding_div); 
+        return followReqInfoDiv; 
+    }
+
+    function createFollowRequestButtons() {
+        const buttonHolder = document.createElement('div');
+        buttonHolder.classList.add('follow_req_buttons');
+        const confirm_button = document.createElement('div');
+        const delete_button = document.createElement('div');
+
+        confirm_button.classList.add('button_fr');
+        confirm_button.id = 'confirm_button';
+        confirm_button.innerHTML = 'Confirm';
+
+        delete_button.classList.add('button_fr');
+        delete_button.id = 'delete_button'; 
+        delete_button.innerHTML = 'Delete'; 
+
+        buttonHolder.appendChild(confirm_button);
+        buttonHolder.appendChild(delete_button);
+        return buttonHolder; 
+    }
+    const newFollowReq = document.createElement('div');
+    newFollowReq.classList.add('follow_request');
+
+    const followReqInfoDiv = createFollowRequestInfo();
+
+    const buttons = createFollowRequestButtons(); 
+
+    newFollowReq.appendChild(followReqInfoDiv);
+    newFollowReq.appendChild(buttons);
+    return newFollowReq; 
+}
+
+// all functions below related to adding notifications programmatically
 function addNewNotificationsToNotifDiv(notifications) {
     const notifDivHolder = document.getElementById('notificationDiv');
     // erase all children in the holder in preparation for the new children

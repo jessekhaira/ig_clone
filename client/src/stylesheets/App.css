@@ -519,10 +519,18 @@ body, #root, html, .App {
   position: absolute;
   width: 6px;
   height: 6px;
-  left: 17.8px;
+  left: 17.9px;
   bottom: -12px;
   background-color: #f05c5c;
   border-radius: 50%;
+}
+
+.follow_request {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  border: none;
 }
 
 #heartIconDropdown {
@@ -545,6 +553,7 @@ body, #root, html, .App {
   justify-content: center;
   align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  cursor: pointer;
   justify-content: space-between;
   height: 55%;
   width: 100%;
@@ -585,7 +594,7 @@ body, #root, html, .App {
   font-size: 14px;
 }
 
-#notificationDiv .notification {
+.notification {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -595,57 +604,79 @@ body, #root, html, .App {
   margin-bottom: 0px;
   width: 100%;
 }
-#notificationDiv .notif_profile_img {
+
+.notif_profile_img {
   margin-left: 15px;
   width: 33px;
   height: 33px;
   border-radius: 50%;
 }
-#notificationDiv .notif_username {
+
+.notif_username {
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: bold;
 }
-#notificationDiv .notif_username_div {
+
+.notif_username_div {
   margin-right: 3px;
   margin-left: 8px;
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#notificationDiv .notif_descr_div {
+
+.notif_descr_div {
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#notificationDiv .notif_descr {
+
+.notif_descr {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#notificationDiv .notif_descr {
+
+.notif_descr {
   display: inline;
   margin-right: 7px;
 }
-#notificationDiv .notification_hr {
+
+.notification_hr {
   margin: 0px;
   width: 100%;
   border: none;
   height: 0.1px;
   background-color: #d8d8d8;
 }
-#notificationDiv .notif_time_elapsed {
+
+.notif_time_elapsed {
   color: #929191;
 }
-#notificationDiv .photo_notif_targets {
+
+.photo_notif_targets {
   width: 33px;
   height: 33px;
   margin-right: 6px;
 }
-#notificationDiv .userInformation_notif {
+
+.userInformation_notif {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.follow_request_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border: none;
+}
+
+#follow_requests_div {
+  display: none;
 }
 
 .side_triangle {
@@ -667,6 +698,61 @@ body, #root, html, .App {
   width: 25px;
   height: 25px;
   transform: rotate(45deg);
+}
+
+.request_names {
+  display: inline;
+  height: 50px;
+  max-width: 270px;
+  margin-left: 12px;
+}
+.request_names h3 {
+  position: relative;
+  top: 3px;
+  margin-top: 3px;
+  font-size: 14px;
+  margin-bottom: 0px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.request_names p {
+  color: rgba(var(--f52, 142, 142, 142), 1);
+  margin-top: 5px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.follow_req_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.follow_req_buttons .button_fr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  width: 85px;
+  height: 30px;
+  padding: 0px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.follow_req_buttons #confirm_button {
+  background-color: #0095f6;
+  color: white;
+}
+.follow_req_buttons #delete_button {
+  border-color: #aaaaaa;
+}
+
+.follow_req_hr {
+  height: 2px;
 }
 
 .sk-chase-notif {
