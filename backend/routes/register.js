@@ -29,13 +29,16 @@ router.post('/', [
     const accessToken = jwt.sign({username: req.body.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
     const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
+    // whenever a new user signs up, we assign a default profile picture 
+    const default_profile_picture = 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
       username: req.body.username,
       password: req.body.pw_inp,
       date_of_birth: req.body.date_of_birth,
-      refreshToken: refreshToken
+      refreshToken: refreshToken,
+      profile_picture
     });
 
     try {
