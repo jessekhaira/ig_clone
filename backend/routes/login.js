@@ -27,10 +27,10 @@ router.post('/', [
     validator.body('username_or_email').escape(),
     validator.body('password').escape(),
 
+    
     async (req, res, next) => {
         const username_or_email = req.body.username_or_email;
         const password = req.body.password; 
-        console.log(req);
         // find user 
         const user = await User.findOne({
             $or: [
@@ -42,7 +42,6 @@ router.post('/', [
         if (!user) {
             return res.status(401).json({message: "Username or email is invalid"});
         }
-        console.log(req.body.password); 
         const pw_verification = await user.verifyPassword(password); 
         if (pw_verification === false) {
             return res.status(401).json({message: "Password is incorrect"})

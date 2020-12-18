@@ -3,6 +3,9 @@ const validator = require('express-validator');
 const User = require('../models/users').userModel; 
 const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
+const fs = require('fs'); 
+const util = require('util');
+const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
 
 /**
@@ -30,7 +33,8 @@ router.post('/', [
     const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
     // whenever a new user signs up, we assign a default profile picture 
-    const default_profile_picture = 
+    const default_profile_picture = await readFile(path.resolve('routes/generic_profile_pic.jpg')); 
+    console.log(default_profile_picture); 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
