@@ -475,6 +475,7 @@ body, #root, html, .App {
   display: none;
   width: 100%;
   background-color: var(--main-bg-color);
+  user-select: text;
 }
 #search_bar #search_input::placeholder {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -539,7 +540,7 @@ body, #root, html, .App {
   margin: 0px;
   top: 38px;
   min-height: 100px;
-  max-height: 300px;
+  max-height: 350px;
   width: 560px;
   right: -55px;
   background-color: white;
@@ -734,7 +735,7 @@ body, #root, html, .App {
   justify-content: center;
   align-items: center;
   border: 1px solid;
-  width: 85px;
+  width: 75px;
   height: 30px;
   padding: 0px;
   margin-right: 8px;
@@ -743,16 +744,12 @@ body, #root, html, .App {
   font-weight: 600;
   cursor: pointer;
 }
-.follow_req_buttons #confirm_button {
+.follow_req_buttons .confirm_button {
   background-color: #0095f6;
   color: white;
 }
-.follow_req_buttons #delete_button {
+.follow_req_buttons .delete_button {
   border-color: #aaaaaa;
-}
-
-.follow_req_hr {
-  height: 2px;
 }
 
 .sk-chase-notif {

@@ -40,7 +40,7 @@
     margin: 0px;
     top: 38px;
     min-height: 100px;
-    max-height: 300px;
+    max-height: 350px;
     width: 560px;
     right: -55px;
     background-color: white;
@@ -224,7 +224,7 @@
     .button_fr {
         @include flexbox-center();
         border: 1px solid;
-        width: 85px;
+        width: 75px;
         height: 30px;
         padding: 0px;
         margin-right: 8px;
@@ -234,12 +234,12 @@
         cursor: pointer;
     }
 
-    #confirm_button {
+    .confirm_button {
         background-color: #0095f6;
         color: white;
     }
 
-    #delete_button {
+    .delete_button {
         border-color: rgb(170, 170, 170);
     }
 }

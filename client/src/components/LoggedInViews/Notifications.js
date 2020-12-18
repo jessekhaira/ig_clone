@@ -162,6 +162,7 @@ function addNewFollowRequestsToFollowReqDiv(follow_reqs) {
         follow_req_div.appendChild(newFollowReqDiv);
         follow_req_div.appendChild(hr_tag);
     }
+    
 }
 
 function createFollowRequest(follow_req) {
@@ -197,11 +198,11 @@ function createFollowRequest(follow_req) {
         const delete_button = document.createElement('div');
 
         confirm_button.classList.add('button_fr');
-        confirm_button.id = 'confirm_button';
+        confirm_button.classList.add('confirm_button');
         confirm_button.innerHTML = 'Confirm';
 
         delete_button.classList.add('button_fr');
-        delete_button.id = 'delete_button'; 
+        delete_button.classList.add('delete_button')
         delete_button.innerHTML = 'Delete'; 
 
         buttonHolder.appendChild(confirm_button);
