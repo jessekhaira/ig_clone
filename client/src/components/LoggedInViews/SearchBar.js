@@ -1,41 +1,72 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import {simulateSearchResults} from '../../utility/utility_functions';
+import {simulateSearchResults1, simulateSearchResults2, simulateSearchResults3, setDisplay} from '../../utility/utility_functions';
 
 
 function SearchBar(props) {
-    function _searchBarFocus(e) {
+    function _clickOnSearchBar(e) {
         e.preventDefault();  
         const search_bar = document.getElementById('search_bar');
         const icon_input_div = document.getElementById('icon_input_div');
-        document.getElementById('delete_inp_text_icon').style.display = 'block'; 
-        // hide the div containing text, show the input tag
         const inp_tag = document.getElementById('search_input');
-        inp_tag.style.display = 'block';
-        inp_tag.focus(); 
+        const delete_inp_text_icon = document.getElementById('delete_inp_text_icon'); 
+        const search_dropdown = document.getElementById('search_dropdown_container');
+        const search_triangle = document.getElementsByClassName('search_triangle')[0];
         const inp_display_text = document.getElementById('inp_display_text');
-        inp_display_text.style.display = 'none'; 
+
+        setDisplay(
+            ['block', 'block', 'none'], inp_tag, delete_inp_text_icon, inp_display_text
+        );
+
+        if (inp_tag.value.length > 0) {
+            setDisplay(
+                ['block', 'block'], search_dropdown, search_triangle
+            )
+        }
+        // hide the div containing text, show the input tag
+        inp_tag.focus(); 
     }
 
     function _searchDelete(e) {
         e.preventDefault(); 
         e.stopPropagation(); 
-        const search_bar = document.getElementById('search_bar');
-        search_bar.blur(); 
-        const inp_tag = document.getElementById('search_input');
-        inp_tag.value = ''; 
+        document.getElementById('navbar').click(); 
+        document.getElementById('search_input').value = '';
+        document.getElementById('inp_display_text').innerHTML = 'Search';
+
     }
 
     async function _sendSearchRequest() {
         const input_tag = document.getElementById('search_input');
+        const search_dropdown = document.getElementById('search_dropdown_container');
+        const search_triangle = document.getElementsByClassName('search_triangle')[0];
+        const delete_inp_text_icon = document.getElementById('delete_inp_text_icon');
+        const spinner_div = document.getElementsByClassName('sk-chase-search-bar')[0];
         if (input_tag.value.length > 0) {
-            const search_results = await simulateSearchResults();
-            addSearchResultDivs(search_results.searchResults); 
+            try {
+                setDisplay(['none', 'block', 'block', 'block'], delete_inp_text_icon, spinner_div, search_dropdown, search_triangle);
+                let search_results = null;
+                if (Math.random() >= 0.5) {
+                    search_results = await simulateSearchResults3();
+                }
+                else {
+                    search_results = await simulateSearchResults2(); 
+                }
+                // erase old search results and display new ones
+                search_dropdown.textContent = ''; 
+                addSearchResultDivs(search_results.searchResults); 
+            }
+            catch(err) {
+                console.log(err);
+            }
+            finally {
+                setDisplay(['block', 'none'], delete_inp_text_icon, spinner_div);
+            }
         }
     }
 
    return(
-        <div id = "search_bar" onClick = {_searchBarFocus} onChange = {_sendSearchRequest}>
+        <div id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
             <div id = "icon_input_div">
                 <i class="fas fa-search search_icon"></i>
                 <div id = "inp_display_text" >Search</div>
@@ -43,6 +74,14 @@ function SearchBar(props) {
                 <i id = "delete_inp_text_icon" class="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
             <div id = "search_dropdown_container">
+            </div>
+            <div id = "spinner_div_notifications" className="sk-chase sk-chase-search-bar">
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
+                    <div className="sk-chase-dot sk-chase-dot-notif"></div>
             </div>
             <div className = "top_triangle search_triangle"></div>
         </div>
@@ -52,15 +91,22 @@ function SearchBar(props) {
 
 function addSearchResultDivs(search_results) {
     const search_dropdown_container = document.getElementById('search_dropdown_container');
-    for (const search_result of search_results) {
-        const div_containingResult = createSearchResDiv(search_result);
-        search_dropdown_container.appendChild(div_containingResult);
-        
-        const hr_tag = document.createElement('hr');
-        hr_tag.classList.add('notification_hr');
+    if (search_results.length === 0) {
+        const no_results = document.createElement('div');
+        no_results.classList.add('no_results_search');
+        no_results.innerHTML = 'No results found.'; 
+        search_dropdown_container.appendChild(no_results);
+    }
+    else {
+        for (const [i,search_result] of search_results.entries()) {
+            const div_containingResult = createSearchResDiv(search_result);
+            console.log(i);
+            if (i === 0) {
+                div_containingResult.classList.add('firstSearchResult');
+            }
+            search_dropdown_container.appendChild(div_containingResult);
 
-        search_dropdown_container.appendChild(div_containingResult);
-        search_dropdown_container.appendChild(hr_tag);
+        }
     }
 }
 
@@ -101,6 +147,8 @@ function createSearchResDiv(search_result) {
 
     searchContainer.appendChild(searchImgDiv);
     searchContainer.appendChild(namesDiv);
+
+    // searchContainer.addEventListener('click', )
     return searchContainer; 
 }
 

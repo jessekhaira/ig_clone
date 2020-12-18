@@ -1,11 +1,11 @@
 import React from 'react'; 
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import {ProfileIconSettings} from './ProfileIconSettings';
 import {Notifications} from './Notifications';
-import { useLocation } from 'react-router-dom';
 import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions';
 import {SearchBar} from './SearchBar';
+import {setDisplay} from '../../utility/utility_functions';
 
 /**
  * This class represents a React Component that represents the navigation
@@ -84,13 +84,19 @@ class NavBar extends React.Component{
     _searchBarBlur() {
         const search_bar = document.getElementById('search_bar');
         const icon_input_div = document.getElementById('icon_input_div');
+        const search_dropdown = document.getElementById('search_dropdown_container');
+        const search_triangle = document.getElementsByClassName('search_triangle')[0];
+        const inp_tag = document.getElementById('search_input');
+        const inp_display_text = document.getElementById('inp_display_text');
+        const delete_inp_text_icon = document.getElementById('delete_inp_text_icon');
+
+
+        setDisplay(['none', 'none', 'none', 'block', 'none'], search_dropdown, search_triangle, 
+            inp_tag, inp_display_text, delete_inp_text_icon);
+
+
         search_bar.style.justifyContent = 'center';
         icon_input_div.style.justifyContent = 'center';
-        document.getElementById('delete_inp_text_icon').style.display = 'none'; 
-        const inp_tag = document.getElementById('search_input');
-        inp_tag.style.display = 'none';
-        const inp_display_text = document.getElementById('inp_display_text');
-        inp_display_text.style.display = 'block'; 
         inp_display_text.innerHTML = (inp_tag.value ? inp_tag.value: "Search"); 
     }
 

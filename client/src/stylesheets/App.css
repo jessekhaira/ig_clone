@@ -505,18 +505,21 @@ body, #root, html, .App {
   position: relative;
 }
 #search_bar #search_dropdown_container {
+  display: none;
   overflow: auto;
   position: absolute;
-  min-height: 50px;
+  min-height: 48px;
   max-height: 364px;
   width: 243px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  top: 20px;
+  top: 26px;
   background-color: white;
+  z-index: 11;
 }
 #search_bar .search_triangle {
+  display: none;
   position: absolute;
-  bottom: 5px;
+  bottom: -2px;
   z-index: 12;
 }
 #search_bar .search_result {
@@ -533,9 +536,14 @@ body, #root, html, .App {
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 #search_bar .search_container:hover {
   background-color: var(--main-bg-color);
+  z-index: 2;
+}
+#search_bar .firstSearchResult {
+  border-top: none;
 }
 #search_bar .search_req {
   max-width: 180px;
@@ -547,6 +555,18 @@ body, #root, html, .App {
   font-size: 14px;
   font-weight: 300;
   max-width: 180px;
+}
+#search_bar .no_results_search {
+  position: relative;
+  top: 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #8e8e8e;
+}
+#search_bar .sk-chase-search-bar {
+  display: none;
+  position: absolute;
+  right: 10px;
 }
 
 #heart_icon {
@@ -698,6 +718,7 @@ body, #root, html, .App {
   border: none;
   height: 0.1px;
   background-color: #d8d8d8;
+  z-index: 25;
 }
 
 .notif_time_elapsed {
@@ -812,7 +833,7 @@ body, #root, html, .App {
 }
 
 .sk-chase-dot-notif:before {
-  background-color: black;
+  background-color: gray;
 }
 
 #navbar_container {

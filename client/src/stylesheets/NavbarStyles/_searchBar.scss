@@ -78,19 +78,22 @@
     }
 
     #search_dropdown_container {
+        display: none;
         overflow: auto;
         position: absolute;
-        min-height: 50px;
+        min-height: 48px;
         max-height: 364px;
         width: 243px; 
         border: 1px solid rgb(0,0,0,0.2);
-        top: 20px;
+        top: 26px;
         background-color: white;
+        z-index:11;
     }
 
     .search_triangle {
+        display: none;
         position: absolute;
-        bottom: 5px;
+        bottom: -2px;
         z-index: 12;
     }
 
@@ -107,10 +110,16 @@
         cursor: pointer;
         overflow: hidden;
         text-overflow: ellipsis;
+        border-top: 1px solid rgb(0,0,0,0.2);
     }
 
     .search_container:hover {
         background-color: var(--main-bg-color);
+        z-index: 2;
+    }
+
+    .firstSearchResult {
+        border-top: none;
     }
 
     .search_req {
@@ -124,5 +133,19 @@
             font-weight: 300;
             max-width: 180px;
         }
+    }
+
+    .no_results_search {
+        position: relative;
+        top: 14px;
+        text-align: center;
+        font-size: 14px;
+        color:#8e8e8e;
+    }
+
+    .sk-chase-search-bar {
+        display: none;
+        position: absolute;
+        right: 10px;
     }
 }

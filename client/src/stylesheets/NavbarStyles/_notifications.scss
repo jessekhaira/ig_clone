@@ -147,6 +147,7 @@
     border: none;
     height: 0.1px;
     background-color: rgb(216, 216, 216);
+    z-index: 25;
 }
 
 .notif_time_elapsed {
@@ -257,5 +258,5 @@
 }
 
 .sk-chase-dot-notif:before {
-    background-color: black;
+    background-color: gray;
 }
