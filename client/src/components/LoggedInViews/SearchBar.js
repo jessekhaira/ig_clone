@@ -34,6 +34,14 @@ function SearchBar(props) {
                 <input id = "search_input" type = "text" placeholder = "Search"></input>
                 <i id = "delete_inp_text_icon" class="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
+            <div id = "search_dropdown_container">
+                <div className = "search_result"></div>
+                <div className = "search_result"></div>
+                <div className = "search_result"></div>
+                <div className = "search_result"></div>
+            </div>
+            <div className = "top_triangle search_triangle"></div>
+                
         </div>
    )
 }
