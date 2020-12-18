@@ -102,7 +102,7 @@
 }
 
 
-.notif_profile_img {
+.profile_img {
     margin-left: 15px;
     width: 33px;
     height: 33px;
@@ -162,7 +162,7 @@
     @include flexbox-center();
 }
 
-.follow_request_info {
+.profile_img_names_container {
     @include flexbox-center();
     height: 50px;
     border: none;

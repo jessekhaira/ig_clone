@@ -41,7 +41,6 @@ function SearchBar(props) {
                 <div className = "search_result"></div>
             </div>
             <div className = "top_triangle search_triangle"></div>
-                
         </div>
    )
 }

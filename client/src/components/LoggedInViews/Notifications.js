@@ -127,21 +127,6 @@ function Notifications(props) {
                 <div id = "notificationDiv">
                 </div>
                 <div id ="follow_requests_div">
-                    <div className = "follow_request">
-                        <div className="follow_request_info">
-                            <div className = "notif_profile_img_div">
-                                <img className = "notif_profile_img" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-                            </div>
-                            <div className = "request_names">
-                                <h3>12313123123123121232131231231231312321312312312312</h3>
-                                <p>123213123112321321312313231231231231231231231231231</p>
-                            </div>
-                        </div>
-                        <div className = "follow_req_buttons">
-                            <div id = "confirm_button" className = "button_fr">Confirm</div>
-                            <div id = "delete_button" className = "button_fr">Delete</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -169,11 +154,11 @@ function createFollowRequest(follow_req) {
 
     function createFollowRequestInfo() {
         const followReqInfoDiv = document.createElement('div');
-        followReqInfoDiv.classList.add('follow_request_info');
+        followReqInfoDiv.classList.add('profile_img_names_container');
 
         const profile_img_div = document.createElement('div');
         const profile_img = document.createElement('img');
-        profile_img.classList.add('notif_profile_img');
+        profile_img.classList.add('profile_img');
         profile_img.src = follow_req.user_profile_pic; 
         profile_img_div.appendChild(profile_img); 
 
@@ -259,7 +244,7 @@ function createUserInfoNotifDivs(notif_object){
         const profile_imgDiv = document.createElement('div');
         profile_imgDiv.classList.add('notif_profile_img_div');
         const img_tag = document.createElement('img');
-        img_tag.classList.add('notif_profile_img');
+        img_tag.classList.add('profile_img');
         img_tag.src = notif_object.user_profile_pic;
         profile_imgDiv.appendChild(img_tag);
         return profile_imgDiv; 
