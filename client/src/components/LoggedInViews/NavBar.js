@@ -5,6 +5,7 @@ import {ProfileIconSettings} from './ProfileIconSettings';
 import {Notifications} from './Notifications';
 import { useLocation } from 'react-router-dom';
 import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions';
+import {SearchBar} from './SearchBar';
 
 /**
  * This class represents a React Component that represents the navigation
@@ -40,6 +41,13 @@ class NavBar extends React.Component{
 
 
     _documentClickListener(e) {
+        if (document.getElementById('search_bar').contains(e.target)) {
+            return; 
+        }
+        if (document.getElementById('heartIconContainer').contains(e.target)) {
+            return;
+        }
+        this._searchBarBlur(); 
         const prof_settings = document.getElementById('profile_settings');
         const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
         const notif_icon = document.getElementById('heart_icon');
@@ -54,9 +62,7 @@ class NavBar extends React.Component{
         else if (e.target.id === 'notifications_div' || e.target.id === 'heart_icon') {
             this._turnOnNotificationsLight(e); 
         }
-        else if (document.getElementById('heartIconContainer').contains(e.target)) {
-            return;
-        }
+
         else {
             // just turn off the profile settings dropdown + the notifications drop down if we click on 
             // a part of the page that isn't the notifications or profile icon. If user wants them displayed
@@ -71,6 +77,20 @@ class NavBar extends React.Component{
             }  
 
         }
+    }
+
+
+    _searchBarBlur() {
+        const search_bar = document.getElementById('search_bar');
+        const icon_input_div = document.getElementById('icon_input_div');
+        search_bar.style.justifyContent = 'center';
+        icon_input_div.style.justifyContent = 'center';
+        document.getElementById('delete_inp_text_icon').style.display = 'none'; 
+        const inp_tag = document.getElementById('search_input');
+        inp_tag.style.display = 'none';
+        const inp_display_text = document.getElementById('inp_display_text');
+        inp_display_text.style.display = 'block'; 
+        inp_display_text.innerHTML = (inp_tag.value ? inp_tag.value: "Search"); 
     }
 
     /**
@@ -191,45 +211,6 @@ class NavBar extends React.Component{
         return false; 
     }
 
-
-    _searchBarFocus(e) {
-        e.preventDefault();  
-        const search_bar = document.getElementById('search_bar');
-        const icon_input_div = document.getElementById('icon_input_div');
-        document.getElementById('delete_inp_text_icon').style.display = 'block'; 
-        // hide the div containing text, show the input tag
-        const inp_tag = document.getElementById('search_input');
-        inp_tag.style.display = 'block';
-        inp_tag.focus(); 
-        const inp_display_text = document.getElementById('inp_display_text');
-        inp_display_text.style.display = 'none'; 
-    }
-
-    _searchBarBlur(e) {
-        e.preventDefault(); 
-        const search_bar = document.getElementById('search_bar');
-        const icon_input_div = document.getElementById('icon_input_div');
-        search_bar.style.justifyContent = 'center';
-        icon_input_div.style.justifyContent = 'center';
-        document.getElementById('delete_inp_text_icon').style.display = 'none'; 
-        const inp_tag = document.getElementById('search_input');
-        inp_tag.style.display = 'none';
-        const inp_display_text = document.getElementById('inp_display_text');
-        inp_display_text.style.display = 'block'; 
-        inp_display_text.innerHTML = (inp_tag.value ? inp_tag.value: "Search"); 
-    }
-
-    _searchDelete(e) {
-        e.preventDefault(); 
-        e.stopPropagation(); 
-        const search_bar = document.getElementById('search_bar');
-        search_bar.blur(); 
-        const inp_tag = document.getElementById('search_input');
-        inp_tag.value = ''; 
-    }
-
-
-
     render() {
         return(
             <div id = "navbar_container">
@@ -240,14 +221,7 @@ class NavBar extends React.Component{
                         </div>
                     </Link>
                     
-                    <div id = "search_bar" onMouseDown = {this._searchBarFocus} onBlur = {this._searchBarBlur}>
-                        <div id = "icon_input_div">
-                            <i class="fas fa-search search_icon"></i>
-                            <div id = "inp_display_text" >Search</div>
-                            <input id = "search_input" type = "text" placeholder = "Search"></input>
-                            <i id = "delete_inp_text_icon" class="fas fa-times-circle position_icon" onClick = {this._searchDelete}></i>
-                        </div>
-                    </div>
+                    <SearchBar /> 
 
                     <div id = "navbar_options">
                         <Link to = "/">
