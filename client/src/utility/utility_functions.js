@@ -16,6 +16,46 @@ export function setDisplay(displays, ...args) {
 
 
 /**
+ * 
+ */
+export async function simulateSearchResults() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const searchResult1 = {
+                username: "user_1232132132132141251823193123213012312321312312312312321312891239123",
+                full_name: "anon4",
+                user_profile_pic: "https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            };
+            
+            const searchResult2 = {
+                username: "1231213",
+                full_name: "anon2",
+                user_profile_pic: "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"
+            };
+
+            const searchResult3 = {
+                username: "user_1232132132132141251823193123213012312321312312312312321312891239123",
+                full_name: "anon1",
+                user_profile_pic: "https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074__340.jpg"
+            };
+
+            const searchResult4 = {
+                username: "user_12321321321321412518231931232130123891239123",
+                full_name: "anon3",
+                user_profile_pic: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
+            };
+
+            const returnObj = {
+                searchResults: [searchResult1, searchResult2, searchResult3, searchResult4]
+            };
+
+            resolve(returnObj); 
+
+        }, 250);
+      });
+}
+
+/**
  * Function used for frontend development
  * Simulates the response expected from the backend when asked if there are any new 
  * notifications for the given user 
