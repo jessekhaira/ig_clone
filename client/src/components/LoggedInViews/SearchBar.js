@@ -91,6 +91,7 @@ function SearchBar(props) {
 
 function addSearchResultDivs(search_results) {
     const search_dropdown_container = document.getElementById('search_dropdown_container');
+    // edge case -- have to handle case where there are no search results at all 
     if (search_results.length === 0) {
         const no_results = document.createElement('div');
         no_results.classList.add('no_results_search');
