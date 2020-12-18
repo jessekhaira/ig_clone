@@ -44,9 +44,6 @@ class NavBar extends React.Component{
         if (document.getElementById('search_bar').contains(e.target)) {
             return; 
         }
-        if (document.getElementById('heartIconContainer').contains(e.target)) {
-            return;
-        }
         this._searchBarBlur(); 
         const prof_settings = document.getElementById('profile_settings');
         const prof_triangle = document.getElementsByClassName('profile_triangle')[0];
@@ -61,6 +58,10 @@ class NavBar extends React.Component{
         }
         else if (e.target.id === 'notifications_div' || e.target.id === 'heart_icon') {
             this._turnOnNotificationsLight(e); 
+        }
+
+        else if (document.getElementById('heartIconContainer').contains(e.target)) {
+            return;
         }
 
         else {
