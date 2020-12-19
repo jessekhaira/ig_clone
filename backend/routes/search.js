@@ -8,6 +8,7 @@ const util = require('util');
 const { exception } = require('console');
 const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
+const convert2Base64MongooseDocs = require('../utility/utilityFunctions').convert2Base64MongooseDocs; 
 
 /**
  * Express router to mount search related functions. 
@@ -26,7 +27,7 @@ router.post('/', [
         // but you can tailor the search results to the specific user and 
         // get more advanced 
 
-        console.log(search_query);
+        const img = await readFile(path.resolve('routes/generic_profile_pic.jpg'));
         const query = {
             "$or": [
                 {
@@ -46,10 +47,8 @@ router.post('/', [
         }
         try {
             const users_found = await User.find(query, returned_columns);
-            console.log(users_found);
-
-            return res.json({searchResults:users_found});
-
+            const users_found_profilePicturesBase64Encoded = convert2Base64MongooseDocs(users_found); 
+            return res.json({searchResults:users_found_profilePicturesBase64Encoded});
         }
         catch(err) {
             next(err); 

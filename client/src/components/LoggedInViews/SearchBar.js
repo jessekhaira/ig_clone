@@ -65,8 +65,9 @@ function SearchBar(props) {
         function createSearchImgDiv() {
             const searchImgDiv = document.createElement('div');
             const imgDiv = document.createElement('img');
-    
-            imgDiv.src = search_result.user_profile_pic;
+
+
+            imgDiv.src = 'data:image/jpeg;base64,' + search_result.profile_picture;
             imgDiv.classList.add('profile_img');
             imgDiv.classList.add('search_img');
     
@@ -141,6 +142,7 @@ function SearchBar(props) {
                 const json_search_results = await search_results.json();
                 // erase old search results and display new ones
                 search_dropdown.textContent = ''; 
+                console.log(json_search_results); 
                 addSearchResultDivs(json_search_results.searchResults); 
             }
             catch(err) {

@@ -5,6 +5,7 @@ const path = require("path");
 const util = require("util");
 const { default: expectCt } = require("helmet/dist/middlewares/expect-ct");
 const { verify } = require("crypto");
+const { userModel } = require("../../models/users");
 require("dotenv").config({ path: path.resolve(".env") });
 const readFile = util.promisify(fs.readFile);
 var mongoDB = process.env.MONGO_URL;
@@ -94,6 +95,7 @@ describe("test user mongoose model", () => {
     const data_buffer1 = await readFile(path.resolve("tests/models/batman16.png"));
     const user_practice = await User.findOne({ username: "practice123" });
     expect(data_buffer1).toEqual(user_practice.profile_picture);
+    // await userModel.remove({});
     (await db).disconnect();
   });
 });

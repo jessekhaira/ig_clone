@@ -62,7 +62,7 @@ userSchema.methods = {
  * Register a callback function that will run every time that a user document is saved with a pre hook. 
  */
 userSchema.pre(
-    // only want this to run if the password has changed -- ie we can update followers and following
+    // only want this to run if the password has changed -- ie we can update followers and followibng
     // but pw wont change
     'save', async function (next) {
         if (!this.isModified('password')) {

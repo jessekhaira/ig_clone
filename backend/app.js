@@ -9,7 +9,9 @@ const compression = require('compression');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const user = require('./models/users').userModel;
 const { body } = require('express-validator');
+const { userModel } = require('./models/users');
 
 /**
  * Express router to mount login related functions.
@@ -82,6 +84,7 @@ else if (process.env.NODE_ENV === 'PRODUCTION') {
 if (process.env.NODE_ENV !== 'TESTING') {
   app.listen(port);
 }
+
 
 
 module.exports = app;
