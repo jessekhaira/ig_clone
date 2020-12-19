@@ -58,7 +58,4 @@ router.post('/', [
     }
 ]);
 
-function makeSearchResultsOutput(searchResults) {
-
-}
 exports.search_router = router; 
