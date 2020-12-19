@@ -128,7 +128,7 @@ function SearchBar(props) {
         if (input_tag.value.length > 0) {
             try {
                 setDisplay(['none', 'block', 'block', 'block'], delete_inp_text_icon, spinner_div, search_dropdown, search_triangle);
-                let search_results = await fetch('/search', {
+                let search_results = await fetch('/navbar/search', {
                     method: 'post', 
                     headers: {
                         authorization: localStorage.getItem('accessToken'),

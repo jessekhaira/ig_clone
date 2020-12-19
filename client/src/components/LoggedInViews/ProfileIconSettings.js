@@ -16,9 +16,13 @@ function ProfileIconSettings(props) {
         }
     });
 
+    useEffect(async () => {
+        
+    })
+
     return(
         <div id = "profile_icon" className = "margin_class">
-            <img id = "profile_img" className = "options_imgs" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
+            <img id = "profile_img" className = "options_imgs"></img>
             <div className = "top_triangle profile_triangle"></div>
             <div id = "profile_settings">
                 <Link to = {`/${props.current_user}`}>

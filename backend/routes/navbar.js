@@ -18,7 +18,7 @@ const convert2Base64MongooseDocs = require('../utility/utilityFunctions').conver
 const router = express.Router();
 
 
-router.post('/', [
+router.post('/search', [
     validator.body('search_query'),
     async (req, res, next) => {
         const search_query = req.body.search_query;
@@ -57,4 +57,6 @@ router.post('/', [
     }
 ]);
 
-exports.search_router = router; 
+
+
+exports.navbar_router = router; 

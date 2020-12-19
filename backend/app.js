@@ -9,10 +9,6 @@ const compression = require('compression');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const user = require('./models/users').userModel;
-const { body } = require('express-validator');
-const { userModel } = require('./models/users');
-
 /**
  * Express router to mount login related functions.
  * @type {object}
@@ -39,7 +35,7 @@ const refresh_token_router = require('./routes/refreshToken').refreshToken;
  * @type {object}
  * @const 
  */
-const search_router = require('./routes/search').search_router; 
+const navbar_router = require('./routes/navbar').navbar_router; 
 
 
 require('dotenv').config();
@@ -59,7 +55,9 @@ app.use(bodyParser.json());
 app.use('/accounts/login', login_router); 
 app.use('/accounts/register', register_router); 
 app.use('/accounts/refreshToken', refresh_token_router); 
-app.use('/search', search_router); 
+app.use('/navbar', navbar_router); 
+
+
 // SPA - backend is purely API, views are handled by React 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
