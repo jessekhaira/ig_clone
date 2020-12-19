@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import { fetchDummyNotifications, setDisplay, newNotificationsForUser, _setDisplayNone} from '../../utility/utility_functions';
-
+import {setDisplay, _setDisplayNone} from '../../utility/utility_functions';
+import {fetchDummyNotifications, newNotificationsForUser} from '../../utility/engineering_utility';
 
 /**
  * This functional component represents the notifications icon + associated notifications dropdown 

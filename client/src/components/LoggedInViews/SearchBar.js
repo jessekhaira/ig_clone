@@ -1,6 +1,6 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {simulateSearchResults1, simulateSearchResults2, simulateSearchResults3, setDisplay} from '../../utility/utility_functions';
+import {setDisplay} from '../../utility/utility_functions';
 
 
 function SearchBar(props) {
