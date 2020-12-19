@@ -143,7 +143,7 @@ class Register extends React.Component {
                     <div className = "name_form_auth">
                         <h1 className = "instagram_name">Instagram Clone</h1>
                         <h2 id = "signInDescr">Sign up to join in on the fun!</h2>
-                        <form id = "RegisterForm" className = "form_auth" onChange = {this._undisableSignupButton}>
+                        <form id = "RegisterForm" className = "form_auth" onChange = {this._undisableSignupButton} autoComplete = "off">
                             <div className = "input_holder">
                                 <input id = "email_signup" type = "email" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
                                 <label htmlFor = "email_signup" className = "label_input_auth">Email</label>

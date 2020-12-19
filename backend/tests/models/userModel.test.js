@@ -95,7 +95,7 @@ describe("test user mongoose model", () => {
     const data_buffer1 = await readFile(path.resolve("tests/models/batman16.png"));
     const user_practice = await User.findOne({ username: "practice123" });
     expect(data_buffer1).toEqual(user_practice.profile_picture);
-    // await userModel.remove({});
+    await userModel.remove({});
     (await db).disconnect();
   });
 });
