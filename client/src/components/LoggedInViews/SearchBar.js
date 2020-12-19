@@ -152,6 +152,9 @@ function SearchBar(props) {
                 setDisplay(['block', 'none'], delete_inp_text_icon, spinner_div);
             }
         }
+        else {
+            setDisplay(['none', 'none'], search_dropdown, search_triangle);
+        }
     }
 
    return(
