@@ -137,9 +137,11 @@ function SearchBar(props) {
                         search_query: input_tag.value
                     })
                 });
+
+                const json_search_results = await search_results.json();
                 // erase old search results and display new ones
                 search_dropdown.textContent = ''; 
-                addSearchResultDivs(search_results.searchResults); 
+                addSearchResultDivs(json_search_results.searchResults); 
             }
             catch(err) {
                 console.log(err);
