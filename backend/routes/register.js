@@ -42,7 +42,7 @@ router.post('/', [
       password: req.body.pw_inp,
       date_of_birth: req.body.date_of_birth,
       refreshToken: refreshToken,
-      profile_picture
+      profile_picture: default_profile_picture
     });
 
     try {

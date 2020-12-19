@@ -32,6 +32,14 @@ const register_router = require('./routes/register').register_router;
  */
 const refresh_token_router = require('./routes/refreshToken').refreshToken; 
 
+/**
+ * Express router to mount search related functions.
+ * @type {object}
+ * @const 
+ */
+const search_router = require('./routes/search').search_router; 
+
+
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
@@ -49,6 +57,7 @@ app.use(bodyParser.json());
 app.use('/accounts/login', login_router); 
 app.use('/accounts/register', register_router); 
 app.use('/accounts/refreshToken', refresh_token_router); 
+app.use('/search', search_router); 
 // SPA - backend is purely API, views are handled by React 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
