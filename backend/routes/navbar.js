@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const path = require('path'); 
 const fs = require('fs'); 
 const util = require('util');
-const { exception } = require('console');
 const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
 const convert2Base64MongooseDocs = require('../utility/utilityFunctions').convert2Base64MongooseDocs; 
@@ -20,7 +19,6 @@ const router = express.Router();
 router.get('/getProfileIcon', async (req,res) => {
     const accessTokenRecieved = req.headers.authorization; 
     try {
-        console.log('hre')
         const username = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET).username; 
         const user_profile_pic = await User.find({username: username}, 'profile_picture');
         const base64Img = convert2Base64MongooseDocs(user_profile_pic);

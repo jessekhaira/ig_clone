@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
-import {_authenticationErrorLogOut} from '../../utility/utility_functions'; 
+import {_authenticationErrorLogOut, checkTokenExpirationMiddleware} from '../../utility/utility_functions'; 
 
 function ProfileIconSettings(props) {
     function _logout() {
@@ -18,12 +18,15 @@ function ProfileIconSettings(props) {
     });
 
     useEffect(async () => {
-        const profile_icon_raw = await fetch('/navbar/getProfileIcon', {
-            headers: {
-                authorization: localStorage.getItem('accessToken')
-            }
-        });
+        // before any request to a protected endpoint we check if our access token is expired and if it is
+        // refresh it 
         try {
+            await checkTokenExpirationMiddleware(); 
+            const profile_icon_raw = await fetch('/navbar/getProfileIcon', {
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            });
             const profile_icon_json = await profile_icon_raw.json();
             const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
             const profile_img = document.getElementById('profile_img'); 

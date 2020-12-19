@@ -3,13 +3,13 @@ import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {logger} from 'redux-logger';
 import thunk from 'redux-thunk';
 import {currentUserReducer} from './features/currentUserSlice';
-import {removeCurrUser, checkTokenExpirationMiddleware} from './customMiddleware';
+import {removeCurrUser} from './customMiddleware';
 const loggerMiddleware = createLogger();
 
 export const reduxStore = configureStore({
     reducer: {
         current_user: currentUserReducer,
     },
-    middleware: [logger, removeCurrUser, checkTokenExpirationMiddleware,thunk]
+    middleware: [logger, removeCurrUser,thunk]
 });
 
