@@ -127,13 +127,16 @@ function SearchBar(props) {
         if (input_tag.value.length > 0) {
             try {
                 setDisplay(['none', 'block', 'block', 'block'], delete_inp_text_icon, spinner_div, search_dropdown, search_triangle);
-                let search_results = null;
-                if (Math.random() >= 0.5) {
-                    search_results = await simulateSearchResults3();
-                }
-                else {
-                    search_results = await simulateSearchResults2(); 
-                }
+                let search_results = await fetch('/search', {
+                    method: 'post', 
+                    headers: {
+                        authorization: localStorage.getItem('accessToken'),
+                        'Content-type': 'application/json; charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        search_query: input_tag.value
+                    })
+                });
                 // erase old search results and display new ones
                 search_dropdown.textContent = ''; 
                 addSearchResultDivs(search_results.searchResults); 
