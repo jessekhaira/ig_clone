@@ -8,7 +8,7 @@ function ProfileIconSettings(props) {
 
     const [firstTimeMounted, setFirstTimeMounted] = useState(true); 
 
-    useEffect(() => {
+    useEffect(async () => {
         if (firstTimeMounted === true) {
             document.getElementById('profile_settings').style.display = 'none'; 
             document.getElementsByClassName('profile_triangle')[0].style.display = 'none'; 
@@ -17,7 +17,17 @@ function ProfileIconSettings(props) {
     });
 
     useEffect(async () => {
-        
+        const profile_icon_raw = await fetch('/navbar/getProfileIcon', {
+            headers: {
+                authorization: localStorage.getItem('accessToken')
+            }
+        });
+        const profile_icon_json = await profile_icon_raw.json();
+        const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
+        const profile_img = document.getElementById('profile_img'); 
+        if (base64_image !== profile_img.src) {
+            profile_img.src = base64_image; 
+        } 
     })
 
     return(
