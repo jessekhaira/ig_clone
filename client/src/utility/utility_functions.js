@@ -209,6 +209,13 @@ export async function fetchDummyNotifications() {
       });
 }
 
+
+export function _authenticationErrorLogOut() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    window.location.reload(); 
+}
+
 export function _preprocess_loginbutton(loginButton, eventListenerRemove) {
     loginButton.disabled = true; 
     loginButton.removeEventListener('click', eventListenerRemove); 

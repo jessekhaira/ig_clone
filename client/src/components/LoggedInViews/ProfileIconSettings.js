@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
+import {_authenticationErrorLogOut} from '../../utility/utility_functions'; 
 
 function ProfileIconSettings(props) {
     function _logout() {
@@ -22,12 +23,17 @@ function ProfileIconSettings(props) {
                 authorization: localStorage.getItem('accessToken')
             }
         });
-        const profile_icon_json = await profile_icon_raw.json();
-        const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
-        const profile_img = document.getElementById('profile_img'); 
-        if (base64_image !== profile_img.src) {
-            profile_img.src = base64_image; 
-        } 
+        try {
+            const profile_icon_json = await profile_icon_raw.json();
+            const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
+            const profile_img = document.getElementById('profile_img'); 
+            if (base64_image !== profile_img.src) {
+                profile_img.src = base64_image; 
+            } 
+        }
+        catch(err) {
+            _authenticationErrorLogOut(); 
+        }
     })
 
     return(

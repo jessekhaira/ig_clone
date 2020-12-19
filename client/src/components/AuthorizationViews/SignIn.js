@@ -81,7 +81,7 @@ class SignIn extends React.Component {
                 <div className = "auth_info">
                     <div className = "name_form_auth">
                         <h1 className = "instagram_name">Instagram Clone</h1>
-                        <form id = "sign_in" className = "form_auth" onChange = {this._formInputsChanged} autoComplete = "off">
+                        <form id = "sign_in" className = "form_auth" onChange = {this._formInputsChanged}>
                             <div className = "input_holder">
                                 <input id = "email_user_login" type = "text" className = "authInputs" onChange = {this.props._animate_input_labels}></input>
                                 <label htmlFor = "email_user_login" className = "label_input_auth">Username or email</label>
