@@ -1,0 +1,113 @@
+#user_profile_top_level_div {
+    @include flexbox-center();
+    border: 1px solid;
+    height: 90%;;
+    width: 100%;
+}
+
+#user_profile_info_container {
+    @include flexbox-center();
+    align-self: flex-start;
+    border: 1px solid;
+    width: 100%;
+}
+
+#profile_page_profpic_divcontainer {
+    position: relative;
+    right: 90px;
+    #profile_page_profpic {
+        display: flex;
+        align-items: flex-start;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+#profile_info_directparentdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 40%;
+}
+
+#name_options_divcontainer {
+    @include flexbox-center();
+    justify-content: flex-start;
+    width: 100%;
+    
+    #profile_page_username {
+        font-size: 28px;
+        font-weight: 300;
+    }
+
+    .options_item {
+        margin-right: 25px;
+    }
+
+    #profilepg_settingicon {
+        position: relative;
+        top: 2px;
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+    }
+
+    #edit_profile {
+        cursor: pointer;
+        position: relative;
+        top: 2px;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-radius: 4px;
+        font-weight: 600;
+        padding: 5px 9px;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height:30px;
+        width: 100px;
+    }
+
+    #edit_profile:focus {
+        outline: 0;
+    }
+
+}
+
+
+#meta_info_user {
+    display: flex;
+    width: 320px;
+
+    .meta_info_user_divcontainer {
+        margin-right: 25px;
+        width: 100px;
+    }
+
+    .post_info_counts {
+        display: inline;
+        margin-right: 6px;
+        font-weight: bold;
+    }
+
+    .post_info_descr{
+        display: inline;
+    }
+
+    #follower_info_div {
+        cursor: pointer;
+    }
+
+    #following_info_div {
+        cursor: pointer;
+    }
+}
+
+#profile_info_bio {
+    #fullname_profile {
+        font-weight: bold;
+    }
+}

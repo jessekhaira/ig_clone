@@ -21,7 +21,7 @@ function UserProfileInformation () {
                     <button id = "edit_profile" className = "options_item">
                         Edit Profile
                     </button>
-                    <img alt = "Settings Wheel" className = "icons_settings profile_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
+                    <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
                 </div>
                 <div id = "meta_info_user">
                     <div id = "post_info_div" className = "meta_info_user_divcontainer">
@@ -39,7 +39,11 @@ function UserProfileInformation () {
                 </div>
                 <div id = "profile_info_bio">
                     <p id = "fullname_profile">Batman</p>
-                    <div id = "editable_bio_info"></div>
+                    <p id = "editable_bio_info">
+                        Superhero
+                        Justice League
+                        Galaxy
+                    </p>
                 </div>
             </div>
         </div>
