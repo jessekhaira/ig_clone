@@ -370,11 +370,14 @@ body, #root, html, .App {
   justify-content: center;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
+  width: 600px;
 }
 #name_options_divcontainer #profile_page_username {
   font-size: 28px;
   font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 }
 #name_options_divcontainer .options_item {
   margin-right: 25px;
@@ -397,8 +400,6 @@ body, #root, html, .App {
   font-weight: 600;
   padding: 5px 9px;
   text-align: center;
-  text-overflow: ellipsis;
-  overflow: hidden;
   height: 30px;
   width: 100px;
 }
