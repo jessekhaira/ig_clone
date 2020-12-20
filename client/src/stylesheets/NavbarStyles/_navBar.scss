@@ -1,6 +1,7 @@
 @import "_profileIcon.scss";
 @import "_searchBar.scss";
 @import "_notifications.scss";
+@import "_navBarMedia.scss";
 
 #navbar_container {
     height: 6%;
@@ -15,6 +16,10 @@
     border: 1px solid var(--border-color);
     background-color: white;
     z-index: 5;
+
+    #link_home_igname {
+        white-space: nowrap;
+    }
 
     a {
         text-decoration: none;  

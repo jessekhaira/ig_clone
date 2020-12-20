@@ -335,6 +335,7 @@ body, #root, html, .App {
   height: 90%;
   width: 100%;
   margin-top: 20px;
+  border: none;
 }
 
 #user_profile_info_container {
@@ -342,7 +343,6 @@ body, #root, html, .App {
   justify-content: center;
   align-items: center;
   align-self: flex-start;
-  border: 1px solid;
   width: 100%;
 }
 
@@ -379,7 +379,7 @@ body, #root, html, .App {
   font-weight: 300;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  max-width: 200px;
 }
 #name_options_divcontainer .options_item {
   margin-right: 25px;
@@ -945,6 +945,11 @@ body, #root, html, .App {
   background-color: gray;
 }
 
+@media (max-width: 750px) {
+  #search_bar {
+    display: none;
+  }
+}
 #navbar_container {
   height: 6%;
 }
@@ -961,6 +966,9 @@ body, #root, html, .App {
   border: 1px solid var(--border-color);
   background-color: white;
   z-index: 5;
+}
+#navbar #link_home_igname {
+  white-space: nowrap;
 }
 #navbar a {
   text-decoration: none;
@@ -1008,40 +1016,51 @@ body, #root, html, .App {
   -webkit-text-fill-color: black !important;
 }
 
-@media (max-width: 600px) {
-  #user_profile_info_container {
+@media (max-width: 750px) {
+  #profile_info_directparentdiv {
     position: relative;
+    left: 20px;
   }
 
   #profile_page_profpic_divcontainer {
-    position: absolute;
+    left: -35px;
   }
   #profile_page_profpic_divcontainer #profile_page_profpic {
-    position: absolute;
-    width: 77px;
-    height: 77px;
+    width: 90px;
+    height: 90px;
+  }
+  #profile_page_profpic_divcontainer .options_item {
+    margin-right: 2px;
   }
 
   #name_options_divcontainer {
-    position: relative;
-  }
-  #name_options_divcontainer #profilepg_settingicon {
-    position: relative;
-    left: -12px;
+    width: 300px;
   }
   #name_options_divcontainer #edit_profile {
     position: absolute;
+    width: 60vw;
     top: 70px;
-    left: -3px;
-    width: 300px;
+    left: -2px;
   }
+
+  #profile_info_directparentdiv {
+    left: -2px;
+  }
+
   #meta_info_user_normalviewport {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    top: 35px;
   }
+
   #profile_info_bio {
-    border: 1px solid;
-    right: 125px;
-    top: 30px;
+    position: relative;
+    top: 45px;
+  }
+  #profile_info_bio #fullname_profile {
+    font-weight: bold;
   }
 }
 

@@ -16,7 +16,7 @@ function UserProfileInformation () {
             <div id = "profile_info_directparentdiv">
                 <div id = "name_options_divcontainer">
                     <div id = "profile_page_username" className = "options_item">
-                        <h2 id = "profile_page_username" >Batman</h2>
+                        <h2 id = "profile_page_username" >Baasdasdasdtmanaasdasdassdsadsadasdasdsadasdsaassdasdsadassdaasdasdsa</h2>
                     </div>
                     <button id = "edit_profile" className = "options_item">
                         Edit Profile
