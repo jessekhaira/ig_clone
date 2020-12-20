@@ -1,7 +1,7 @@
 import React from 'react';
 import jwt_decode from "jwt-decode";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {UserProfile} from './UserProfile';
+import {UserProfile} from './UserProfile/UserProfile';
 import {NavBar} from './NavBar'; 
 import {connect} from 'react-redux';
 import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../../redux/react-redux-maps/LoggedInReactRedux';

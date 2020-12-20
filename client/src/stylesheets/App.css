@@ -327,6 +327,76 @@ body, #root, html, .App {
   height: 100%;
 }
 
+#user_profile_top_level_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  height: 90%;
+  width: 100%;
+}
+
+#user_profile_info_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
+  border: 1px solid;
+  width: 100%;
+}
+
+#profile_page_profpic {
+  display: flex;
+  align-items: flex-start;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#profile_info_directparentdiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid;
+  width: 70%;
+}
+
+#name_options_divcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  border: 1px solid;
+}
+#name_options_divcontainer #profile_page_username {
+  font-size: 28px;
+  font-weight: 300;
+}
+#name_options_divcontainer .options_item {
+  margin-right: 25px;
+}
+
+#meta_info_user {
+  display: flex;
+  border: 1px solid;
+  width: 100%;
+}
+#meta_info_user .meta_info_user_divcontainer {
+  overflow: hidden;
+  border: 1px solid;
+  margin-right: 25px;
+}
+#meta_info_user .post_info_counts {
+  display: inline;
+  margin-right: 6px;
+  font-weight: bold;
+}
+#meta_info_user .post_info_descr {
+  display: inline;
+}
+
 #profile_icon {
   position: relative;
   cursor: pointer;

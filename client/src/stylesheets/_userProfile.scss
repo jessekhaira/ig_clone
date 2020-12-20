@@ -1,0 +1,74 @@
+
+
+#user_profile_top_level_div {
+    @include flexbox-center();
+    border: 1px solid;
+    height: 90%;;
+    width: 100%;
+}
+
+#user_profile_info_container {
+    @include flexbox-center();
+    align-self: flex-start;
+    border: 1px solid;
+    width: 100%;
+}
+
+#profile_page_profpic {
+    display: flex;
+    align-items: flex-start;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#profile_info_directparentdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid;
+    width: 70%;
+
+}
+
+#name_options_divcontainer {
+    @include flexbox-center();
+    justify-content: flex-start;
+    width: 100%;
+    border: 1px solid;
+    
+    #profile_page_username {
+        font-size: 28px;
+        font-weight: 300;
+    }
+
+    .options_item {
+        margin-right: 25px;
+    }
+
+}
+
+#meta_info_user {
+    display: flex;
+    border: 1px solid;
+    width: 100%;
+
+    .meta_info_user_divcontainer {
+        overflow: hidden;
+        border: 1px solid;
+        margin-right: 25px;
+    }
+
+    .post_info_counts {
+        display: inline;
+        margin-right: 6px;
+        font-weight: bold;
+    }
+
+    .post_info_descr{
+        display: inline;
+    }
+
+
+}
