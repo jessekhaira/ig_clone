@@ -1,0 +1,32 @@
+#user_toggle_profile_views_container {
+    @include flexbox-center();
+    width: 100%;
+}
+
+#direct_parent_container {
+    position: relative;
+    border-top: 1px solid #8e8e8e;
+    @include flexbox-center();
+    width: 900px;
+}
+
+.toggle_containers {
+    @include flexbox-center();
+    color: #8e8e8e;
+    cursor: pointer;
+    margin-right: 35px;
+
+    .toggle_icons {
+        margin-right: 6px;
+        transform: scale(0.7);
+    }
+
+    .posts_descr {
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    #posts_div {
+        border-top: 1px solid black;
+    }
+}

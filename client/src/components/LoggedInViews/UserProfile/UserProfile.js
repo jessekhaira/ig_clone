@@ -1,15 +1,15 @@
 import React from 'react';
 import {UserProfileInformation} from './UserProfileInformation';
+import {UserProfileToggleViews} from './UserProfileToggleViews';
 
 function UserProfile () {
     return (
         <div id = "user_profile_top_level_div">
-            <UserProfileInformation /> 
-            <div id = "user_toggle_profile_views_container">
-
+            <div id = "resize_together_container">
+                <UserProfileInformation /> 
+                <UserProfileToggleViews /> 
             </div>
             <div id = "photos_container">
-
             </div>
         </div>
     )

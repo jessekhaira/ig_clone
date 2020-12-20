@@ -327,28 +327,19 @@ body, #root, html, .App {
   height: 100%;
 }
 
-#user_profile_top_level_div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid;
-  height: 90%;
-  width: 100%;
-  margin-top: 20px;
-  border: none;
-}
-
 #user_profile_info_container {
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: flex-start;
   width: 100%;
+  height: 35%;
+  position: relative;
+  left: -120px;
 }
 
 #profile_page_profpic_divcontainer {
   position: relative;
-  right: 10px;
 }
 #profile_page_profpic_divcontainer #profile_page_profpic {
   display: flex;
@@ -434,6 +425,57 @@ body, #root, html, .App {
 
 #profile_info_bio #fullname_profile {
   font-weight: bold;
+}
+
+#user_toggle_profile_views_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#direct_parent_container {
+  position: relative;
+  border-top: 1px solid #8e8e8e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 900px;
+}
+
+.toggle_containers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8e8e8e;
+  cursor: pointer;
+  margin-right: 35px;
+}
+.toggle_containers .toggle_icons {
+  margin-right: 6px;
+  transform: scale(0.7);
+}
+.toggle_containers .posts_descr {
+  font-size: 13px;
+  font-weight: 400;
+}
+.toggle_containers #posts_div {
+  border-top: 1px solid black;
+}
+
+#user_profile_top_level_div {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#resize_together_container {
+  margin-left: auto;
+  margin-right: auto;
+  height: 90%;
 }
 
 #profile_icon {
@@ -945,11 +987,6 @@ body, #root, html, .App {
   background-color: gray;
 }
 
-@media (max-width: 750px) {
-  #search_bar {
-    display: none;
-  }
-}
 #navbar_container {
   height: 6%;
 }
@@ -1017,6 +1054,11 @@ body, #root, html, .App {
 }
 
 @media (max-width: 750px) {
+  #search_bar {
+    display: none;
+  }
+}
+@media (max-width: 750px) {
   #profile_info_directparentdiv {
     position: relative;
     left: 20px;
@@ -1038,7 +1080,7 @@ body, #root, html, .App {
   }
   #name_options_divcontainer #edit_profile {
     position: absolute;
-    width: 60vw;
+    width: 55vw;
     top: 70px;
     left: -2px;
   }
