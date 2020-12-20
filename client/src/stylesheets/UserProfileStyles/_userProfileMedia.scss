@@ -1,0 +1,67 @@
+@media (max-width: 600px) {
+    #user_profile_info_container {
+        position: relative;
+    }
+
+    #profile_page_profpic_divcontainer {
+        position: absolute;
+        #profile_page_profpic {
+            position: absolute;
+            width: 77px;
+            height: 77px;
+        }
+    }
+
+    #name_options_divcontainer {
+        position: relative;
+        #profile_page_username {
+        }
+    
+        .options_item {
+        }
+    
+        #profilepg_settingicon {
+            position: relative;
+            left: -12px;
+        }
+    
+        #edit_profile {
+            position: absolute;
+            top: 70px;
+            left: -3px; 
+            width: 300px;
+        }
+    
+        #edit_profile:focus {
+        }
+    }
+
+
+    #meta_info_user_normalviewport {
+        display: none;
+
+        .meta_info_user_divcontainer {
+        }
+
+        .post_info_counts {
+        }
+
+        .post_info_descr{
+        }
+
+        #follower_info_div {
+        }
+
+        #following_info_div {
+        }
+    }
+
+    #profile_info_bio {
+        border: 1px solid;  
+        right: 125px;
+        top: 30px;
+        #fullname_profile {
+        }
+    }
+
+}

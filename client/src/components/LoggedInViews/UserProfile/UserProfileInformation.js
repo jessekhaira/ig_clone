@@ -23,7 +23,7 @@ function UserProfileInformation () {
                     </button>
                     <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
                 </div>
-                <div id = "meta_info_user">
+                <div id = "meta_info_user_normalviewport">
                     <div id = "post_info_div" className = "meta_info_user_divcontainer">
                         <p id = "post_count" className = "post_info_counts">21</p>
                         <p className = "post_info_descr">posts</p>

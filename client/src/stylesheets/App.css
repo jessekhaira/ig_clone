@@ -334,6 +334,7 @@ body, #root, html, .App {
   border: 1px solid;
   height: 90%;
   width: 100%;
+  margin-top: 20px;
 }
 
 #user_profile_info_container {
@@ -347,7 +348,7 @@ body, #root, html, .App {
 
 #profile_page_profpic_divcontainer {
   position: relative;
-  right: 90px;
+  right: 10px;
 }
 #profile_page_profpic_divcontainer #profile_page_profpic {
   display: flex;
@@ -360,9 +361,11 @@ body, #root, html, .App {
 
 #profile_info_directparentdiv {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: flex-start;
   width: 40%;
+  left: 80px;
 }
 
 #name_options_divcontainer {
@@ -370,7 +373,6 @@ body, #root, html, .App {
   justify-content: center;
   align-items: center;
   justify-content: flex-start;
-  width: 600px;
 }
 #name_options_divcontainer #profile_page_username {
   font-size: 28px;
@@ -407,26 +409,26 @@ body, #root, html, .App {
   outline: 0;
 }
 
-#meta_info_user {
+#meta_info_user_normalviewport {
   display: flex;
   width: 320px;
 }
-#meta_info_user .meta_info_user_divcontainer {
+#meta_info_user_normalviewport .meta_info_user_divcontainer {
   margin-right: 25px;
   width: 100px;
 }
-#meta_info_user .post_info_counts {
+#meta_info_user_normalviewport .post_info_counts {
   display: inline;
   margin-right: 6px;
   font-weight: bold;
 }
-#meta_info_user .post_info_descr {
+#meta_info_user_normalviewport .post_info_descr {
   display: inline;
 }
-#meta_info_user #follower_info_div {
+#meta_info_user_normalviewport #follower_info_div {
   cursor: pointer;
 }
-#meta_info_user #following_info_div {
+#meta_info_user_normalviewport #following_info_div {
   cursor: pointer;
 }
 
@@ -1004,6 +1006,43 @@ body, #root, html, .App {
 }
 #navbar #navbar_options .home_icon_active {
   -webkit-text-fill-color: black !important;
+}
+
+@media (max-width: 600px) {
+  #user_profile_info_container {
+    position: relative;
+  }
+
+  #profile_page_profpic_divcontainer {
+    position: absolute;
+  }
+  #profile_page_profpic_divcontainer #profile_page_profpic {
+    position: absolute;
+    width: 77px;
+    height: 77px;
+  }
+
+  #name_options_divcontainer {
+    position: relative;
+  }
+  #name_options_divcontainer #profilepg_settingicon {
+    position: relative;
+    left: -12px;
+  }
+  #name_options_divcontainer #edit_profile {
+    position: absolute;
+    top: 70px;
+    left: -3px;
+    width: 300px;
+  }
+  #meta_info_user_normalviewport {
+    display: none;
+  }
+  #profile_info_bio {
+    border: 1px solid;
+    right: 125px;
+    top: 30px;
+  }
 }
 
 /*# sourceMappingURL=App.css.map */

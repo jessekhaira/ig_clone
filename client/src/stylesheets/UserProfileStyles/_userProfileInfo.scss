@@ -3,6 +3,7 @@
     border: 1px solid;
     height: 90%;;
     width: 100%;
+    margin-top: 20px;
 }
 
 #user_profile_info_container {
@@ -14,7 +15,7 @@
 
 #profile_page_profpic_divcontainer {
     position: relative;
-    right: 90px;
+    right: 10px;
     #profile_page_profpic {
         display: flex;
         align-items: flex-start;
@@ -27,15 +28,16 @@
 
 #profile_info_directparentdiv {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: flex-start;
     width: 40%;
+    left: 80px;
 }
 
 #name_options_divcontainer {
     @include flexbox-center();
     justify-content: flex-start;
-    width: 600px;
     
     #profile_page_username {
         font-size: 28px;
@@ -79,7 +81,7 @@
 }
 
 
-#meta_info_user {
+#meta_info_user_normalviewport {
     display: flex;
     width: 320px;
 
