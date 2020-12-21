@@ -6,9 +6,10 @@ const path = require('path');
 const fs = require('fs'); 
 const util = require('util');
 const { query } = require('express');
+const { get } = require('http');
 const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
-const convert2Base64MongooseDocs = require('../utility/utilityFunctions').convert2Base64MongooseDocs; 
+const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 
 /**
  * Express router to mount user profile related functions. 
@@ -18,13 +19,10 @@ const convert2Base64MongooseDocs = require('../utility/utilityFunctions').conver
 const router = express.Router();
 
 
-router.get('/', async (req,res, next) => {
+router.get('/profileInfo', async (req,res, next) => {
     try {
-        // check if user is authorized before returning info.. 
-        console.log(req.headers);
-        const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-        // console.log(user);
         const query_information = {
+            username: true, 
             full_name: true,
             photos: true,
             followers: true,
@@ -33,22 +31,49 @@ router.get('/', async (req,res, next) => {
             profile_description: true,
         };
 
-        const query_result = await User.findOne({username: user.username}, query_information)[0]; 
-        console.log(query_result); 
-        // const number_followers = query_result.followers.length;
-        // const number_following = query_result.following.length;
-        // const number_posts = query_result.photos.length;
-        // const full_name = query_result.full_name;
-        // const profile_picture = convert2Base64MongooseDocs(query_result.profile_picture); 
-        // console.log(profile_picture); 
-        res.json({});
+        const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        const query_result = await User.findOne({username: user.username}, query_information);
+
+        const number_followers = query_result.followers.length;
+        const number_following = query_result.following.length;
+        const number_posts = query_result.photos.length;
+        const full_name = query_result.full_name;
+        const username = query_result.username;
+        const profile_picture = convertBuffer2Base64(query_result); 
+
+        return res.status(200).json({
+            username, 
+            number_followers,
+            number_following,
+            number_posts,
+            full_name,
+            profile_picture
+        }); 
+    }
+    catch(err) {
+        console.log(err);
+        return res.status(500).json({userUnauthorizedError: "User is unauthorized"});
+    }
+})
+
+router.get('/posts', async (req, res, next) => {
+    try {
+        const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+
+        const query_information = {
+            photos: true,
+        };
+        const query_result = await User.findOne({username: user.username}, query_information);
+
+        console.log(query_result);
+        res.json({}); 
     }
     catch(err) {
         console.log(err);
         res.status(500).json({userUnauthorizedError: "User is unauthorized"});
     }
+});
 
-})
 
 
 exports.userProfileRouter = router; 

@@ -342,7 +342,6 @@ html {
   align-items: center;
   align-self: flex-start;
   width: 100%;
-  height: 35%;
   position: relative;
   left: -90px;
 }
@@ -411,6 +410,7 @@ html {
 
 #meta_info_user_normalviewport {
   display: flex;
+  margin-top: 20px;
   width: 320px;
 }
 #meta_info_user_normalviewport .meta_info_user_divcontainer {
@@ -432,8 +432,15 @@ html {
   cursor: pointer;
 }
 
+#profile_info_bio {
+  width: auto;
+  max-width: 500px;
+  overflow: hidden;
+}
 #profile_info_bio #fullname_profile {
   font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #user_toggle_profile_views_container {
@@ -518,7 +525,7 @@ html {
   margin-left: auto;
   margin-right: auto;
   height: auto;
-  margin-top: 60px;
+  margin-top: 90px;
 }
 
 #profile_icon {
@@ -1147,6 +1154,7 @@ html {
   #profile_info_bio {
     position: relative;
     top: 25px;
+    max-width: 300px;
   }
   #profile_info_bio #fullname_profile {
     font-weight: bold;

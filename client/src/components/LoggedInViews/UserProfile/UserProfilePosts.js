@@ -2,29 +2,13 @@ import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 
-function UserProfilePosts () {
+function UserProfilePosts (props) {
 
     useEffect(() => {
-        async function mountUserProfile() {
-            try {
-                await checkTokenExpirationMiddleware(); 
-                const username = jwt_decode(localStorage.getItem('accessToken')).username; 
-                console.log(localStorage.getItem('accessToken')); 
-                const returned_profile_info_raw = await fetch(`/${username}`, {
-                    headers: {
-                        authorization: localStorage.getItem('accessToken')
-                    }
-                }); 
-
-                const returned_profile_info_json= await returned_profile_info_raw.json(); 
-
-            }
-            catch(err) {
-                console.log(err); 
-                // _authenticationErrorLogOut();
-            }
+        async function fetchPosts() {
+            await props.aysncCallToMountInformation('/posts'); 
         }
-        mountUserProfile(); 
+        // fetchPosts(); 
     })
     return (
         <div id = "user_profile_posts_overallholder">

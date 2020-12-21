@@ -7,7 +7,7 @@ const fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
-const convert2Base64MongooseDocs = require('../utility/utilityFunctions').convert2Base64MongooseDocs; 
+const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
 
 /**
  * Express router to mount search related functions. 
@@ -21,7 +21,7 @@ router.get('/getProfileIcon', async (req,res) => {
     try {
         const username = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET).username; 
         const user_profile_pic = await User.find({username: username}, 'profile_picture');
-        const base64Img = convert2Base64MongooseDocs(user_profile_pic);
+        const base64Img = convertArrayPicBuffers2Base64(user_profile_pic);
         return res.json({profile_picture: base64Img});
     }
     catch(err) {
@@ -59,7 +59,7 @@ router.post('/search', [
         }
         try {
             const users_found = await User.find(query, returned_columns);
-            const users_found_profilePicturesBase64Encoded = convert2Base64MongooseDocs(users_found); 
+            const users_found_profilePicturesBase64Encoded = convertArrayPicBuffers2Base64(users_found); 
             return res.json({searchResults:users_found_profilePicturesBase64Encoded});
         }
         catch(err) {
