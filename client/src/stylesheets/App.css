@@ -135,7 +135,8 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  height: auto;
+  min-height: 90vh;
   background-color: var(--main-bg-color);
 }
 
@@ -184,7 +185,8 @@ html {
 }
 
 .AuthorizationContainer {
-  height: 90%;
+  min-height: 90vh;
+  height: auto;
 }
 
 .auth_link {
