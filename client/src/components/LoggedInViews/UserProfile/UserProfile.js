@@ -12,11 +12,10 @@ function UserProfile () {
     const [currentlyFetching, setCurrentlyFetching] = useState(false); 
     const [userNotFound, setUserNotFound] = useState(false); 
 
-    async function aysncCallToMountInformation(endpoint) {
+    async function aysncCallToMountInformation(endpoint, username_belongingto_profile) {
         try {
             await checkTokenExpirationMiddleware(); 
-            const username = jwt_decode(localStorage.getItem('accessToken')).username; 
-            const returned_profile_info_raw = await fetch(`/${username}/${endpoint}`, {
+            const returned_profile_info_raw = await fetch(`/${username_belongingto_profile}/${endpoint}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
@@ -48,10 +47,12 @@ function UserProfile () {
             <div id = "resize_together_container">
                 <UserProfileInformation 
                     aysncCallToMountInformation = {aysncCallToMountInformation}
+                    setCurrentlyFetching = {setCurrentlyFetching}
                 /> 
                 <UserProfileToggleViews /> 
                 <UserProfilePosts 
                     aysncCallToMountInformation = {aysncCallToMountInformation}
+                    setCurrentlyFetching = {setCurrentlyFetching} 
                 /> 
             </div>
             }

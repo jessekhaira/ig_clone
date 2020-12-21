@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
+import {useHistory} from 'react-router-dom';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 
 
 function UserProfileInformation (props) {
+    const history = useHistory(); 
     useEffect(() => {
-        async function fetchInformation() {
-            const profileInfo = await props.aysncCallToMountInformation('/profileInfo'); 
+        async function fetchInformation() {  
+            const username_belongingto_profile = history.location.pathname.split('/')[1];
+            const profileInfo = await props.aysncCallToMountInformation('/profileInfo', username_belongingto_profile); 
             fillInProfileWithInformation(profileInfo); 
         }
         fetchInformation(); 

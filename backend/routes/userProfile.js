@@ -16,7 +16,7 @@ const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffe
  * @type {object}
  * @const 
  */
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 
 router.get('/profileInfo', async (req,res, next) => {
@@ -31,14 +31,14 @@ router.get('/profileInfo', async (req,res, next) => {
             profile_description: true,
         };
 
-        const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-        const query_result = await User.findOne({username: user.username}, query_information);
+        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        const username = req.params.username; 
+        const query_result = await User.findOne({username: username}, query_information);
 
         const number_followers = query_result.followers.length;
         const number_following = query_result.following.length;
         const number_posts = query_result.photos.length;
         const full_name = query_result.full_name;
-        const username = query_result.username;
         const profile_picture = convertBuffer2Base64(query_result); 
 
         return res.status(200).json({
