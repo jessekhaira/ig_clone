@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import {setDisplay, _setDisplayNone} from '../../utility/utility_functions';
+import {setDisplay} from '../../utility/utility_functions';
 import {fetchDummyNotifications, newNotificationsForUser} from '../../utility/engineering_utility';
 
 /**
@@ -28,23 +28,24 @@ function Notifications(props) {
      * Call should be done every time the component mounts unless the heart icon dropdown is already displaying
      * or if we're already in the middle of an api call 
      */
-    useEffect(async ()  => {
+    useEffect(()  => {
         // don't want to and make api call if we're currently looking at notifications 
-        if (document.getElementById('heartIconDropdown').style.display === 'none' && 
-            !currentlyFetchingNotif) {
-            try {
-                const new_notifs_user = await newNotificationsForUser();
-                (new_notifs_user ? 
-                    document.getElementsByClassName('new_notifications')[0].style.display = 'block':
-                    document.getElementsByClassName('new_notifications')[0].style.display = 'none'
-                ); 
-            }
-            catch(err) {
-                console.log(err.message); 
+        async function getNewNotificationsUser() {
+            if (document.getElementById('heartIconDropdown').style.display === 'none' && 
+                !currentlyFetchingNotif) {
+                try {
+                    const new_notifs_user = await newNotificationsForUser();
+                    (new_notifs_user ? 
+                        document.getElementsByClassName('new_notifications')[0].style.display = 'block':
+                        document.getElementsByClassName('new_notifications')[0].style.display = 'none'
+                    ); 
+                }
+                catch(err) {
+                    console.log(err.message); 
+                }
             }
         }
-
-
+        getNewNotificationsUser(); 
     }); 
 
     /**

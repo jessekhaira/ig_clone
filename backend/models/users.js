@@ -17,7 +17,6 @@ const userSchema = new Schema({
     date_of_birth: {type: Date, required: true}, 
     // values for the users profile 
     profile_description: {type:String, default:null}, 
-    number_of_posts: {type: Number, default: 0},
     profile_picture: {type: Buffer, default: 0},
     // store the _ids of all the users that follow this user
     followers: [
