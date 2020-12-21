@@ -38,6 +38,15 @@ const refresh_token_router = require('./routes/refreshToken').refreshToken;
 const navbar_router = require('./routes/navbar').navbar_router; 
 
 
+/**
+ * Express router to mount user profile related functions.
+ * @type {object}
+ * @const 
+ */
+const userprofile_router = require('./routes/userProfile').userProfileRouter;  
+
+
+
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
@@ -55,7 +64,8 @@ app.use(bodyParser.json());
 app.use('/accounts/login', login_router); 
 app.use('/accounts/register', register_router); 
 app.use('/accounts/refreshToken', refresh_token_router); 
-app.use('/navbar', navbar_router); 
+app.use('/loggedIn/navbar', navbar_router); 
+app.use('/:username', userprofile_router);
 
 
 // SPA - backend is purely API, views are handled by React 

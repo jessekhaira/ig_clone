@@ -1,9 +1,9 @@
 @import "_globalStyles.scss";
 @import "_authenticate.scss"; 
 @import "loggedInViews/loggedInViews.scss";
-@import "_explore.scss";
-@import "_homePage.scss"; 
-@import "_DMInbox.scss";
+@import "loggedInViews/explore.scss";
+@import "loggedInViews/homePage.scss"; 
+@import "loggedInViews/DMInbox.scss";
 @import "loggedInViews/UserProfileStyles/userProfile.scss";
 @import "loggedInViews/NavbarStyles/navBar.scss"; 
 @import "loggedInViews/NavbarStyles/navBarMedia.scss";

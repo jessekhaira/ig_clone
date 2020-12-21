@@ -22,7 +22,7 @@ function ProfileIconSettings(props) {
         // refresh it 
         try {
             await checkTokenExpirationMiddleware(); 
-            const profile_icon_raw = await fetch('/navbar/getProfileIcon', {
+            const profile_icon_raw = await fetch('/loggedIn/navbar/getProfileIcon', {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
