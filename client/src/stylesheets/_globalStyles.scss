@@ -12,12 +12,12 @@
     --darker-border-color: #a7a6a6;
     --jb7: 0,0,0;
     --notification-color: #ed4956;
-
 }
 
-body, #root, .App{
+body, #root, html, .App{
     margin: 0; 
     @include system-fonts();
+    position: relative;
 }
 
 html {

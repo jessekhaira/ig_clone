@@ -1,5 +1,6 @@
 
 #explore_div {
     @include flexbox-center();
-    height: 100%;
+    height:auto;
+    min-height: 90vh;
 }
