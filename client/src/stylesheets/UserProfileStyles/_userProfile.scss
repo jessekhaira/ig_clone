@@ -1,18 +1,17 @@
 @import "_userProfileInfo.scss";
 @import "_userProfileToggleViews.scss";
+@import "_userProfileGrid.scss";
 
 #user_profile_top_level_div {
     display: flex;
     flex-direction: column;
-    height: 90%;
+    height: auto;
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 #resize_together_container {
-
     margin-left: auto;
     margin-right: auto;
-    height: 90%;
+    height: auto;
+    margin-top: 60px;
 }

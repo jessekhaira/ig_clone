@@ -13,18 +13,21 @@
   --notification-color: #ed4956;
 }
 
-body, #root, html, .App {
+body, #root, .App {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+html {
   width: 100%;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 #footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10%;
+  height: 10vh;
   background-color: var(--main-bg-color);
 }
 #footer a {
@@ -440,7 +443,7 @@ body, #root, html, .App {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 900px;
+  width: 700px;
 }
 
 .toggle_containers {
@@ -450,10 +453,13 @@ body, #root, html, .App {
   color: #8e8e8e;
   cursor: pointer;
   margin-right: 35px;
+  white-space: nowrap;
 }
 .toggle_containers .toggle_icons {
   margin-right: 6px;
   transform: scale(0.7);
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1.1px;
 }
 .toggle_containers .posts_descr {
   font-size: 13px;
@@ -463,19 +469,33 @@ body, #root, html, .App {
   border-top: 1px solid black;
 }
 
+#user_profile_posts_overallholder {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  align-items: center;
+  grid-gap: 30px 30px;
+  margin-top: 20px;
+}
+
+.grid_photo {
+  width: 100%;
+  max-width: 253px;
+  cursor: pointer;
+}
+
 #user_profile_top_level_div {
   display: flex;
   flex-direction: column;
-  height: 90%;
+  height: auto;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 #resize_together_container {
   margin-left: auto;
   margin-right: auto;
-  height: 90%;
+  height: auto;
+  margin-top: 60px;
 }
 
 #profile_icon {
@@ -1059,13 +1079,18 @@ body, #root, html, .App {
   }
 }
 @media (max-width: 750px) {
+  #user_profile_info_container {
+    width: 100%;
+    height: 40%;
+    margin-bottom: 40px;
+  }
+
   #profile_info_directparentdiv {
     position: relative;
-    left: 20px;
   }
 
   #profile_page_profpic_divcontainer {
-    left: -35px;
+    left: 35px;
   }
   #profile_page_profpic_divcontainer #profile_page_profpic {
     width: 90px;
@@ -1082,11 +1107,10 @@ body, #root, html, .App {
     position: absolute;
     width: 55vw;
     top: 70px;
-    left: -2px;
   }
 
   #profile_info_directparentdiv {
-    left: -2px;
+    left: 65px;
   }
 
   #meta_info_user_normalviewport {
@@ -1099,10 +1123,39 @@ body, #root, html, .App {
 
   #profile_info_bio {
     position: relative;
-    top: 45px;
+    top: 25px;
   }
   #profile_info_bio #fullname_profile {
     font-weight: bold;
+  }
+
+  #resize_together_container {
+    width: 100%;
+  }
+
+  #user_toggle_profile_views_container {
+    position: relative;
+    width: 100%;
+  }
+
+  #direct_parent_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    height: 29px;
+  }
+
+  .posts_descr {
+    display: none;
+  }
+
+  .toggle_icons {
+    transform: scale(1.5) !important;
+    margin-top: 9px;
+  }
+
+  #user_profile_posts_overallholder {
+    grid-gap: 5px 5px;
   }
 }
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import {UserProfileInformation} from './UserProfileInformation';
 import {UserProfileToggleViews} from './UserProfileToggleViews';
+import {UserProfilePosts} from './UserProfilePosts';
+
 
 function UserProfile () {
     return (
@@ -8,8 +10,7 @@ function UserProfile () {
             <div id = "resize_together_container">
                 <UserProfileInformation /> 
                 <UserProfileToggleViews /> 
-            </div>
-            <div id = "photos_container">
+                <UserProfilePosts /> 
             </div>
         </div>
     )

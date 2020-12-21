@@ -7,7 +7,7 @@
     position: relative;
     border-top: 1px solid #8e8e8e;
     @include flexbox-center();
-    width: 900px;
+    width: 700px;
 }
 
 .toggle_containers {
@@ -15,10 +15,13 @@
     color: #8e8e8e;
     cursor: pointer;
     margin-right: 35px;
+    white-space: nowrap;
 
     .toggle_icons {
         margin-right: 6px;
         transform: scale(0.7);
+        -webkit-text-fill-color: white;
+        -webkit-text-stroke-width: 1.1px;
     }
 
     .posts_descr {
@@ -29,4 +32,5 @@
     #posts_div {
         border-top: 1px solid black;
     }
+    
 }

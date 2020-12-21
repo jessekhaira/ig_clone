@@ -1,0 +1,15 @@
+#user_profile_posts_overallholder {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: repeat(3, auto);
+    align-items: center;
+    grid-gap: 30px 30px;
+    margin-top: 20px;
+}
+
+
+.grid_photo {
+    width: 100%;
+    max-width: 253px;
+    cursor: pointer;
+}

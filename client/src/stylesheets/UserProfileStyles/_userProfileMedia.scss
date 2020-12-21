@@ -1,15 +1,18 @@
 @media (max-width: 750px) {
 
+    // top most container
     #user_profile_info_container {
+        width:100%;
+        height: 40%;
+        margin-bottom: 40px;
     }
 
     #profile_info_directparentdiv {
         position: relative;
-        left: 20px;
     }
 
     #profile_page_profpic_divcontainer {
-        left: -35px;
+        left: 35px;
         #profile_page_profpic {
             width: 90px;
             height: 90px;
@@ -29,12 +32,11 @@
             position: absolute;
             width: 55vw;
             top: 70px; 
-            left: -2px; 
         }
     }
 
     #profile_info_directparentdiv {
-        left: -2px;
+        left: 65px;
     }
 
     #meta_info_user_normalviewport {
@@ -47,10 +49,43 @@
 
     #profile_info_bio {
         position: relative;
-        top: 45px; 
+        top: 25px; 
         #fullname_profile {
             font-weight: bold;
         }
     }
-    
+
+    #resize_together_container {
+        width: 100%;
+    }
+    // middle container -- toggle views
+    #user_toggle_profile_views_container {
+        position: relative;
+        width: 100%;
+    }
+
+    #direct_parent_container {
+        width: 100%;
+        display: flex; 
+        justify-content: space-evenly;
+        height: 29px;
+    }
+
+    .toggle_containers {
+        // margin-right: 65px;
+    }
+
+    .posts_descr {
+        display: none;
+    }
+
+    .toggle_icons {
+        transform: scale(1.5) !important;
+        margin-top: 9px;
+    }
+
+    // grid photos media queries
+    #user_profile_posts_overallholder {
+        grid-gap: 5px 5px;
+    }
 }
