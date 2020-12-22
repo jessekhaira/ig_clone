@@ -19,6 +19,38 @@ const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffe
 const router = express.Router({ mergeParams: true });
 
 
+
+router.get('/editProfile', async(req,res,next) => {
+    try {
+        const query_information = {
+            full_name: true,
+            profile_picture: true,
+            profile_description: true,
+            email: true
+        };
+        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        const username = req.params.username; 
+        const query_result = await User.findOne({username: username}, query_information);
+        const full_name = query_result.full_name;
+        const profile_picture = convertBuffer2Base64(query_result); 
+        const profile_description = query_result.profile_description; 
+        const email = query_result.email;
+
+        return res.status(200).json({
+            full_name,
+            profile_picture,
+            email,
+            profile_description
+        });
+    }
+    catch(err) {
+        return res.status(500).json({"message": "request failed"}); 
+    }
+});
+
+router.put('/editProfile', [
+]);
+
 router.get('/profileInfo', async (req,res, next) => {
     try {
         const query_information = {

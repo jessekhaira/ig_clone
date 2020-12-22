@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {UserProfileInformation} from './UserProfileInformation';
 import {UserProfileToggleViews} from './UserProfileToggleViews';
 import {UserProfilePosts} from './UserProfilePosts';
+import {EditProfile} from './EditUserProfile';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 import {setDisplay} from '../../../utility/utility_functions';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
@@ -33,86 +34,18 @@ function UserProfile (props) {
             }
         }
         catch(err) {
+            console.log(err);
             _authenticationErrorLogOut();
         }
     }
 
-    useEffect(() => {
-        async function fetchProfileIcon() {
-            try {
-                await checkTokenExpirationMiddleware(); 
-                const returned_icon = await fetch('/loggedIn/navbar/getProfileIcon', {
-                    headers: {
-                        authorization: localStorage.getItem('accessToken')
-                    }
-                });
-                const json_icon = await returned_icon.json();
-                const base64profilepic = json_icon.profile_picture[0].profile_picture; 
-                document.getElementById('edit_profile_profilepic').src = 'data:image/jpeg;base64,' + base64profilepic; 
-            }
-            catch(err) {
-                _authenticationErrorLogOut();
-            }
-        }
-        if(document.getElementById('edit_profile_profilepic') !== null) {
-            fetchProfileIcon(); 
-        } 
-    })
-
     return (
         <Switch>
             <Route exact path = '/:username/editProfile' render = {() =>
-                <div id = 'edit_profile_topleveldiv'>
-                    <form id = 'edit_profile_form'>
-                        <div id = "edit_profile_header">
-                            <div id = "username_profilepicture_div">
-                                <img id = 'edit_profile_profilepic'></img>
-                                <h3>{props.current_user}</h3>
-                            </div>
-                            <label for = "update_profile_picture" className = "edit_profile_labels">Change Profile Photo</label>
-                            <input type="file" id="img_input" name="img" accept="image/*" />
-                        </div>
-                        <div className = "edit_profile_div">
-                            <div className = "labeldiv_editprofile">
-                                <label for = "change_name" className = "edit_profile_labels">Name</label>
-                            </div>
-                            <div className = "inputdiv_editprofile">
-                                <input type = "text" placeholder = "Name" id = "change_name" className = "edit_profile_names"></input>
-                            </div>
-                        </div>
-
-                        <div className = "edit_profile_div">
-                            <div className = "labeldiv_editprofile">
-                                <label for = "change_username" className = "edit_profile_labels">Username</label>
-                            </div>
-                            <div className = "inputdiv_editprofile">
-                                <input type = "text" placeholder = "Username" id = "change_username" className = "edit_profile_names"></input>
-                            </div>
-                        </div>
-
-                        <div className = "edit_profile_div">
-                            <div className = "labeldiv_editprofile">
-                                <label for = "change_bio" className = "edit_profile_labels">Bio</label>
-                            </div>
-                            <div className = "inputdiv_editprofile">
-                                <textarea type = "textarea" id = "change_bio" className = "edit_profile_names"></textarea>
-                            </div>
-                        </div>
-
-                        <div className = "edit_profile_div">
-                            <div className = "labeldiv_editprofile">
-                                <label for = "change_email" className = "edit_profile_labels">Email</label>
-                            </div>
-                            <div className = "inputdiv_editprofile">
-                                <input type = "email" placeholder = "Email" id = "change_email" className = "edit_profile_names"></input>
-                            </div> 
-                        </div>
-                        <div id = "profile_buttons">
-                            <button id = "submit_editprofile" className = "edit_profile_buttons">Submit</button>
-                            <button id = "goback_editprofile" className = "edit_profile_buttons">Go Back</button>
-                        </div>
-                    </form>
-                </div>
+                <EditProfile 
+                    aysncCallToMountInformation = {aysncCallToMountInformation} 
+                    current_user = {props.current_user} 
+                /> 
             }/>
 
             <Route exact path = '/:username' render = {() => 
