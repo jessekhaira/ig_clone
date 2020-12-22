@@ -16,13 +16,15 @@ function UserProfileInformation (props) {
     }); 
 
     function fillInProfileWithInformation(profileInfo) {
+        if (!profileInfo) {
+            return; 
+        }
         document.getElementById('profile_page_username').innerHTML = profileInfo.username; 
         document.getElementById('fullname_profile').innerHTML = profileInfo.full_name;
         document.getElementById('post_count').innerHTML = profileInfo.number_posts;
         document.getElementById('follower_count').innerHTML = profileInfo.number_followers;
         document.getElementById('following_count').innerHTML = profileInfo.number_following; 
         document.getElementById('profile_page_profpic').src = 'data:image/jpeg;base64,' + profileInfo.profile_picture.profile_picture;
-
     }
 
     return (

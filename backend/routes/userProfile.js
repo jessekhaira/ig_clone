@@ -34,7 +34,9 @@ router.get('/profileInfo', async (req,res, next) => {
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         const username = req.params.username; 
         const query_result = await User.findOne({username: username}, query_information);
-
+        if (query_result === null) {
+            res.status(200).json({userNotFound: "User is not contained within database"})
+        }
         const number_followers = query_result.followers.length;
         const number_following = query_result.following.length;
         const number_posts = query_result.photos.length;
@@ -51,7 +53,6 @@ router.get('/profileInfo', async (req,res, next) => {
         }); 
     }
     catch(err) {
-        console.log(err);
         return res.status(500).json({userUnauthorizedError: "User is unauthorized"});
     }
 })

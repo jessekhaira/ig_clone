@@ -6,6 +6,7 @@ import {Notifications} from './Notifications';
 import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions';
 import {SearchBar} from './SearchBar';
 import {setDisplay} from '../../utility/utility_functions';
+import jwt_decode from 'jwt-decode';
 
 /**
  * This class represents a React Component that represents the navigation
@@ -115,8 +116,13 @@ class NavBar extends React.Component{
             case '/':
                 document.getElementById('home_icon').classList.add('home_icon_active');
                 break
-            default: 
-                document.getElementById('profile_img').style.border = '1px solid';
+            default:
+                // check if the endpoint is our own profile and if it is, highlight 
+                const own_username = this.props.location.pathname.split('/')[1]; 
+                const logged_in_user = jwt_decode(localStorage.getItem('accessToken'));
+                if (own_username === logged_in_user.username) {
+                    document.getElementById('profile_img').style.border = '1px solid';
+                }
         }
     }
 

@@ -4,6 +4,8 @@
 
 #user_profile_top_level_div {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     height: auto;
     min-height: 90vh;
@@ -15,4 +17,32 @@
     margin-right: auto;
     height: auto;
     margin-top: 90px;
+}
+
+.sk-chase-userprofile {
+    position: relative;
+    width: 55px;
+    height: 55px;
+}
+
+.sk-chase-dot-userprofile::before {
+    content: "";
+    background-color: black;
+}
+
+#user_not_found_container {
+    text-align: center;
+    p {
+        display: inline;
+    }
+    #back_to_ig {
+        display: inline;
+        margin-left: 6px;   
+        text-decoration: none;
+        color: rgb(37, 110, 192);
+    }
+
+    #back_to_ig:visited {
+        color: rgb(37, 110, 192);
+    }
 }

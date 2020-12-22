@@ -515,6 +515,8 @@ html {
 
 #user_profile_top_level_div {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: auto;
   min-height: 90vh;
@@ -526,6 +528,33 @@ html {
   margin-right: auto;
   height: auto;
   margin-top: 90px;
+}
+
+.sk-chase-userprofile {
+  position: relative;
+  width: 55px;
+  height: 55px;
+}
+
+.sk-chase-dot-userprofile::before {
+  content: "";
+  background-color: black;
+}
+
+#user_not_found_container {
+  text-align: center;
+}
+#user_not_found_container p {
+  display: inline;
+}
+#user_not_found_container #back_to_ig {
+  display: inline;
+  margin-left: 6px;
+  text-decoration: none;
+  color: #256ec0;
+}
+#user_not_found_container #back_to_ig:visited {
+  color: #256ec0;
 }
 
 #profile_icon {
