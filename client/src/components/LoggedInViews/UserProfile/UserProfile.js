@@ -36,8 +36,6 @@ function UserProfile () {
             _authenticationErrorLogOut();
         }
     }
-
-    
     return (
         <div id = "user_profile_top_level_div">
             <div id = "spinner_div_userprofiles" className="sk-chase sk-chase-userprofile">

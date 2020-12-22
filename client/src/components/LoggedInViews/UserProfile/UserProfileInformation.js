@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
-
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts} from '../../../utility/utility_functions';
 
 function UserProfileInformation (props) {
     const history = useHistory(); 
@@ -19,11 +18,15 @@ function UserProfileInformation (props) {
         if (!profileInfo) {
             return; 
         }
+        const num_posts = profileInfo.number_posts;
+        const num_followers = profileInfo.number_followers;
+        const num_following = profileInfo.number_following; 
         document.getElementById('profile_page_username').innerHTML = profileInfo.username; 
         document.getElementById('fullname_profile').innerHTML = profileInfo.full_name;
-        document.getElementById('post_count').innerHTML = profileInfo.number_posts;
-        document.getElementById('follower_count').innerHTML = profileInfo.number_followers;
-        document.getElementById('following_count').innerHTML = profileInfo.number_following; 
+        const [normalized_num_posts, normalized_num_followers, normalized_num_following] = normalizeCounts(num_posts, num_followers, num_following);
+        document.getElementById('post_count').innerHTML = normalized_num_posts;
+        document.getElementById('follower_count').innerHTML = normalized_num_followers;
+        document.getElementById('following_count').innerHTML = normalized_num_following; 
         document.getElementById('profile_page_profpic').src = 'data:image/jpeg;base64,' + profileInfo.profile_picture.profile_picture;
     }
 

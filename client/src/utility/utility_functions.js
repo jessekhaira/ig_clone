@@ -1,5 +1,27 @@
 import jwt_decode from "jwt-decode";
 
+
+export function normalizeCounts(...args) {
+    const output_normalized = [];
+    for(let arg of args) {
+        arg = Number(arg);
+        switch (true) {
+            case (arg >= 1000000):
+                arg /= 1000000;
+                output_normalized.push(`${arg.toFixed(1)}m`);
+                break;
+            case (arg >= 10000):
+                arg /= 1000; 
+                output_normalized.push(`${arg.toFixed(1)}k`);
+                break;
+            default:
+                output_normalized.push(arg);
+                break; 
+        }
+    }
+    return output_normalized; 
+}
+
 /**
  * This function is a utility function used to set the display of a variable number of input DOM elements. 
  * Useful in multiple places in the frontend as displays of elements are changed regularly. 
