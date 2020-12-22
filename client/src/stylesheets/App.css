@@ -414,8 +414,7 @@ html {
   width: 320px;
 }
 #meta_info_user_normalviewport .meta_info_user_divcontainer {
-  margin-right: 25px;
-  width: 100px;
+  margin-right: 20px;
 }
 #meta_info_user_normalviewport .post_info_counts {
   display: inline;
@@ -1152,8 +1151,8 @@ html {
     left: 35px;
   }
   #profile_page_profpic_divcontainer #profile_page_profpic {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
   }
   #profile_page_profpic_divcontainer .options_item {
     margin-right: 2px;
@@ -1165,7 +1164,7 @@ html {
   #name_options_divcontainer #edit_profile {
     position: absolute;
     width: 55vw;
-    top: 70px;
+    top: 50px;
   }
 
   #profile_info_directparentdiv {

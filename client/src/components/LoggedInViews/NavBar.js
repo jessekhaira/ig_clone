@@ -117,7 +117,8 @@ class NavBar extends React.Component{
                 document.getElementById('home_icon').classList.add('home_icon_active');
                 break
             default:
-                // check if the endpoint is our own profile and if it is, highlight 
+                // check if the endpoint is our own profile and if it is, highlight the profile icon
+                // otherwise, if user is looking at profiles not their own, leave it unhighlighted 
                 const own_username = this.props.location.pathname.split('/')[1]; 
                 const logged_in_user = jwt_decode(localStorage.getItem('accessToken'));
                 if (own_username === logged_in_user.username) {
@@ -128,7 +129,8 @@ class NavBar extends React.Component{
 
     /**
      * This method accepts a string representing a particular route endpoint, and unhighlights the icon 
-     * on the navbar which corresponds to the route.
+     * on the navbar which corresponds to the route. Used in multiple different functions to ensure correct
+     * highlighting of the currently active route icon. 
      */
     _unHighlightIconBasedOnRoute(endpoint) {
         switch (endpoint) {
@@ -206,8 +208,10 @@ class NavBar extends React.Component{
     }
     
     _turnOffProfileLight() {
-        // you turn off the profile light if you aren't currently on /:username endpoint 
-        if (this._routesNotForUserProfile(this.props.location.pathname)) {
+        // profile light will stay on if the user is currently logged on and looking at their own 
+        // profile, otherwise will turn off 
+        const curr_endpoint = this.props.location.pathname.split('/')[1];
+        if (this.props.current_user !== curr_endpoint) {
             document.getElementById('profile_img').style.border = 'none'; 
             this._highlightIconBasedOnRoute(this.props.location.pathname);
         }                
