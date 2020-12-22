@@ -49,7 +49,15 @@ router.get('/editProfile', async(req,res,next) => {
 });
 
 router.put('/editProfile', [
-]);
+        validator.body('username'),
+        validator.body('email'),
+        validator.body('fullname'),
+        validator.body('profile_bio'),
+        async (req,res, next) => {
+            console.log(req.body);
+        }
+    ]
+);
 
 router.get('/profileInfo', async (req,res, next) => {
     try {

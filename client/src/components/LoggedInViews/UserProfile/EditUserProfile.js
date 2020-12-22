@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername} from '../../../utility/utility_functions';
 
 function EditProfile(props) { 
-
+    const history = useHistory(); 
     useEffect(() => {
         async function fetchEditProfileInfo() {
             try {
@@ -40,15 +41,23 @@ function EditProfile(props) {
         if (checkIfInputsValid()) {
             try {
                 await checkTokenExpirationMiddleware(); 
+                const newProfileInfo = {
+                    fullname: document.getElementById('change_name').value,
+                    username: document.getElementById('change_username').value,
+                    email: document.getElementById('change_email').value,
+                    profile_bio: document.getElementById('change_bio').value 
+                }
                 await fetch(`/${props.current_user}/editProfile`, {
                     method: 'PUT',
                     headers: {
-                        authorization: localStorage.getItem('accessToken')
-                    }
+                        authorization: localStorage.getItem('accessToken'),
+                        'Content-type': 'application/json; charset=UTF-8'
+                    },
+                    body: JSON.stringify(newProfileInfo)
                 }); 
             }
             catch(err) {
-
+                console.log(err); 
             }
         }
     }
@@ -69,6 +78,12 @@ function EditProfile(props) {
             validation_error_div.innerHTML = 'Please enter a valid email.';
             return false; 
         }
+        return true; 
+    }
+
+    function goBackPrevPage(e) {
+        e.preventDefault(); 
+        history.goBack(); 
     }
 
     return (
@@ -120,7 +135,7 @@ function EditProfile(props) {
                 <div id = "validation_error_div"></div>
                 <div id = "profile_buttons">
                     <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>Submit</button>
-                    <button id = "goback_editprofile" className = "edit_profile_buttons">Go Back</button>
+                    <button id = "goback_editprofile" className = "edit_profile_buttons" onClick = {goBackPrevPage}>Go Back</button>
                 </div>
             </form>
         </div>
