@@ -512,6 +512,113 @@ html {
   display: block;
 }
 
+#edit_profile_topleveldiv {
+  height: auto;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#edit_profile_topleveldiv #edit_profile_form {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  height: auto;
+  min-height: 50vh;
+  min-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+}
+#edit_profile_topleveldiv .edit_profile_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+#edit_profile_topleveldiv .labeldiv_editprofile {
+  display: flex;
+  justify-content: flex-end;
+  width: auto;
+  min-width: 20%;
+  margin-right: 20px;
+}
+#edit_profile_topleveldiv .edit_profile_labels {
+  font-size: 14px;
+  font-weight: bold;
+}
+#edit_profile_topleveldiv .inputdiv_editprofile {
+  min-width: 45%;
+}
+#edit_profile_topleveldiv .inputdiv_editprofile input {
+  width: 100%;
+}
+#edit_profile_topleveldiv .inputdiv_editprofile textarea {
+  width: 100%;
+  height: 60px;
+}
+#edit_profile_topleveldiv #profile_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#edit_profile_topleveldiv #profile_buttons #submit_editprofile {
+  color: white;
+  background-color: #0095f6;
+  border-radius: 4%;
+  border: none;
+  padding: 10px;
+  margin-right: 10px;
+  min-width: 85px;
+  cursor: pointer;
+}
+#edit_profile_topleveldiv #profile_buttons #goback_editprofile {
+  padding: 10px;
+  min-width: 85px;
+  border: none;
+  cursor: pointer;
+}
+#edit_profile_topleveldiv #edit_profile_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+#edit_profile_topleveldiv #edit_profile_header #username_profilepicture_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#edit_profile_topleveldiv #edit_profile_header #edit_profile_profilepic {
+  position: relative;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#edit_profile_topleveldiv #edit_profile_header h3 {
+  margin: 0px;
+  text-align: center;
+  width: 100%;
+}
+#edit_profile_topleveldiv #edit_profile_header label {
+  color: #28a0e6;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+  position: relative;
+  left: -5px;
+}
+#edit_profile_topleveldiv #edit_profile_header #img_input {
+  display: none;
+}
+
 #user_profile_top_level_div {
   display: flex;
   justify-content: center;
