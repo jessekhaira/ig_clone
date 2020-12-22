@@ -4,9 +4,9 @@ import {UserProfileToggleViews} from './UserProfileToggleViews';
 import {UserProfilePosts} from './UserProfilePosts';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 import {setDisplay} from '../../../utility/utility_functions';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
-function UserProfile () { 
+function UserProfile (props) { 
     async function aysncCallToMountInformation(endpoint, username_belongingto_profile) {
         const spinner_div = document.getElementById('spinner_div_userprofiles');
         const user_not_found_container = document.getElementById('user_not_found_container');
@@ -36,31 +36,47 @@ function UserProfile () {
             _authenticationErrorLogOut();
         }
     }
+
+    console.log(props.current_user);
     return (
-        <div id = "user_profile_top_level_div">
-            <div id = "spinner_div_userprofiles" className="sk-chase sk-chase-userprofile">
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-                <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
-            </div>
-            <div id = "user_not_found_container">
-                <h2>Sorry, this page isn't available.</h2>
-                <p>The link you followed may be broken, or the page may have been removed.</p>
-                <Link to ='/' id = "back_to_ig"><p>Go back to Instagram.</p></Link>
-            </div>
-            <div id = "resize_together_container">
-                <UserProfileInformation 
-                    aysncCallToMountInformation = {aysncCallToMountInformation}
-                /> 
-                <UserProfileToggleViews /> 
-                <UserProfilePosts 
-                    aysncCallToMountInformation = {aysncCallToMountInformation}
-                /> 
-            </div>
-        </div>
+        <Switch>
+            <Route exact path = '/:username/editProfile' render = {() =>
+                <form id = 'edit_profile_form'>
+                    
+                </form>
+            }/>
+
+            <Route exact path = '/:username' render = {() => 
+                 <main id = "user_profile_top_level_div">
+                    <div id = "spinner_div_userprofiles" className="sk-chase sk-chase-userprofile">
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                    </div>
+                    <div id = "user_not_found_container">
+                        <h2>Sorry, this page isn't available.</h2>
+                        <p>The link you followed may be broken, or the page may have been removed.</p>
+                        <Link to ='/' id = "back_to_ig"><p>Go back to Instagram.</p></Link>
+                    </div>
+                    <div id = "resize_together_container">
+                        <UserProfileInformation 
+                            aysncCallToMountInformation = {aysncCallToMountInformation}
+                        /> 
+                        <UserProfileToggleViews /> 
+                        <UserProfilePosts 
+                            aysncCallToMountInformation = {aysncCallToMountInformation}
+                        /> 
+                    </div>
+                </main>
+            }/> 
+
+            <Route path = '/' render = {() => 
+                <Redirect to = {`/${props.current_user}`} /> 
+            }/>
+        </Switch>
     )
 }
 

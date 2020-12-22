@@ -52,8 +52,10 @@ class LoggedInViews extends React.Component{
               <Explore /> 
             } />
 
-            <Route exact path = '/:username' render = {(props) => (
-              <UserProfile />
+            <Route path = '/:username' render = {(props) => (
+              <UserProfile 
+                current_user = {this.props.current_user}
+              />
             )} /> 
             
             <Route path = '/accounts' render = {(props) => (

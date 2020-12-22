@@ -30,6 +30,10 @@ function UserProfileInformation (props) {
         document.getElementById('profile_page_profpic').src = 'data:image/jpeg;base64,' + profileInfo.profile_picture.profile_picture;
     }
 
+    function showEditProfile() {
+        history.push(`${history.location.pathname}/editProfile`)
+    }
+
     return (
         <div id = "user_profile_info_container">
             <div id = "profile_page_profpic_divcontainer">
@@ -40,7 +44,7 @@ function UserProfileInformation (props) {
                     <div id = "profile_page_username" className = "options_item">
                         <h2 id = "profile_page_username" ></h2>
                     </div>
-                    <button id = "edit_profile" className = "options_item">
+                    <button id = "edit_profile" className = "options_item" onClick = {showEditProfile}>
                         Edit Profile
                     </button>
                     <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
