@@ -13,8 +13,6 @@ function EditProfile(props) {
                     }
                 }); 
                 const returned_profile_info_json= await returned_profile_info_raw.json(); 
-                console.log(returned_profile_info_json);
-
                 initEditComponent(returned_profile_info_json); 
             }
             catch(err) {
@@ -37,15 +35,24 @@ function EditProfile(props) {
         document.getElementById('change_email').value = init_object.email; 
     }
 
-    function updateProfileClick(e) {
-        // if (validUpdateInputs()) {
+    async function updateProfileClick(e) {
+        if (validUpdateInputs()) {
+            try {
+                await checkTokenExpirationMiddleware(); 
+                await fetch(`/${props.current_user}/editProfile`, {
+                    method: 'PUT',
+                    headers: {
+                        authorization: localStorage.getItem('accessToken')
+                    }
+                }); 
+            }
+            catch(err) {
 
-        //     const update_user = fetch(`/${props.current_user}/editProfile`, {
-        //         method: 'PUT',
+            }
+        }
+    }
 
-        //     }
-        // }
-
+    function validUpdateInputs() {
     }
 
     return (
@@ -94,6 +101,7 @@ function EditProfile(props) {
                         <input type = "email" placeholder = "Email" id = "change_email" className = "edit_profile_names"></input>
                     </div> 
                 </div>
+                <div id = "validation_error_div"></div>
                 <div id = "profile_buttons">
                     <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>Submit</button>
                     <button id = "goback_editprofile" className = "edit_profile_buttons">Go Back</button>

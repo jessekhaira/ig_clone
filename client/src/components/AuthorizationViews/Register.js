@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import {setDisplay, displayErrorInHTMLElement, _preprocess_loginbutton} from '../../utility/utility_functions';
-
+import {_validateEmail, _validateUsername} from '../../utility/utility_functions';
 /**
  * This class represents a React class component responsible for rendering the section of the UI corresponding to the register page.
  * 
@@ -74,8 +74,8 @@ class Register extends React.Component {
         const pw_inp = document.getElementById('pw_input').value;
         const date_of_birth = document.getElementById('date_of_birth_input').value;
         // we can ensure the email and username follow the correct format in the client
-        const is_email_valid = this._validateEmail(email);
-        const is_username_valid = this._validateUsername(username); 
+        const is_email_valid = _validateEmail(email);
+        const is_username_valid = _validateUsername(username); 
         const is_date_of_birth_valid = this._validateDateOfBirth(date_of_birth); 
         if (is_email_valid && is_username_valid && is_date_of_birth_valid) {
             this.props.register_user_logIn({email, full_name, username, pw_inp, date_of_birth});
@@ -101,20 +101,6 @@ class Register extends React.Component {
             error_display.innerHTML = 'Please enter a valid date of birth';
             error_display.style.display = 'block';
         }
-    }
-
-
-
-    _validateEmail(email_inp) {
-        // must follow regex pattern xyz@__.com 
-        const regex_pattern = /\S+@\S+\.\S+/;
-        return regex_pattern.test(email_inp); 
-    }
-
-    _validateUsername(username_inp) {
-        // Usernames can only use letters, numbers, underscores and periods.
-        const regex_pattern = /^[a-zA-Z0-9_]+$/;
-        return regex_pattern.test(username_inp); 
     }
 
     _validateDateOfBirth(date_of_birth) {
