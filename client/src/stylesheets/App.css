@@ -562,6 +562,7 @@ html {
 }
 #edit_profile_topleveldiv #profile_buttons {
   width: 100%;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -581,6 +582,12 @@ html {
   min-width: 85px;
   border: none;
   cursor: pointer;
+}
+#edit_profile_topleveldiv #validation_error_div {
+  color: red;
+  width: 300px;
+  text-align: center;
+  position: relative;
 }
 #edit_profile_topleveldiv #edit_profile_header {
   display: flex;

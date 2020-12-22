@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername} from '../../../utility/utility_functions';
 
 function EditProfile(props) { 
 
@@ -36,7 +36,8 @@ function EditProfile(props) {
     }
 
     async function updateProfileClick(e) {
-        if (validUpdateInputs()) {
+        e.preventDefault();
+        if (checkIfInputsValid()) {
             try {
                 await checkTokenExpirationMiddleware(); 
                 await fetch(`/${props.current_user}/editProfile`, {
@@ -52,7 +53,22 @@ function EditProfile(props) {
         }
     }
 
-    function validUpdateInputs() {
+    function checkIfInputsValid() {
+        const validation_error_div = document.getElementById('validation_error_div');
+        validation_error_div.innerHTML = '';
+        if(document.getElementById('change_name').value.length <1) {
+            validation_error_div.innerHTML = 'Name must have atleast one character.'
+            return false; 
+        }
+        else if (!_validateUsername(document.getElementById('change_username').value)) {
+            validation_error_div.innerHTML = 'Username must have atleast one character and contain only letters, numbers, underscores and periods.';
+            return false; 
+        }
+
+        else if (!_validateEmail(document.getElementById('change_email').value)) {
+            validation_error_div.innerHTML = 'Please enter a valid email.';
+            return false; 
+        }
     }
 
     return (
