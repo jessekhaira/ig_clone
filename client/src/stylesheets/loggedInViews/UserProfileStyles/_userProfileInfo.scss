@@ -71,6 +71,7 @@
     #edit_profile:focus {
         outline: 0;
     }
+    
 
 }
 
@@ -111,5 +112,10 @@
         font-weight: bold;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+    
+    #editable_bio_info {
+        @include system-fonts();
+        font-size: 14px;
     }
 }

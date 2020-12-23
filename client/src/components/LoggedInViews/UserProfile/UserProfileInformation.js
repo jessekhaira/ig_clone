@@ -66,7 +66,8 @@ function UserProfileInformation (props) {
                 </div>
                 <div id = "profile_info_bio">
                     <p id = "fullname_profile"></p>
-                    <p id = "editable_bio_info"></p>
+                    <pre id = "editable_bio_info">
+                    </pre>
                 </div>
             </div>
         </div>

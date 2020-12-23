@@ -38,12 +38,7 @@ function ProfileIconSettings(props) {
         }
         catch(err) {
             err = String(err);
-            // weird errors when refreshing page for syntax errors but there is no syntax errors
-            // with the response -- works fine to extract image. Ignoring for now
-            if (!err.includes('Syntax')) {
-                console.log(err); 
-                _authenticationErrorLogOut(); 
-            }
+            _authenticationErrorLogOut(); 
         }
     })
 
