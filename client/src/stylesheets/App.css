@@ -592,7 +592,7 @@ html {
   border: none;
   cursor: pointer;
 }
-#edit_profile_topleveldiv #validation_error_div {
+#edit_profile_topleveldiv #error_success_div {
   color: red;
   width: 300px;
   text-align: center;

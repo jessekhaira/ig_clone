@@ -39,6 +39,8 @@ function UserProfile (props) {
         }
     }
 
+    
+
     return (
         <Switch>
             <Route exact path = '/:username/editProfile' render = {() =>

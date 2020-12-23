@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useHistory } from 'react-router';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername, setDisplay} from '../../../utility/utility_functions';
 
@@ -44,7 +44,8 @@ function EditProfile(props) {
             try {
                 await checkTokenExpirationMiddleware(); 
                 setDisplay(['block', 'none'], spinner_div, submit_p_tag); 
-                console.log()
+                console.log('going into request..');
+                console.log(props.current_user); 
                 const res = await fetch(`/${props.current_user}/editProfile`, {
                     method: 'PUT',
                     headers: {
@@ -57,33 +58,34 @@ function EditProfile(props) {
                         email: document.getElementById('change_email').value,
                         profile_bio: document.getElementById('change_bio').value 
                     })
-                }); 
-                console.log(res);
+                });
+                
+                const json_res = await res.json(); 
+                console.log(json_res); 
             }
             catch(err) {
                 console.log(err); 
             }
             finally {
-                console.log('ran!')
                 setDisplay(['none', 'block'], spinner_div, submit_p_tag); 
             }
         }
     }
 
     function checkIfInputsValid() {
-        const validation_error_div = document.getElementById('validation_error_div');
-        validation_error_div.innerHTML = '';
+        const error_success_div = document.getElementById('error_success_div');
+        error_success_div.innerHTML = '';
         if(document.getElementById('change_name').value.length <1) {
-            validation_error_div.innerHTML = 'Name must have atleast one character.'
+            error_success_div.innerHTML = 'Name must have atleast one character.'
             return false; 
         }
         else if (!_validateUsername(document.getElementById('change_username').value)) {
-            validation_error_div.innerHTML = 'Username must have atleast one character and contain only letters, numbers, underscores and periods.';
+            error_success_div.innerHTML = 'Username must have atleast one character and contain only letters, numbers, underscores and periods.';
             return false; 
         }
 
         else if (!_validateEmail(document.getElementById('change_email').value)) {
-            validation_error_div.innerHTML = 'Please enter a valid email.';
+            error_success_div.innerHTML = 'Please enter a valid email.';
             return false; 
         }
         return true; 
@@ -140,7 +142,7 @@ function EditProfile(props) {
                         <input type = "email" placeholder = "Email" id = "change_email" className = "edit_profile_names"></input>
                     </div> 
                 </div>
-                <div id = "validation_error_div"></div>
+                <div id = "error_success_div"></div>
                 <div id = "profile_buttons">
                     <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>
                         <p id = "submit_descr">Submit</p>

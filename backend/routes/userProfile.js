@@ -55,19 +55,35 @@ router.put('/editProfile', [
         validator.body('profile_bio'),
         async (req,res, next) => {
             try {
+                const current_user_requesting_update = req.params.username;
                 jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-                console.log(req.body.profile_bio);
+
                 const proposed_update = {
                     username: req.body.username,
                     email: req.body.email,
                     full_name: req.body.fullname,
                     profile_description: req.body.profile_bio
                 }; 
-                const doc = await User.findOne({username: req.body.username}); 
-                return res.status(200)
+                const doc = await User.findOneAndUpdate({username: current_user_requesting_update}, proposed_update); 
+                console.log(doc);
+                console.log('returning request');
+                return res.status(200).json({'SuccesfulPut': 'Success!'}); 
             }     
             catch(err) {
-                return res.status(500).json({'message': 'failed to update user or verify user'})
+                err = String(err);
+                // have to handle different errors here to notify the frontend what 
+                // to show the user if their update fails -- if token authorization
+                // fails log the user out, otherwise display the approriate error message based
+                // on what failed 
+                if (err.includes('JsonWebTokenError')) {
+                    return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+                }
+                else if (err.includes('email')) {
+                    return res.status(500).json({'DuplicateEmail': 'Username already exists in database'})
+                }
+                else if (err.includes('username')) {
+                    return res.status(500).json({'DuplicateUsername': 'Username already exists in database'})
+                }
             }       
         }
     ]
