@@ -40,12 +40,12 @@ function EditProfile(props) {
         e.preventDefault();
         const spinner_div = document.getElementById('spinner_div_editprofile');
         const submit_p_tag = document.getElementById('submit_descr');
+        const error_success_div = document.getElementById('error_success_div');
+        error_success_div.innerHTML = ''; 
         if (checkIfInputsValid()) {
             try {
                 await checkTokenExpirationMiddleware(); 
                 setDisplay(['block', 'none'], spinner_div, submit_p_tag); 
-                console.log('going into request..');
-                console.log(props.current_user); 
                 const res = await fetch(`/${props.current_user}/editProfile`, {
                     method: 'PUT',
                     headers: {
@@ -61,10 +61,17 @@ function EditProfile(props) {
                 });
                 
                 const json_res = await res.json(); 
-                console.log(json_res); 
+
+                if ("UnauthorizedUser" in json_res || "DuplicateEmail" in json_res ||
+                    "DuplicateUsername" in json_res) {
+                        throw Error(Object.keys(json_res)[0]);
+                }
+                error_success_div.innerHTML = 'Success!';
+                error_success_div.style.color = 'green'; 
             }
             catch(err) {
-                console.log(err); 
+                err = String(err);
+                putRequestFailedError(err); 
             }
             finally {
                 setDisplay(['none', 'block'], spinner_div, submit_p_tag); 
@@ -72,9 +79,24 @@ function EditProfile(props) {
         }
     }
 
+    function putRequestFailedError(err) {
+        console.log(err);
+        const error_success_div = document.getElementById('error_success_div');
+        error_success_div.style.color = 'red'; 
+        if (err.includes('UnauthorizedUser')) {
+            _authenticationErrorLogOut(); 
+        }
+        else if (err.includes('DuplicateEmail')) {
+            error_success_div.innerHTML = 'Email address is already registered. Select another one.';
+        }
+        else if (err.includes('DuplicateUsername')) {
+            error_success_div.innerHTML = 'Username is already registered. Select another one. '
+        }
+    }
+
     function checkIfInputsValid() {
         const error_success_div = document.getElementById('error_success_div');
-        error_success_div.innerHTML = '';
+        error_success_div.style.color = 'red'; 
         if(document.getElementById('change_name').value.length <1) {
             error_success_div.innerHTML = 'Name must have atleast one character.'
             return false; 
