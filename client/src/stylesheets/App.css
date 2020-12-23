@@ -543,6 +543,8 @@ html {
   display: flex;
   justify-content: flex-end;
   width: auto;
+  position: absolute;
+  left: 15px;
   min-width: 20%;
   margin-right: 20px;
 }
