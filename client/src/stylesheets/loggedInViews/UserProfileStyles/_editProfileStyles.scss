@@ -17,7 +17,6 @@
         background-color: white;
         
     }
-
     .edit_profile_div {
         @include flexbox-center();
         display: flex;
@@ -56,13 +55,20 @@
         width: 100%;
         position: relative;
         @include flexbox-center();
+
+        #spinner_div_editprofile {
+            display: none;
+            position: relative;
+        }
         #submit_editprofile {
+            @include flexbox-center();
             color: white;
             background-color: #0095f6;
             border-radius: 4%;
             border: none;
             padding: 10px;
             margin-right: 10px;
+            height: 45px;
             min-width: 85px;
             cursor: pointer;
         }
@@ -70,6 +76,7 @@
         #goback_editprofile{
             padding: 10px;
             min-width: 85px;
+            height: 45px;
             border: none;
             cursor: pointer;
         }
@@ -116,3 +123,4 @@
         }
     }
 }
+

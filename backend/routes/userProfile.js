@@ -54,7 +54,21 @@ router.put('/editProfile', [
         validator.body('fullname'),
         validator.body('profile_bio'),
         async (req,res, next) => {
-            console.log(req.body);
+            try {
+                jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+                console.log(req.body.profile_bio);
+                const proposed_update = {
+                    username: req.body.username,
+                    email: req.body.email,
+                    full_name: req.body.fullname,
+                    profile_description: req.body.profile_bio
+                }; 
+                const doc = await User.findOne({username: req.body.username}); 
+                return res.status(200)
+            }     
+            catch(err) {
+                return res.status(500).json({'message': 'failed to update user or verify user'})
+            }       
         }
     ]
 );
@@ -81,6 +95,7 @@ router.get('/profileInfo', async (req,res, next) => {
         const number_following = query_result.following.length;
         const number_posts = query_result.photos.length;
         const full_name = query_result.full_name;
+        const profile_description = query_result.profile_description; 
         const profile_picture = convertBuffer2Base64(query_result); 
 
         return res.status(200).json({
@@ -89,7 +104,8 @@ router.get('/profileInfo', async (req,res, next) => {
             number_following,
             number_posts,
             full_name,
-            profile_picture
+            profile_picture,
+            profile_description
         }); 
     }
     catch(err) {

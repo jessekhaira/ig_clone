@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername, setDisplay} from '../../../utility/utility_functions';
 
 function EditProfile(props) { 
     const history = useHistory(); 
@@ -38,26 +38,34 @@ function EditProfile(props) {
 
     async function updateProfileClick(e) {
         e.preventDefault();
+        const spinner_div = document.getElementById('spinner_div_editprofile');
+        const submit_p_tag = document.getElementById('submit_descr');
         if (checkIfInputsValid()) {
             try {
                 await checkTokenExpirationMiddleware(); 
-                const newProfileInfo = {
-                    fullname: document.getElementById('change_name').value,
-                    username: document.getElementById('change_username').value,
-                    email: document.getElementById('change_email').value,
-                    profile_bio: document.getElementById('change_bio').value 
-                }
-                await fetch(`/${props.current_user}/editProfile`, {
+                setDisplay(['block', 'none'], spinner_div, submit_p_tag); 
+                console.log()
+                const res = await fetch(`/${props.current_user}/editProfile`, {
                     method: 'PUT',
                     headers: {
                         authorization: localStorage.getItem('accessToken'),
                         'Content-type': 'application/json; charset=UTF-8'
                     },
-                    body: JSON.stringify(newProfileInfo)
+                    body: JSON.stringify({
+                        fullname: document.getElementById('change_name').value,
+                        username: document.getElementById('change_username').value,
+                        email: document.getElementById('change_email').value,
+                        profile_bio: document.getElementById('change_bio').value 
+                    })
                 }); 
+                console.log(res);
             }
             catch(err) {
                 console.log(err); 
+            }
+            finally {
+                console.log('ran!')
+                setDisplay(['none', 'block'], spinner_div, submit_p_tag); 
             }
         }
     }
@@ -134,7 +142,17 @@ function EditProfile(props) {
                 </div>
                 <div id = "validation_error_div"></div>
                 <div id = "profile_buttons">
-                    <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>Submit</button>
+                    <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>
+                        <p id = "submit_descr">Submit</p>
+                        <div id = "spinner_div_editprofile" className="sk-chase sk-chase-editprofile">
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                        </div>
+                    </button>
                     <button id = "goback_editprofile" className = "edit_profile_buttons" onClick = {goBackPrevPage}>Go Back</button>
                 </div>
             </form>

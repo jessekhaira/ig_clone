@@ -567,19 +567,28 @@ html {
   justify-content: center;
   align-items: center;
 }
+#edit_profile_topleveldiv #profile_buttons #spinner_div_editprofile {
+  display: none;
+  position: relative;
+}
 #edit_profile_topleveldiv #profile_buttons #submit_editprofile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   background-color: #0095f6;
   border-radius: 4%;
   border: none;
   padding: 10px;
   margin-right: 10px;
+  height: 45px;
   min-width: 85px;
   cursor: pointer;
 }
 #edit_profile_topleveldiv #profile_buttons #goback_editprofile {
   padding: 10px;
   min-width: 85px;
+  height: 45px;
   border: none;
   cursor: pointer;
 }

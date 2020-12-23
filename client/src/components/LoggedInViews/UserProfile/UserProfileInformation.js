@@ -18,6 +18,7 @@ function UserProfileInformation (props) {
         if (!profileInfo) {
             return; 
         }
+        console.log(profileInfo);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
@@ -25,6 +26,7 @@ function UserProfileInformation (props) {
         document.getElementById('fullname_profile').innerHTML = profileInfo.full_name;
         const [normalized_num_posts, normalized_num_followers, normalized_num_following] = normalizeCounts(num_posts, num_followers, num_following);
         document.getElementById('post_count').innerHTML = normalized_num_posts;
+        document.getElementById('editable_bio_info').innerHTML = profileInfo.profile_description;
         document.getElementById('follower_count').innerHTML = normalized_num_followers;
         document.getElementById('following_count').innerHTML = normalized_num_following; 
         document.getElementById('profile_page_profpic').src = 'data:image/jpeg;base64,' + profileInfo.profile_picture.profile_picture;
@@ -65,11 +67,7 @@ function UserProfileInformation (props) {
                 </div>
                 <div id = "profile_info_bio">
                     <p id = "fullname_profile"></p>
-                    <p id = "editable_bio_info">
-                        Superhero
-                        Justice League
-                        Galaxy
-                    </p>
+                    <p id = "editable_bio_info"></p>
                 </div>
             </div>
         </div>
