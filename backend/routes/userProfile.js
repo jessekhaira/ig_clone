@@ -12,6 +12,7 @@ require('dotenv').config({path: path.resolve(".env")});
 const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
 const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
+const fileUpload = require('express-fileupload');
 
 /**
  * Express router to mount user profile related functions. 
@@ -159,11 +160,24 @@ router.get('/profilePhoto', async (req,res) => {
 }); 
 
 
-router.put('/profilePhoto', async (req,res) => {
+router.put('/profilePhoto', [
     // would have some middleware function that verifies the data recieved from the user
     // for the photo but for simplicities sake, allowing through here 
-
-})
+    fileUpload({
+        createParentPath: true
+    }),
+    async (req,res) => {
+        try {
+            const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+            const new_profile_photo = req.files.image.data; 
+            await User.findOneAndUpdate({username: user.username}, {profile_picture: new_profile_photo});
+            res.status(204);
+        }
+        catch(err) {
+            res.status(500); 
+        }
+    }
+])
 
 router.get('/posts', async (req, res, next) => {
     try {

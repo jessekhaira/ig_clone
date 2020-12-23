@@ -143,6 +143,9 @@ function EditProfile(props) {
             formInfo.append('image', img); 
             let uploadStatusRaw = await fetch(`/${props.current_user}/profilePhoto`, {
                 method: 'PUT',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                },
                 body: formInfo
             });
             let uploadStatusJSON = await uploadStatusRaw.json(); 
