@@ -35,7 +35,7 @@ function UserProfile (props) {
         }
         catch(err) {
             console.log(err);
-            // _authenticationErrorLogOut();
+            _authenticationErrorLogOut();
         }
     }
 

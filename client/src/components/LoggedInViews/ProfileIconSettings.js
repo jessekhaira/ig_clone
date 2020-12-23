@@ -23,13 +23,14 @@ function ProfileIconSettings(props) {
         try {
             await checkTokenExpirationMiddleware(); 
             console.log(props.current_user); 
-            const profile_icon_raw = await fetch(`/loggedIn/navbar/getProfileIcon/`, {
+            const profile_icon_raw = await fetch(`/${props.current_user}/profilePhoto`, {
                 method: 'get', 
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
             });
             const profile_icon_json = await profile_icon_raw.json();
+            console.log(profile_icon_json);
             const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
             const profile_img = document.getElementById('profile_img'); 
             if (base64_image !== profile_img.src) {
@@ -38,7 +39,11 @@ function ProfileIconSettings(props) {
         }
         catch(err) {
             err = String(err);
-            _authenticationErrorLogOut(); 
+            // when page refreshes, we get a failed to fetch produced by react even though everything
+            // is fetched -- don't know why, just ignoring it for now 
+            if (!err.includes('Failed to fetch')) {
+                _authenticationErrorLogOut(); 
+            }
         }
     })
 

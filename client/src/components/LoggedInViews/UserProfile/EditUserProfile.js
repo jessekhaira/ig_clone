@@ -131,6 +131,29 @@ function EditProfile(props) {
         history.push(`/${props.current_user}`); 
     }
 
+
+    function redirectClickInput(e) {
+        document.getElementsByClassName('photo_upload_inputs')[0].click(); 
+    }
+
+    async function uploadPhoto(e) {
+        try {
+            const img = e.target.files[0]; 
+            let formInfo = new FormData();
+            formInfo.append('image', img); 
+            let uploadStatusRaw = await fetch(`/${props.current_user}/profilePhoto`, {
+                method: 'PUT',
+                body: formInfo
+            });
+            let uploadStatusJSON = await uploadStatusRaw.json(); 
+            console.log(uploadStatusJSON);
+        }
+
+        catch(err) {
+
+        }
+    }
+
     return (
         <div id = 'edit_profile_topleveldiv'>
             <form id = 'edit_profile_form'>
@@ -139,8 +162,8 @@ function EditProfile(props) {
                         <img id = 'edit_profile_profilepic'></img>
                         <h3>{props.current_user}</h3>
                     </div>
-                    <label htmlFor = "update_profile_picture" className = "edit_profile_labels">Change Profile Photo</label>
-                    <input type="file" id="img_input" name="img" accept="image/*" />
+                    <label htmlFor = "update_profile_picture" className = "edit_profile_labels" onClick = {redirectClickInput}>Change Profile Photo</label>
+                    <input type="file" id="img_input" name="img" className = "photo_upload_inputs" accept="image/*" onChange = {uploadPhoto} />
                 </div>
                 <div className = "edit_profile_div">
                     <div className = "labeldiv_editprofile">

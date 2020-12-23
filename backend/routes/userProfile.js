@@ -11,6 +11,7 @@ const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
 const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
+const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
 
 /**
  * Express router to mount user profile related functions. 
@@ -140,6 +141,28 @@ router.get('/profileInfo', async (req,res, next) => {
     catch(err) {
         return res.status(500).json({userUnauthorizedError: "User is unauthorized"});
     }
+});
+
+router.get('/profilePhoto', async (req,res) => {
+    const accessTokenRecieved = req.headers.authorization; 
+    // the user can change their username, so the requestor has to explicitly 
+    // indicate which usernames icon they are fetching 
+    try {
+        const token_payload = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET); 
+        const user_profile_pic = await User.find({username: token_payload.username}, 'profile_picture');
+        const base64Img = convertArrayPicBuffers2Base64(user_profile_pic);
+        return res.status(200).json({profile_picture: base64Img});
+    }
+    catch(err) {
+        return res.status(500).json({message: "Access Token Invalid"}); 
+    }
+}); 
+
+
+router.put('/profilePhoto', async (req,res) => {
+    // would have some middleware function that verifies the data recieved from the user
+    // for the photo but for simplicities sake, allowing through here 
+
 })
 
 router.get('/posts', async (req, res, next) => {
