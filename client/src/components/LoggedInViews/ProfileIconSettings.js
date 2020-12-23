@@ -42,7 +42,7 @@ function ProfileIconSettings(props) {
             // with the response -- works fine to extract image. Ignoring for now
             if (!err.includes('Syntax')) {
                 console.log(err); 
-                // _authenticationErrorLogOut(); 
+                _authenticationErrorLogOut(); 
             }
         }
     })
