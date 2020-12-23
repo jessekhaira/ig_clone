@@ -415,6 +415,7 @@ html {
 }
 #meta_info_user_normalviewport .meta_info_user_divcontainer {
   margin-right: 20px;
+  margin-bottom: 10px;
 }
 #meta_info_user_normalviewport .post_info_counts {
   display: inline;
