@@ -18,16 +18,17 @@ const router = express.Router();
 
 router.get('/getProfileIcon', async (req,res) => {
     const accessTokenRecieved = req.headers.authorization; 
+    // the user can change their username, so the requestor has to explicitly 
+    // indicate which usernames icon they are fetching 
     try {
-        const username = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET).username; 
-        const user_profile_pic = await User.find({username: username}, 'profile_picture');
+        const token_payload = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET); 
+        const user_profile_pic = await User.find({username: token_payload.username}, 'profile_picture');
         const base64Img = convertArrayPicBuffers2Base64(user_profile_pic);
         return res.json({profile_picture: base64Img});
     }
     catch(err) {
         return res.json({message: "Access Token Invalid"}); 
     }
-
 }); 
 
 router.post('/search', [

@@ -18,7 +18,6 @@ function UserProfileInformation (props) {
         if (!profileInfo) {
             return; 
         }
-        console.log(profileInfo);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 

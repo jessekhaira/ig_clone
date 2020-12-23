@@ -10,6 +10,7 @@ const { get } = require('http');
 const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
 const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
+const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
 
 /**
  * Express router to mount user profile related functions. 
@@ -56,18 +57,30 @@ router.put('/editProfile', [
         async (req,res, next) => {
             try {
                 const current_user_requesting_update = req.params.username;
+                console.log(current_user_requesting_update);
                 jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-
-                const proposed_update = {
-                    username: req.body.username,
+                let proposed_update = {
                     email: req.body.email,
                     full_name: req.body.fullname,
                     profile_description: req.body.profile_bio
-                }; 
-                const doc = await User.findOneAndUpdate({username: current_user_requesting_update}, proposed_update); 
-                console.log(doc);
-                console.log('returning request');
-                return res.status(200).json({'SuccesfulPut': 'Success!'}); 
+                }
+                // if our user has updated their username then we have to issue new access 
+                // and refresh tokens because the original ones will be stale as the username as changed
+                // username main thing the payload of the tokens are encoding 
+                if (current_user_requesting_update !== req.body.username) {
+                    proposed_update['username'] = req.body.username; 
+                    const [accessToken, refreshToken] = create_access_refresh_tokens(req.body.username);
+                    const doc = await User.findOneAndUpdate({username: current_user_requesting_update}, proposed_update, {new: true}); 
+                    // update refresh token stored for this user in the database -- making sure to update the
+                    // token for the updated user in the database  
+                    doc.refreshToken = refreshToken; 
+                    doc.save(); 
+                    return res.status(200).json({'accessToken': accessToken, 'refreshToken': refreshToken}); 
+                }
+                else {
+                    const doc = await User.findOneAndUpdate({username: current_user_requesting_update}, proposed_update, {new: true}); 
+                    return res.status(200).json({'message': 'Succesful put operation'}); 
+                }
             }     
             catch(err) {
                 err = String(err);

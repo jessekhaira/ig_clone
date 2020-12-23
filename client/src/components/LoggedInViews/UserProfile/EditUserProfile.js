@@ -14,11 +14,12 @@ function EditProfile(props) {
                     }
                 }); 
                 const returned_profile_info_json= await returned_profile_info_raw.json(); 
+                console.log(returned_profile_info_json);
                 initEditComponent(returned_profile_info_json); 
             }
             catch(err) {
-                // weird failed to fetch response on page reloads when it doesn't actually fail
-                // just ignoring the error for now
+                // weird failed to fetch response specific to page refreshing
+                // when it doesn't actually fail just ignoring the error for now
                 if (String(err).includes('failed')) {
                     _authenticationErrorLogOut(); 
                 }
@@ -61,13 +62,22 @@ function EditProfile(props) {
                 });
                 
                 const json_res = await res.json(); 
-
+                // error conditions -- handle appropriately in catch
                 if ("UnauthorizedUser" in json_res || "DuplicateEmail" in json_res ||
                     "DuplicateUsername" in json_res) {
                         throw Error(Object.keys(json_res)[0]);
                 }
+                // we've updated our username so we need new refresh and access tokens 
+                // as the payload in the old ones will be stale -- main thing held in tokens
+                // will be the usernames 
+                else if (props.current_user !== document.getElementById('change_username').value) {
+                    localStorage.setItem('accessToken', json_res.accessToken);
+                    localStorage.setItem('refreshToken', json_res.refreshToken);
+                    props.set_curr_user(document.getElementById('change_username').value); 
+                }
                 error_success_div.innerHTML = 'Success!';
                 error_success_div.style.color = 'green'; 
+
             }
             catch(err) {
                 err = String(err);
@@ -84,6 +94,7 @@ function EditProfile(props) {
         const error_success_div = document.getElementById('error_success_div');
         error_success_div.style.color = 'red'; 
         if (err.includes('UnauthorizedUser')) {
+            console.log('here');
             _authenticationErrorLogOut(); 
         }
         else if (err.includes('DuplicateEmail')) {
@@ -115,7 +126,7 @@ function EditProfile(props) {
 
     function goBackPrevPage(e) {
         e.preventDefault(); 
-        history.goBack(); 
+        history.push(`/${props.current_user}`); 
     }
 
     return (

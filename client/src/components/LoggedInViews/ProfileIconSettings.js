@@ -22,7 +22,9 @@ function ProfileIconSettings(props) {
         // refresh it 
         try {
             await checkTokenExpirationMiddleware(); 
-            const profile_icon_raw = await fetch('/loggedIn/navbar/getProfileIcon', {
+            console.log(props.current_user); 
+            const profile_icon_raw = await fetch(`/loggedIn/navbar/getProfileIcon/`, {
+                method: 'get', 
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
@@ -35,7 +37,13 @@ function ProfileIconSettings(props) {
             } 
         }
         catch(err) {
-            _authenticationErrorLogOut(); 
+            err = String(err);
+            // weird errors when refreshing page for syntax errors but there is no syntax errors
+            // with the response -- works fine to extract image. Ignoring for now
+            if (!err.includes('Syntax')) {
+                console.log(err); 
+                // _authenticationErrorLogOut(); 
+            }
         }
     })
 

@@ -5,6 +5,7 @@ const User = require('../models/users').userModel;
 const bcrypt = require('bcrypt'); 
 const path = require('path'); 
 require('dotenv').config({path: path.resolve('.env')}); 
+const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
 
 /**
  * Express router to mount login related functions.
@@ -49,9 +50,7 @@ router.post('/', [
         else {
             // if user is found, password is verified, then we make a jwt
             // access token and request token and return both of them to the client
-            const accessToken = jwt.sign({username: user.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
-            const refreshToken = jwt.sign({username: user.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
-
+            const [accessToken, refreshToken] = create_access_refresh_tokens(user.username);
             // update refresh token in the db for the user to be this new refresh token 
             user.refreshToken = refreshToken;
             await user.save(); 

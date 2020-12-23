@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import {UserProfileInformation} from './UserProfileInformation';
 import {UserProfileToggleViews} from './UserProfileToggleViews';
 import {UserProfilePosts} from './UserProfilePosts';
@@ -35,7 +35,7 @@ function UserProfile (props) {
         }
         catch(err) {
             console.log(err);
-            _authenticationErrorLogOut();
+            // _authenticationErrorLogOut();
         }
     }
 
@@ -45,8 +45,8 @@ function UserProfile (props) {
         <Switch>
             <Route exact path = '/:username/editProfile' render = {() =>
                 <EditProfile 
-                    aysncCallToMountInformation = {aysncCallToMountInformation} 
                     current_user = {props.current_user} 
+                    set_curr_user = {props.set_curr_user}
                 /> 
             }/>
 
