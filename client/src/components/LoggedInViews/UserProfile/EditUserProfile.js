@@ -90,11 +90,9 @@ function EditProfile(props) {
     }
 
     function putRequestFailedError(err) {
-        console.log(err);
         const error_success_div = document.getElementById('error_success_div');
         error_success_div.style.color = 'red'; 
         if (err.includes('UnauthorizedUser')) {
-            console.log('here');
             _authenticationErrorLogOut(); 
         }
         else if (err.includes('DuplicateEmail')) {
@@ -110,6 +108,10 @@ function EditProfile(props) {
         error_success_div.style.color = 'red'; 
         if(document.getElementById('change_name').value.length <1) {
             error_success_div.innerHTML = 'Name must have atleast one character.'
+            return false; 
+        }
+        else if (document.getElementById('change_bio').value.length >150) {
+            error_success_div.innerHTML = 'Bio must be less than or equal to 150 characters.'
             return false; 
         }
         else if (!_validateUsername(document.getElementById('change_username').value)) {

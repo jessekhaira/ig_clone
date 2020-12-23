@@ -435,6 +435,7 @@ html {
   width: auto;
   max-width: 500px;
   overflow: hidden;
+  word-wrap: break-word;
 }
 #profile_info_bio #fullname_profile {
   font-weight: bold;
@@ -444,6 +445,8 @@ html {
 #profile_info_bio #editable_bio_info {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
+  white-space: pre-wrap;
+  max-width: 450px;
 }
 
 #user_toggle_profile_views_container {

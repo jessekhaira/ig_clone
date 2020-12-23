@@ -108,6 +108,7 @@
     width: auto;
     max-width: 500px;
     overflow: hidden;
+    word-wrap: break-word;
     #fullname_profile {
         font-weight: bold;
         text-overflow: ellipsis;
@@ -117,5 +118,7 @@
     #editable_bio_info {
         @include system-fonts();
         font-size: 14px;
+        white-space: pre-wrap;
+        max-width: 450px;
     }
 }
