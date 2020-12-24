@@ -1,4 +1,5 @@
-@media (max-width: 750px) {
+
+@media (max-width: 800px) {
     #resize_together_container {
         width: 100%;
         margin-top: 56px;
@@ -38,7 +39,6 @@
     }
 
     #name_options_divcontainer {
-        min-width: auto;
         position: relative;
         #follow_user {
             width: 80px;
@@ -52,7 +52,7 @@
         }
 
         #profile_page_username_header {
-            max-width: 200px;
+            max-width: 270px;
         }
 
         #edit_profile {
@@ -60,7 +60,6 @@
             width: 40vw;
             top: 62px; 
             left: -25px;
-            border: 1px solid;
         }
     }
 

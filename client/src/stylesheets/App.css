@@ -421,8 +421,8 @@ html {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 #name_options_divcontainer #profile_page_username_header {
-  font-size: 25px;
-  font-weight: 300;
+  font-size: 23px;
+  font-weight: 400;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 320px;
@@ -1357,7 +1357,7 @@ html {
     display: none;
   }
 }
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   #resize_together_container {
     width: 100%;
     margin-top: 56px;
@@ -1392,7 +1392,6 @@ html {
   }
 
   #name_options_divcontainer {
-    min-width: auto;
     position: relative;
   }
   #name_options_divcontainer #follow_user {
@@ -1405,14 +1404,13 @@ html {
     width: auto;
   }
   #name_options_divcontainer #profile_page_username_header {
-    max-width: 200px;
+    max-width: 270px;
   }
   #name_options_divcontainer #edit_profile {
     position: absolute;
     width: 40vw;
     top: 62px;
     left: -25px;
-    border: 1px solid;
   }
 
   #meta_info_user_normalviewport {
