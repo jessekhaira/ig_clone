@@ -442,10 +442,12 @@ html {
   font-weight: bold;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin-bottom: 0px;
 }
 #profile_info_bio #editable_bio_info {
+  margin-top: 5px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 14px;
+  font-size: 15px;
   white-space: pre-wrap;
   max-width: 450px;
 }
