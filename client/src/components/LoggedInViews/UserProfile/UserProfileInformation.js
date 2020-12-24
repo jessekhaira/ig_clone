@@ -51,6 +51,7 @@ function UserProfileInformation (props) {
                     <button id = "edit_profile" className = "options_item" onClick = {showEditProfile}>
                         Edit Profile
                     </button>
+                    <button id = "follow_user" className = "options_item">Follow Profile</button>
                     <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
                 </div>
                 <div id = "meta_info_user_normalviewport">
