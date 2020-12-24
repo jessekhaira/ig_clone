@@ -16,7 +16,10 @@ function EditProfile(props) {
                         authorization: localStorage.getItem('accessToken')
                     }
                 }); 
-                const returned_profile_info_json= await returned_profile_info_raw.json(); 
+                const returned_profile_info_json= await returned_profile_info_raw.json();
+                if ('UnauthorizedUser' in returned_profile_info_json) {
+                    throw Error('UnauthorizedUser'); 
+                } 
                 initEditComponent(returned_profile_info_json); 
             }
             catch(err) {
