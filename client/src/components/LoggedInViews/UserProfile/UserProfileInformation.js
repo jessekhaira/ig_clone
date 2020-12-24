@@ -18,13 +18,13 @@ function UserProfileInformation (props) {
         if (!profileInfo) {
             return; 
         }
-        else if (document.getElementById('profile_page_username') === null) {
+        else if (document.getElementById('profile_page_username_header') === null) {
             return; 
         }
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
-        document.getElementById('profile_page_username').innerHTML = profileInfo.username; 
+        document.getElementById('profile_page_username_header').innerHTML = profileInfo.username;
         document.getElementById('fullname_profile').innerHTML = profileInfo.full_name;
         const [normalized_num_posts, normalized_num_followers, normalized_num_following] = normalizeCounts(num_posts, num_followers, num_following);
         document.getElementById('post_count').innerHTML = normalized_num_posts;
@@ -46,13 +46,21 @@ function UserProfileInformation (props) {
             <div id = "profile_info_directparentdiv">
                 <div id = "name_options_divcontainer">
                     <div id = "profile_page_username" className = "options_item">
-                        <h2 id = "profile_page_username" ></h2>
+                        <h2 id = "profile_page_username_header" ></h2>
                     </div>
-                    <button id = "edit_profile" className = "options_item" onClick = {showEditProfile}>
-                        Edit Profile
-                    </button>
-                    <button id = "follow_user" className = "options_item">Follow Profile</button>
-                    <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
+                    <div id = "other_profile_options">
+                        <button id = "follow_user" className = "options_item">
+                            Follow
+                        </button>
+                        <div className = "arrow_tip_down options_item"></div>
+                        <i id = "three_dots_options" className = "fas fa-ellipsis-h options_item"></i>
+                    </div>
+                    <div id = "own_profile_options">
+                        <button id = "edit_profile" className = "options_item" onClick = {showEditProfile}>
+                            Edit Profile
+                        </button>
+                        <img id = "profilepg_settingicon" alt = "Settings Wheel" className = "icons_settings options_item" src = "https://image.flaticon.com/icons/png/512/126/126472.png"></img>
+                    </div>
                 </div>
                 <div id = "meta_info_user_normalviewport">
                     <div id = "post_info_div" className = "meta_info_user_divcontainer">
