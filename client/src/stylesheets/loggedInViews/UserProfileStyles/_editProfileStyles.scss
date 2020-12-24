@@ -4,7 +4,13 @@
     @include flexbox-center();
     flex-direction: column;
 
-
+    #form_elements_editprofile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        min-height: 50vh;
+        width: 100%;
+    }
     #edit_profile_form {
         border: 1px solid rgba(0,0,0,0.4);
         height: auto; 
@@ -15,6 +21,16 @@
         align-items: center;
         justify-content: space-around;
         background-color: white;
+
+        #spinner_div_form {
+            display: none;
+            height: 80px;
+            width: 80px;
+        }
+
+        .sk-chase-dot-formspinner:before {
+            background-color: gray;
+        }
         
     }
     .edit_profile_div {
@@ -125,6 +141,16 @@
         #img_input {
             display: none;
         }
+
+        #spinner_div_picedit {
+            margin-right: 16px;
+        }
+        
+        .sk-chase-dot-profilepicspinner:before {
+            background-color: #8e8e8e;
+        }
+
+        
     }
 }
 

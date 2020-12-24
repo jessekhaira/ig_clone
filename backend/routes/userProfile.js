@@ -47,7 +47,7 @@ router.get('/editProfile', async(req,res,next) => {
         });
     }
     catch(err) {
-        return res.status(500).json({"message": "request failed"}); 
+        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }
 });
 
@@ -171,10 +171,10 @@ router.put('/profilePhoto', [
             const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
             const new_profile_photo = req.files.image.data; 
             await User.findOneAndUpdate({username: user.username}, {profile_picture: new_profile_photo});
-            res.status(204);
+            return res.status(200).json({'Success':'Success'})
         }
         catch(err) {
-            res.status(500); 
+            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
         }
     }
 ])

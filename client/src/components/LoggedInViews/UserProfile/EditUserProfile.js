@@ -6,7 +6,10 @@ function EditProfile(props) {
     const history = useHistory(); 
     useEffect(() => {
         async function fetchEditProfileInfo() {
+            const spinner_form = document.getElementById('spinner_div_form');
+            const form_elements = document.getElementById('form_elements_editprofile'); 
             try {
+                setDisplay(['block', 'none'], spinner_form, form_elements);
                 await checkTokenExpirationMiddleware(); 
                 const returned_profile_info_raw = await fetch(`/${props.current_user}/editProfile`, {
                     headers: {
@@ -14,15 +17,18 @@ function EditProfile(props) {
                     }
                 }); 
                 const returned_profile_info_json= await returned_profile_info_raw.json(); 
-                console.log(returned_profile_info_json);
                 initEditComponent(returned_profile_info_json); 
             }
             catch(err) {
                 // weird failed to fetch response specific to page refreshing
                 // when it doesn't actually fail just ignoring the error for now
-                if (String(err).includes('failed')) {
+                if (String(err).includes('UnauthorizedUser')) {
                     _authenticationErrorLogOut(); 
                 }
+            }
+
+            finally {
+                setDisplay(['flex', 'none'], form_elements, spinner_form); 
             }
         }
         fetchEditProfileInfo(); 
@@ -137,7 +143,10 @@ function EditProfile(props) {
     }
 
     async function uploadPhoto(e) {
+        const photo_spinner = document.getElementById('spinner_div_picedit');
+        const img_displayed = document.getElementById('edit_profile_profilepic');
         try {
+            setDisplay(['block', 'none'], photo_spinner, img_displayed); 
             const img = e.target.files[0]; 
             let formInfo = new FormData();
             formInfo.append('image', img); 
@@ -148,75 +157,111 @@ function EditProfile(props) {
                 },
                 body: formInfo
             });
-            let uploadStatusJSON = await uploadStatusRaw.json(); 
-            console.log(uploadStatusJSON);
+            let json_uploadStatus = await uploadStatusRaw.json();
+            if ('UnauthorizedUser' in json_uploadStatus) {
+                throw Error('UnauthorizedUser')
+            }
+            showNewProfilePicture(e.target.files[0]);
         }
 
         catch(err) {
-
+            err = String(err);
+            if (err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
         }
+        finally {
+            setDisplay(['block', 'none'], img_displayed, photo_spinner);
+        }
+    }
+
+    function showNewProfilePicture(file) {
+        const filereader = new FileReader();
+        filereader.onload = () => {
+            document.getElementById('edit_profile_profilepic').src = filereader.result; 
+        }
+        filereader.readAsDataURL(file);
     }
 
     return (
         <div id = 'edit_profile_topleveldiv'>
             <form id = 'edit_profile_form'>
-                <div id = "edit_profile_header">
-                    <div id = "username_profilepicture_div">
-                        <img id = 'edit_profile_profilepic'></img>
-                        <h3>{props.current_user}</h3>
-                    </div>
-                    <label htmlFor = "update_profile_picture" className = "edit_profile_labels" onClick = {redirectClickInput}>Change Profile Photo</label>
-                    <input type="file" id="img_input" name="img" className = "photo_upload_inputs" accept="image/*" onChange = {uploadPhoto} />
+                <div id = "spinner_div_form" className="sk-chase sk-chase-picedit">
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
+                    <div className="sk-chase-dot sk-chase-dot-formspinner"></div>
                 </div>
-                <div className = "edit_profile_div">
-                    <div className = "labeldiv_editprofile">
-                        <label htmlFor = "change_name" className = "edit_profile_labels">Name</label>
-                    </div>
-                    <div className = "inputdiv_editprofile">
-                        <input type = "text" placeholder = "Name" id = "change_name" className = "edit_profile_names"></input>
-                    </div>
-                </div>
-
-                <div className = "edit_profile_div">
-                    <div className = "labeldiv_editprofile">
-                        <label htmlFor = "change_username" className = "edit_profile_labels">Username</label>
-                    </div>
-                    <div className = "inputdiv_editprofile">
-                        <input type = "text" placeholder = "Username" id = "change_username" className = "edit_profile_names"></input>
-                    </div>
-                </div>
-
-                <div className = "edit_profile_div">
-                    <div className = "labeldiv_editprofile">
-                        <label htmlFor = "change_bio" className = "edit_profile_labels">Bio</label>
-                    </div>
-                    <div className = "inputdiv_editprofile">
-                        <textarea type = "textarea" id = "change_bio" className = "edit_profile_names"></textarea>
-                    </div>
-                </div>
-
-                <div className = "edit_profile_div">
-                    <div className = "labeldiv_editprofile">
-                        <label htmlFor = "change_email" className = "edit_profile_labels">Email</label>
-                    </div>
-                    <div className = "inputdiv_editprofile">
-                        <input type = "email" placeholder = "Email" id = "change_email" className = "edit_profile_names"></input>
-                    </div> 
-                </div>
-                <div id = "error_success_div"></div>
-                <div id = "profile_buttons">
-                    <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>
-                        <p id = "submit_descr">Submit</p>
-                        <div id = "spinner_div_editprofile" className="sk-chase sk-chase-editprofile">
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
-                            <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                <div id = "form_elements_editprofile">
+                    <div id = "edit_profile_header">
+                        <div id = "username_profilepicture_div">
+                            <div id = "spinner_div_picedit" className="sk-chase sk-chase-picedit">
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                                <div className="sk-chase-dot sk-chase-dot-profilepicspinner"></div>
+                            </div>
+                            <img id = 'edit_profile_profilepic'></img>
+                            <h3>{props.current_user}</h3>
                         </div>
-                    </button>
-                    <button id = "goback_editprofile" className = "edit_profile_buttons" onClick = {goBackPrevPage}>Go Back</button>
+                        <label htmlFor = "update_profile_picture" className = "edit_profile_labels" onClick = {redirectClickInput}>Change Profile Photo</label>
+                        <input type="file" id="img_input" name="img" className = "photo_upload_inputs" accept="image/*" onChange = {uploadPhoto} />
+                    </div>
+                    <div className = "edit_profile_div">
+                        <div className = "labeldiv_editprofile">
+                            <label htmlFor = "change_name" className = "edit_profile_labels">Name</label>
+                        </div>
+                        <div className = "inputdiv_editprofile">
+                            <input type = "text" placeholder = "Name" id = "change_name" className = "edit_profile_names"></input>
+                        </div>
+                    </div>
+
+                    <div className = "edit_profile_div">
+                        <div className = "labeldiv_editprofile">
+                            <label htmlFor = "change_username" className = "edit_profile_labels">Username</label>
+                        </div>
+                        <div className = "inputdiv_editprofile">
+                            <input type = "text" placeholder = "Username" id = "change_username" className = "edit_profile_names"></input>
+                        </div>
+                    </div>
+
+                    <div className = "edit_profile_div">
+                        <div className = "labeldiv_editprofile">
+                            <label htmlFor = "change_bio" className = "edit_profile_labels">Bio</label>
+                        </div>
+                        <div className = "inputdiv_editprofile">
+                            <textarea type = "textarea" id = "change_bio" className = "edit_profile_names"></textarea>
+                        </div>
+                    </div>
+
+                    <div className = "edit_profile_div">
+                        <div className = "labeldiv_editprofile">
+                            <label htmlFor = "change_email" className = "edit_profile_labels">Email</label>
+                        </div>
+                        <div className = "inputdiv_editprofile">
+                            <input type = "email" placeholder = "Email" id = "change_email" className = "edit_profile_names"></input>
+                        </div> 
+                    </div>
+
+                    <div id = "error_success_div"></div>
+                    <div id = "profile_buttons">
+                        <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>
+                            <p id = "submit_descr">Submit</p>
+                            <div id = "spinner_div_editprofile" className="sk-chase sk-chase-editprofile">
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                                <div className="sk-chase-dot sk-chase-dot-editprofile"></div>
+                            </div>
+                        </button>
+                        <button id = "goback_editprofile" className = "edit_profile_buttons" onClick = {goBackPrevPage}>Go Back</button>
+                    </div>
                 </div>
             </form>
         </div>

@@ -528,6 +528,13 @@ html {
   align-items: center;
   flex-direction: column;
 }
+#edit_profile_topleveldiv #form_elements_editprofile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 50vh;
+  width: 100%;
+}
 #edit_profile_topleveldiv #edit_profile_form {
   border: 1px solid rgba(0, 0, 0, 0.4);
   height: auto;
@@ -538,6 +545,14 @@ html {
   align-items: center;
   justify-content: space-around;
   background-color: white;
+}
+#edit_profile_topleveldiv #edit_profile_form #spinner_div_form {
+  display: none;
+  height: 80px;
+  width: 80px;
+}
+#edit_profile_topleveldiv #edit_profile_form .sk-chase-dot-formspinner:before {
+  background-color: gray;
 }
 #edit_profile_topleveldiv .edit_profile_div {
   display: flex;
@@ -644,6 +659,12 @@ html {
 }
 #edit_profile_topleveldiv #edit_profile_header #img_input {
   display: none;
+}
+#edit_profile_topleveldiv #edit_profile_header #spinner_div_picedit {
+  margin-right: 16px;
+}
+#edit_profile_topleveldiv #edit_profile_header .sk-chase-dot-profilepicspinner:before {
+  background-color: #8e8e8e;
 }
 
 #user_profile_top_level_div {
