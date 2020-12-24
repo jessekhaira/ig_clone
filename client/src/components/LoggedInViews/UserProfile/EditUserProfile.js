@@ -4,6 +4,13 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEma
 
 function EditProfile(props) { 
     const history = useHistory(); 
+    
+    /**
+     * This effect is called every single time the component is mounted, and makes an async request
+     * to the backend to retrieve all the information for the user to fill out the form within this 
+     * component, as the main purpose of this component is to allow the user to edit their already 
+     * existing data (profile picture, database, etc). 
+     */
     useEffect(() => {
         async function fetchEditProfileInfo() {
             const spinner_form = document.getElementById('spinner_div_form');
