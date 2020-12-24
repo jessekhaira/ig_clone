@@ -24,7 +24,7 @@ function UserProfileInformation (props) {
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
-        document.getElementById('profile_page_username_header').innerHTML = profileInfo.username;
+        document.getElementById('profile_page_username_header').innerHTML = 'absjdsajdsankdsakdnksasdsadasdasadjas';
         document.getElementById('fullname_profile').innerHTML = profileInfo.full_name;
         const [normalized_num_posts, normalized_num_followers, normalized_num_following] = normalizeCounts(num_posts, num_followers, num_following);
         document.getElementById('post_count').innerHTML = normalized_num_posts;

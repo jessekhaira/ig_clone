@@ -19,6 +19,8 @@
         top: 0px;
     }
 
+
+
     #profile_page_profpic_divcontainer {
         margin-right: 48px;
         #profile_page_profpic {
@@ -34,6 +36,10 @@
     #name_options_divcontainer {
         min-width: auto;
         #profile_page_username {
+        }
+
+        #profile_page_username_header {
+            max-width: 200px;
         }
 
         #edit_profile {

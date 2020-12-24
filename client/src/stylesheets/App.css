@@ -734,7 +734,7 @@ html {
 
 #resize_together_container {
   height: auto;
-  margin-top: 90px;
+  margin-top: 60px;
 }
 
 .sk-chase-userprofile {
@@ -1380,6 +1380,9 @@ html {
 
   #name_options_divcontainer {
     min-width: auto;
+  }
+  #name_options_divcontainer #profile_page_username_header {
+    max-width: 200px;
   }
   #name_options_divcontainer #edit_profile {
     position: absolute;
