@@ -1345,18 +1345,30 @@ html {
   }
 }
 @media (max-width: 750px) {
-  #user_profile_info_container {
+  #resize_together_container {
     width: 100%;
-    height: 40%;
-    margin-bottom: 40px;
+    margin-top: 56px;
+  }
+
+  #user_profile_info_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+    height: auto;
   }
 
   #profile_info_directparentdiv {
     position: relative;
+    width: auto;
+    height: auto;
+    left: 0px;
+    top: 0px;
   }
 
   #profile_page_profpic_divcontainer {
-    left: 35px;
+    margin-right: 48px;
   }
   #profile_page_profpic_divcontainer #profile_page_profpic {
     width: 120px;
@@ -1367,16 +1379,14 @@ html {
   }
 
   #name_options_divcontainer {
-    width: 300px;
+    min-width: auto;
   }
   #name_options_divcontainer #edit_profile {
     position: absolute;
-    width: 55vw;
-    top: 50px;
-  }
-
-  #profile_info_directparentdiv {
-    left: 65px;
+    width: 40vw;
+    top: 62px;
+    left: -25px;
+    border: 1px solid;
   }
 
   #meta_info_user_normalviewport {
@@ -1394,10 +1404,6 @@ html {
   }
   #profile_info_bio #fullname_profile {
     font-weight: bold;
-  }
-
-  #resize_together_container {
-    width: 100%;
   }
 
   #user_toggle_profile_views_container {
