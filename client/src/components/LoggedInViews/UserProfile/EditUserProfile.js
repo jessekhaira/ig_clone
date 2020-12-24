@@ -134,6 +134,10 @@ function EditProfile(props) {
         }
     }
 
+    /**
+     * Function used to validate the inputs the user passes to update their profile. If any of the 
+     * validations fails, appropriate error is displayed inside the component. 
+     */
     function checkIfInputsValid() {
         const error_success_div = document.getElementById('error_success_div');
         error_success_div.style.color = 'red'; 
