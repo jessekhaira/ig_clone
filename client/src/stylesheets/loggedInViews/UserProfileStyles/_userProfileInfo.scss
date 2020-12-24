@@ -49,6 +49,10 @@
     #own_profile_options {
         @include flexbox-center();
         display: none;
+
+        .options_item {
+            margin-left: 25px;
+        }
     }
 
     #three_dots_options {
@@ -65,6 +69,8 @@
             margin-left: 15px;
         }
     }
+
+    
 
     #profile_page_username_header {
         font-size: 25px;

@@ -391,6 +391,9 @@ html {
   align-items: center;
   display: none;
 }
+#name_options_divcontainer #own_profile_options .options_item {
+  margin-left: 25px;
+}
 #name_options_divcontainer #three_dots_options {
   transform: scale(1.5);
   cursor: pointer;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay} from '../../../utility/utility_functions';
 
 function UserProfileInformation (props) {
     const history = useHistory(); 
@@ -32,6 +32,17 @@ function UserProfileInformation (props) {
         document.getElementById('follower_count').innerHTML = normalized_num_followers;
         document.getElementById('following_count').innerHTML = normalized_num_following; 
         document.getElementById('profile_page_profpic').src = 'data:image/jpeg;base64,' + profileInfo.profile_picture.profile_picture;
+        
+        // need to decide which buttons to show the user depending on the endpoint
+        const own_profile_options = document.getElementById('own_profile_options');
+        const other_profile_options = document.getElementById('other_profile_options');
+        // console.log(props.current_user);
+        if(history.location.pathname.split('/')[1] === props.current_user) {
+            setDisplay(['none', 'flex'], other_profile_options, own_profile_options);
+        }
+        else {
+            setDisplay(['flex', 'none'], other_profile_options, own_profile_options);
+        }
     }
 
     function showEditProfile() {

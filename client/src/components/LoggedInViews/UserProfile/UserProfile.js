@@ -67,6 +67,7 @@ function UserProfile (props) {
                     </div>
                     <div id = "resize_together_container">
                         <UserProfileInformation 
+                            current_user = {props.current_user} 
                             aysncCallToMountInformation = {aysncCallToMountInformation}
                         /> 
                         <UserProfileToggleViews /> 
