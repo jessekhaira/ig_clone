@@ -44,6 +44,10 @@ function EditProfile(props) {
         fetchEditProfileInfo(); 
     });
 
+    /**
+     * This function recieves an object with all the data this component needs to be mounted, and then
+     * accesses the correct DOM elements and fills out the data within them. 
+     */
     function initEditComponent(init_object) {
         const base64_image = 'data:image/jpeg;base64,' + init_object.profile_picture.profile_picture;
         document.getElementById('edit_profile_profilepic').src = base64_image;
