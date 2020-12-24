@@ -35,8 +35,6 @@ function EditProfile(props) {
                 initEditComponent(returned_profile_info_json); 
             }
             catch(err) {
-                // weird failed to fetch response specific to page refreshing
-                // when it doesn't actually fail just ignoring the error for now
                 if (String(err).includes('UnauthorizedUser')) {
                     _authenticationErrorLogOut(); 
                 }
