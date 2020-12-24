@@ -37,13 +37,23 @@
     #follow_user {
         background-color: #0095f6;
         color: white;
-        padding: 5px;
-        width: 80px;
+        padding: 8px;
         border: 1px solid rgba(0,0,0,0.2);
         border-radius: 4px;
         cursor: pointer;
         font-weight: 600;
         font-size: 13px;
+        width: 80px;
+    }
+
+    #message_user {
+        display: none;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 80px;
     }
 
     #own_profile_options {
@@ -66,7 +76,12 @@
         width: 60%;
 
         .options_item {
-            margin-left: 15px;
+            margin-left: 15px;            
+        }
+
+        .followed {
+            background-color: var(--main-bg-color);
+            border: 1px solid rgba(0,0,0,0.2);
         }
     }
 
@@ -166,7 +181,7 @@
 .arrow_tip_down {
     position: relative;
     width: 35px;
-    height: 27px;
+    height: 33px;
     border: 1px solid rgba(0,0,0,0.2);
     background-color: #0095f6;
     border-radius: 4px;
@@ -178,7 +193,7 @@
     position: absolute;
     width: 0; 
     height: 0; 
-    top: 10px;
+    top: 13px;
     left: 11px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;

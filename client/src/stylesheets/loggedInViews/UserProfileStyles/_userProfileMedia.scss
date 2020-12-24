@@ -23,8 +23,10 @@
 
 
 
+
     #profile_page_profpic_divcontainer {
         margin-right: 48px;
+    
         #profile_page_profpic {
             width: 120px;
             height: 120px;
@@ -37,7 +39,16 @@
 
     #name_options_divcontainer {
         min-width: auto;
-        #profile_page_username {
+        position: relative;
+        #follow_user {
+            width: 80px;
+        }
+
+        #other_profile_options {
+            position: absolute;
+            top: 65px; 
+            left: -15px;
+            width: auto;
         }
 
         #profile_page_username_header {

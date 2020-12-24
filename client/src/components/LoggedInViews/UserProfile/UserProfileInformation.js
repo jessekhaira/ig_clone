@@ -60,6 +60,9 @@ function UserProfileInformation (props) {
                         <h2 id = "profile_page_username_header" ></h2>
                     </div>
                     <div id = "other_profile_options">
+                        <button id = "message_user" className = "options_item followed">
+                            Message
+                        </button>
                         <button id = "follow_user" className = "options_item">
                             Follow
                         </button>

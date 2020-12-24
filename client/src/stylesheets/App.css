@@ -377,13 +377,22 @@ html {
 #name_options_divcontainer #follow_user {
   background-color: #0095f6;
   color: white;
-  padding: 5px;
-  width: 80px;
+  padding: 8px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
   font-size: 13px;
+  width: 80px;
+}
+#name_options_divcontainer #message_user {
+  display: none;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 80px;
 }
 #name_options_divcontainer #own_profile_options {
   display: flex;
@@ -406,6 +415,10 @@ html {
 }
 #name_options_divcontainer #other_profile_options .options_item {
   margin-left: 15px;
+}
+#name_options_divcontainer #other_profile_options .followed {
+  background-color: var(--main-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 #name_options_divcontainer #profile_page_username_header {
   font-size: 25px;
@@ -486,7 +499,7 @@ html {
 .arrow_tip_down {
   position: relative;
   width: 35px;
-  height: 27px;
+  height: 33px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #0095f6;
   border-radius: 4px;
@@ -498,7 +511,7 @@ html {
   position: absolute;
   width: 0;
   height: 0;
-  top: 10px;
+  top: 13px;
   left: 11px;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
@@ -1380,6 +1393,16 @@ html {
 
   #name_options_divcontainer {
     min-width: auto;
+    position: relative;
+  }
+  #name_options_divcontainer #follow_user {
+    width: 80px;
+  }
+  #name_options_divcontainer #other_profile_options {
+    position: absolute;
+    top: 65px;
+    left: -15px;
+    width: auto;
   }
   #name_options_divcontainer #profile_page_username_header {
     max-width: 200px;
