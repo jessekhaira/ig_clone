@@ -2,6 +2,10 @@ import React, { useEffect} from 'react';
 import { useHistory } from 'react-router';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEmail, _validateUsername, setDisplay} from '../../../utility/utility_functions';
 
+/**
+ * This function represents a react functional component containing all the logic and jsx related
+ * to the user being able to edit their own profile. 
+ */
 function EditProfile(props) { 
     const history = useHistory(); 
     
@@ -24,6 +28,7 @@ function EditProfile(props) {
                     }
                 }); 
                 const returned_profile_info_json= await returned_profile_info_raw.json();
+                // user failed to authenticate properly, log the user out as a result 
                 if ('UnauthorizedUser' in returned_profile_info_json) {
                     throw Error('UnauthorizedUser'); 
                 } 
@@ -57,6 +62,12 @@ function EditProfile(props) {
         document.getElementById('change_email').value = init_object.email; 
     }
 
+    /**
+     * This function takes the data the user has filled out in the edit profile form and sends a PUT
+     * request to the appropriate API endpoint on the server. The data passed into the form first goes
+     * through a javascript validation to ensure all values are provided in an appropriate format,
+     * and then if the username and email aren't already being used, the users information will update. 
+     */
     async function updateProfileClick(e) {
         e.preventDefault();
         const spinner_div = document.getElementById('spinner_div_editprofile');
