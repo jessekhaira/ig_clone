@@ -6,10 +6,39 @@ function UserProfilePosts (props) {
 
     useEffect(() => {
         async function fetchPosts() {
-            await props.aysncCallToMountInformation('/posts'); 
+            // await props.aysncCallToMountInformation('/posts'); 
+            createPhotos({});
         }
-        // fetchPosts(); 
+        fetchPosts(); 
     })
+
+    function createPhotos(photos) {
+        const top_level_holder = document.getElementById('user_profile_posts_overallholder');
+        for (let i=0; i<12; i++) {
+            top_level_holder.appendChild(createSinglePhotoContainer('https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg'));
+        }
+    }
+
+    function createSinglePhotoContainer(photo) {
+        function createGridPhotoInfoDiv() {
+            const info_photo = document.createElement('div');
+            info_photo.classList.add('grid_photo_information');
+            return info_photo
+        }
+        function createGridPhotoDiv() {
+            const img_grid = document.createElement('img');
+            img_grid.classList.add('grid_photo');
+            img_grid.src = photo;
+            return img_grid;
+        }
+
+        const container_div = document.createElement('div');
+        container_div.classList.add('grid_photo_div');
+        container_div.appendChild(createGridPhotoInfoDiv());
+        container_div.appendChild(createGridPhotoDiv());
+        return container_div;
+    }
+
     return (
         <div id = "user_profile_posts_overallholder">
             <div id = "anim_holder" className="sk-chase">
@@ -20,51 +49,6 @@ function UserProfilePosts (props) {
                 <div className="sk-chase-dot"></div>
                 <div className="sk-chase-dot"></div>
             </div>
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-            
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-
-            <div id = "grid_photo_div">
-                <div className = "grid_photo_information"></div>
-                <img className = "grid_photo" src = "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg"></img>
-            </div>
-            
         </div>
     )
 }

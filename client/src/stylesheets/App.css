@@ -567,15 +567,15 @@ html {
   margin-top: 20px;
 }
 
-#grid_photo_div {
+.grid_photo_div {
   position: relative;
 }
-#grid_photo_div .grid_photo {
+.grid_photo_div .grid_photo {
   width: 100%;
   max-width: 253px;
   cursor: pointer;
 }
-#grid_photo_div .grid_photo_information {
+.grid_photo_div .grid_photo_information {
   position: absolute;
   display: none;
   width: 100%;
@@ -584,7 +584,7 @@ html {
   cursor: pointer;
 }
 
-#grid_photo_div:hover .grid_photo_information {
+.grid_photo_div:hover .grid_photo_information {
   display: block;
 }
 

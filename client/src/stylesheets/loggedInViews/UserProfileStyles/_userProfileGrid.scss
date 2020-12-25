@@ -9,7 +9,7 @@
 }
 
 
-#grid_photo_div {
+.grid_photo_div {
     position: relative;
     .grid_photo {
         width: 100%;
@@ -27,7 +27,7 @@
     }
 }
 
-#grid_photo_div:hover {
+.grid_photo_div:hover {
     .grid_photo_information {
         display: block;
     }
