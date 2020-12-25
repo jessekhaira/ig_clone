@@ -1,12 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
+import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
+    const history = useHistory();
+    const [numberOfTimesImagesRequested, setNumTimesImageReq] = useState(1);
 
     useEffect(() => {
         async function fetchPosts() {
-
+            const spinner_div = document.getElementById('spinner_div_photos');
+            const user_not_found_container = document.getElementById('user_not_found_container');
+            const user_profile_viewing = history.location.pathname.split('/')[1];
+            try {
+                await checkTokenExpirationMiddleware();
+                const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
+                {
+                    method: 'get',
+                    headers: {
+                        authorization: localStorage.getItem('accessToken')
+                    }
+                });
+                const photos_json = await photos_raw.json(); 
+                if ('UnauthorizedUser' in photos_json) {
+                    throw Error('UnauthorizedUser'); 
+                }
+                console.log(photos_json);
+            }
+            catch(err) {
+                err = String(err);
+                if (err.includes('UnauthorizedUser')) {
+                    _authenticationErrorLogOut(); 
+                }
+            }
         }
         fetchPosts(); 
     })

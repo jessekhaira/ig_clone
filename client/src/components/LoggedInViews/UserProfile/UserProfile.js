@@ -8,6 +8,7 @@ import {setDisplay} from '../../../utility/utility_functions';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
 function UserProfile (props) { 
+
     async function aysncCallToMountInformation(endpoint, username_belongingto_profile, method, body) {
         const spinner_div = document.getElementById('spinner_div_userprofiles');
         const user_not_found_container = document.getElementById('user_not_found_container');
@@ -15,7 +16,6 @@ function UserProfile (props) {
         try {
             await checkTokenExpirationMiddleware(); 
             setDisplay(['block', 'none', 'none'], spinner_div, resize_together_container, user_not_found_container);
-            
             const returned_profile_info_raw = await fetch(`/${username_belongingto_profile}/${endpoint}`, {
                 method: method,
                 body: body, 
@@ -30,6 +30,7 @@ function UserProfile (props) {
             else if ("userNotFound" in returned_profile_info_json) {
                 setDisplay(['none', 'none', 'block'], spinner_div, resize_together_container, user_not_found_container);
             }
+
             else {
                 setDisplay(['none', 'block', 'none'], spinner_div, resize_together_container, user_not_found_container);
                 return returned_profile_info_json; 
