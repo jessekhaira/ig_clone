@@ -6,16 +6,14 @@ function UserProfilePosts (props) {
 
     useEffect(() => {
         async function fetchPosts() {
-            // await props.aysncCallToMountInformation('/posts'); 
-            createPhotos({});
-            const spinner_div = document.getElementById('spinner_div_photos');
+             
         }
         fetchPosts(); 
     })
 
     function createPhotos(photos) {
         const top_level_holder = document.getElementById('user_profile_posts_overallholder');
-        for (let i=0; i<12; i++) {
+        for (let photo in photos) {
             top_level_holder.appendChild(createSinglePhotoContainer('https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg'));
         }
     }

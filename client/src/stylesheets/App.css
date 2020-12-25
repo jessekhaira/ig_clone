@@ -574,6 +574,8 @@ html {
   justify-content: center;
   grid-gap: 30px 30px;
   margin-top: 20px;
+  height: auto;
+  min-height: 50vh;
 }
 
 .grid_photo_div {

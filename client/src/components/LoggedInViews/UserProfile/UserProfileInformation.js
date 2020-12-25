@@ -8,7 +8,7 @@ function UserProfileInformation (props) {
     useEffect(() => {
         async function fetchInformation() {  
             const username_belongingto_profile = history.location.pathname.split('/')[1];
-            const profileInfo = await props.aysncCallToMountInformation('/profileInfo', username_belongingto_profile); 
+            const profileInfo = await props.aysncCallToMountInformation('/profileInfo', username_belongingto_profile, 'GET', null); 
             fillInProfileWithInformation(profileInfo); 
         }
         fetchInformation(); 

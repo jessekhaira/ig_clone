@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
  * @constructor photos 
  */
 const photosSchema = new Schema({
-    data_photo: {type: Buffer, default: 0},
+    data_photo: {type: Buffer, default: 0, required: true},
     likes: [
         {
             type: Schema.Types.ObjectId,

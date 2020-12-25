@@ -1,6 +1,7 @@
 const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
+const Photos = require('../models/photos').photosModel; 
 const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
 const fs = require('fs'); 
@@ -140,7 +141,7 @@ router.get('/profileInfo', async (req,res, next) => {
         }); 
     }
     catch(err) {
-        return res.status(500).json({userUnauthorizedError: "User is unauthorized"});
+        return res.status(500).json({'UnauthorizedUser': "User is unauthorized"});
     }
 });
 
@@ -182,18 +183,15 @@ router.put('/profilePhoto', [
 router.get('/posts', async (req, res, next) => {
     try {
         const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-
         const query_information = {
             photos: true,
         };
-        const query_result = await User.findOne({username: user.username}, query_information);
-
+        const query_result = await User.findOne({username: user.username}, query_information); 
         console.log(query_result);
         res.json({}); 
     }
     catch(err) {
-        console.log(err);
-        res.status(500).json({userUnauthorizedError: "User is unauthorized"});
+        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }
 });
 
@@ -204,9 +202,16 @@ router.post('/posts', [
     // have more middleware here to verify the data recieved from the user but leaving for now
     async (req,res,next) => {
         try {
-            const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-            const new_upload_photo = req.files.image.data; 
-            console.log(new_upload_photo); 
+            jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+            const username = req.params.username; 
+            const user = await User.findOne({username: username}, {photos:true}); 
+            const new_upload_photo_data = req.files.image.data; 
+            let newPost = new Photos({
+                data_photo: new_upload_photo_data
+            });
+            user.photos.push(newPost);
+            await newPost.save(); 
+            await user.save(); 
         }
         catch(err) {
             return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});

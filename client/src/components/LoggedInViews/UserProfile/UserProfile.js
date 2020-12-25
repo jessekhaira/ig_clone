@@ -8,7 +8,7 @@ import {setDisplay} from '../../../utility/utility_functions';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
 function UserProfile (props) { 
-    async function aysncCallToMountInformation(endpoint, username_belongingto_profile) {
+    async function aysncCallToMountInformation(endpoint, username_belongingto_profile, method, body) {
         const spinner_div = document.getElementById('spinner_div_userprofiles');
         const user_not_found_container = document.getElementById('user_not_found_container');
         const resize_together_container = document.getElementById('resize_together_container');
@@ -17,13 +17,15 @@ function UserProfile (props) {
             setDisplay(['block', 'none', 'none'], spinner_div, resize_together_container, user_not_found_container);
             
             const returned_profile_info_raw = await fetch(`/${username_belongingto_profile}/${endpoint}`, {
+                method: method,
+                body: body, 
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
             }); 
             const returned_profile_info_json= await returned_profile_info_raw.json(); 
-            if ("userUnauthorizedError" in returned_profile_info_json) {
-                throw Error; 
+            if ("UnauthorizedUser" in returned_profile_info_json) {
+                throw Error('UnauthorizedUser');
             }
             else if ("userNotFound" in returned_profile_info_json) {
                 setDisplay(['none', 'none', 'block'], spinner_div, resize_together_container, user_not_found_container);
@@ -34,8 +36,10 @@ function UserProfile (props) {
             }
         }
         catch(err) {
-            console.log(err);
-            _authenticationErrorLogOut();
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
         }
     }
 
