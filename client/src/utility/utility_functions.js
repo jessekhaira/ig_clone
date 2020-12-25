@@ -14,6 +14,16 @@ export function _validateUsername(username_inp) {
     return regex_pattern.test(username_inp); 
 }
 
+export function dealWithAPIErrorsUserProfile(json_obj, changeToDisplays, ...args) {
+    if ("UnauthorizedUser" in json_obj) {
+        throw Error('UnauthorizedUser');
+    }
+    else if ("userNotFound" in json_obj) {
+        setDisplay(changeToDisplays, args);
+        throw Error('userNotFound')
+    }
+}
+
 export function normalizeCounts(...args) {
     const output_normalized = [];
     for(let arg of args) {
