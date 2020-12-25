@@ -197,6 +197,23 @@ router.get('/posts', async (req, res, next) => {
     }
 });
 
+router.post('/posts', [
+    fileUpload({
+        createParentPath: true
+    }),
+    // have more middleware here to verify the data recieved from the user but leaving for now
+    async (req,res,next) => {
+        try {
+            const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+            const new_upload_photo = req.files.image.data; 
+            console.log(new_upload_photo); 
+        }
+        catch(err) {
+            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        }
+    }
+])
+
 
 
 exports.userProfileRouter = router; 

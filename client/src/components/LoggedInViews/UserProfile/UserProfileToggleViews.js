@@ -38,7 +38,7 @@ function UserProfileToggleViews (props) {
             const img = e.target.files[0]; 
             let formInfo = new FormData();
             formInfo.append('image', img); 
-            let photoUploadStatusRaw = await fetch(`/${props.current_user}/uploadPhoto`, {
+            let photoUploadStatusRaw = await fetch(`/${props.current_user}/posts`, {
                 method: 'POST',
                 headers: {
                     authorization: localStorage.getItem('accessToken')

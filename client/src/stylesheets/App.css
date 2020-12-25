@@ -562,6 +562,10 @@ html {
   display: none;
 }
 
+#labelUploadPhotos {
+  cursor: pointer;
+}
+
 #user_profile_posts_overallholder {
   display: grid;
   grid-template-columns: repeat(3, auto);
