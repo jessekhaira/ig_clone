@@ -8,6 +8,7 @@ function UserProfilePosts (props) {
         async function fetchPosts() {
             // await props.aysncCallToMountInformation('/posts'); 
             createPhotos({});
+            const spinner_div = document.getElementById('spinner_div_photos');
         }
         fetchPosts(); 
     })
@@ -41,7 +42,7 @@ function UserProfilePosts (props) {
 
     return (
         <div id = "user_profile_posts_overallholder">
-            <div id = "anim_holder" className="sk-chase">
+            <div id = "spinner_div_photos" className="sk-chase">
                 <div className="sk-chase-dot"></div>
                 <div className="sk-chase-dot"></div>
                 <div className="sk-chase-dot"></div>

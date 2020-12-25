@@ -93,7 +93,7 @@
     }
 
     .toggle_containers {
-        // margin-right: 65px;
+        border-top: none !important;
     }
 
     .posts_descr {
@@ -105,6 +105,9 @@
         margin-top: 9px;
     }
 
+    .active_toggle_icon {
+        color: rgb(0, 153, 255);
+    }
     // grid photos media queries
     #user_profile_posts_overallholder {
         grid-gap: 5px 5px;

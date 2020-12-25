@@ -542,6 +542,7 @@ html {
   cursor: pointer;
   margin-right: 35px;
   white-space: nowrap;
+  border-top: none;
 }
 .toggle_containers .toggle_icons {
   margin-right: 6px;
@@ -555,6 +556,10 @@ html {
 }
 .toggle_containers #posts_div {
   border-top: 1px solid black;
+}
+
+#uploadPhoto {
+  display: none;
 }
 
 #user_profile_posts_overallholder {
@@ -1442,6 +1447,10 @@ html {
     height: 29px;
   }
 
+  .toggle_containers {
+    border-top: none !important;
+  }
+
   .posts_descr {
     display: none;
   }
@@ -1449,6 +1458,10 @@ html {
   .toggle_icons {
     transform: scale(1.5) !important;
     margin-top: 9px;
+  }
+
+  .active_toggle_icon {
+    color: #0099ff;
   }
 
   #user_profile_posts_overallholder {
