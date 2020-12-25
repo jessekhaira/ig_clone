@@ -6,7 +6,7 @@ function UserProfilePosts (props) {
 
     useEffect(() => {
         async function fetchPosts() {
-             
+
         }
         fetchPosts(); 
     })
@@ -41,12 +41,12 @@ function UserProfilePosts (props) {
     return (
         <div id = "user_profile_posts_overallholder">
             <div id = "spinner_div_photos" className="sk-chase">
-                <div className="sk-chase-dot"></div>
-                <div className="sk-chase-dot"></div>
-                <div className="sk-chase-dot"></div>
-                <div className="sk-chase-dot"></div>
-                <div className="sk-chase-dot"></div>
-                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
+                <div className="sk-chase-dot sk-chase-posts"></div>
             </div>
         </div>
     )

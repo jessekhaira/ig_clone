@@ -599,6 +599,16 @@ html {
   display: block;
 }
 
+#spinner_div_photos {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
+.sk-chase-posts:before {
+  background-color: black;
+}
+
 #edit_profile_topleveldiv {
   height: auto;
   min-height: 90vh;
