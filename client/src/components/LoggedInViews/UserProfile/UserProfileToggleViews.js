@@ -9,6 +9,11 @@ function UserProfileToggleViews () {
         highlightViewCurrentlyOn('grid_posts_description', 'posts_icon', 'posts_div'); 
     })
 
+    /**
+     * Function acts to highlight or unhighlight the currently active button depending on what the
+     * user passes for the value on (default is true) and its corresponding icon for the buttons
+     * container. 
+     */
     function highlightViewCurrentlyOn(header_description_id, icon_id, container_id, on = true) {
         const posts_descr = document.getElementById(header_description_id);
         posts_descr.style.fontWeight = (on ? 'bold': '400');
