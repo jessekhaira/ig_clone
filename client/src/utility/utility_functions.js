@@ -1,7 +1,5 @@
 import jwt_decode from "jwt-decode";
 
-
-
 export function _validateEmail(email_inp) {
     // must follow regex pattern xyz@__.com 
     const regex_pattern = /\S+@\S+\.\S+/;
@@ -12,16 +10,6 @@ export function _validateUsername(username_inp) {
     // Usernames can only use letters, numbers, underscores and periods.
     const regex_pattern = /^[a-zA-Z0-9_]+$/;
     return regex_pattern.test(username_inp); 
-}
-
-export function dealWithAPIErrorsUserProfile(json_obj, changeToDisplays, ...args) {
-    if ("UnauthorizedUser" in json_obj) {
-        throw Error('UnauthorizedUser');
-    }
-    else if ("userNotFound" in json_obj) {
-        setDisplay(changeToDisplays, args);
-        throw Error('userNotFound')
-    }
 }
 
 export function normalizeCounts(...args) {
