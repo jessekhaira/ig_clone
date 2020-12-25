@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay} from '../../../utility/utility_functions';
 
-function UserProfileToggleViews () {
+function UserProfileToggleViews (props) {
     const history = useHistory(); 
 
     useEffect(() => {
@@ -31,13 +32,46 @@ function UserProfileToggleViews () {
         }
     }
 
+    async function uploadPost(e) {
+        try {
+            await checkTokenExpirationMiddleware(); 
+            const img = e.target.files[0]; 
+            let formInfo = new FormData();
+            formInfo.append('image', img); 
+            let photoUploadStatusRaw = await fetch(`/${props.current_user}/uploadPhoto`, {
+                method: 'POST',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                },
+                body: formInfo
+            });
+            let photoUploadStatus = await photoUploadStatusRaw.json();
+            if ('UnauthorizedUser' in photoUploadStatus) {
+                throw Error('UnauthorizedUser'); 
+            } 
+        }
+
+        catch(err) {
+            if (String(err).includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut(); 
+            }
+        }
+
+        finally {
+        }
+    }
+
+    function redirectClickInputUpload() {
+        document.getElementById('uploadPhoto').click(); 
+    }
+
     return (
         <div id = "user_toggle_profile_views_container">
             <div id = "direct_parent_container">
                 <div id = "add_post_div" className = "toggle_containers">
-                    <i id = "add_post_icon" className = "toggle_icons fas fa-plus"></i>
+                    <i id = "add_post_icon" className = "toggle_icons fas fa-plus" onClick = {redirectClickInputUpload}></i>
                     <label htmlFor = "uploadPhoto" className = "posts_descr" id = "labelUploadPhotos">UPLOAD</label>
-                    <input type="file" id="uploadPhoto" accept="image/*" />
+                    <input type="file" id="uploadPhoto" accept="image/*" onChange = {uploadPost}/>
                 </div>
 
                 <div id = "posts_div" className = "toggle_containers">

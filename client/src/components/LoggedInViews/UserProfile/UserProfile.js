@@ -70,7 +70,9 @@ function UserProfile (props) {
                             current_user = {props.current_user} 
                             aysncCallToMountInformation = {aysncCallToMountInformation}
                         /> 
-                        <UserProfileToggleViews /> 
+                        <UserProfileToggleViews 
+                            current_user = {props.current_user} 
+                        /> 
                         <UserProfilePosts 
                             aysncCallToMountInformation = {aysncCallToMountInformation}
                         /> 
