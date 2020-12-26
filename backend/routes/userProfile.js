@@ -203,8 +203,7 @@ router.get('/posts', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        console.log(err);
-        // return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }
 });
 
