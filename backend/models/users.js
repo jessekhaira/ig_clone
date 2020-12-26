@@ -36,7 +36,7 @@ const userSchema = new Schema({
     photos: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Photo' 
+            ref: 'photos' 
         }
     ],
     refreshToken: {type:String, default: null} 

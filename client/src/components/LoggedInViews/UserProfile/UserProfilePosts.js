@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, setDisplay, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
@@ -12,7 +12,9 @@ function UserProfilePosts (props) {
             const spinner_div = document.getElementById('spinner_div_photos');
             const user_not_found_container = document.getElementById('user_not_found_container');
             const user_profile_viewing = history.location.pathname.split('/')[1];
+            const grid_container = document.getElementById('user_profile_posts_overallholder');
             try {
+                setDisplay(['block'], spinner_div);
                 await checkTokenExpirationMiddleware();
                 const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
                 {
@@ -25,7 +27,12 @@ function UserProfilePosts (props) {
                 if ('UnauthorizedUser' in photos_json) {
                     throw Error('UnauthorizedUser'); 
                 }
-                console.log(photos_json);
+                else if ('userNotFound' in photos_json) {
+                    throw Error; 
+                }
+                else {
+                    createPhotos(photos_json.photos);
+                }
             }
             catch(err) {
                 err = String(err);
@@ -33,18 +40,26 @@ function UserProfilePosts (props) {
                     _authenticationErrorLogOut(); 
                 }
             }
+
+            finally {
+                setDisplay(['none'], spinner_div); 
+                // grid_container.style.alignItems = 'none';
+                // grid_container.style.justifyContent = 'none';
+            }
         }
         fetchPosts(); 
     })
 
     function createPhotos(photos) {
         const top_level_holder = document.getElementById('user_profile_posts_overallholder');
-        for (let photo in photos) {
-            top_level_holder.appendChild(createSinglePhotoContainer('https://icon-library.com/images/generic-profile-icon/generic-profile-icon-23.jpg'));
+        console.log(photos);
+        for (let photo of photos) {
+            top_level_holder.appendChild(photo);
         }
     }
 
     function createSinglePhotoContainer(photo) {
+        console.log(photo);
         function createGridPhotoInfoDiv() {
             const info_photo = document.createElement('div');
             info_photo.classList.add('grid_photo_information');

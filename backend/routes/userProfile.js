@@ -36,7 +36,7 @@ router.get('/editProfile', async(req,res,next) => {
         const username = req.params.username; 
         const query_result = await User.findOne({username: username}, query_information);
         const full_name = query_result.full_name;
-        const profile_picture = convertBuffer2Base64(query_result); 
+        const profile_picture = convertBuffer2Base64(query_result, 'profile_picture'); 
         const profile_description = query_result.profile_description; 
         const email = query_result.email;
 
@@ -128,7 +128,7 @@ router.get('/profileInfo', async (req,res, next) => {
         const number_posts = query_result.photos.length;
         const full_name = query_result.full_name;
         const profile_description = query_result.profile_description; 
-        const profile_picture = convertBuffer2Base64(query_result); 
+        const profile_picture = convertBuffer2Base64(query_result, 'profile_picture'); 
 
         return res.status(200).json({
             username, 
@@ -152,7 +152,7 @@ router.get('/profilePhoto', async (req,res) => {
     try {
         const token_payload = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET); 
         const user_profile_pic = await User.find({username: token_payload.username}, 'profile_picture');
-        const base64Img = convertArrayPicBuffers2Base64(user_profile_pic);
+        const base64Img = convertArrayPicBuffers2Base64(user_profile_pic, 'profile_picture');
         return res.status(200).json({profile_picture: base64Img});
     }
     catch(err) {
@@ -186,12 +186,25 @@ router.get('/posts', async (req, res, next) => {
         const query_information = {
             photos: true,
         };
-        const query_result = await User.findOne({username: user.username}, query_information); 
-        console.log(query_result);
-        res.json({}); 
+        const query_result = await User.findOne({username: user.username}, query_information).populate('photos');
+        if (query_result === null) {
+            res.status(200).json({'userNotFound': "User is not contained within database"})
+        }
+        const photos = query_result.photos;
+        const base64_photos = convertArrayPicBuffers2Base64(photos, 'data_photo');
+        const return_obj = [];
+        for (const photo of base64_photos) {
+            const photoObj = {};
+            photoObj['data_photo'] = photo['data_photo'];
+            photoObj['num_likes'] = photo['likes'].length;
+            photoObj['num_comments'] = photo['comments'].length;
+            return_obj.push(photoObj);            
+        }
+        return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        console.log(err);
+        // return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }
 });
 

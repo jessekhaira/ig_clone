@@ -2,18 +2,19 @@ const path = require('path');
 require('dotenv').config({path: path.resolve(".env")}); 
 const jwt = require('jsonwebtoken'); 
 
-function convertArrayPicBuffers2Base64(documents) {
+function convertArrayPicBuffers2Base64(documents, property) {
     let return_arr = []; 
     for (let doc of documents) {
-        doc = convertBuffer2Base64(doc);
+        console.log(doc);
+        doc = convertBuffer2Base64(doc, property);
         return_arr.push(doc); 
     }
     return return_arr; 
 }
 
-function convertBuffer2Base64(doc) {
+function convertBuffer2Base64(doc, property) {
     doc = doc.toObject(); 
-    doc.profile_picture = doc.profile_picture.toString('base64'); 
+    doc[property] = doc[property].toString('base64'); 
     return doc; 
 }
 

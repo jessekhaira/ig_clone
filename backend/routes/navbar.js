@@ -45,7 +45,7 @@ router.post('/search', [
         }
         try {
             const users_found = await User.find(query, returned_columns);
-            const users_found_profilePicturesBase64Encoded = convertArrayPicBuffers2Base64(users_found); 
+            const users_found_profilePicturesBase64Encoded = convertArrayPicBuffers2Base64(users_found, 'profile_picture'); 
             return res.json({searchResults:users_found_profilePicturesBase64Encoded});
         }
         catch(err) {
