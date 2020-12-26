@@ -14,84 +14,13 @@ function UserProfilePosts (props) {
             // async call will still allow multiple calls to be dispatched 
             if (!componentMountedFirstTime) {
                 setComponentMounted(true); 
-                const spinner_div = document.getElementById('spinner_div_photos');
-                const user_not_found_container = document.getElementById('user_not_found_container');
-                const user_profile_viewing = history.location.pathname.split('/')[1];
-                const grid_container = document.getElementById('grid_container_images');
-                grid_container.innerHTML ='';
-                try {
-                    setDisplay(['block', 'none'], spinner_div, grid_container);
-                    await checkTokenExpirationMiddleware();
-                    console.log('goin in!');
-                    const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
-                    {
-                        method: 'get',
-                        headers: {
-                            authorization: localStorage.getItem('accessToken')
-                        }
-                    });
-                    const photos_json = await photos_raw.json(); 
-                    if ('UnauthorizedUser' in photos_json) {
-                        throw Error('UnauthorizedUser'); 
-                    }
-                    else if ('userNotFound' in photos_json) {
-                        throw Error; 
-                    }
-                    else {
-                        createPhotos(photos_json.photos);
-                    }
-                }
-                catch(err) {
-                    err = String(err);
-                    if (err.includes('UnauthorizedUser')) {
-                        _authenticationErrorLogOut(); 
-                    }
-                }
-
-                finally {
-                    if (spinner_div !== null) {
-                        setDisplay(['none'], spinner_div); 
-                    }
-                }
+                await props.fetchGridImages(); 
             }
         }
         fetchPosts(); 
     })
 
-    function createPhotos(photos) {
-        // edge case user has no posts, dealing with that case with conditional statement below
-        const grid_container = document.getElementById('grid_container_images');
-        const no_posts_container = document.getElementById('no_posts_found');
-        if (photos.length === 0) {
-            setDisplay(['flex','none'], no_posts_container, grid_container); 
-        }
-        else {
-            setDisplay(['none','grid'], grid_container)
-            for (let photo of photos) {
-                grid_container.appendChild(createSinglePhotoContainer(photo));
-            }
-        }
-    }
-
-    function createSinglePhotoContainer(photo) {
-        function createGridPhotoInfoDiv() {
-            const info_photo = document.createElement('div');
-            info_photo.classList.add('grid_photo_information');
-            return info_photo
-        }
-        function createGridPhotoDiv() {
-            const img_grid = document.createElement('img');
-            img_grid.classList.add('grid_photo');
-            img_grid.src = 'data:image/jpeg;base64,' + photo.data_photo;
-            return img_grid;
-        }
-
-        const container_div = document.createElement('div');
-        container_div.classList.add('grid_photo_div');
-        container_div.appendChild(createGridPhotoInfoDiv());
-        container_div.appendChild(createGridPhotoDiv());
-        return container_div;
-    }
+    
 
     return (
         <div id = "user_profile_posts_overallholder">

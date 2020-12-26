@@ -9,6 +9,7 @@ function UserProfileToggleViews (props) {
         // component mounts, highlight posts component
         highlightViewCurrentlyOn('grid_posts_description', 'posts_icon', 'posts_div'); 
     })
+    
 
     /**
      * Function acts to highlight or unhighlight the currently active button depending on what the

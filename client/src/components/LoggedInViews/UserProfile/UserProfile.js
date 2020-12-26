@@ -5,9 +5,11 @@ import {UserProfilePosts} from './UserProfilePosts';
 import {EditProfile} from './EditUserProfile';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
 import {setDisplay} from '../../../utility/utility_functions';
-import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 function UserProfile (props) { 
+
+    const history = useHistory();
 
     async function aysncCallToMountInformation(endpoint, username_belongingto_profile, method, body) {
         const spinner_div = document.getElementById('spinner_div_userprofiles');
@@ -44,7 +46,83 @@ function UserProfile (props) {
         }
     }
 
-    
+    async function fetchGridImages() {
+        const spinner_div = document.getElementById('spinner_div_photos');
+        const user_not_found_container = document.getElementById('user_not_found_container');
+        const user_profile_viewing = history.location.pathname.split('/')[1];
+        const grid_container = document.getElementById('grid_container_images');
+        grid_container.innerHTML ='';
+        try {
+            setDisplay(['block', 'none'], spinner_div, grid_container);
+            await checkTokenExpirationMiddleware();
+            const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
+            {
+                method: 'get',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            });
+            const photos_json = await photos_raw.json(); 
+            if ('UnauthorizedUser' in photos_json) {
+                throw Error('UnauthorizedUser'); 
+            }
+            else if ('userNotFound' in photos_json) {
+                throw Error; 
+            }
+            else {
+                createPhotos(photos_json.photos);
+            }
+        }
+        catch(err) {
+            err = String(err);
+            if (err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut(); 
+            }
+        }
+
+        finally {
+            if (spinner_div !== null) {
+                setDisplay(['none'], spinner_div); 
+            }
+        }
+    }
+
+
+    function createPhotos(photos) {
+        // edge case user has no posts, dealing with that case with conditional statement below
+        const grid_container = document.getElementById('grid_container_images');
+        const no_posts_container = document.getElementById('no_posts_found');
+        if (photos.length === 0) {
+            setDisplay(['flex','none'], no_posts_container, grid_container); 
+        }
+        else {
+            setDisplay(['none','grid'], no_posts_container, grid_container)
+            for (let photo of photos) {
+                grid_container.appendChild(createSinglePhotoContainer(photo)); 
+            }
+        }
+    }
+
+    function createSinglePhotoContainer(photo) {
+        function createGridPhotoInfoDiv() {
+            const info_photo = document.createElement('div');
+            info_photo.classList.add('grid_photo_information');
+            return info_photo
+        }
+        function createGridPhotoDiv() {
+            const img_grid = document.createElement('img');
+            img_grid.classList.add('grid_photo');
+            img_grid.src = 'data:image/jpeg;base64,' + photo.data_photo;
+            return img_grid;
+        }
+
+        const container_div = document.createElement('div');
+        container_div.classList.add('grid_photo_div');
+        container_div.appendChild(createGridPhotoInfoDiv());
+        container_div.appendChild(createGridPhotoDiv());
+        return container_div;
+    }
+ 
 
     return (
         <Switch>
@@ -80,6 +158,7 @@ function UserProfile (props) {
                         /> 
                         <UserProfilePosts 
                             aysncCallToMountInformation = {aysncCallToMountInformation}
+                            fetchGridImages = {fetchGridImages}
                         /> 
                     </div>
                 </main>
