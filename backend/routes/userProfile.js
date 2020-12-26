@@ -60,7 +60,6 @@ router.put('/editProfile', [
         async (req,res, next) => {
             try {
                 const current_user_requesting_update = req.params.username;
-                console.log(current_user_requesting_update);
                 jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
                 let proposed_update = {
                     email: req.body.email,
@@ -186,7 +185,11 @@ router.get('/posts', async (req, res, next) => {
         const query_information = {
             photos: true,
         };
-        const query_result = await User.findOne({username: user.username}, query_information).populate('photos');
+        const query_result = 
+            await User.findOne({username: user.username}, query_information)
+                .populate({'path': 'photos'}); 
+            
+        console.log(query_result);
         if (query_result === null) {
             res.status(200).json({'userNotFound': "User is not contained within database"})
         }

@@ -7,7 +7,7 @@
 }
 
 #grid_container_images {
-    display: grid;
+    display: none;
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -48,4 +48,30 @@
 
 .sk-chase-posts:before {
     background-color: black;
+}
+
+#no_posts_found {
+    margin-top: 20px;
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+    h1 {
+        margin-top: 45px;
+        font-size: 26px;
+        font-weight: 400;
+    }
+}
+
+#camera_icon {
+    transform: scale(2);
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+#camera_no_posts_found {
+    border-radius: 50%;
+    font-size: 20px;
 }

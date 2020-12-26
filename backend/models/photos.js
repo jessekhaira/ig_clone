@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
  */
 const photosSchema = new Schema({
     data_photo: {type: Buffer, default: 0, required: true},
+    created_at: {type:Date, default: Date.now()},
     likes: [
         {
             type: Schema.Types.ObjectId,

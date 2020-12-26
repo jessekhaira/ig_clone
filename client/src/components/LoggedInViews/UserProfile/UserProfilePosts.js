@@ -50,7 +50,7 @@ function UserProfilePosts (props) {
 
                 finally {
                     if (spinner_div !== null) {
-                        setDisplay(['none', 'grid'], spinner_div, grid_container); 
+                        setDisplay(['none'], spinner_div); 
                     }
                 }
             }
@@ -59,9 +59,17 @@ function UserProfilePosts (props) {
     })
 
     function createPhotos(photos) {
+        // edge case user has no posts, dealing with that case with conditional statement below
         const grid_container = document.getElementById('grid_container_images');
-        for (let photo of photos) {
-            grid_container.appendChild(createSinglePhotoContainer(photo));
+        const no_posts_container = document.getElementById('no_posts_found');
+        if (photos.length === 0) {
+            setDisplay(['flex','none'], no_posts_container, grid_container); 
+        }
+        else {
+            setDisplay(['none','grid'], grid_container)
+            for (let photo of photos) {
+                grid_container.appendChild(createSinglePhotoContainer(photo));
+            }
         }
     }
 
@@ -96,6 +104,10 @@ function UserProfilePosts (props) {
                 <div className="sk-chase-dot sk-chase-posts"></div>
             </div>
             <div id = "grid_container_images">
+            </div>
+            <div id = "no_posts_found">
+                <i id = "camera_icon" className = "fa fa-camera"></i>
+                <h1>No Posts Yet</h1>
             </div>
         </div>
     )
