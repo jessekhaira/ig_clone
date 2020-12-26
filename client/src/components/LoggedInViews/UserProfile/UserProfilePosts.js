@@ -52,14 +52,12 @@ function UserProfilePosts (props) {
 
     function createPhotos(photos) {
         const top_level_holder = document.getElementById('user_profile_posts_overallholder');
-        console.log(photos);
         for (let photo of photos) {
-            top_level_holder.appendChild(photo);
+            top_level_holder.appendChild(createSinglePhotoContainer(photo));
         }
     }
 
     function createSinglePhotoContainer(photo) {
-        console.log(photo);
         function createGridPhotoInfoDiv() {
             const info_photo = document.createElement('div');
             info_photo.classList.add('grid_photo_information');
@@ -68,7 +66,8 @@ function UserProfilePosts (props) {
         function createGridPhotoDiv() {
             const img_grid = document.createElement('img');
             img_grid.classList.add('grid_photo');
-            img_grid.src = photo;
+            img_grid.src = 'data:image/jpeg;base64,' + photo.data_photo;
+            console.log(img_grid);
             return img_grid;
         }
 
