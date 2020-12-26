@@ -225,8 +225,10 @@ router.post('/posts', [
                 data_photo: new_upload_photo_data
             });
             user.photos.push(newPost);
-            await newPost.save(); 
-            await user.save(); 
+            // await newPost.save(); 
+            // await user.save(); 
+            console.log(user.photos);
+            return res.status(200).json({'Message': 'Post successfully created '});
         }
         catch(err) {
             return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});

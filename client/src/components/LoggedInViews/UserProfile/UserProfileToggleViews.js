@@ -49,6 +49,7 @@ function UserProfileToggleViews (props) {
             if ('UnauthorizedUser' in photoUploadStatus) {
                 throw Error('UnauthorizedUser'); 
             } 
+            console.log(photoUploadStatus);
         }
 
         catch(err) {

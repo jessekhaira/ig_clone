@@ -22,7 +22,6 @@ function UserProfilePosts (props) {
                 try {
                     setDisplay(['block', 'none'], spinner_div, grid_container);
                     await checkTokenExpirationMiddleware();
-                    console.log('making call!!')
                     const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
                     {
                         method: 'get',
