@@ -8,7 +8,6 @@ var Schema = mongoose.Schema;
  */
 const photosSchema = new Schema({
     data_photo: {type: Buffer, default: 0, required: true},
-    created_at: {type:Date, default: Date.now()},
     likes: [
         {
             type: Schema.Types.ObjectId,
@@ -21,7 +20,7 @@ const photosSchema = new Schema({
             ref: 'comments'
         }  
     ],
-}); 
+}, {timestamps: { createdAt: 'created_at' } }); 
 
 let photos = mongoose.model('photos', photosSchema); 
 exports.photosModel = photos; 

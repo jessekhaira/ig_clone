@@ -187,7 +187,7 @@ router.get('/posts', async (req, res, next) => {
         };
         const query_result = 
             await User.findOne({username: user.username}, query_information)
-                .populate({'path': 'photos', options: { sort: { 'created_at': -1 }}});  
+                .populate({'path': 'photos', options: { sort: { 'created_at': -1 }}});
             
         console.log(query_result);
         if (query_result === null) {
@@ -224,10 +224,10 @@ router.post('/posts', [
             let newPost = new Photos({
                 data_photo: new_upload_photo_data
             });
+            // user.photos = []; 
             user.photos.push(newPost);
-            // await newPost.save(); 
-            // await user.save(); 
-            // console.log(user.photos);
+            await newPost.save(); 
+            await user.save(); 
             return res.status(200).json({'Message': 'Post successfully created '});
         }
         catch(err) {

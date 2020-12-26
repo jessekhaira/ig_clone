@@ -66,7 +66,7 @@ function UserProfileToggleViews (props) {
                 throw Error('ErrorProcessing');
             }
             setDisplay(['none', 'block'], spinner_div, add_icon);
-
+            await props.fetchGridImages();
         }
 
         catch(err) {

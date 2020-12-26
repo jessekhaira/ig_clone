@@ -51,9 +51,10 @@ function UserProfile (props) {
         const user_not_found_container = document.getElementById('user_not_found_container');
         const user_profile_viewing = history.location.pathname.split('/')[1];
         const grid_container = document.getElementById('grid_container_images');
+        const no_posts_found = document.getElementById('no_posts_found');
         grid_container.innerHTML ='';
         try {
-            setDisplay(['block', 'none'], spinner_div, grid_container);
+            setDisplay(['block', 'none', 'none'], spinner_div, grid_container, no_posts_found);
             await checkTokenExpirationMiddleware();
             const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
             {
@@ -155,6 +156,7 @@ function UserProfile (props) {
                         /> 
                         <UserProfileToggleViews 
                             current_user = {props.current_user} 
+                            fetchGridImages = {fetchGridImages}
                         /> 
                         <UserProfilePosts 
                             aysncCallToMountInformation = {aysncCallToMountInformation}

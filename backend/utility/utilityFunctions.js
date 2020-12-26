@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 function convertArrayPicBuffers2Base64(documents, property) {
     let return_arr = []; 
     for (let doc of documents) {
-        console.log(doc);
         doc = convertBuffer2Base64(doc, property);
         return_arr.push(doc); 
     }
