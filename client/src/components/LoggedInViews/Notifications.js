@@ -215,13 +215,11 @@ function addNewNotificationsToNotifDiv(notifications) {
     notifDivHolder.textContent = '';
     for (let notif of notifications) {
         const notif_div = createNotificationDivs(notif);
-        console.log(notif_div);
         notifDivHolder.appendChild(notif_div); 
         const hr_tag = document.createElement('hr');
         hr_tag.classList.add('notification_hr');
         notifDivHolder.appendChild(hr_tag);
     }
-    console.log(notifDivHolder.children);
 }
 
 
