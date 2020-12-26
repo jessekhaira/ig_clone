@@ -14,7 +14,7 @@ const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffe
 const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
 const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
 const fileUpload = require('express-fileupload');
-
+const sharp = require('sharp');
 /**
  * Express router to mount user profile related functions. 
  * @type {object}
@@ -218,7 +218,7 @@ router.post('/posts', [
             jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
             const username = req.params.username; 
             const user = await User.findOne({username: username}, {photos:true}); 
-            const new_upload_photo_data = req.files.image.data; 
+            const new_upload_photo_data = await sharp(req.files.image.data).resize(300, 300).toBuffer(); 
             let newPost = new Photos({
                 data_photo: new_upload_photo_data
             });

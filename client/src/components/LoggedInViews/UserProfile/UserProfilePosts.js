@@ -9,10 +9,11 @@ function UserProfilePosts (props) {
     const [componentMountedFirstTime, setComponentMounted] = useState(false);
     useEffect(() => {
         async function fetchPosts() {
-            console.log(componentMountedFirstTime);
+            // if we don't have this then the component can mount up to 2x and the grid will appear incorrectly
+            // and we have to set component mounted ASAP when we get into the conditional -- doing after the
+            // async call will still allow multiple calls to be dispatched 
             if (!componentMountedFirstTime) {
                 setComponentMounted(true); 
-                console.log(componentMountedFirstTime);
                 const spinner_div = document.getElementById('spinner_div_photos');
                 const user_not_found_container = document.getElementById('user_not_found_container');
                 const user_profile_viewing = history.location.pathname.split('/')[1];
