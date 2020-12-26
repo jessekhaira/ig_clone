@@ -605,14 +605,40 @@ html {
 .grid_photo_div .grid_photo_information {
   position: absolute;
   display: none;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
+#num_comments_post {
+  color: white;
+  display: inline;
+  margin-left: 7px;
+}
+
+#likes_holder, #comments_holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+#num_likes_post {
+  color: white;
+  display: inline;
+  margin-left: 7px;
+}
+
+.comment {
+  color: white;
+  transform: scale(1.2);
+}
+
 .grid_photo_div:hover .grid_photo_information {
-  display: block;
+  display: flex;
 }
 
 #spinner_div_photos {
@@ -636,6 +662,11 @@ html {
   margin-top: 45px;
   font-size: 26px;
   font-weight: 400;
+}
+
+.likes_icon_post {
+  transform: scale(1.2);
+  color: white;
 }
 
 #camera_icon {
@@ -1522,7 +1553,15 @@ html {
   }
 
   #grid_container_images {
-    grid-gap: 5px 5px;
+    grid-gap: 0px 3px;
+  }
+
+  .grid_photo_information {
+    flex-direction: column;
+  }
+
+  #likes_holder, #comments_holder {
+    width: auto;
   }
 
   #no_posts_found {

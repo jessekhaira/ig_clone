@@ -97,7 +97,7 @@ function UserProfile (props) {
             setDisplay(['flex','none'], no_posts_container, grid_container); 
         }
         else {
-            setDisplay(['none','grid'], no_posts_container, grid_container)
+            setDisplay(['none','grid'], no_posts_container, grid_container);
             for (let photo of photos) {
                 grid_container.appendChild(createSinglePhotoContainer(photo)); 
             }
@@ -108,6 +108,42 @@ function UserProfile (props) {
         function createGridPhotoInfoDiv() {
             const info_photo = document.createElement('div');
             info_photo.classList.add('grid_photo_information');
+
+            // create comments holder and likes holder and add 
+            const comments_holder = document.createElement('div');
+            comments_holder.id = 'comments_holder'; 
+            const likes_holder = document.createElement('div');
+            likes_holder.id = 'likes_holder';
+
+            // comments information 
+            const num_comments = document.createElement('p');
+            num_comments.innerHTML = photo.num_comments; 
+            num_comments.id = 'num_comments_post';
+            const comments_icon = document.createElement('i');
+            comments_icon.classList.add('fas');
+            comments_icon.classList.add('fa-comment');
+            comments_icon.classList.add('comment');
+            
+            // add comments information to comments holder
+            comments_holder.appendChild(comments_icon);
+            comments_holder.appendChild(num_comments);
+
+            // likes information 
+            const num_likes = document.createElement('p');
+            num_likes.innerHTML = photo.num_likes; 
+            num_likes.id = 'num_likes_post';
+            const likes_icon = document.createElement('i');
+            likes_icon.classList.add('fas');
+            likes_icon.classList.add('fa-heart');
+            likes_icon.classList.add('likes_icon_post');
+            
+            // add likes information to likes holder
+            likes_holder.appendChild(likes_icon);
+            likes_holder.appendChild(num_likes);
+
+
+            info_photo.appendChild(likes_holder);
+            info_photo.appendChild(comments_holder); 
             return info_photo
         }
         function createGridPhotoDiv() {

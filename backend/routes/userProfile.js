@@ -201,12 +201,18 @@ router.get('/posts', async (req, res, next) => {
             photoObj['data_photo'] = photo['data_photo'];
             photoObj['num_likes'] = photo['likes'].length;
             photoObj['num_comments'] = photo['comments'].length;
+            photoObj['created_at'] = photo['created_at']; 
             return_obj.push(photoObj);            
         }
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        if (err.includes('JsonWebTokenError')) {
+            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        }
+        else {
+            return res.status(500).json({'Error': 'Error'});
+        }
     }
 });
 
@@ -240,7 +246,8 @@ router.post('/posts', [
             }
         }
     }
-])
+]);
+
 
 
 
