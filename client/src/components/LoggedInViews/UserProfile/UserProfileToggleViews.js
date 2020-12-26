@@ -33,7 +33,11 @@ function UserProfileToggleViews (props) {
     }
 
     async function uploadPost(e) {
+        const spinner_div = document.getElementById('spinner_div_upload');
+        const add_icon = document.getElementById('add_post_icon'); 
+        const error_upload = document.getElementById('error_adding_post');
         try {
+            setDisplay(['block', 'none', 'none'], spinner_div, add_icon, error_upload);
             await checkTokenExpirationMiddleware(); 
             const img = e.target.files[0]; 
             let formInfo = new FormData();
@@ -49,16 +53,21 @@ function UserProfileToggleViews (props) {
             if ('UnauthorizedUser' in photoUploadStatus) {
                 throw Error('UnauthorizedUser'); 
             } 
-            console.log(photoUploadStatus);
+            else if ('ErrorProcessing' in photoUploadStatus) {
+                throw Error('ErrorProcessing');
+            }
+            setDisplay(['none', 'block'], spinner_div, add_icon);
+
         }
 
         catch(err) {
+            err = String(err);
             if (String(err).includes('UnauthorizedUser')) {
                 _authenticationErrorLogOut(); 
             }
-        }
-
-        finally {
+            else {
+                setDisplay(['none','block'], spinner_div, error_upload);
+            }
         }
     }
 
@@ -70,6 +79,15 @@ function UserProfileToggleViews (props) {
         <div id = "user_toggle_profile_views_container">
             <div id = "direct_parent_container">
                 <div id = "add_post_div" className = "toggle_containers">
+                    <div id = "spinner_div_upload" className="sk-chase sk-chase-upload">
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                        <div className="sk-chase-dot sk-chase-dot-userprofile"></div>
+                    </div>
+                    <i id = "error_adding_post" className = "fas fa-times"></i>
                     <i id = "add_post_icon" className = "toggle_icons fas fa-plus" onClick = {redirectClickInputUpload}></i>
                     <label htmlFor = "uploadPhoto" className = "posts_descr" id = "labelUploadPhotos">UPLOAD</label>
                     <input type="file" id="uploadPhoto" accept="image/*" onChange = {uploadPost}/>

@@ -566,6 +566,17 @@ html {
   cursor: pointer;
 }
 
+#error_adding_post {
+  color: red;
+  display: none;
+  margin-right: 5px;
+}
+
+#spinner_div_upload {
+  display: none;
+  margin-right: 12px;
+}
+
 #user_profile_posts_overallholder {
   display: flex;
   align-items: flex-start;

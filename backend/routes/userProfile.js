@@ -227,11 +227,17 @@ router.post('/posts', [
             user.photos.push(newPost);
             // await newPost.save(); 
             // await user.save(); 
-            console.log(user.photos);
+            // console.log(user.photos);
             return res.status(200).json({'Message': 'Post successfully created '});
         }
         catch(err) {
-            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+            err = String(err); 
+            if (err.includes('JsonWebTokenError')) {
+                return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+            }
+            else {
+                return res.status(500).json({'ErrorProcessing': 'Error processing the input'});
+            }
         }
     }
 ])
