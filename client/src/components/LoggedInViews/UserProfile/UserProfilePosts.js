@@ -6,54 +6,61 @@ import { useHistory } from 'react-router';
 function UserProfilePosts (props) {
     const history = useHistory();
     const [numberOfTimesImagesRequested, setNumTimesImageReq] = useState(1);
-
+    const [componentMountedFirstTime, setComponentMounted] = useState(false);
     useEffect(() => {
         async function fetchPosts() {
-            const spinner_div = document.getElementById('spinner_div_photos');
-            const user_not_found_container = document.getElementById('user_not_found_container');
-            const user_profile_viewing = history.location.pathname.split('/')[1];
-            const grid_container = document.getElementById('user_profile_posts_overallholder');
-            try {
-                setDisplay(['block'], spinner_div);
-                await checkTokenExpirationMiddleware();
-                const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
-                {
-                    method: 'get',
-                    headers: {
-                        authorization: localStorage.getItem('accessToken')
+            console.log(componentMountedFirstTime);
+            if (!componentMountedFirstTime) {
+                setComponentMounted(true); 
+                console.log(componentMountedFirstTime);
+                const spinner_div = document.getElementById('spinner_div_photos');
+                const user_not_found_container = document.getElementById('user_not_found_container');
+                const user_profile_viewing = history.location.pathname.split('/')[1];
+                const grid_container = document.getElementById('grid_container_images');
+                grid_container.innerHTML ='';
+                try {
+                    setDisplay(['block', 'none'], spinner_div, grid_container);
+                    await checkTokenExpirationMiddleware();
+                    console.log('making call!!')
+                    const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
+                    {
+                        method: 'get',
+                        headers: {
+                            authorization: localStorage.getItem('accessToken')
+                        }
+                    });
+                    const photos_json = await photos_raw.json(); 
+                    if ('UnauthorizedUser' in photos_json) {
+                        throw Error('UnauthorizedUser'); 
                     }
-                });
-                const photos_json = await photos_raw.json(); 
-                if ('UnauthorizedUser' in photos_json) {
-                    throw Error('UnauthorizedUser'); 
+                    else if ('userNotFound' in photos_json) {
+                        throw Error; 
+                    }
+                    else {
+                        createPhotos(photos_json.photos);
+                    }
                 }
-                else if ('userNotFound' in photos_json) {
-                    throw Error; 
+                catch(err) {
+                    err = String(err);
+                    if (err.includes('UnauthorizedUser')) {
+                        _authenticationErrorLogOut(); 
+                    }
                 }
-                else {
-                    createPhotos(photos_json.photos);
-                }
-            }
-            catch(err) {
-                err = String(err);
-                if (err.includes('UnauthorizedUser')) {
-                    _authenticationErrorLogOut(); 
-                }
-            }
 
-            finally {
-                setDisplay(['none'], spinner_div); 
-                // grid_container.style.alignItems = 'none';
-                // grid_container.style.justifyContent = 'none';
+                finally {
+                    if (spinner_div !== null) {
+                        setDisplay(['none', 'grid'], spinner_div, grid_container); 
+                    }
+                }
             }
         }
         fetchPosts(); 
     })
 
     function createPhotos(photos) {
-        const top_level_holder = document.getElementById('user_profile_posts_overallholder');
+        const grid_container = document.getElementById('grid_container_images');
         for (let photo of photos) {
-            top_level_holder.appendChild(createSinglePhotoContainer(photo));
+            grid_container.appendChild(createSinglePhotoContainer(photo));
         }
     }
 
@@ -67,7 +74,6 @@ function UserProfilePosts (props) {
             const img_grid = document.createElement('img');
             img_grid.classList.add('grid_photo');
             img_grid.src = 'data:image/jpeg;base64,' + photo.data_photo;
-            console.log(img_grid);
             return img_grid;
         }
 
@@ -87,6 +93,8 @@ function UserProfilePosts (props) {
                 <div className="sk-chase-dot sk-chase-posts"></div>
                 <div className="sk-chase-dot sk-chase-posts"></div>
                 <div className="sk-chase-dot sk-chase-posts"></div>
+            </div>
+            <div id = "grid_container_images">
             </div>
         </div>
     )

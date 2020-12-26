@@ -1,10 +1,19 @@
 #user_profile_posts_overallholder {
-    display: grid;
-    grid-template-columns: auto auto auto; 
-    grid-template-rows: auto auto auto;
-    grid-gap: 15px 15px;
-    height: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     min-height: 50vh;
+    width: 100%;
+}
+
+#grid_container_images {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 30px 30px;
+    border: 1px solid;
+    height: auto;
     margin-top: 20px;
 }
 
@@ -13,8 +22,7 @@
     position: relative;
     .grid_photo {
         width: 100%;
-        max-width: 253px;
-        cursor: pointer;
+        max-width: 290px;
     }
 
     .grid_photo_information {
