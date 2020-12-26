@@ -32,6 +32,11 @@ function UserProfileToggleViews (props) {
         }
     }
 
+    /**
+     * This function acts as the event listener for the upload button shown on the toggle views, which is
+     * only shown on the users own page. This function sends the data stored in the input type file to the
+     * backend to be processed and added to the images this user has on the website. 
+     */
     async function uploadPost(e) {
         const spinner_div = document.getElementById('spinner_div_upload');
         const add_icon = document.getElementById('add_post_icon'); 
@@ -50,6 +55,9 @@ function UserProfileToggleViews (props) {
                 body: formInfo
             });
             let photoUploadStatus = await photoUploadStatusRaw.json();
+            // two separate errors we have to deal with -- user being unauthorized
+            // resulting in a logout, and the server having an issue processing the image 
+            // in the first place 
             if ('UnauthorizedUser' in photoUploadStatus) {
                 throw Error('UnauthorizedUser'); 
             } 
@@ -66,6 +74,7 @@ function UserProfileToggleViews (props) {
                 _authenticationErrorLogOut(); 
             }
             else {
+                // show red x to indicate an error occurred while uploading 
                 setDisplay(['none','block'], spinner_div, error_upload);
             }
         }
