@@ -187,7 +187,7 @@ router.get('/posts', async (req, res, next) => {
         };
         const query_result = 
             await User.findOne({username: user.username}, query_information)
-                .populate({'path': 'photos'}); 
+                .populate({'path': 'photos', options: { sort: { 'created_at': -1 }}});  
             
         console.log(query_result);
         if (query_result === null) {
