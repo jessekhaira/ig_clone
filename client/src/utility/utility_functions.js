@@ -16,7 +16,7 @@ export function infiniteScroll() {
     const usersCurrentScrollFromTop = window.innerHeight + document.documentElement.scrollTop + 1; 
     const totalScrollHeightPage = document.documentElement.scrollHeight; 
     if (usersCurrentScrollFromTop >= totalScrollHeightPage) {
-        console.log(usersCurrentScrollFromTop);
+        return true; 
     }
 }
 

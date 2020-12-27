@@ -581,6 +581,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   min-height: 50vh;
   width: 100%;
 }
@@ -683,6 +684,13 @@ html {
 
 #infinite_scrolling_div_profiles {
   display: block;
+  height: 30px;
+  width: 30px;
+  margin-top: 40px;
+}
+
+.sk-chase-infscroll:before {
+  background-color: black;
 }
 
 #edit_profile_topleveldiv {

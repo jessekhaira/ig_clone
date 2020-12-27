@@ -15,9 +15,15 @@ function UserProfilePosts (props) {
     }, [history.location.pathname]);
 
     useEffect(() => {
-        window.addEventListener('scroll', infiniteScroll);
-        return () => window.removeEventListener('scroll', infiniteScroll); 
+        window.addEventListener('scroll', infScrollUserProfile);
+        return () => window.removeEventListener('scroll', infScrollUserProfile); 
     });
+
+    function infScrollUserProfile() {
+        if (infiniteScroll()) {
+            document.getElementById('infinite_scrolling_div_profiles').style.display = 'block';
+        }
+    }
 
     return (
         <div id = "user_profile_posts_overallholder">
