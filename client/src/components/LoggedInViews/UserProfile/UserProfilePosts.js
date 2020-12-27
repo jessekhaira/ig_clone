@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {infiniteScroll} from '../../../utility/utility_functions';
+import {infiniteScroll, setDisplay} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
@@ -19,9 +19,16 @@ function UserProfilePosts (props) {
         return () => window.removeEventListener('scroll', infScrollUserProfile); 
     });
 
-    function infScrollUserProfile() {
-        if (infiniteScroll()) {
-            document.getElementById('infinite_scrolling_div_profiles').style.display = 'block';
+    async function infScrollUserProfile() {
+        const spinner_div = document.getElementById('infinite_scrolling_div_profiles'); 
+        console.log(document.getElementById('grid_container_images').children.length > 0);
+        if (infiniteScroll() && document.getElementById('grid_container_images').children.length > 0) {
+            try {
+                setDisplay(['block'], spinner_div);
+            }
+            catch(err) {
+
+            }
         }
     }
 
