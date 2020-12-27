@@ -179,21 +179,25 @@ router.put('/profilePhoto', [
     }
 ])
 
-router.get('/posts', async (req, res, next) => {
+router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
+    // We need to know without keeping state in the backend of which section of posts the user 
+    // is requesting, and then slice out that section of posts only. The grid is currently displaying 12 
+    // posts by default, and then when the user scrolls down to the bottom, 12 more posts are fetched and shown.
+    // location of where the user is obtained with the :slice_posts_requesting parameter in the URL 
     try {
-        const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         const query_information = {
             photos: true,
         };
-        const query_result = 
-            await User.findOne({username: user.username}, query_information)
+        const endIdxImageSlice = req.params.slice_posts_requesting*12;
+        let query_result = await User.findOne({username: req.params.username}, query_information)
                 .populate({'path': 'photos', options: { sort: { 'created_at': -1 }}});
-            
-        console.log(query_result);
+        
         if (query_result === null) {
             res.status(200).json({'userNotFound': "User is not contained within database"})
         }
-        const photos = query_result.photos;
+        let photos = query_result.photos;
+        photos = photos.slice(endIdxImageSlice-12, endIdxImageSlice);
         const base64_photos = convertArrayPicBuffers2Base64(photos, 'data_photo');
         const return_obj = [];
         for (const photo of base64_photos) {
@@ -207,6 +211,8 @@ router.get('/posts', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
+        console.log(err);
+        err = String(err); 
         if (err.includes('JsonWebTokenError')) {
             return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
         }
@@ -230,7 +236,6 @@ router.post('/posts', [
             let newPost = new Photos({
                 data_photo: new_upload_photo_data
             });
-            // user.photos = []; 
             user.photos.push(newPost);
             await newPost.save(); 
             await user.save(); 

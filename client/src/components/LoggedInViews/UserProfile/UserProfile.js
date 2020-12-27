@@ -46,17 +46,19 @@ function UserProfile (props) {
         }
     }
 
-    async function fetchGridImages() {
+    async function fetchGridImages(slice_posts_requesting =1) {
         const spinner_div = document.getElementById('spinner_div_photos');
         const user_not_found_container = document.getElementById('user_not_found_container');
         const user_profile_viewing = history.location.pathname.split('/')[1];
         const grid_container = document.getElementById('grid_container_images');
         const no_posts_found = document.getElementById('no_posts_found');
         grid_container.innerHTML ='';
+
+        console.log(user_profile_viewing);
         try {
             setDisplay(['block', 'none', 'none'], spinner_div, grid_container, no_posts_found);
             await checkTokenExpirationMiddleware();
-            const photos_raw = await fetch(`${user_profile_viewing}/posts`, 
+            const photos_raw = await fetch(`${user_profile_viewing}/posts/${slice_posts_requesting}`, 
             {
                 method: 'get',
                 headers: {

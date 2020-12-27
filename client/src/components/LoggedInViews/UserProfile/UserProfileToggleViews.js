@@ -74,7 +74,7 @@ function UserProfileToggleViews (props) {
             if (String(err).includes('UnauthorizedUser')) {
                 _authenticationErrorLogOut(); 
             }
-            else {
+            else if (err.includes('ErrorProcessing')) {  
                 // show red x to indicate an error occurred while uploading 
                 setDisplay(['none','block'], spinner_div, error_upload);
             }
