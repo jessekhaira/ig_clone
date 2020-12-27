@@ -211,7 +211,6 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        console.log(err);
         err = String(err); 
         if (err.includes('JsonWebTokenError')) {
             return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
