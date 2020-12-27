@@ -233,7 +233,6 @@ router.post('/posts', [
 // within this middleware function -- nice and organized 
 router.use((err, req, res, next) => {
     err = String(err); 
-    console.log(err);
     if (err.includes('JsonWebTokenError')) {
         return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }

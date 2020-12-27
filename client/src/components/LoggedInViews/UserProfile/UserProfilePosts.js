@@ -8,6 +8,7 @@ function UserProfilePosts (props) {
     const [numberOfTimesImagesRequested, setNumTimesImageReq] = useState(1);
     const [componentMountedFirstTime, setComponentMounted] = useState(false);
     useEffect(() => {
+        console.log('mountin')
         async function fetchPosts() {
             // if we don't have this then the component can mount up to 2x and the grid will appear incorrectly
             // and we have to set component mounted ASAP when we get into the conditional -- doing after the
