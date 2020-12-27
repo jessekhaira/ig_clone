@@ -38,6 +38,14 @@ function UserProfilePosts (props) {
                 <i id = "camera_icon" className = "fa fa-camera"></i>
                 <h1>No Posts Yet</h1>
             </div>
+            <div id = "infinite_scrolling_div_profiles" className="sk-chase">
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+                <div className="sk-chase-dot sk-chase-infscroll"></div>
+            </div>
         </div>
     )
 }
