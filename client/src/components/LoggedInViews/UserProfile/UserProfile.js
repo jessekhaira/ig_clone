@@ -49,14 +49,10 @@ function UserProfile (props) {
         }
     }
 
-    async function fetchGridImages(user_profile_viewing, slice_posts_requesting =1) {
-        const spinner_div = document.getElementById('spinner_div_photos');
-        const grid_container = document.getElementById('grid_container_images');
+    async function fetchGridImages(spinner_div, user_profile_viewing, slice_posts_requesting =1) {
         const no_posts_found = document.getElementById('no_posts_found');
-        grid_container.innerHTML ='';
-
         try {
-            setDisplay(['block', 'none', 'none'], spinner_div, grid_container, no_posts_found);
+            setDisplay(['block', 'none'], spinner_div, no_posts_found);
             await checkTokenExpirationMiddleware();
             const photos_raw = await fetch(`${user_profile_viewing}/posts/${slice_posts_requesting}`, 
             {
@@ -74,6 +70,7 @@ function UserProfile (props) {
             }
             else {
                 createPhotos(photos_json.photos);
+                return photos_json.photos;
             }
         }
         catch(err) {
@@ -95,7 +92,10 @@ function UserProfile (props) {
         // edge case user has no posts, dealing with that case with conditional statement below
         const grid_container = document.getElementById('grid_container_images');
         const no_posts_container = document.getElementById('no_posts_found');
-        if (photos.length === 0) {
+        // only show no posts found if both the photos requested contains no photos
+        // and the grid doesn't currently have any children within it because this is used
+        // for inf scrolling as well 
+        if (photos.length === 0 && grid_container.children.length === 0) {
             setDisplay(['flex','none'], no_posts_container, grid_container); 
         }
         else {
