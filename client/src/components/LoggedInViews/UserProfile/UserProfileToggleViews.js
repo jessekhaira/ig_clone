@@ -4,11 +4,9 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay} 
 
 function UserProfileToggleViews (props) {
     const history = useHistory(); 
-
     useEffect(() => {
         // component mounts, highlight posts component
         highlightViewCurrentlyOn('grid_posts_description', 'posts_icon', 'posts_div'); 
-        console.log(history.location.pathname.split('/')[1] === props.current_user);
         if (history.location.pathname.split('/')[1] === props.current_user) {
             document.getElementById('add_post_div').style.display = 'flex'; 
         }
@@ -46,11 +44,13 @@ function UserProfileToggleViews (props) {
      * backend to be processed and added to the images this user has on the website. 
      */
     async function uploadPost(e) {
-        const spinner_div = document.getElementById('spinner_div_upload');
+        const spinner_div_upload = document.getElementById('spinner_div_upload');
         const add_icon = document.getElementById('add_post_icon'); 
         const error_upload = document.getElementById('error_adding_post');
+        const grid_container = document.getElementById('grid_container_images');
+
         try {
-            setDisplay(['block', 'none', 'none'], spinner_div, add_icon, error_upload);
+            setDisplay(['block', 'none', 'none'], spinner_div_upload, add_icon, error_upload);
             await checkTokenExpirationMiddleware(); 
             const img = e.target.files[0]; 
             let formInfo = new FormData();
@@ -72,8 +72,8 @@ function UserProfileToggleViews (props) {
             else if ('ErrorProcessing' in photoUploadStatus) {
                 throw Error('ErrorProcessing');
             }
-            setDisplay(['none', 'block'], spinner_div, add_icon);
-            await props.fetchGridImages();
+            // upload was successful so just refresh the page to get all the new info
+            window.location.reload(); 
         }
 
         catch(err) {
@@ -83,7 +83,7 @@ function UserProfileToggleViews (props) {
             }
             else if (err.includes('ErrorProcessing')) {  
                 // show red x to indicate an error occurred while uploading 
-                setDisplay(['none','block'], spinner_div, error_upload);
+                setDisplay(['none','block'], spinner_div_upload, error_upload);
             }
         }
     }
