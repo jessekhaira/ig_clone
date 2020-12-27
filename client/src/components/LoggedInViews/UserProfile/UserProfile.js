@@ -30,9 +30,8 @@ function UserProfile (props) {
                 throw Error('UnauthorizedUser');
             }
             else if ("userNotFound" in returned_profile_info_json) {
-                setDisplay(['none', 'none', 'block'], spinner_div, resize_together_container, user_not_found_container);
+                throw Error('userNotFound'); 
             }
-
             else {
                 setDisplay(['none', 'block', 'none'], spinner_div, resize_together_container, user_not_found_container);
                 return returned_profile_info_json; 
@@ -43,6 +42,10 @@ function UserProfile (props) {
             if(err.includes('UnauthorizedUser')) {
                 _authenticationErrorLogOut();
             }
+            else if(err.includes('userNotFound')) {
+                setDisplay(['none', 'none', 'block'], spinner_div, resize_together_container, user_not_found_container);
+            }
+
         }
     }
 
@@ -70,7 +73,7 @@ function UserProfile (props) {
                 throw Error('UnauthorizedUser'); 
             }
             else if ('userNotFound' in photos_json) {
-                throw Error; 
+                throw Error('userNotFound');
             }
             else {
                 createPhotos(photos_json.photos);

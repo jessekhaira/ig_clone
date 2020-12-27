@@ -29,6 +29,9 @@ function ProfileIconSettings(props) {
                 }
             });
             const profile_icon_json = await profile_icon_raw.json();
+            if ('UnauthorizedUser' in profile_icon_json) {
+                throw Error('UnauthorizedUser');
+            }
             const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
             const profile_img = document.getElementById('profile_img'); 
             if (base64_image !== profile_img.src) {
@@ -37,9 +40,7 @@ function ProfileIconSettings(props) {
         }
         catch(err) {
             err = String(err);
-            // when page refreshes, we get a failed to fetch produced by react even though everything
-            // is fetched -- don't know why, just ignoring it for now 
-            if (!err.includes('Failed to fetch')) {
+            if (err.includes('UnauthorizedUser')) {
                 _authenticationErrorLogOut(); 
             }
         }

@@ -39,7 +39,6 @@ function EditProfile(props) {
                     _authenticationErrorLogOut(); 
                 }
             }
-
             finally {
                 setDisplay(['flex', 'none'], form_elements, spinner_form); 
             }

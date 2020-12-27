@@ -22,7 +22,16 @@ const sharp = require('sharp');
  */
 const router = express.Router({ mergeParams: true });
 
-
+router.use((req, res, next) => {
+    // have to verify the jwt to get access to any of the routes below so thats what we do first thing 
+    try {
+        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        next(); 
+    }
+    catch(err) {
+        next(err);
+    }
+})
 
 router.get('/editProfile', async(req,res,next) => {
     try {
@@ -32,7 +41,6 @@ router.get('/editProfile', async(req,res,next) => {
             profile_description: true,
             email: true
         };
-        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         const username = req.params.username; 
         const query_result = await User.findOne({username: username}, query_information);
         const full_name = query_result.full_name;
@@ -48,7 +56,7 @@ router.get('/editProfile', async(req,res,next) => {
         });
     }
     catch(err) {
-        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+        next(err);
     }
 });
 
@@ -60,7 +68,6 @@ router.put('/editProfile', [
         async (req,res, next) => {
             try {
                 const current_user_requesting_update = req.params.username;
-                jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
                 let proposed_update = {
                     email: req.body.email,
                     full_name: req.body.fullname,
@@ -85,20 +92,7 @@ router.put('/editProfile', [
                 }
             }     
             catch(err) {
-                err = String(err);
-                // have to handle different errors here to notify the frontend what 
-                // to show the user if their update fails -- if token authorization
-                // fails log the user out, otherwise display the approriate error message based
-                // on what failed 
-                if (err.includes('JsonWebTokenError')) {
-                    return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
-                }
-                else if (err.includes('email')) {
-                    return res.status(500).json({'DuplicateEmail': 'Username already exists in database'})
-                }
-                else if (err.includes('username')) {
-                    return res.status(500).json({'DuplicateUsername': 'Username already exists in database'})
-                }
+                next(err); 
             }       
         }
     ]
@@ -116,11 +110,10 @@ router.get('/profileInfo', async (req,res, next) => {
             profile_description: true,
         };
 
-        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         const username = req.params.username; 
         const query_result = await User.findOne({username: username}, query_information);
         if (query_result === null) {
-            res.status(200).json({userNotFound: "User is not contained within database"})
+            throw Error('userNotFound')
         }
         const number_followers = query_result.followers.length;
         const number_following = query_result.following.length;
@@ -140,7 +133,7 @@ router.get('/profileInfo', async (req,res, next) => {
         }); 
     }
     catch(err) {
-        return res.status(500).json({'UnauthorizedUser': "User is unauthorized"});
+        next(err);
     }
 });
 
@@ -149,13 +142,12 @@ router.get('/profilePhoto', async (req,res) => {
     // the user can change their username, so the requestor has to explicitly 
     // indicate which usernames icon they are fetching 
     try {
-        const token_payload = await jwt.verify(accessTokenRecieved, process.env.ACESS_TOKEN_SECRET); 
-        const user_profile_pic = await User.find({username: token_payload.username}, 'profile_picture');
+        const user_profile_pic = await User.find({username: req.params.username}, 'profile_picture');
         const base64Img = convertArrayPicBuffers2Base64(user_profile_pic, 'profile_picture');
         return res.status(200).json({profile_picture: base64Img});
     }
     catch(err) {
-        return res.status(500).json({message: "Access Token Invalid"}); 
+        next(err); 
     }
 }); 
 
@@ -168,13 +160,12 @@ router.put('/profilePhoto', [
     }),
     async (req,res) => {
         try {
-            const user = jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
             const new_profile_photo = req.files.image.data; 
-            await User.findOneAndUpdate({username: user.username}, {profile_picture: new_profile_photo});
+            await User.findOneAndUpdate({username: req.params.username}, {profile_picture: new_profile_photo});
             return res.status(200).json({'Success':'Success'})
         }
         catch(err) {
-            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+            next(err);
         }
     }
 ])
@@ -185,7 +176,6 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
     // posts by default, and then when the user scrolls down to the bottom, 12 more posts are fetched and shown.
     // location of where the user is obtained with the :slice_posts_requesting parameter in the URL 
     try {
-        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         const query_information = {
             photos: true,
         };
@@ -194,7 +184,7 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
                 .populate({'path': 'photos', options: { sort: { 'created_at': -1 }}});
         
         if (query_result === null) {
-            res.status(200).json({'userNotFound': "User is not contained within database"})
+            throw Error('userNotFound')
         }
         let photos = query_result.photos;
         photos = photos.slice(endIdxImageSlice-12, endIdxImageSlice);
@@ -211,13 +201,7 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        err = String(err); 
-        if (err.includes('JsonWebTokenError')) {
-            return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
-        }
-        else {
-            return res.status(500).json({'Error': 'Error'});
-        }
+        next(err);
     }
 });
 
@@ -228,7 +212,6 @@ router.post('/posts', [
     // have more middleware here to verify the data recieved from the user but leaving for now
     async (req,res,next) => {
         try {
-            jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
             const username = req.params.username; 
             const user = await User.findOne({username: username}, {photos:true}); 
             const new_upload_photo_data = await sharp(req.files.image.data).resize(300, 300).toBuffer(); 
@@ -241,16 +224,32 @@ router.post('/posts', [
             return res.status(200).json({'Message': 'Post successfully created '});
         }
         catch(err) {
-            err = String(err); 
-            if (err.includes('JsonWebTokenError')) {
-                return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
-            }
-            else {
-                return res.status(500).json({'ErrorProcessing': 'Error processing the input'});
-            }
+            next(err);
         }
     }
 ]);
+
+// handle all the error handling logic for the /users endpoints 
+// within this middleware function -- nice and organized 
+router.use((err, req, res, next) => {
+    err = String(err); 
+    console.log(err);
+    if (err.includes('JsonWebTokenError')) {
+        return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
+    }
+    else if (err.includes('email')) {
+        return res.status(500).json({'DuplicateEmail': 'Username already exists in database'})
+    }
+    else if (err.includes('username')) {
+        return res.status(500).json({'DuplicateUsername': 'Username already exists in database'})
+    }
+    else if (err.includes('userNotFound')) {
+        return res.status(500).json({'userNotFound': "User is not contained within database"})
+    }
+    else {
+        return res.status(500).json({'ErrorProcessing': 'Error processing the input'});
+    }
+})
 
 
 
