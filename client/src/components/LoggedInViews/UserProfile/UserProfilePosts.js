@@ -5,7 +5,8 @@ import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
     const history = useHistory();
-    const [imgNumRequest, setNumTimesImageReq] = useState(1);
+    const [imgNumRequest, setNumTimesImageReq] = useState(2);
+    
     useEffect(() => {
         async function fetchPosts() {
             const user_profile_viewing = history.location.pathname.split('/')[1];

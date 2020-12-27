@@ -8,6 +8,13 @@ function UserProfileToggleViews (props) {
     useEffect(() => {
         // component mounts, highlight posts component
         highlightViewCurrentlyOn('grid_posts_description', 'posts_icon', 'posts_div'); 
+        console.log(history.location.pathname.split('/')[1] === props.current_user);
+        if (history.location.pathname.split('/')[1] === props.current_user) {
+            document.getElementById('add_post_div').style.display = 'flex'; 
+        }
+        else {
+            document.getElementById('add_post_div').style.display = 'none'; 
+        }
     })
     
 
