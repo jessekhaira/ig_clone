@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import jwt_decode from 'jwt-decode';
-import {checkTokenExpirationMiddleware, setDisplay, _authenticationErrorLogOut} from '../../../utility/utility_functions';
+import {infiniteScroll} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
@@ -15,8 +14,10 @@ function UserProfilePosts (props) {
         fetchPosts(); 
     }, [history.location.pathname]);
 
-
-    
+    useEffect(() => {
+        window.addEventListener('scroll', infiniteScroll);
+        return () => window.removeEventListener('scroll', infiniteScroll); 
+    });
 
     return (
         <div id = "user_profile_posts_overallholder">

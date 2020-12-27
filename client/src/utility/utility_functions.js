@@ -12,6 +12,15 @@ export function _validateUsername(username_inp) {
     return regex_pattern.test(username_inp); 
 }
 
+export function infiniteScroll() {
+    const usersCurrentScrollFromTop = window.innerHeight + document.documentElement.scrollTop + 1; 
+    const totalScrollHeightPage = document.documentElement.scrollHeight; 
+    if (usersCurrentScrollFromTop >= totalScrollHeightPage) {
+        console.log(usersCurrentScrollFromTop);
+    }
+}
+
+
 export function normalizeCounts(...args) {
     const output_normalized = [];
     for(let arg of args) {
