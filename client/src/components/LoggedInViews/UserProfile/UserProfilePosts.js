@@ -5,21 +5,15 @@ import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
     const history = useHistory();
-    const [numberOfTimesImagesRequested, setNumTimesImageReq] = useState(1);
-    const [componentMountedFirstTime, setComponentMounted] = useState(false);
+    const [imgNumRequest, setNumTimesImageReq] = useState(1);
     useEffect(() => {
-        console.log('mountin')
         async function fetchPosts() {
-            // if we don't have this then the component can mount up to 2x and the grid will appear incorrectly
-            // and we have to set component mounted ASAP when we get into the conditional -- doing after the
-            // async call will still allow multiple calls to be dispatched 
-            if (!componentMountedFirstTime) {
-                setComponentMounted(true); 
-                await props.fetchGridImages(); 
-            }
+            const user_profile_viewing = history.location.pathname.split('/')[1];
+            await props.fetchGridImages(user_profile_viewing, 1);
         }
         fetchPosts(); 
-    })
+    }, [history.location.pathname]);
+
 
     
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {UserProfileInformation} from './UserProfileInformation';
 import {UserProfileToggleViews} from './UserProfileToggleViews';
 import {UserProfilePosts} from './UserProfilePosts';
@@ -49,15 +49,12 @@ function UserProfile (props) {
         }
     }
 
-    async function fetchGridImages(slice_posts_requesting =1) {
+    async function fetchGridImages(user_profile_viewing, slice_posts_requesting =1) {
         const spinner_div = document.getElementById('spinner_div_photos');
-        const user_not_found_container = document.getElementById('user_not_found_container');
-        const user_profile_viewing = history.location.pathname.split('/')[1];
         const grid_container = document.getElementById('grid_container_images');
         const no_posts_found = document.getElementById('no_posts_found');
         grid_container.innerHTML ='';
 
-        console.log(user_profile_viewing);
         try {
             setDisplay(['block', 'none', 'none'], spinner_div, grid_container, no_posts_found);
             await checkTokenExpirationMiddleware();
@@ -164,6 +161,7 @@ function UserProfile (props) {
         container_div.appendChild(createGridPhotoDiv());
         return container_div;
     }
+
  
 
     return (
