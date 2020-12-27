@@ -55,6 +55,10 @@ router.post('/search', [
     }
 ]);
 
+router.get('/', (req,res,next) => {
+    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+});
+
 
 
 exports.navbar_router = router; 

@@ -22,14 +22,26 @@ const sharp = require('sharp');
  */
 const router = express.Router({ mergeParams: true });
 
+// deals with case when page is refreshed and the user is logged in -- returns the appropriate view
+// for the home page and for the users own profile page 
+router.get('/', (req,res,next) => {
+    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+});
+
+// deals with user refreshing on the dm inbox page -- not implemented 
+router.get('/inbox', (req,res,next) => {
+    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+});
+
+
 router.use((req, res, next) => {
     // have to verify the jwt to get access to any of the routes below so thats what we do first thing 
     try {
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-        next(); 
+        return next(); 
     }
     catch(err) {
-        next(err);
+        return next(err);
     }
 })
 

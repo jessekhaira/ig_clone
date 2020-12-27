@@ -30,6 +30,7 @@ router.post('/', [
 
     
     async (req, res, next) => {
+        console.log(req.body);
         const username_or_email = req.body.username_or_email;
         const password = req.body.password; 
         // find user 
@@ -59,5 +60,9 @@ router.post('/', [
     }
 ]
 ); 
+
+router.get('/', (req,res,next) => {
+    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+});
 
 exports.login_router = router; 

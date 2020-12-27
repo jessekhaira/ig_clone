@@ -46,6 +46,12 @@ const navbar_router = require('./routes/navbar').navbar_router;
 const userprofile_router = require('./routes/userProfile').userProfileRouter;  
 
 
+/**
+ * Express router to mount explore related functions.
+ * @type {object}
+ * @const 
+ */
+const explore_router = require('./routes/explore').explore_router; 
 
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -64,7 +70,8 @@ app.use(bodyParser.json());
 app.use('/accounts/login', login_router); 
 app.use('/accounts/register', register_router); 
 app.use('/accounts/refreshToken', refresh_token_router); 
-app.use('/loggedIn/navbar', navbar_router); 
+app.use('/loggedIn/navbar', navbar_router);
+app.use('/explore', explore_router);
 app.use('/:username', userprofile_router);
 
 
