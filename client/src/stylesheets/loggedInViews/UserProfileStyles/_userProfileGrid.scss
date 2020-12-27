@@ -1,7 +1,5 @@
 #user_profile_posts_overallholder {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    @include flexbox-center();
     min-height: 50vh;
     width: 100%;
 }

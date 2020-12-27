@@ -579,8 +579,8 @@ html {
 
 #user_profile_posts_overallholder {
   display: flex;
-  align-items: flex-start;
   justify-content: center;
+  align-items: center;
   min-height: 50vh;
   width: 100%;
 }
@@ -679,6 +679,10 @@ html {
 #camera_no_posts_found {
   border-radius: 50%;
   font-size: 20px;
+}
+
+#infinite_scrolling_div_profiles {
+  display: block;
 }
 
 #edit_profile_topleveldiv {
