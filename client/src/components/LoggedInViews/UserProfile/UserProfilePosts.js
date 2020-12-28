@@ -101,7 +101,6 @@ function UserProfilePosts (props) {
         }
         else {
             setDisplay(['none','grid'], no_posts_container, grid_container);
-            console.log(photos);
             for (let photo of photos) {
                 grid_container.appendChild(createSinglePhotoContainer(photo)); 
             }
@@ -154,6 +153,7 @@ function UserProfilePosts (props) {
             const img_grid = document.createElement('img');
             img_grid.classList.add('grid_photo');
             img_grid.src = 'data:image/jpeg;base64,' + photo.data_photo;
+            img_grid.id = photo.id;
             return img_grid;
         }
 
@@ -161,7 +161,16 @@ function UserProfilePosts (props) {
         container_div.classList.add('grid_photo_div');
         container_div.appendChild(createGridPhotoInfoDiv());
         container_div.appendChild(createGridPhotoDiv());
+        container_div.addEventListener('click', showFullSizePhotoClick); 
         return container_div;
+    }
+
+    function showFullSizePhotoClick(e) {
+        // you can click on the grid photo information so re-routing every single click to the parent
+        // ancestor called grid_photo_div and then from there, going down and finding the img
+        const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
+        const grid_img = grid_photo_div_ancestor.querySelectorAll('img')[0];
+        console.log(grid_img);
     }
 
 

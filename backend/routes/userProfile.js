@@ -204,6 +204,7 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         const return_obj = [];
         for (const photo of base64_photos) {
             const photoObj = {};
+            photoObj['id'] = photo['_id']; 
             photoObj['data_photo'] = photo['data_photo'];
             photoObj['num_likes'] = photo['likes'].length;
             photoObj['num_comments'] = photo['comments'].length;
