@@ -37,6 +37,15 @@ html {
   font-size: 15px;
 }
 
+.overlay_div_blackout {
+  pointer-events: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
 .sk-chase {
   display: none;
   width: 18px;
@@ -1393,6 +1402,7 @@ html {
 
 #navbar_container {
   height: 6%;
+  position: relative;
 }
 
 #navbar {

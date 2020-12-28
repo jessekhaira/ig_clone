@@ -37,6 +37,15 @@ html {
     }
 }
 
+.overlay_div_blackout {
+  pointer-events: none;
+  position: absolute;
+  background-color: rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
 
 // loader animation -- used for many elements so included in globals
 .sk-chase {

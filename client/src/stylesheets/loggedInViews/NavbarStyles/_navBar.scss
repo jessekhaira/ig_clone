@@ -4,6 +4,7 @@
 
 #navbar_container {
     height: 6%;
+    position: relative;
 }
 #navbar{
     @include flexbox-center();
@@ -68,6 +69,6 @@
         .home_icon_active {
             -webkit-text-fill-color: black !important;
         }
-
     }
 }
+

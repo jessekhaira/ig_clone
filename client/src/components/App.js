@@ -44,6 +44,7 @@ class App extends React.Component{
   render() {
     return (
       <div className="App">
+        <div className = 'overlay_div_blackout'></div>
         <Router>
           {/* unless user is logged in, then none of the protected views will be shown -- has to be
           a refresh token in the local storage that isn't expired. We can also use the logged in status here*/}

@@ -159,6 +159,7 @@ function SearchBar(props) {
 
    return(
         <div id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
+            <div className = 'overlay_div_blackout'></div>
             <div id = "icon_input_div">
                 <i class="fas fa-search search_icon"></i>
                 <div id = "inp_display_text" >Search</div>

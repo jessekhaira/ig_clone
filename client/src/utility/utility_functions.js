@@ -20,6 +20,45 @@ export function infiniteScroll() {
     }
 }
 
+export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
+    [...document.getElementsByClassName('overlay_div_blackout')].map((x) => {
+        x.style.display ='block'; 
+    });
+
+    [...document.getElementsByClassName('grid_photo_information')].map((x) =>{
+        x.style.display = 'flex';
+    });
+
+    [...document.getElementsByClassName('infoPhotoHover')].map((x) => {
+        x.style.display = 'none';
+    }); 
+
+    [...document.getElementsByClassName('grid_photo_div')].map((x) => {
+        x.removeEventListener('mouseenter', showPhotoInformation);
+        x.removeEventListener('mouseleave', hidePhotoInformation);
+    });
+
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden'; 
+}
+
+export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
+    [...document.getElementsByClassName('overlay_div_blackout')].map((x) => {
+        x.style.display = 'none';
+    });
+
+    [...document.getElementsByClassName('grid_photo_information')].map((x) =>{
+        x.style.display = 'none';
+    });
+
+    [...document.getElementsByClassName('infoPhotoHover')].map((x) => {
+        x.style.display = 'flex';
+    }); 
+
+    [...document.getElementsByClassName('grid_photo_div')].map((x) => {
+        x.addEventListener('mouseenter', showPhotoInformation);
+        x.addEventListener('mouseleave', hidePhotoInformation);
+    });
+}
 
 export function normalizeCounts(...args) {
     const output_normalized = [];

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 function UserProfilePosts (props) {
@@ -115,8 +115,11 @@ function UserProfilePosts (props) {
             // create comments holder and likes holder and add 
             const comments_holder = document.createElement('div');
             comments_holder.id = 'comments_holder'; 
+            comments_holder.classList.add('infoPhotoHover')
             const likes_holder = document.createElement('div');
             likes_holder.id = 'likes_holder';
+            likes_holder.classList.add('infoPhotoHover')
+
 
             // comments information 
             const num_comments = document.createElement('p');
@@ -161,8 +164,23 @@ function UserProfilePosts (props) {
         container_div.classList.add('grid_photo_div');
         container_div.appendChild(createGridPhotoInfoDiv());
         container_div.appendChild(createGridPhotoDiv());
+
         container_div.addEventListener('click', showFullSizePhotoClick); 
+        container_div.addEventListener('mouseenter', showPhotoInformation);
+        container_div.addEventListener('mouseleave', hidePhotoInformation);
         return container_div;
+    }
+
+    function showPhotoInformation(e) {
+        const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
+        const grid_info = grid_photo_div_ancestor.children[0]; 
+        grid_info.style.display = 'flex'; 
+    }
+    
+    function hidePhotoInformation(e) {
+        const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
+        const grid_info = grid_photo_div_ancestor.children[0]; 
+        grid_info.style.display = 'none'; 
     }
 
     function showFullSizePhotoClick(e) {
@@ -170,13 +188,14 @@ function UserProfilePosts (props) {
         // ancestor called grid_photo_div and then from there, going down and finding the img
         const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
         const grid_img = grid_photo_div_ancestor.querySelectorAll('img')[0];
-        console.log(grid_img);
+        darkenBackground(showPhotoInformation, hidePhotoInformation); 
+
     }
 
 
     return (
         <div id = "user_profile_posts_overallholder">
-            <div id = "spinner_div_photos" className="sk-chase">
+            <div id = "spinner_div_photos" className="sk-chase"> 
                 <div className="sk-chase-dot sk-chase-posts"></div>
                 <div className="sk-chase-dot sk-chase-posts"></div>
                 <div className="sk-chase-dot sk-chase-posts"></div>
@@ -197,6 +216,25 @@ function UserProfilePosts (props) {
                 <div className="sk-chase-dot sk-chase-infscroll"></div>
                 <div className="sk-chase-dot sk-chase-infscroll"></div>
                 <div className="sk-chase-dot sk-chase-infscroll"></div>
+            </div>
+            <div id = "focused_container">
+                <div id = 'overall_flex_container_photofocused'>
+                    <div id = 'img_focused_divcontainer'>
+                        <img id = 'photo_focused_on'></img>
+                    </div>
+                    <div id = 'info_img_divcontainer'>
+                        <div id = 'profileNamePictureDiv'>
+
+                        </div>
+                        <div id = 'comments_section_div'>
+
+                        </div>
+
+                        <div id = 'like_add_comment_div'>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )

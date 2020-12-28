@@ -232,6 +232,7 @@ class NavBar extends React.Component{
         return(
             <div id = "navbar_container">
                 <nav id = "navbar">
+                    <div className = 'overlay_div_blackout'></div>
                     <Link id = "link_home_igname" to = '/'>
                         <div id = "ig_name">
                             <h1 id = "link_home_igname" className = "instagram_name">Instagram Clone</h1>
