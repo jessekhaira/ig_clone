@@ -126,4 +126,30 @@
         margin-top: 60px;
         left: -30px;
     }
+
+    /// focus container
+    #focused_container {
+        width: 70%;
+
+        #img_focused_divcontainer {
+            width: 100%;
+        }
+
+        #info_img_divcontainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 150px !important; 
+            overflow: hidden;
+        }
+
+        #add_comment_holder {
+
+        }
+    }
+    #overall_flex_container_photofocused {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
