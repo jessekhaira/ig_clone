@@ -765,6 +765,33 @@ html {
   font-weight: 600;
   text-overflow: ellipsis;
 }
+#focused_container #commentIconsFlexboxContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+}
+#focused_container #likeCommentDMFlexboxContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  height: 100%;
+}
+#focused_container .focus_icons {
+  transform: scale(1.5);
+  margin-right: 15px;
+}
+#focused_container #usersWhoLikedBox p {
+  font-size: 14px;
+  display: inline;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#focused_container #usersWhoLikedBox #num_peoples_liked_focus {
+  margin-left: 5px;
+  font-weight: bold;
+}
 
 .sk-chase-infscroll:before {
   background-color: black;

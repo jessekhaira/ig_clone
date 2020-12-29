@@ -188,6 +188,41 @@
         }
     }
 
+    #commentIconsFlexboxContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 35px;
+    }
+
+    #likeCommentDMFlexboxContainer {
+        @include flexbox-center();
+        width: 45%;
+        height: 100%;
+    }
+
+    .focus_icons {
+        transform: scale(1.5);
+        margin-right: 15px;
+    }
+
+    #usersWhoLikedBox {
+        p {
+            font-size: 14px;
+            display: inline;
+            margin-left:10px;
+            cursor: pointer;
+            
+        }
+
+        #num_peoples_liked_focus {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+
+    }
+
 }
 
 

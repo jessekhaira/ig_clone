@@ -239,17 +239,26 @@ function UserProfilePosts (props) {
                         <div id = 'like_add_comment_div'>
                             <div id = 'commentIconsFlexboxContainer'>
                                 <div id = 'likeCommentDMFlexboxContainer'>
-                                    <i id = 'heart_focus' className = 'focus_icons'></i>
-                                    <i id = 'comment_focus' className = 'focus_icons'></i>
-                                    <i id = 'dm_focus' className = 'focus_icons'></i>
+                                    <i id = 'heart_focus' className = 'far fa-heart focus_icons'></i>
+                                    <i id = 'comment_focus' className = 'far fa-comment focus_icons'></i>
+                                    <i id = 'dm_focus' className = 'far fa-paper-plane focus_icons'></i>
                                 </div>
                                 <div id = 'savedFlexboxContainer'>
-                                    <i id = 'saved_focus' className = 'focus_icons'></i>
+                                    <i id = 'saved_focus' className = 'focus_icons far fa-bookmark'></i>
                                 </div>
                             </div>
                             <div id = 'usersWhoLikedBox'>
+                                <p>Liked by</p>
+                                <p id ='num_peoples_liked_focus'>24 people</p>
                             </div>
                             <div id = 'date_added'></div>
+                            <div id = 'add_comment_holder'>
+                                {/* <div id = 'label_input_flexboxFocus'>
+                                    <label for = 'add_comment'></label>
+                                    <input id = 'add_comment' type = 'text' placeholder = 'Add a Comment'></input>
+                                </div>
+                                <p id = 'submit_comment'>Post</p> */}
+                            </div>
                         </div>
                     </div>
                 </div>
