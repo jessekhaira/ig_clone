@@ -119,10 +119,9 @@
 
 #focused_container {
     position: fixed;
-    max-width: 825px;
     max-height: 800px;
-    max-width: 1000px;
-    width: 95%;
+    max-width: 1100px;
+    width: 98%;
     border: 1px solid rgba(0,0,0,0.3);
     background-color: white;
     top: 20%;
@@ -138,21 +137,35 @@
 
     #img_focused_divcontainer {
         width: 70%;
+        @include flexbox-center();
+        background-color: black;
     }
 
     #comments_section_div {
         overflow: auto;
-        min-height: 75%;
+        min-height: 67%;
         border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+
+    #date_added {
+        font-size: 12px;
+        color:#8e8e8e; 
+        margin-left: 9px;
+        margin-top:6px;
+        margin-bottom: 9px;
     }
 
     #info_img_divcontainer {
         width: 30%;
+        min-height: 540px;
+        min-width: 250px;
+        overflow: hidden;
         #profileNamePictureDiv {
             display: flex;
             justify-content: space-between;
             width: 100%;
             border-bottom: 1px solid rgba(0,0,0,0.3);
+            padding: 5px;
         }
 
         #optionsProfileDiv {
@@ -196,9 +209,12 @@
     }
 
     #likeCommentDMFlexboxContainer {
-        @include flexbox-center();
-        width: 45%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 200px;
         height: 100%;
+        margin-left: 13px;
     }
 
     .focus_icons {
@@ -206,20 +222,54 @@
         margin-right: 15px;
     }
 
+    #like_add_comment_div {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    #add_comment_holder {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(0,0,0,0.3);
+        overflow: hidden;
+        label {
+            display: none;
+        }
+        
+        textarea {
+            @include system-fonts();
+            @include flexbox-center();
+            width: 80%;
+            border: none;
+            resize: none;
+            margin-left: 10px;
+            outline: 0;
+            padding-top: 14px;
+        }
+
+        #submit_comment {
+            color: #0095f6;
+            font-size:13px;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    }
+
     #usersWhoLikedBox {
         p {
             font-size: 14px;
             display: inline;
-            margin-left:10px;
-            cursor: pointer;
-            
+            margin-left:10px;            
         }
 
         #num_peoples_liked_focus {
             margin-left: 5px;
             font-weight: bold;
+            cursor: pointer;
         }
-
 
     }
 

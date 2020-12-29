@@ -251,13 +251,10 @@ function UserProfilePosts (props) {
                                 <p>Liked by</p>
                                 <p id ='num_peoples_liked_focus'>24 people</p>
                             </div>
-                            <div id = 'date_added'></div>
+                            <div id = 'date_added'>October 8, 2018</div>
                             <div id = 'add_comment_holder'>
-                                {/* <div id = 'label_input_flexboxFocus'>
-                                    <label for = 'add_comment'></label>
-                                    <input id = 'add_comment' type = 'text' placeholder = 'Add a Comment'></input>
-                                </div>
-                                <p id = 'submit_comment'>Post</p> */}
+                                <textarea id = 'add_comment' type = 'text' placeholder = 'Add a Comment...'></textarea>
+                                <p id = 'submit_comment'>Post</p>
                             </div>
                         </div>
                     </div>
