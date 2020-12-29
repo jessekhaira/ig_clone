@@ -796,6 +796,7 @@ html {
 #focused_container .focus_icons {
   transform: scale(1.5);
   margin-right: 15px;
+  cursor: pointer;
 }
 #focused_container #like_add_comment_div {
   display: flex;
