@@ -220,18 +220,36 @@ function UserProfilePosts (props) {
             <div id = "focused_container">
                 <div id = 'overall_flex_container_photofocused'>
                     <div id = 'img_focused_divcontainer'>
-                        <img id = 'photo_focused_on'></img>
+                        <img id = 'photo_focused_on' src = 'https://cdn1-www.superherohype.com/assets/uploads/2013/11/batmane3-1.jpg'></img>
                     </div>
                     <div id = 'info_img_divcontainer'>
                         <div id = 'profileNamePictureDiv'>
-
+                            <div id = 'profileNamePictureFlexboxFocus'>
+                                <img id = 'profilePictureFocus' src = 'https://www.booksie.com/files/profiles/22/mr-anonymous.png'></img>
+                                <p id = 'usernameFocus'>Batman</p>
+                            </div>
+                            <div id = 'optionsProfileDiv'>
+                                <i id = 'focusOptions' className ='fas fa-ellipsis-h'></i>
+                            </div>
                         </div>
                         <div id = 'comments_section_div'>
-
+                            <div className = 'commentsPicture'></div>
                         </div>
 
                         <div id = 'like_add_comment_div'>
-                            
+                            <div id = 'commentIconsFlexboxContainer'>
+                                <div id = 'likeCommentDMFlexboxContainer'>
+                                    <i id = 'heart_focus' className = 'focus_icons'></i>
+                                    <i id = 'comment_focus' className = 'focus_icons'></i>
+                                    <i id = 'dm_focus' className = 'focus_icons'></i>
+                                </div>
+                                <div id = 'savedFlexboxContainer'>
+                                    <i id = 'saved_focus' className = 'focus_icons'></i>
+                                </div>
+                            </div>
+                            <div id = 'usersWhoLikedBox'>
+                            </div>
+                            <div id = 'date_added'></div>
                         </div>
                     </div>
                 </div>

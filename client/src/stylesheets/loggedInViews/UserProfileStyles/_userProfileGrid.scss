@@ -21,6 +21,7 @@
     .grid_photo {
         width: 100%;
         max-width: 290px;
+        display: block;
     }
 
     .grid_photo_information {
@@ -62,6 +63,7 @@
 }
 
 .grid_photo_div:hover {
+    display: block;
     .grid_photo_information {
         display: flex;
     }
@@ -115,8 +117,80 @@
     margin-top: 40px;
 }
 
+#focused_container {
+    position: fixed;
+    max-width: 825px;
+    max-height: 800px;
+    max-width: 1000px;
+    width: 95%;
+    border: 1px solid rgba(0,0,0,0.3);
+    background-color: white;
+    top: 20%;
+
+    #overall_flex_container_photofocused {
+        display: flex;
+    }
+    
+    #photo_focused_on {
+        width: 100%;
+        display: block;
+    }
+
+    #img_focused_divcontainer {
+        width: 70%;
+    }
+
+    #comments_section_div {
+        overflow: auto;
+        min-height: 75%;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+
+    #info_img_divcontainer {
+        width: 30%;
+        #profileNamePictureDiv {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 1px solid rgba(0,0,0,0.3);
+        }
+
+        #optionsProfileDiv {
+            @include flexbox-center();
+            margin-right: 8px;
+        }
+
+        #focusOptions {
+            transform: scale(1.4);
+            cursor: pointer;
+        }
+
+        #profileNamePictureFlexboxFocus {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 90%;
+        }
+
+        #profilePictureFocus {
+            margin-left: 5px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        #usernameFocus {
+            margin-left: 8px;
+            font-size: 13px;
+            overflow: hidden;
+            font-weight: 600;
+            text-overflow: ellipsis;
+        }
+    }
+
+}
+
 
 .sk-chase-infscroll:before {
     background-color: black;
-
 }
