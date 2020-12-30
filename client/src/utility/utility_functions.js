@@ -38,6 +38,8 @@ export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
         x.removeEventListener('mouseleave', hidePhotoInformation);
     });
 
+    document.getElementById('root').style.pointerEvents = 'none'; 
+
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'; 
 }
 

@@ -35,6 +35,7 @@ function UserProfilePosts (props) {
         return () => window.removeEventListener('scroll', infScrollUserProfile); 
     });
 
+
     async function infScrollUserProfile() {
         const spinner_div = document.getElementById('infinite_scrolling_div_profiles'); 
         // only if you have greater than or equal to 12 grid children do we need to bother with the async call
@@ -210,6 +211,7 @@ function UserProfilePosts (props) {
                 x.removeEventListener('click', showFullSizePhotoClick);
             });
 
+            document.addEventListener('click', removeFocusOnImage); 
             // first make the focused on div visible 
             document.getElementById('focused_container').style.display = 'block'; 
             const user_profile_viewing = history.location.pathname.split('/')[1];
@@ -226,8 +228,11 @@ function UserProfilePosts (props) {
             [...document.getElementsByClassName('grid_photo_div')].forEach((x) => {
                 x.addEventListener('click', showFullSizePhotoClick);
             });
-            
         }
+    }
+
+    function removeFocusOnImage(e) {
+        return; 
     }
 
     function insertPhotoIntoDOM(photo, username) {

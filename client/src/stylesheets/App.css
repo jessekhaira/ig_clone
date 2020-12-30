@@ -1747,6 +1747,7 @@ html {
   }
   #focused_container #img_focused_divcontainer {
     width: 100%;
+    min-height: 300px;
   }
   #focused_container #info_img_divcontainer {
     display: flex;
