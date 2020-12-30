@@ -55,7 +55,7 @@ function UserProfilePosts (props) {
     }
 
     /**
-     * This function is an asynchronous function fetching the grid images for a given user. This function 
+     * This function is an asynchronous function fetching grid images for a user. This function 
      * runs whenever the user first loads their profile page, or when the user scrolls to the bottom of 
      * the page (for infinite scrolling).
      */
@@ -98,7 +98,11 @@ function UserProfilePosts (props) {
     }
   
 
-
+    /**
+     * This function takes an array of objects as input, with each object representing a photo that 
+     * belongs to a given user, and then programmatically creates DOM nodes for each photo and injects
+     * them into a CSS grid. 
+     */
     function createPhotos(photos) {
         // edge case user has no posts, dealing with that case with conditional statement below
         const grid_container = document.getElementById('grid_container_images');
