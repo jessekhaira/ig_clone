@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
+/**
+ * This function represents a react functional component using hooks responsible for rendering the section
+ * of the UI displaying a users posts on their homepage. 
+ */
 function UserProfilePosts (props) {
     const history = useHistory();
     const [imgNumRequest, setNumTimesImageReq] = useState(1);
