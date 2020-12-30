@@ -207,16 +207,31 @@ function UserProfilePosts (props) {
         try {
             await checkTokenExpirationMiddleware();
             const user_profile_viewing = history.location.pathname.split('/')[1];
-            const selected_img_info = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
+            const img_info_raw = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 },
                 method: 'get'
             }); 
+            const img_info_object = await img_info_raw.json(); 
+            insertPhotoIntoDOM(img_info_object.photo_obj); 
         }
         catch(err){
-
         }
+    }
+
+    function insertPhotoIntoDOM(photo) {
+        // first make the focused on div visible 
+        document.getElementById('focused_container').style.display = 'block'; 
+
+        // insert image
+        document.getElementById('photo_focused_on').src = 'data:image/jpeg;base64,' + photo.data_photo.data_photo;
+        
+        //insert profile pic
+
+        
+        //insert date 
+        document.getElementById('date_added').innerHTML = photo.created_at; 
     }
 
 

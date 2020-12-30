@@ -120,12 +120,12 @@
 #focused_container {
     display: none;
     position: fixed;
-    max-height: 800px;
-    max-width: 1100px;
+    max-height: 700px;
+    max-width: 1000px;
     width: 98%;
     border: 1px solid rgba(0,0,0,0.3);
     background-color: white;
-    top: 20%;
+    top: 13%;
 
     #overall_flex_container_photofocused {
         display: flex;
@@ -144,7 +144,7 @@
 
     #comments_section_div {
         overflow: auto;
-        min-height: 67%;
+        height: 75%;
         border-bottom: 1px solid rgba(0,0,0,0.3);
     }
 
@@ -158,7 +158,7 @@
 
     #info_img_divcontainer {
         width: 30%;
-        min-height: 540px;
+        min-height: 660px;
         min-width: 250px;
         overflow: hidden;
         #profileNamePictureDiv {

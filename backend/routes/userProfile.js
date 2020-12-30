@@ -222,11 +222,13 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
 router.get('/:grid_img_id', async (req, res, next) => {
     try {
         const grid_img_id = req.params.grid_img_id; 
-        const populate_query = [{path:'User'}, {path:'comments'}];
+        const populate_query = [{path:'comments'}, {path:'User'}];
         const grid_img = await Photos.findById(grid_img_id).populate(populate_query); 
+        photo_obj = createPhotoObj(grid_img); 
         const photo_obj = {};
+        
         photo_obj['data_photo'] =  convertBuffer2Base64(grid_img, 'data_photo');
-        photo_obj['likes'] = grid_img.likes;
+        photo_obj['num_likes'] = grid_img.likes.length; 
         photo_obj['comments'] = grid_img.comments;
         const dateObj = grid_img['created_at']; 
         const month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -238,7 +240,7 @@ router.get('/:grid_img_id', async (req, res, next) => {
     catch(err) {
         return next(err); 
     }
-})
+}); 
 
 router.post('/posts', [
     fileUpload({
@@ -251,7 +253,8 @@ router.post('/posts', [
             const user = await User.findOne({username: username}, {photos:true}); 
             const new_upload_photo_data = await sharp(req.files.image.data).resize(300, 300).toBuffer(); 
             let newPost = new Photos({
-                data_photo: new_upload_photo_data
+                data_photo: new_upload_photo_data,
+                photo_posted_by: user._id
             });
             user.photos.push(newPost);
             await newPost.save(); 
