@@ -2,6 +2,7 @@ const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
 const Photos = require('../models/photos').photosModel; 
+const comments = require('../models/comments').commentsModel; 
 const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
 const fs = require('fs'); 
@@ -217,6 +218,27 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         next(err);
     }
 });
+
+router.get('/:grid_img_id', async (req, res, next) => {
+    try {
+        const grid_img_id = req.params.grid_img_id; 
+        const populate_query = [{path:'User'}, {path:'comments'}];
+        const grid_img = await Photos.findById(grid_img_id).populate(populate_query); 
+        const photo_obj = {};
+        photo_obj['data_photo'] =  convertBuffer2Base64(grid_img, 'data_photo');
+        photo_obj['likes'] = grid_img.likes;
+        photo_obj['comments'] = grid_img.comments;
+        const dateObj = grid_img['created_at']; 
+        const month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        photo_obj['created_at'] = day + '/' + month + '/' + year;
+        return res.status(200).json({photo_obj}); 
+    }
+    catch(err) {
+        return next(err); 
+    }
+})
 
 router.post('/posts', [
     fileUpload({

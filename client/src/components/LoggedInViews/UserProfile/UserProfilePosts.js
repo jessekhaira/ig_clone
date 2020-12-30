@@ -197,13 +197,26 @@ function UserProfilePosts (props) {
         grid_info.style.display = 'none'; 
     }
 
-    function showFullSizePhotoClick(e) {
+    async function showFullSizePhotoClick(e) {
         // you can click on the grid photo information so re-routing every single click to the parent
         // ancestor called grid_photo_div and then from there, going down and finding the img
         const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
         const grid_img = grid_photo_div_ancestor.querySelectorAll('img')[0];
         darkenBackground(showPhotoInformation, hidePhotoInformation); 
+        console.log(grid_img.id); 
+        try {
+            await checkTokenExpirationMiddleware();
+            const user_profile_viewing = history.location.pathname.split('/')[1];
+            const selected_img_info = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                },
+                method: 'get'
+            }); 
+        }
+        catch(err){
 
+        }
     }
 
 
@@ -234,13 +247,13 @@ function UserProfilePosts (props) {
             <div id = "focused_container">
                 <div id = 'overall_flex_container_photofocused'>
                     <div id = 'img_focused_divcontainer'>
-                        <img id = 'photo_focused_on' src = 'https://cdn1-www.superherohype.com/assets/uploads/2013/11/batmane3-1.jpg'></img>
+                        <img id = 'photo_focused_on'></img>
                     </div>
                     <div id = 'info_img_divcontainer'>
                         <div id = 'profileNamePictureDiv'>
                             <div id = 'profileNamePictureFlexboxFocus'>
-                                <img id = 'profilePictureFocus' src = 'https://www.booksie.com/files/profiles/22/mr-anonymous.png'></img>
-                                <p id = 'usernameFocus'>Batman</p>
+                                <img id = 'profilePictureFocus'></img>
+                                <p id = 'usernameFocus'></p>
                             </div>
                             <div id = 'optionsProfileDiv'>
                                 <i id = 'focusOptions' className ='fas fa-ellipsis-h'></i>
@@ -263,9 +276,9 @@ function UserProfilePosts (props) {
                             </div>
                             <div id = 'usersWhoLikedBox'>
                                 <p>Liked by</p>
-                                <p id ='num_peoples_liked_focus'>24 people</p>
+                                <p id ='num_peoples_liked_focus'></p>
                             </div>
-                            <div id = 'date_added'>October 8, 2018</div>
+                            <div id = 'date_added'></div>
                             <div id = 'add_comment_holder'>
                                 <textarea id = 'add_comment' type = 'text' placeholder = 'Add a Comment...'></textarea>
                                 <p id = 'submit_comment'>Post</p>

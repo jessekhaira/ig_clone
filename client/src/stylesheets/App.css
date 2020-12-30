@@ -703,6 +703,7 @@ html {
 }
 
 #focused_container {
+  display: none;
   position: fixed;
   max-height: 800px;
   max-width: 1100px;
