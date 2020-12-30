@@ -670,7 +670,8 @@ html {
   display: none;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 930px;
+  height: 500px;
 }
 #no_posts_found h1 {
   margin-top: 45px;
@@ -706,7 +707,7 @@ html {
   display: none;
   position: fixed;
   max-height: 700px;
-  max-width: 1000px;
+  max-width: 900px;
   width: 98%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: white;
@@ -728,7 +729,7 @@ html {
 }
 #focused_container #comments_section_div {
   overflow: auto;
-  height: 75%;
+  height: 72%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 #focused_container #date_added {
@@ -743,6 +744,7 @@ html {
   min-height: 660px;
   min-width: 250px;
   overflow: hidden;
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
 #focused_container #info_img_divcontainer #profileNamePictureDiv {
   display: flex;
@@ -1740,6 +1742,8 @@ html {
 
   #focused_container {
     width: 70%;
+    max-height: none;
+    height: auto;
   }
   #focused_container #img_focused_divcontainer {
     width: 100%;
@@ -1748,7 +1752,7 @@ html {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 150px !important;
+    min-height: 200px !important;
     overflow: hidden;
   }
   #overall_flex_container_photofocused {

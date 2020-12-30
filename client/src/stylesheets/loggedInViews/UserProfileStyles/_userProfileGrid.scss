@@ -84,8 +84,8 @@
     display: none;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-
+    width: 930px;
+    height: 500px;
     h1 {
         margin-top: 45px;
         font-size: 26px;
@@ -121,7 +121,7 @@
     display: none;
     position: fixed;
     max-height: 700px;
-    max-width: 1000px;
+    max-width: 900px;
     width: 98%;
     border: 1px solid rgba(0,0,0,0.3);
     background-color: white;
@@ -144,7 +144,7 @@
 
     #comments_section_div {
         overflow: auto;
-        height: 75%;
+        height: 72%;
         border-bottom: 1px solid rgba(0,0,0,0.3);
     }
 
@@ -161,6 +161,7 @@
         min-height: 660px;
         min-width: 250px;
         overflow: hidden;
+        border-left: 1px solid rgba(0,0,0,0.3);
         #profileNamePictureDiv {
             display: flex;
             justify-content: space-between;

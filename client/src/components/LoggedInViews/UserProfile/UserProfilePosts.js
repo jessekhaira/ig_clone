@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
+import jwtDecode from 'jwt-decode';
 
 /**
  * This function represents a react functional component using hooks responsible for rendering the section
@@ -203,9 +204,14 @@ function UserProfilePosts (props) {
         const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
         const grid_img = grid_photo_div_ancestor.querySelectorAll('img')[0];
         darkenBackground(showPhotoInformation, hidePhotoInformation); 
-        console.log(grid_img.id); 
         try {
             await checkTokenExpirationMiddleware();
+            [...document.getElementsByClassName('grid_photo_div')].forEach((x) => {
+                x.removeEventListener('click', showFullSizePhotoClick);
+            });
+
+            // first make the focused on div visible 
+            document.getElementById('focused_container').style.display = 'block'; 
             const user_profile_viewing = history.location.pathname.split('/')[1];
             const img_info_raw = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
                 headers: {
@@ -214,24 +220,29 @@ function UserProfilePosts (props) {
                 method: 'get'
             }); 
             const img_info_object = await img_info_raw.json(); 
-            insertPhotoIntoDOM(img_info_object.photo_obj); 
+            insertPhotoIntoDOM(img_info_object.photo_obj, user_profile_viewing); 
         }
         catch(err){
+            [...document.getElementsByClassName('grid_photo_div')].forEach((x) => {
+                x.addEventListener('click', showFullSizePhotoClick);
+            });
+            
         }
     }
 
-    function insertPhotoIntoDOM(photo) {
-        // first make the focused on div visible 
-        document.getElementById('focused_container').style.display = 'block'; 
-
+    function insertPhotoIntoDOM(photo, username) {
         // insert image
         document.getElementById('photo_focused_on').src = 'data:image/jpeg;base64,' + photo.data_photo.data_photo;
         
-        //insert profile pic
-
+        //insert profile pic and username 
+        document.getElementById('usernameFocus').innerHTML = `${username}`;
+        document.getElementById('profilePictureFocus').src = 'data:image/jpeg;base64,' + photo.profile_picture.profile_picture; 
         
         //insert date 
         document.getElementById('date_added').innerHTML = photo.created_at; 
+
+        // insert num likes
+        document.getElementById('num_peoples_liked_focus').innerHTML = `${photo.num_likes} people`;
     }
 
 

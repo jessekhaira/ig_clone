@@ -222,19 +222,21 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
 router.get('/:grid_img_id', async (req, res, next) => {
     try {
         const grid_img_id = req.params.grid_img_id; 
-        const populate_query = [{path:'comments'}, {path:'User'}];
-        const grid_img = await Photos.findById(grid_img_id).populate(populate_query); 
-        photo_obj = createPhotoObj(grid_img); 
+        const populate_query = [{path:'comments'}]; 
+        console.log(populate_query);
+        const grid_img = await Photos.findById(grid_img_id).populate(populate_query);
+        const profile_pic = await User.findById(grid_img.photo_posted_by, {profile_picture: true});
         const photo_obj = {};
-        
         photo_obj['data_photo'] =  convertBuffer2Base64(grid_img, 'data_photo');
         photo_obj['num_likes'] = grid_img.likes.length; 
         photo_obj['comments'] = grid_img.comments;
         const dateObj = grid_img['created_at']; 
-        const month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const month = dateObj.getUTCMonth() + 1; 
         const day = dateObj.getUTCDate();
         const year = dateObj.getUTCFullYear();
         photo_obj['created_at'] = day + '/' + month + '/' + year;
+
+        photo_obj['profile_picture'] = convertBuffer2Base64(profile_pic, 'profile_picture');
         return res.status(200).json({photo_obj}); 
     }
     catch(err) {
