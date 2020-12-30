@@ -61,6 +61,11 @@ export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
         x.addEventListener('mouseenter', showPhotoInformation);
         x.addEventListener('mouseleave', hidePhotoInformation);
     });
+    document.getElementById('navbar').style.pointerEvents = 'auto'; 
+    document.getElementById('grid_container_images').style.pointerEvents = 'auto';
+    document.getElementById('user_profile_info_container').style.pointerEvents = 'auto';
+    document.getElementsByTagName('body')[0].style.overflow = 'auto'; 
+
 }
 
 export function normalizeCounts(...args) {
