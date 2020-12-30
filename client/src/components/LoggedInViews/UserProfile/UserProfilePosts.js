@@ -53,6 +53,12 @@ function UserProfilePosts (props) {
             }
         }
     }
+
+    /**
+     * This function is an asynchronous function fetching the grid images for a given user. This function 
+     * runs whenever the user first loads their profile page, or when the user scrolls to the bottom of 
+     * the page (for infinite scrolling).
+     */
     async function fetchGridImages(spinner_div, user_profile_viewing, slice_posts_requesting =1) {
         const no_posts_found = document.getElementById('no_posts_found');
         try {
