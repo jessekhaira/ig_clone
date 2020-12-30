@@ -38,8 +38,9 @@ export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
         x.removeEventListener('mouseleave', hidePhotoInformation);
     });
 
-    document.getElementById('root').style.pointerEvents = 'none'; 
-
+    document.getElementById('navbar').style.pointerEvents = 'none'; 
+    document.getElementById('grid_container_images').style.pointerEvents = 'none';
+    document.getElementById('user_profile_info_container').style.pointerEvents = 'none';
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'; 
 }
 
