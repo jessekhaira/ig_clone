@@ -285,9 +285,16 @@ function UserProfilePosts (props) {
                 },
                 method: 'delete'
             }); 
+            if ('UnauthorizedUser' in img_delete_status) {
+                throw Error('UnauthorizedUser'); 
+            }
+            window.location.reload(); 
         }
         catch(err) {
-
+            err = String(err);
+            if (err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut(); 
+            }
         }
     }
 

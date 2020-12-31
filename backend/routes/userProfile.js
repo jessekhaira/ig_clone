@@ -5,11 +5,6 @@ const Photos = require('../models/photos').photosModel;
 const comments = require('../models/comments').commentsModel; 
 const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
-const fs = require('fs'); 
-const util = require('util');
-const { query } = require('express');
-const { get } = require('http');
-const readFile = util.promisify(fs.readFile);
 require('dotenv').config({path: path.resolve(".env")}); 
 const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
@@ -244,6 +239,18 @@ router.get('/:grid_img_id', async (req, res, next) => {
         return next(err); 
     }
 }); 
+
+router.delete('/:grid_img_id', async(req,res,next) => {
+    try {
+        const grid_img_id = req.params.grid_img_id; 
+        await Photos.findByIdAndDelete(grid_img_id); 
+        return res.status(200).json({'Success': 'Image deleted succesfully'});
+    }
+
+    catch(err) {
+        next(err); 
+    }
+})
 
 router.post('/posts', [
     fileUpload({
