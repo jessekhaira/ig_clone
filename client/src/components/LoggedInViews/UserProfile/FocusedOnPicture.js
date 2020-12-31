@@ -1,11 +1,21 @@
-import React from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut} from '../../../utility/utility_functions';
+import React, { useEffect } from 'react';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 
 function FocusedOnImage (props) {
     const history = useHistory();
+    const user_profile_viewing = history.location.pathname.split('/')[1];
 
+    useEffect(() => {
+        if (props.current_user !== user_profile_viewing) {
+            setDisplay(['none', 'flex'], document.getElementById('delete_image'), document.getElementById('report_image'));
+        }
+        else {
+            setDisplay(['flex', 'none'], document.getElementById('delete_image'), document.getElementById('report_image')); 
+
+        }
+    })
     function togglePictureOptions(e) {
         e.stopPropagation();
         const pictureOptionsHolder = document.getElementById('focusedPictureOptions');
@@ -16,7 +26,6 @@ function FocusedOnImage (props) {
         try {
             const img_id = document.getElementById('photo_focused_on').getAttribute('id_backend');
             await checkTokenExpirationMiddleware();
-            const user_profile_viewing = history.location.pathname.split('/')[1];
 
             const img_delete_status  = await fetch(`${user_profile_viewing}/${img_id}`, {
                 headers: {
@@ -54,6 +63,7 @@ function FocusedOnImage (props) {
                             <i id = 'focusOptions' className ='fas fa-ellipsis-h' onClick = {togglePictureOptions}></i>
                             <div id = 'focusedPictureOptions'>
                                 <div id = 'option_go_to_post' className = 'optionsFocusedOnPicture'>Go To Post</div>
+                                <div id = 'report_image' className = 'optionsFocusedOnPicture'>Report Post</div>
                                 <div id = 'delete_image' className = 'optionsFocusedOnPicture' onClick = {deleteImage}>Delete Picture</div>
                                 <div id = 'cancel_options_image' className = 'optionsFocusedOnPicture' onClick = {props.cancelPictureOptions}>Cancel</div>
 
