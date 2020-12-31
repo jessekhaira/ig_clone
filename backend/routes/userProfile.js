@@ -227,6 +227,7 @@ router.get('/:grid_img_id', async (req, res, next) => {
         const grid_img = await Photos.findById(grid_img_id).populate(populate_query);
         const profile_pic = await User.findById(grid_img.photo_posted_by, {profile_picture: true});
         const photo_obj = {};
+        photo_obj['id'] = grid_img._id; 
         photo_obj['data_photo'] =  convertBuffer2Base64(grid_img, 'data_photo');
         photo_obj['num_likes'] = grid_img.likes.length; 
         photo_obj['comments'] = grid_img.comments;

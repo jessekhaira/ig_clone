@@ -231,14 +231,18 @@ function UserProfilePosts (props) {
             document.getElementById('photo_focused_on').src = "data:,"
             document.getElementById('profilePictureFocus').src = "data:,"
             document.getElementById('usernameFocus').innerHTML = '';
+            document.getElementById('focusedPictureOptions').style.display = 'none';
             document.removeEventListener('click', removeFocusOnImage); 
+        }
+        else if (!document.getElementById('focusedPictureOptions').contains(e.target)) {
+            cancelPictureOptions(e); 
         }
     }
 
     function insertPhotoIntoDOM(photo, username) {
         // insert image
         document.getElementById('photo_focused_on').src = 'data:image/jpeg;base64,' + photo.data_photo.data_photo;
-        
+        document.getElementById('photo_focused_on').setAttribute('id_backend', photo.id); 
         //insert profile pic and username 
         document.getElementById('usernameFocus').innerHTML = `${username}`;
         document.getElementById('profilePictureFocus').src = 'data:image/jpeg;base64,' + photo.profile_picture.profile_picture; 
@@ -248,6 +252,33 @@ function UserProfilePosts (props) {
 
         // insert num likes
         document.getElementById('num_peoples_liked_focus').innerHTML = `${photo.num_likes} people`;
+    }
+
+    function togglePictureOptions(e) {
+        e.stopPropagation();
+        const pictureOptionsHolder = document.getElementById('focusedPictureOptions');
+        pictureOptionsHolder.style.display = pictureOptionsHolder.style.display === 'block' ? 'none': 'block'; 
+    }
+
+    function cancelPictureOptions(e) {
+        e.stopPropagation(); 
+        document.getElementById('focusedPictureOptions').style.display ='none';
+    }
+
+    async function deleteImage(e) {
+        try {
+            const img_id = document.getElementById('photo_focused_on').getAttribute('id_backend');
+            await checkTokenExpirationMiddleware();
+            const user_profile_viewing = history.location.pathname.split('/')[1];
+
+            const img_delete_status  = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                },
+                method: 'delete'
+            }); 
+
+        }
     }
 
 
@@ -287,10 +318,12 @@ function UserProfilePosts (props) {
                                 <p id = 'usernameFocus'></p>
                             </div>
                             <div id = 'optionsProfileDiv'>
-                                <i id = 'focusOptions' className ='fas fa-ellipsis-h'></i>
+                                <i id = 'focusOptions' className ='fas fa-ellipsis-h' onClick = {togglePictureOptions}></i>
                                 <div id = 'focusedPictureOptions'>
                                     <div id = 'option_go_to_post' className = 'optionsFocusedOnPicture'>Go To Post</div>
-                                    <div id = 'delete_image' className = 'optionsFocusedOnPicture'>Delete Picture</div>
+                                    <div id = 'delete_image' className = 'optionsFocusedOnPicture' onClick = {deleteImage}>Delete Picture</div>
+                                    <div id = 'cancel_options_image' className = 'optionsFocusedOnPicture' onClick = {cancelPictureOptions}>Cancel</div>
+
                                 </div>
                             </div>
                         </div>

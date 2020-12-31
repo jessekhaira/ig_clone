@@ -731,7 +731,8 @@ html {
   background-color: white;
   white-space: nowrap;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
 }
 #focused_container #overall_flex_container_photofocused {
   display: flex;
@@ -1744,7 +1745,7 @@ html {
   }
 
   #grid_container_images {
-    grid-gap: 0px 3px;
+    grid-gap: 3px 3px;
   }
 
   .grid_photo_information {
