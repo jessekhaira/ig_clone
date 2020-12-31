@@ -8,17 +8,51 @@ function UserProfileInformation (props) {
     useEffect(() => {
         async function fetchInformation() {  
             const username_belongingto_profile = history.location.pathname.split('/')[1];
-            const profileInfo = await props.aysncCallToMountInformation('/profileInfo', username_belongingto_profile, 'GET', null); 
+            const profileInfo = await aysncCallToMountInformation('/profileInfo', username_belongingto_profile, 'GET', null); 
             fillInProfileWithInformation(profileInfo); 
         }
         fetchInformation(); 
     }); 
 
-    function fillInProfileWithInformation(profileInfo) {
-        if (!profileInfo) {
-            return; 
+    async function aysncCallToMountInformation(endpoint, username_belongingto_profile, method, body) {
+        const spinner_div = document.getElementById('spinner_div_userprofiles');
+        const user_not_found_container = document.getElementById('user_not_found_container');
+        const resize_together_container = document.getElementById('resize_together_container');
+        try {
+            await checkTokenExpirationMiddleware(); 
+            setDisplay(['block', 'none', 'none'], spinner_div, resize_together_container, user_not_found_container);
+            const returned_profile_info_raw = await fetch(`/${username_belongingto_profile}/${endpoint}`, {
+                method: method,
+                body: body, 
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            }); 
+            const returned_profile_info_json= await returned_profile_info_raw.json(); 
+            if ("UnauthorizedUser" in returned_profile_info_json) {
+                throw Error('UnauthorizedUser');
+            }
+            else if ("userNotFound" in returned_profile_info_json) {
+                throw Error('userNotFound'); 
+            }
+            else {
+                setDisplay(['none', 'block', 'none'], spinner_div, resize_together_container, user_not_found_container);
+                return returned_profile_info_json; 
+            }
         }
-        else if (document.getElementById('profile_page_username_header') === null) {
+        catch(err) {
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
+            else if(err.includes('userNotFound')) {
+                setDisplay(['none', 'none', 'block'], spinner_div, resize_together_container, user_not_found_container);
+            }
+        }
+    }
+
+    function fillInProfileWithInformation(profileInfo) {
+        if (!profileInfo || document.getElementById('profile_page_username_header') === null) {
             return; 
         }
         const num_posts = profileInfo.number_posts;
@@ -64,7 +98,7 @@ function UserProfileInformation (props) {
             if ("UnauthorizedUser" in follow_status_json) {
                 throw Error('UnauthorizedUser');
             }
-            console.log(follow_status_json);
+            
         }
         catch(err) {
             err = String(err);
