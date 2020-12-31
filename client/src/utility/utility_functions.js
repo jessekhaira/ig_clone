@@ -33,10 +33,6 @@ export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
         x.style.display = 'none';
     }); 
 
-    [...document.getElementsByClassName('grid_photo_div')].map((x) => {
-        x.removeEventListener('mouseenter', showPhotoInformation);
-        x.removeEventListener('mouseleave', hidePhotoInformation);
-    });
 
     document.getElementById('navbar').style.pointerEvents = 'none'; 
     document.getElementById('grid_container_images').style.pointerEvents = 'none';
@@ -57,10 +53,6 @@ export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
         x.style.display = 'flex';
     }); 
 
-    [...document.getElementsByClassName('grid_photo_div')].map((x) => {
-        x.addEventListener('mouseenter', showPhotoInformation);
-        x.addEventListener('mouseleave', hidePhotoInformation);
-    });
     document.getElementById('navbar').style.pointerEvents = 'auto'; 
     document.getElementById('grid_container_images').style.pointerEvents = 'auto';
     document.getElementById('user_profile_info_container').style.pointerEvents = 'auto';

@@ -207,11 +207,6 @@ function UserProfilePosts (props) {
         darkenBackground(showPhotoInformation, hidePhotoInformation); 
         try {
             await checkTokenExpirationMiddleware();
-            [...document.getElementsByClassName('grid_photo_div')].forEach((x) => {
-                x.removeEventListener('click', showFullSizePhotoClick);
-            });
-
-            document.addEventListener('click', removeFocusOnImage); 
             // first make the focused on div visible 
             document.getElementById('focused_container').style.display = 'block'; 
             const user_profile_viewing = history.location.pathname.split('/')[1];
@@ -223,16 +218,22 @@ function UserProfilePosts (props) {
             }); 
             const img_info_object = await img_info_raw.json(); 
             insertPhotoIntoDOM(img_info_object.photo_obj, user_profile_viewing); 
+            document.addEventListener('click', removeFocusOnImage); 
         }
         catch(err){
-            [...document.getElementsByClassName('grid_photo_div')].forEach((x) => {
-                x.addEventListener('click', showFullSizePhotoClick);
-            });
         }
     }
 
     function removeFocusOnImage(e) {
-        return; 
+        if(!document.getElementById('focused_container').contains(e.target)) {
+            console.log(e.target);
+            lightenBackground(); 
+            document.getElementById('focused_container').style.display = 'none'; 
+            document.getElementById('photo_focused_on').src = "data:,"
+            document.getElementById('profilePictureFocus').src = "data:,"
+            document.getElementById('usernameFocus').innerHTML = '';
+            document.removeEventListener('click', removeFocusOnImage); 
+        }
     }
 
     function insertPhotoIntoDOM(photo, username) {
