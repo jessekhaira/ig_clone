@@ -49,6 +49,16 @@ function UserProfileInformation (props) {
         history.push(`${history.location.pathname}/editProfile`)
     }
 
+    async function followUser(e) {
+        try {
+            const current_user = props.current_user; 
+            const following_user = history.location.pathname.split('/')[1];
+        }
+        catch(err) {
+            
+        }
+    }
+
     return (
         <div id = "user_profile_info_container">
             <div id = "profile_page_profpic_divcontainer">
@@ -63,7 +73,7 @@ function UserProfileInformation (props) {
                         <button id = "message_user" className = "options_item followed">
                             Message
                         </button>
-                        <button id = "follow_user" className = "options_item">
+                        <button id = "follow_user" className = "options_item" onClick = {followUser}>
                             Follow
                         </button>
                         <div className = "arrow_tip_down options_item"></div>

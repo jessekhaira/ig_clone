@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
-import jwtDecode from 'jwt-decode';
+import {FocusedOnImage} from './FocusedOnPicture';
 
 /**
  * This function represents a react functional component using hooks responsible for rendering the section
@@ -9,6 +9,8 @@ import jwtDecode from 'jwt-decode';
  */
 function UserProfilePosts (props) {
     const history = useHistory();
+    const user_profile_viewing = history.location.pathname.split('/')[1];
+
     const [imgNumRequest, setNumTimesImageReq] = useState(1);
     
     useEffect(() => {
@@ -18,15 +20,14 @@ function UserProfilePosts (props) {
         const grid_container = document.getElementById('grid_container_images');
         grid_container.innerHTML = ''; 
         setDisplay(['none'], grid_container); 
-        const user_profile_viewing = history.location.pathname.split('/')[1];
         const spinner_div = document.getElementById('spinner_div_photos');
-        fetchPosts(spinner_div, user_profile_viewing,1); 
+        fetchPosts(spinner_div,1); 
         setNumTimesImageReq(2); 
         return () => window.removeEventListener('scroll', infScrollUserProfile); 
     }, [history.location.pathname]);
 
-    async function fetchPosts(spinner_div, user_profile_viewing, timesRequested) {
-        const photos = await fetchGridImages(spinner_div, user_profile_viewing, timesRequested);
+    async function fetchPosts(spinner_div, timesRequested) {
+        const photos = await fetchGridImages(spinner_div, timesRequested);
         return photos;
     }
 
@@ -40,17 +41,15 @@ function UserProfilePosts (props) {
         const spinner_div = document.getElementById('infinite_scrolling_div_profiles'); 
         // only if you have greater than or equal to 12 grid children do we need to bother with the async call
         if (infiniteScroll() && document.getElementById('grid_container_images').children.length >= 12) {
-            const user_profile_viewing = history.location.pathname.split('/')[1];
             // disable event listener while we make the call 
             window.removeEventListener('scroll', infScrollUserProfile);
-            const photos = await fetchPosts(spinner_div, user_profile_viewing, imgNumRequest);
+            const photos = await fetchPosts(spinner_div, imgNumRequest);
             // no new photos returned means disable event listener for window
             if (photos.length === 0) {
                 window.removeEventListener('scroll', infScrollUserProfile);
             } 
             else {
                 window.addEventListener('scroll', infScrollUserProfile);
-                console.log(imgNumRequest);
                 setNumTimesImageReq(imgNumRequest+1); 
             }
         }
@@ -61,7 +60,7 @@ function UserProfilePosts (props) {
      * runs whenever the user first loads their profile page, or when the user scrolls to the bottom of 
      * the page (for infinite scrolling).
      */
-    async function fetchGridImages(spinner_div, user_profile_viewing, slice_posts_requesting =1) {
+    async function fetchGridImages(spinner_div, slice_posts_requesting =1) {
         const no_posts_found = document.getElementById('no_posts_found');
         try {
             setDisplay(['block', 'none'], spinner_div, no_posts_found);
@@ -209,7 +208,6 @@ function UserProfilePosts (props) {
             await checkTokenExpirationMiddleware();
             // first make the focused on div visible 
             document.getElementById('focused_container').style.display = 'block'; 
-            const user_profile_viewing = history.location.pathname.split('/')[1];
             const img_info_raw = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
@@ -241,18 +239,25 @@ function UserProfilePosts (props) {
             document.getElementById('usernameFocus').innerHTML = '';
             document.getElementById('focusedPictureOptions').style.display = 'none';
             document.removeEventListener('click', removeFocusOnImage); 
+            document.getElementById('add_comment').value = '';
         }
         else if (!document.getElementById('focusedPictureOptions').contains(e.target)) {
             cancelPictureOptions(e); 
         }
     }
 
-    function insertPhotoIntoDOM(photo, username) {
+    function cancelPictureOptions(e) {
+        e.stopPropagation(); 
+        document.getElementById('focusedPictureOptions').style.display ='none';
+    }
+
+
+    function insertPhotoIntoDOM(photo) {
         // insert image
         document.getElementById('photo_focused_on').src = 'data:image/jpeg;base64,' + photo.data_photo.data_photo;
         document.getElementById('photo_focused_on').setAttribute('id_backend', photo.id); 
         //insert profile pic and username 
-        document.getElementById('usernameFocus').innerHTML = `${username}`;
+        document.getElementById('usernameFocus').innerHTML = `${user_profile_viewing}`;
         document.getElementById('profilePictureFocus').src = 'data:image/jpeg;base64,' + photo.profile_picture.profile_picture; 
         
         //insert date 
@@ -262,41 +267,6 @@ function UserProfilePosts (props) {
         document.getElementById('num_peoples_liked_focus').innerHTML = `${photo.num_likes} people`;
     }
 
-    function togglePictureOptions(e) {
-        e.stopPropagation();
-        const pictureOptionsHolder = document.getElementById('focusedPictureOptions');
-        pictureOptionsHolder.style.display = pictureOptionsHolder.style.display === 'block' ? 'none': 'block'; 
-    }
-
-    function cancelPictureOptions(e) {
-        e.stopPropagation(); 
-        document.getElementById('focusedPictureOptions').style.display ='none';
-    }
-
-    async function deleteImage(e) {
-        try {
-            const img_id = document.getElementById('photo_focused_on').getAttribute('id_backend');
-            await checkTokenExpirationMiddleware();
-            const user_profile_viewing = history.location.pathname.split('/')[1];
-
-            const img_delete_status  = await fetch(`${user_profile_viewing}/${img_id}`, {
-                headers: {
-                    authorization: localStorage.getItem('accessToken')
-                },
-                method: 'delete'
-            }); 
-            if ('UnauthorizedUser' in img_delete_status) {
-                throw Error('UnauthorizedUser'); 
-            }
-            window.location.reload(); 
-        }
-        catch(err) {
-            err = String(err);
-            if (err.includes('UnauthorizedUser')) {
-                _authenticationErrorLogOut(); 
-            }
-        }
-    }
 
 
     return (
@@ -323,55 +293,10 @@ function UserProfilePosts (props) {
                 <div className="sk-chase-dot sk-chase-infscroll"></div>
                 <div className="sk-chase-dot sk-chase-infscroll"></div>
             </div>
-            <div id = "focused_container">
-                <div id = 'overall_flex_container_photofocused'>
-                    <div id = 'img_focused_divcontainer'>
-                        <img id = 'photo_focused_on'></img>
-                    </div>
-                    <div id = 'info_img_divcontainer'>
-                        <div id = 'profileNamePictureDiv'>
-                            <div id = 'profileNamePictureFlexboxFocus'>
-                                <img id = 'profilePictureFocus'></img>
-                                <p id = 'usernameFocus'></p>
-                            </div>
-                            <div id = 'optionsProfileDiv'>
-                                <i id = 'focusOptions' className ='fas fa-ellipsis-h' onClick = {togglePictureOptions}></i>
-                                <div id = 'focusedPictureOptions'>
-                                    <div id = 'option_go_to_post' className = 'optionsFocusedOnPicture'>Go To Post</div>
-                                    <div id = 'delete_image' className = 'optionsFocusedOnPicture' onClick = {deleteImage}>Delete Picture</div>
-                                    <div id = 'cancel_options_image' className = 'optionsFocusedOnPicture' onClick = {cancelPictureOptions}>Cancel</div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id = 'comments_section_div'>
-                            <div className = 'commentsPicture'></div>
-                        </div>
-
-                        <div id = 'like_add_comment_div'>
-                            <div id = 'commentIconsFlexboxContainer'>
-                                <div id = 'likeCommentDMFlexboxContainer'>
-                                    <i id = 'heart_focus' className = 'far fa-heart focus_icons'></i>
-                                    <i id = 'comment_focus' className = 'far fa-comment focus_icons'></i>
-                                    <i id = 'dm_focus' className = 'far fa-paper-plane focus_icons'></i>
-                                </div>
-                                <div id = 'savedFlexboxContainer'>
-                                    <i id = 'saved_focus' className = 'focus_icons far fa-bookmark'></i>
-                                </div>
-                            </div>
-                            <div id = 'usersWhoLikedBox'>
-                                <p>Liked by</p>
-                                <p id ='num_peoples_liked_focus'></p>
-                            </div>
-                            <div id = 'date_added'></div>
-                            <div id = 'add_comment_holder'>
-                                <textarea id = 'add_comment' type = 'text' placeholder = 'Add a Comment...'></textarea>
-                                <p id = 'submit_comment'>Post</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <FocusedOnImage 
+                cancelPictureOptions = {cancelPictureOptions}
+                current_user = {props.current_user}
+            /> 
         </div>
     )
 }
