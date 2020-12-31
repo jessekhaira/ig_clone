@@ -21,7 +21,6 @@ function UserProfileInformation (props) {
         else if (document.getElementById('profile_page_username_header') === null) {
             return; 
         }
-        console.log(profileInfo);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
@@ -37,7 +36,6 @@ function UserProfileInformation (props) {
         // need to decide which buttons to show the user depending on the endpoint
         const own_profile_options = document.getElementById('own_profile_options');
         const other_profile_options = document.getElementById('other_profile_options');
-        // console.log(props.current_user);
         if(history.location.pathname.split('/')[1] === props.current_user) {
             setDisplay(['none', 'flex'], other_profile_options, own_profile_options);
         }
