@@ -21,6 +21,7 @@ function UserProfileInformation (props) {
         else if (document.getElementById('profile_page_username_header') === null) {
             return; 
         }
+        console.log(profileInfo);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
@@ -53,7 +54,7 @@ function UserProfileInformation (props) {
         try {
             const current_user = props.current_user; 
             const following_user = history.location.pathname.split('/')[1];
-            
+
         }
         catch(err) {
 

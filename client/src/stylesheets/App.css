@@ -736,10 +736,12 @@ html {
 }
 #focused_container #overall_flex_container_photofocused {
   display: flex;
+  max-height: 700px;
 }
 #focused_container #photo_focused_on {
   width: 100%;
   display: block;
+  max-height: 660px;
 }
 #focused_container #img_focused_divcontainer {
   width: 70%;

@@ -196,9 +196,15 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         }
         let photos = query_result.photos;
         photos = photos.slice(endIdxImageSlice-12, endIdxImageSlice);
-        const base64_photos = convertArrayPicBuffers2Base64(photos, 'data_photo');
-        const return_obj = [];
-        for (const photo of base64_photos) {
+        const return_obj = []; 
+        const base64_300x300_photos =[]; 
+        for (let photo of photos) {
+            photo = photo.toObject(); 
+            photo['data_photo'] = await sharp(photo.data_photo.buffer).resize(300, 300).toBuffer();
+            photo['data_photo'] = photo['data_photo'].toString('base64'); 
+            base64_300x300_photos.push(photo); 
+        }
+        for (const photo of base64_300x300_photos) {
             const photoObj = {};
             photoObj['id'] = photo['_id']; 
             photoObj['data_photo'] = photo['data_photo'];
@@ -210,6 +216,7 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
+        console.log(err);
         next(err);
     }
 });
@@ -218,7 +225,6 @@ router.get('/:grid_img_id', async (req, res, next) => {
     try {
         const grid_img_id = req.params.grid_img_id; 
         const populate_query = [{path:'comments'}]; 
-        console.log(populate_query);
         const grid_img = await Photos.findById(grid_img_id).populate(populate_query);
         const profile_pic = await User.findById(grid_img.photo_posted_by, {profile_picture: true});
         const photo_obj = {};
@@ -240,17 +246,30 @@ router.get('/:grid_img_id', async (req, res, next) => {
     }
 }); 
 
-router.delete('/:grid_img_id', async(req,res,next) => {
-    try {
-        const grid_img_id = req.params.grid_img_id; 
-        await Photos.findByIdAndDelete(grid_img_id); 
-        return res.status(200).json({'Success': 'Image deleted succesfully'});
+router.delete('/:grid_img_id', 
+    async(req,res,next) => {
+        try {
+            const grid_img_id = String(req.params.grid_img_id); 
+            // we have to delete the picture from the pictures model
+            await Photos.findByIdAndDelete(grid_img_id); 
+            const user = await User.findOne({username: req.params.username}, {photos:true}); 
+            let idxDelete = null;
+            for (let i=0; i<user.photos.length; i++) {
+                const curr_photo_id = String(user.photos[i]);
+                if (curr_photo_id === grid_img_id) {
+                    idxDelete = i;
+                    break;
+                }
+            }
+            user.photos.splice(idxDelete, 1); 
+            await user.save(); 
+            return res.status(200).json({'Success': 'Image deleted succesfully'});
+        }
+        catch(err) {
+            next(err); 
+        }
     }
-
-    catch(err) {
-        next(err); 
-    }
-})
+); 
 
 router.post('/posts', [
     fileUpload({
@@ -261,9 +280,8 @@ router.post('/posts', [
         try {
             const username = req.params.username; 
             const user = await User.findOne({username: username}, {photos:true}); 
-            const new_upload_photo_data = await sharp(req.files.image.data).resize(300, 300).toBuffer(); 
             let newPost = new Photos({
-                data_photo: new_upload_photo_data,
+                data_photo: req.files.image.data,
                 photo_posted_by: user._id
             });
             user.photos.push(newPost);

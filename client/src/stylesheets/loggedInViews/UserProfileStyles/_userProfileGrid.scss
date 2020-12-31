@@ -151,11 +151,13 @@
 
     #overall_flex_container_photofocused {
         display: flex;
+        max-height: 700px;
     }
     
     #photo_focused_on {
         width: 100%;
         display: block;
+        max-height: 660px;
     }
 
     #img_focused_divcontainer {
