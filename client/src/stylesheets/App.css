@@ -706,8 +706,7 @@ html {
 #focused_container {
   display: none;
   position: fixed;
-  max-height: 700px;
-  max-width: 900px;
+  max-width: 930px;
   width: 98%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: white;
@@ -718,8 +717,8 @@ html {
   position: absolute;
   border: 1px solid;
   width: 125px;
-  top: 40px;
-  right: 5px;
+  top: 30px;
+  right: -1px;
   border-top: none;
   text-align: center;
 }
@@ -736,12 +735,11 @@ html {
 }
 #focused_container #overall_flex_container_photofocused {
   display: flex;
-  max-height: 700px;
 }
 #focused_container #photo_focused_on {
   width: 100%;
   display: block;
-  max-height: 660px;
+  max-height: 700px;
 }
 #focused_container #img_focused_divcontainer {
   width: 70%;
@@ -777,12 +775,14 @@ html {
   padding: 5px;
 }
 #focused_container #info_img_divcontainer #optionsProfileDiv {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 8px;
 }
 #focused_container #info_img_divcontainer #focusOptions {
+  position: relative;
   transform: scale(1.4);
   cursor: pointer;
 }
@@ -832,6 +832,7 @@ html {
 }
 #focused_container #add_comment_holder {
   display: flex;
+  height: 50%;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(0, 0, 0, 0.3);
@@ -1771,7 +1772,7 @@ html {
   }
   #focused_container #img_focused_divcontainer {
     width: 100%;
-    min-height: 300px;
+    max-height: none;
   }
   #focused_container #info_img_divcontainer {
     display: flex;
@@ -1780,14 +1781,17 @@ html {
     min-height: 200px !important;
     overflow: hidden;
   }
-  #focused_container #focusedPictureOptions {
-    top: 300px;
-    right: -2px;
+  #focused_container #photo_focused_on {
+    max-height: 600px;
   }
-
-  #overall_flex_container_photofocused {
+  #focused_container #focusedPictureOptions {
+    top: -2px;
+    right: 29px;
+  }
+  #focused_container #overall_flex_container_photofocused {
     display: flex;
     flex-direction: column;
+    max-height: none;
   }
 }
 

@@ -134,7 +134,7 @@
         height: auto;
         #img_focused_divcontainer {
             width: 100%;
-            min-height: 300px;
+            max-height:none;
         }
 
         #info_img_divcontainer {
@@ -144,18 +144,20 @@
             min-height: 200px !important; 
             overflow: hidden;
         }
-
-        #add_comment_holder {
+        
+        #photo_focused_on {
+            max-height: 600px;
         }
 
         #focusedPictureOptions {
-            top: 300px;
-            right: -2px;
+            top: -2px;
+            right: 29px;
+        }
+
+        #overall_flex_container_photofocused {
+            display: flex;
+            flex-direction: column;
+            max-height: none;
         }
     }
-    #overall_flex_container_photofocused {
-        display: flex;
-        flex-direction: column;
-    }
-
 }

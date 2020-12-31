@@ -121,8 +121,7 @@
 #focused_container {
     display: none;
     position: fixed;
-    max-height: 700px;
-    max-width: 900px;
+    max-width: 930px;
     width: 98%;
     border: 1px solid rgba(0,0,0,0.3);
     background-color: white;
@@ -133,8 +132,8 @@
         position: absolute;
         border: 1px solid;
         width: 125px;
-        top: 40px;
-        right: 5px;
+        top: 30px;
+        right: -1px;
         border-top: none;
         text-align: center;
     }
@@ -151,13 +150,12 @@
 
     #overall_flex_container_photofocused {
         display: flex;
-        max-height: 700px;
     }
     
     #photo_focused_on {
         width: 100%;
         display: block;
-        max-height: 660px;
+        max-height: 700px;
     }
 
     #img_focused_divcontainer {
@@ -195,11 +193,13 @@
         }
 
         #optionsProfileDiv {
+            position: relative;
             @include flexbox-center();
             margin-right: 8px;
         }
 
         #focusOptions {
+            position: relative;
             transform: scale(1.4);
             cursor: pointer;
         }
@@ -258,6 +258,7 @@
 
     #add_comment_holder {
         display: flex;
+        height: 50%;
         justify-content: space-between;
         align-items: center;
         border-top: 1px solid rgba(0,0,0,0.3);
