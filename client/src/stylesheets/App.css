@@ -670,7 +670,7 @@ html {
   display: none;
   align-items: center;
   flex-direction: column;
-  width: 930px;
+  width: 850px;
   height: 500px;
 }
 #no_posts_found h1 {
@@ -1763,6 +1763,7 @@ html {
     position: relative;
     margin-top: 60px;
     left: -30px;
+    width: 500px;
   }
 
   #focused_container {
