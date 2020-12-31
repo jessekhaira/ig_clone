@@ -217,11 +217,19 @@ function UserProfilePosts (props) {
                 method: 'get'
             }); 
             const img_info_object = await img_info_raw.json(); 
+            if ('UnauthorizedUser' in img_info_object) {
+                throw Error('UnauthorizedUser'); 
+            }
             insertPhotoIntoDOM(img_info_object.photo_obj, user_profile_viewing); 
             document.addEventListener('click', removeFocusOnImage); 
         }
         catch(err){
+            err = String(err);
+            if (err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut(); 
+            }
         }
+        
     }
 
     function removeFocusOnImage(e) {
@@ -271,12 +279,14 @@ function UserProfilePosts (props) {
             await checkTokenExpirationMiddleware();
             const user_profile_viewing = history.location.pathname.split('/')[1];
 
-            const img_delete_status  = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
+            const img_delete_status  = await fetch(`${user_profile_viewing}/${img_id}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 },
                 method: 'delete'
             }); 
+        }
+        catch(err) {
 
         }
     }
