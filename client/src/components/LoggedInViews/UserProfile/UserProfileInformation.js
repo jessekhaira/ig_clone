@@ -9,8 +9,7 @@ function UserProfileInformation (props) {
 
     useEffect(() => {
         async function fetchInformation() {  
-            const profileInfo = await aysncCallToMountInformation(); 
-            fillInProfileWithInformation(profileInfo); 
+            await aysncCallToMountInformation();
         }
         fetchInformation(); 
     }); 
@@ -37,7 +36,7 @@ function UserProfileInformation (props) {
             }
             else {
                 setDisplay(['none', 'block', 'none'], spinner_div, resize_together_container, user_not_found_container);
-                return returned_profile_info_json; 
+                fillInProfileWithInformation(returned_profile_info_json); 
             }
         }
         catch(err) {
@@ -94,11 +93,11 @@ function UserProfileInformation (props) {
                 }
             }); 
             const follow_status_json = await follow_status_raw.json(); 
-
+            console.log(follow_status_json); 
             if ("UnauthorizedUser" in follow_status_json) {
                 throw Error('UnauthorizedUser');
             }
-            
+            await aysncCallToMountInformation(); 
             
         }
         catch(err) {

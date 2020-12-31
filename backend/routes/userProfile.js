@@ -182,13 +182,14 @@ router.put('/profilePhoto', [
 router.put('/:follow_user', async (req,res,next) => {
     try {
         const user_requesting_follow = await User.findOne({username: req.params.username}, {following:true});
-        const user_to_follow = await User.findOne({username:req.params.follow_user}, {_id:true});
-        user_requesting_follow.following.push(user_to_follow._id); 
-        // await user_requesting_follow.save();
+        const user_to_follow = await User.findOne({username:req.params.follow_user}, {_id:true, followers:true});
+        user_requesting_follow.following.push(user_to_follow);  
+        user_to_follow.followers.push(user_requesting_follow); 
+        await user_requesting_follow.save();
+        await user_to_follow.save(); 
         return res.status(200).json({'Success': 'Success'});
     }
     catch(err) {
-        console.log(String(err));
         next(err); 
     }
 }); 
