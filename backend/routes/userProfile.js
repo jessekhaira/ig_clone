@@ -176,7 +176,45 @@ router.put('/profilePhoto', [
             next(err);
         }
     }
-])
+]);
+
+
+router.put('/:follow_user', async (req,res,next) => {
+    try {
+        const user_requesting_follow = await User.findOne({username: req.params.username}, {following:true});
+        const user_to_follow = await User.findOne({username:req.params.follow_user}, {_id:true});
+        user_requesting_follow.following.push(user_to_follow._id); 
+        // await user_requesting_follow.save();
+        return res.status(200).json({'Success': 'Success'});
+    }
+    catch(err) {
+        console.log(String(err));
+        next(err); 
+    }
+}); 
+router.post('/posts', [
+    fileUpload({
+        createParentPath: true
+    }),
+    // have more middleware here to verify the data recieved from the user but leaving for now
+    async (req,res,next) => {
+        try {
+            const username = req.params.username; 
+            const user = await User.findOne({username: username}, {photos:true}); 
+            let newPost = new Photos({
+                data_photo: req.files.image.data,
+                photo_posted_by: user._id
+            });
+            user.photos.push(newPost);
+            await newPost.save(); 
+            await user.save(); 
+            return res.status(200).json({'Message': 'Post successfully created '});
+        }
+        catch(err) {
+            next(err);
+        }
+    }
+]);
 
 router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
     // We need to know without keeping state in the backend of which section of posts the user 
@@ -270,30 +308,6 @@ router.delete('/:grid_img_id',
         }
     }
 ); 
-
-router.post('/posts', [
-    fileUpload({
-        createParentPath: true
-    }),
-    // have more middleware here to verify the data recieved from the user but leaving for now
-    async (req,res,next) => {
-        try {
-            const username = req.params.username; 
-            const user = await User.findOne({username: username}, {photos:true}); 
-            let newPost = new Photos({
-                data_photo: req.files.image.data,
-                photo_posted_by: user._id
-            });
-            user.photos.push(newPost);
-            await newPost.save(); 
-            await user.save(); 
-            return res.status(200).json({'Message': 'Post successfully created '});
-        }
-        catch(err) {
-            next(err);
-        }
-    }
-]);
 
 // handle all the error handling logic for the /users endpoints 
 // within this middleware function -- nice and organized 

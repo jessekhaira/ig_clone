@@ -52,10 +52,25 @@ function UserProfileInformation (props) {
         try {
             const current_user = props.current_user; 
             const following_user = history.location.pathname.split('/')[1];
+            await checkTokenExpirationMiddleware(); 
+            const follow_status_raw = await fetch(`/${current_user}/${following_user}`, {
+                method: 'PUT',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            }); 
+            const follow_status_json = await follow_status_raw.json(); 
 
+            if ("UnauthorizedUser" in follow_status_json) {
+                throw Error('UnauthorizedUser');
+            }
+            console.log(follow_status_json);
         }
         catch(err) {
-
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
         }
     }
 
