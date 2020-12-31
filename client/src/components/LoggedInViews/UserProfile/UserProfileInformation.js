@@ -5,25 +5,25 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCou
 
 function UserProfileInformation (props) {
     const history = useHistory(); 
+    const user_profile_viewing = history.location.pathname.split('/')[1];
+
     useEffect(() => {
         async function fetchInformation() {  
-            const username_belongingto_profile = history.location.pathname.split('/')[1];
-            const profileInfo = await aysncCallToMountInformation('/profileInfo', username_belongingto_profile, 'GET', null); 
+            const profileInfo = await aysncCallToMountInformation(); 
             fillInProfileWithInformation(profileInfo); 
         }
         fetchInformation(); 
     }); 
 
-    async function aysncCallToMountInformation(endpoint, username_belongingto_profile, method, body) {
+    async function aysncCallToMountInformation() {
         const spinner_div = document.getElementById('spinner_div_userprofiles');
         const user_not_found_container = document.getElementById('user_not_found_container');
         const resize_together_container = document.getElementById('resize_together_container');
         try {
             await checkTokenExpirationMiddleware(); 
             setDisplay(['block', 'none', 'none'], spinner_div, resize_together_container, user_not_found_container);
-            const returned_profile_info_raw = await fetch(`/${username_belongingto_profile}/${endpoint}`, {
-                method: method,
-                body: body, 
+            const returned_profile_info_raw = await fetch(`/${user_profile_viewing}/profileInfo`, {
+                method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 }
@@ -70,7 +70,7 @@ function UserProfileInformation (props) {
         // need to decide which buttons to show the user depending on the endpoint
         const own_profile_options = document.getElementById('own_profile_options');
         const other_profile_options = document.getElementById('other_profile_options');
-        if(history.location.pathname.split('/')[1] === props.current_user) {
+        if(user_profile_viewing === props.current_user) {
             setDisplay(['none', 'flex'], other_profile_options, own_profile_options);
         }
         else {
@@ -98,6 +98,7 @@ function UserProfileInformation (props) {
             if ("UnauthorizedUser" in follow_status_json) {
                 throw Error('UnauthorizedUser');
             }
+            
             
         }
         catch(err) {
