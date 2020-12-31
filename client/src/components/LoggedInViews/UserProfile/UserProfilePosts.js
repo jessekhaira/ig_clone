@@ -226,7 +226,6 @@ function UserProfilePosts (props) {
 
     function removeFocusOnImage(e) {
         if(!document.getElementById('focused_container').contains(e.target)) {
-            console.log(e.target);
             lightenBackground(); 
             document.getElementById('focused_container').style.display = 'none'; 
             document.getElementById('photo_focused_on').src = "data:,"
@@ -289,6 +288,10 @@ function UserProfilePosts (props) {
                             </div>
                             <div id = 'optionsProfileDiv'>
                                 <i id = 'focusOptions' className ='fas fa-ellipsis-h'></i>
+                                <div id = 'focusedPictureOptions'>
+                                    <div id = 'option_go_to_post' className = 'optionsFocusedOnPicture'>Go To Post</div>
+                                    <div id = 'delete_image' className = 'optionsFocusedOnPicture'>Delete Picture</div>
+                                </div>
                             </div>
                         </div>
                         <div id = 'comments_section_div'>

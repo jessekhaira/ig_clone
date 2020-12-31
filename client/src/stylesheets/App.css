@@ -713,6 +713,26 @@ html {
   background-color: white;
   top: 13%;
 }
+#focused_container #focusedPictureOptions {
+  display: none;
+  position: absolute;
+  border: 1px solid;
+  width: 125px;
+  top: 40px;
+  right: 5px;
+  border-top: none;
+  text-align: center;
+}
+#focused_container .optionsFocusedOnPicture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid;
+  background-color: white;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 12px;
+}
 #focused_container #overall_flex_container_photofocused {
   display: flex;
 }
@@ -764,6 +784,7 @@ html {
   cursor: pointer;
 }
 #focused_container #info_img_divcontainer #profileNamePictureFlexboxFocus {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
