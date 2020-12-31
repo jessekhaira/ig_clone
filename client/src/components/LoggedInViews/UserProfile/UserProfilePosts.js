@@ -296,6 +296,7 @@ function UserProfilePosts (props) {
             <FocusedOnImage 
                 cancelPictureOptions = {cancelPictureOptions}
                 current_user = {props.current_user}
+                user_profile_viewing = {user_profile_viewing}
             /> 
         </div>
     )

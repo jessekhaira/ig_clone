@@ -4,11 +4,9 @@ import { useHistory } from 'react-router';
 
 
 function FocusedOnImage (props) {
-    const history = useHistory();
-    const user_profile_viewing = history.location.pathname.split('/')[1];
 
     useEffect(() => {
-        if (props.current_user !== user_profile_viewing) {
+        if (props.current_user !== props.user_profile_viewing) {
             setDisplay(['none', 'flex'], document.getElementById('delete_image'), document.getElementById('report_image'));
         }
         else {
@@ -27,7 +25,7 @@ function FocusedOnImage (props) {
             const img_id = document.getElementById('photo_focused_on').getAttribute('id_backend');
             await checkTokenExpirationMiddleware();
 
-            const img_delete_status  = await fetch(`${user_profile_viewing}/${img_id}`, {
+            const img_delete_status  = await fetch(`${props.user_profile_viewing}/${img_id}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 },
