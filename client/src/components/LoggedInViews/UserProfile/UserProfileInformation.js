@@ -27,6 +27,20 @@ function UserProfileInformation (props) {
                     authorization: localStorage.getItem('accessToken')
                 }
             }); 
+            // need to know whether this user is following the current profile page they are looking at
+            // to display the appropriate things 
+            let user_following_currUser = false; 
+            if (props.current_user !== user_profile_viewing) {
+                const raw_data_userFollowsCurrUser = await fetch(`/${props.current_user}/${user_profile_viewing}`, {
+                    method: 'GET',
+                    headers: {
+                        authorization: localStorage.getItem('accessToken')
+                    }
+                }); 
+                const json_userFollowsCurrUser = await raw_data_userFollowsCurrUser.json(); 
+                console.log(json_userFollowsCurrUser);
+                user_following_currUser = json_userFollowsCurrUser.UserFollowingCurrUser; 
+            }
             const returned_profile_info_json= await returned_profile_info_raw.json(); 
             if ("UnauthorizedUser" in returned_profile_info_json) {
                 throw Error('UnauthorizedUser');
@@ -36,7 +50,7 @@ function UserProfileInformation (props) {
             }
             else {
                 setDisplay(['none', 'block', 'none'], spinner_div, resize_together_container, user_not_found_container);
-                fillInProfileWithInformation(returned_profile_info_json); 
+                fillInProfileWithInformation(returned_profile_info_json, user_following_currUser); 
             }
         }
         catch(err) {
@@ -50,10 +64,11 @@ function UserProfileInformation (props) {
         }
     }
 
-    function fillInProfileWithInformation(profileInfo) {
+    function fillInProfileWithInformation(profileInfo, user_following_currUser) {
         if (!profileInfo || document.getElementById('profile_page_username_header') === null) {
             return; 
         }
+        console.log(user_following_currUser);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 

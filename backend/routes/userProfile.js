@@ -178,6 +178,16 @@ router.put('/profilePhoto', [
     }
 ]);
 
+router.get('/:follow_user', async(req, res ,next) => {
+    try {
+        const logged_in_user = await User.findOne({username: req.params.username}, {following:true});
+        const user_page_viewing = await User.findOne({username:req.params.follow_user}, {_id:true, followers:true});
+        return res.status(200).json({'UserFollowingCurrUser': `${logged_in_user.following.includes(user_page_viewing._id)}`});
+    }
+    catch(err) {
+        next(err); 
+    }
+})
 
 router.put('/:follow_user', async (req,res,next) => {
     try {
