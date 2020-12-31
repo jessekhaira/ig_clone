@@ -53,9 +53,10 @@ function UserProfileInformation (props) {
         try {
             const current_user = props.current_user; 
             const following_user = history.location.pathname.split('/')[1];
+            
         }
         catch(err) {
-            
+
         }
     }
 
