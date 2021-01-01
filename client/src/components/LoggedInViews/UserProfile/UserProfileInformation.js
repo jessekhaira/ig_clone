@@ -120,20 +120,25 @@ function UserProfileInformation (props) {
         const checkmark_icon_follow = document.getElementById('follow_icon_checkmark');
         setDisplay(['none', 'inline', 'none', 'none'], message_user, follow_descr, profile_icon_follow, checkmark_icon_follow); 
     }
+
     function showEditProfile() {
         history.push(`${history.location.pathname}/editProfile`)
     }
 
     async function followUnfollowButtonListener(e) {
-        if (document.getElementById('message_user').style.display !== 'none') {
+        // message box being displayed been the logged in user already follows the current user
+        // and clicking the follow box again indicates user wants to unfollow the given user
+        // and vice-versa 
+        if (document.getElementById('message_user').style.display === 'none') {
             await followUser(); 
         }
         else {
-
+            await unfollowUser(); 
         }
     }
 
     async function followUser() {
+        console.log('yk');
         const spinner_div = document.getElementById('spinner_div_follow');
         const current_user = props.current_user; 
         const following_user = history.location.pathname.split('/')[1];
@@ -162,8 +167,12 @@ function UserProfileInformation (props) {
         }
 
         finally {
-            setDisplay(['inline', 'none'], paragraph_description, spinner_div); 
+            setDisplay(['none'], spinner_div); 
         }
+    }
+
+    async function unfollowUser() {
+        
     }
 
     return (
