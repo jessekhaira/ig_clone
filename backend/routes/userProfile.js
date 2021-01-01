@@ -177,6 +177,30 @@ router.put('/profilePhoto', [
     }
 ]);
 
+// Follow + Following controllers 
+router.get('/follow', async(req,res,next) => {
+    try {
+        console.log('xzx');
+    }
+    catch(err) {
+        next(err);
+    }
+});
+
+router.get('/following', async(req,res,next) => {
+    try {
+        const populate_query = {profile_picture: true, full_name:true, username: true};
+        const users_following_curruser = await User.findOne({username: req.params.username}, {following:true})
+                                        .populate({path:'following', model: 'User', select: populate_query}); 
+        const returned_obj = convertArrayPicBuffers2Base64(users_following_curruser.following, 'profile_picture');
+        
+        return res.status(200).json({'following': returned_obj}); 
+    }
+    catch(err) {
+        next(err);
+    }
+})
+
 router.get('/follow/:follow_user', async(req, res ,next) => {
     try {
         const logged_in_user = await User.findOne({username: req.params.username}, {following:true});
@@ -212,6 +236,8 @@ router.put('/follow/:follow_user', async (req,res,next) => {
         next(err); 
     }
 }); 
+
+// Controllers related to posts 
 router.post('/posts', [
     fileUpload({
         createParentPath: true

@@ -1,15 +1,54 @@
-import React from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground} from '../../../utility/utility_functions';
+import React, { useEffect } from 'react';
+import {checkTokenExpirationMiddleware, lightenBackground,_authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground} from '../../../utility/utility_functions';
 
 
-function FollowingBox() {
+function FollowingBox(props) {
 
     async function seeAllFollowing(e) {
+        if (document.getElementById('following_holder_flexbox').contains(e.target)) {
+            return; 
+        }
+        const following_holder_flexbox = document.getElementById('following_holder_flexbox');
+        try {
+            await checkTokenExpirationMiddleware(); 
+            darkenBackground();
+            following_holder_flexbox.style.display = 'flex';
+            const fetched_data_raw = await fetch(`${props.current_user}/following`, {
+                method: 'get',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            }); 
 
+            const users_following_currUser = (await fetched_data_raw.json()).following;
+            if (users_following_currUser === undefined) {
+                throw Error('UnauthorizedUser');
+            }
+            addFollowingOrFollowersToDOM(users_following_currUser); 
+            document.addEventListener('click', removeFocusFollowingBox); 
+        }
+        catch(err) {
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
+        }
+    }
+
+    function addFollowingOrFollowersToDOM(array_followers_or_following) {
+        console.log(array_followers_or_following);
+    }
+    
+    function removeFocusFollowingBox(e) {
+        if (e.target.id === 'following_holder_flexbox') {
+            document.removeEventListener('click', removeFocusFollowingBox);
+            lightenBackground();
+            document.getElementById('following_holder_flexbox').style.display = 'none'; 
+        }
     }
 
     return(
-        <div id = "following_info_div" className = "meta_info_user_divcontainer" onClick = {seeAllFollowing}>
+        <div id = "following_info_div" className = "meta_info_user_divcontainer" onClick ={seeAllFollowing}>
             <p id = "following_count" className = "post_info_counts"></p>
             <p className = "post_info_descr">following</p>
             <div id = 'following_holder_flexbox' className = 'container_following_followers'>

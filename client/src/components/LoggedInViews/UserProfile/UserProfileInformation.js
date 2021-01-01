@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
 import {FollowBox} from './FollowBox';
 import {FollowingBox} from './FollowingBox';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 
 function UserProfileInformation (props) {
     const history = useHistory(); 
@@ -134,6 +134,7 @@ function UserProfileInformation (props) {
         followUser(); 
     }
 
+
     async function followUser() {
         const spinner_div = document.getElementById('spinner_div_follow');
         const current_user = props.current_user; 
@@ -169,10 +170,6 @@ function UserProfileInformation (props) {
         }
     }
 
-
-    async function seeAllFollowing(e) {
-
-    }
 
     return (
         <div id = "user_profile_info_container">
@@ -220,8 +217,12 @@ function UserProfileInformation (props) {
                         <p id = "post_count" className = "post_info_counts"></p>
                         <p className = "post_info_descr">posts</p>
                     </div>
-                    <FollowBox /> 
-                    <FollowingBox />
+                    <FollowBox 
+                        current_user = {props.current_user}
+                    /> 
+                    <FollowingBox 
+                        current_user = {props.current_user}
+                    />
                 </div>
                 <div id = "profile_info_bio">
                     <p id = "fullname_profile"></p>

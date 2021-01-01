@@ -529,6 +529,9 @@ html {
   background-color: white;
   border-radius: 5%;
 }
+.container_following_followers i {
+  cursor: pointer;
+}
 .container_following_followers .followerfollowing_userrelationship {
   width: 82px;
   background-color: white;

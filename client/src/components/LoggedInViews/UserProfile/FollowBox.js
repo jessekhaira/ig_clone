@@ -14,6 +14,7 @@ function FollowBox() {
             
         }
     }
+    
 
     return(
         <div id = "follower_info_div" className = "meta_info_user_divcontainer" onClick = {seeAllFollowers}>
