@@ -518,6 +518,7 @@ html {
   z-index: 20;
   pointer-events: auto;
   cursor: auto;
+  display: none;
 }
 .container_following_followers .following_followers {
   min-height: 400px;

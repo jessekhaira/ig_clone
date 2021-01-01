@@ -173,6 +173,7 @@
     }
 }
 
+
 .container_following_followers {
     position: fixed;
     height: 100%;
@@ -184,6 +185,7 @@
     z-index: 20;
     pointer-events: auto;
     cursor: auto;
+    display: none;
 
     .following_followers {
         min-height: 400px;
