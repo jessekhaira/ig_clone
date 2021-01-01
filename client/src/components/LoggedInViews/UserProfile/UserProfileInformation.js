@@ -31,15 +31,15 @@ function UserProfileInformation (props) {
             // to display the appropriate things 
             let user_following_currUser = false; 
             if (props.current_user !== user_profile_viewing) {
-                const raw_data_userFollowsCurrUser = await fetch(`/${props.current_user}/${user_profile_viewing}`, {
+                const raw_data_userFollowsCurrUser = await fetch(`/${props.current_user}/follow/${user_profile_viewing}`, {
                     method: 'GET',
                     headers: {
                         authorization: localStorage.getItem('accessToken')
                     }
                 }); 
                 const json_userFollowsCurrUser = await raw_data_userFollowsCurrUser.json(); 
-                console.log(json_userFollowsCurrUser);
                 user_following_currUser = json_userFollowsCurrUser.UserFollowingCurrUser; 
+                console.log(user_following_currUser);
             }
             const returned_profile_info_json= await returned_profile_info_raw.json(); 
             if ("UnauthorizedUser" in returned_profile_info_json) {
@@ -68,7 +68,6 @@ function UserProfileInformation (props) {
         if (!profileInfo || document.getElementById('profile_page_username_header') === null) {
             return; 
         }
-        console.log(user_following_currUser);
         const num_posts = profileInfo.number_posts;
         const num_followers = profileInfo.number_followers;
         const num_following = profileInfo.number_following; 
@@ -90,6 +89,10 @@ function UserProfileInformation (props) {
         else {
             setDisplay(['flex', 'none'], other_profile_options, own_profile_options);
         }
+
+        if (user_following_currUser) {
+            // document.getElementById('follow_user').innerHTML = ''
+        }
     }
 
     function showEditProfile() {
@@ -97,11 +100,14 @@ function UserProfileInformation (props) {
     }
 
     async function followUser(e) {
+        const spinner_div = document.getElementById('spinner_div_follow');
+        const current_user = props.current_user; 
+        const following_user = history.location.pathname.split('/')[1];
+        const paragraph_description = document.getElementById('follow_unfollow_pDescription');
         try {
-            const current_user = props.current_user; 
-            const following_user = history.location.pathname.split('/')[1];
+            setDisplay(['none', 'block'], paragraph_description, spinner_div); 
             await checkTokenExpirationMiddleware(); 
-            const follow_status_raw = await fetch(`/${current_user}/${following_user}`, {
+            const follow_status_raw = await fetch(`/${current_user}/follow/${following_user}`, {
                 method: 'PUT',
                 headers: {
                     authorization: localStorage.getItem('accessToken')
@@ -121,6 +127,10 @@ function UserProfileInformation (props) {
                 _authenticationErrorLogOut();
             }
         }
+
+        finally {
+            setDisplay(['inline', 'none'], paragraph_description, spinner_div); 
+        }
     }
 
     return (
@@ -138,7 +148,15 @@ function UserProfileInformation (props) {
                             Message
                         </button>
                         <button id = "follow_user" className = "options_item" onClick = {followUser}>
-                            Follow
+                           <p id ='follow_unfollow_pDescription'>Follow</p>
+                            <div id = "spinner_div_follow" className="sk-chase sk-chase-follow">
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                                    <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            </div>
                         </button>
                         <div className = "arrow_tip_down options_item"></div>
                         <i id = "three_dots_options" className = "fas fa-ellipsis-h options_item"></i>

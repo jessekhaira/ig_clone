@@ -44,6 +44,16 @@
         font-weight: 600;
         font-size: 13px;
         width: 80px;
+
+        p {
+            display: inline;
+        }
+
+        #spinner_div_follow {
+            display: none;
+        }
+
+
     }
 
     #message_user {

@@ -394,6 +394,12 @@ html {
   font-size: 13px;
   width: 80px;
 }
+#name_options_divcontainer #follow_user p {
+  display: inline;
+}
+#name_options_divcontainer #follow_user #spinner_div_follow {
+  display: none;
+}
 #name_options_divcontainer #message_user {
   display: none;
   font-weight: 600;

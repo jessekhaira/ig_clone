@@ -146,7 +146,6 @@ router.get('/profileInfo', async (req,res, next) => {
 });
 
 router.get('/profilePhoto', async (req,res) => {
-    const accessTokenRecieved = req.headers.authorization; 
     // the user can change their username, so the requestor has to explicitly 
     // indicate which usernames icon they are fetching 
     try {
@@ -178,7 +177,7 @@ router.put('/profilePhoto', [
     }
 ]);
 
-router.get('/:follow_user', async(req, res ,next) => {
+router.get('/follow/:follow_user', async(req, res ,next) => {
     try {
         const logged_in_user = await User.findOne({username: req.params.username}, {following:true});
         const user_page_viewing = await User.findOne({username:req.params.follow_user}, {_id:true, followers:true});
@@ -189,7 +188,7 @@ router.get('/:follow_user', async(req, res ,next) => {
     }
 })
 
-router.put('/:follow_user', async (req,res,next) => {
+router.put('/follow/:follow_user', async (req,res,next) => {
     try {
         const user_requesting_follow = await User.findOne({username: req.params.username}, {following:true});
         const user_to_follow = await User.findOne({username:req.params.follow_user}, {_id:true, followers:true});
@@ -265,7 +264,6 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         return res.status(200).json({photos:return_obj});
     }
     catch(err) {
-        console.log(err);
         next(err);
     }
 });
@@ -291,6 +289,7 @@ router.get('/:grid_img_id', async (req, res, next) => {
         return res.status(200).json({photo_obj}); 
     }
     catch(err) {
+        console.log(String(err));
         return next(err); 
     }
 }); 
@@ -324,6 +323,7 @@ router.delete('/:grid_img_id',
 // within this middleware function -- nice and organized 
 router.use((err, req, res, next) => {
     err = String(err); 
+    console.log(err); 
     if (err.includes('JsonWebTokenError')) {
         return res.status(500).json({'UnauthorizedUser': 'JWT failed to verify'});
     }
