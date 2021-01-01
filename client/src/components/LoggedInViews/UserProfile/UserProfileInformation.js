@@ -39,7 +39,6 @@ function UserProfileInformation (props) {
                 }); 
                 const json_userFollowsCurrUser = await raw_data_userFollowsCurrUser.json(); 
                 user_following_currUser = json_userFollowsCurrUser.UserFollowingCurrUser; 
-                console.log(user_following_currUser);
             }
             const returned_profile_info_json= await returned_profile_info_raw.json(); 
             if ("UnauthorizedUser" in returned_profile_info_json) {

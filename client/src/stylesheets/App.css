@@ -393,12 +393,14 @@ html {
   font-weight: 600;
   font-size: 13px;
   width: 80px;
+  height: 33px;
 }
 #name_options_divcontainer #follow_user p {
   display: inline;
 }
 #name_options_divcontainer #follow_user #spinner_div_follow {
   display: none;
+  left: 22px;
 }
 #name_options_divcontainer #message_user {
   display: none;
@@ -417,6 +419,8 @@ html {
 }
 #name_options_divcontainer #own_profile_options .options_item {
   margin-left: 25px;
+  height: 50px;
+  width: 80px;
 }
 #name_options_divcontainer #three_dots_options {
   transform: scale(1.5);
