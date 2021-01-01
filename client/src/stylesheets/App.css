@@ -384,6 +384,7 @@ html {
   min-width: 100%;
 }
 #name_options_divcontainer #follow_user {
+  position: relative;
   background-color: #0095f6;
   color: white;
   padding: 8px;
@@ -404,6 +405,7 @@ html {
 }
 #name_options_divcontainer #message_user {
   display: none;
+  position: relative;
   font-weight: 600;
   font-size: 13px;
   padding: 8px;
@@ -544,6 +546,11 @@ html {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid;
+}
+
+.profile_options_blackout {
+  right: 0px;
+  top: 0px;
 }
 
 #user_toggle_profile_views_container {

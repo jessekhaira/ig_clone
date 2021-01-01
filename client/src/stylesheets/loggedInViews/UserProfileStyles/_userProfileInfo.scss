@@ -35,6 +35,7 @@
     min-width: 100%;
 
     #follow_user {
+        position: relative;
         background-color: #0095f6;
         color: white;
         padding: 8px;
@@ -54,11 +55,11 @@
             left: 22px;
         }
 
-
     }
 
     #message_user {
         display: none;
+        position: relative;
         font-weight: 600;
         font-size: 13px;
         padding: 8px;
@@ -216,4 +217,9 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid;
+}
+
+.profile_options_blackout {
+    right: 0px;
+    top: 0px;
 }

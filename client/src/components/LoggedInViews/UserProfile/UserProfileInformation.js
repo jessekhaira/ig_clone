@@ -87,7 +87,8 @@ function UserProfileInformation (props) {
         }
         else {
             setDisplay(['flex', 'none'], other_profile_options, own_profile_options);
-        }        
+        }       
+        console.log(user_following_currUser); 
         if (user_following_currUser === 'true') {
             followingUserStyles(); 
         }
@@ -179,9 +180,11 @@ function UserProfileInformation (props) {
                     <div id = "other_profile_options">
                         <button id = "message_user" className = "options_item following_user">
                             Message
+                            <div className = "overlay_div_blackout profile_options_blackout"></div>
                         </button>
                         <button id = "follow_user" className = "options_item" onClick = {followUnfollowButtonListener}>
-                           <p id ='follow_descr'>Follow</p>
+                            <div className = "overlay_div_blackout profile_options_blackout"></div>
+                            <p id ='follow_descr'>Follow</p>
                             <div id = "spinner_div_follow" className="sk-chase sk-chase-follow">
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
@@ -193,7 +196,9 @@ function UserProfileInformation (props) {
                             <i id = 'follow_icon_profile' className = "fas fa-user following_icon"></i>
                             <i id = 'follow_icon_checkmark' className = "fas fa-check following_icon"></i>
                         </button>
-                        <div id = "options_profile_arrowdown" className = "arrow_tip_down options_item"></div>
+                        <div id = "options_profile_arrowdown" className = "arrow_tip_down options_item">
+                            <div className = "overlay_div_blackout profile_options_blackout"></div>
+                        </div>
                         <i id = "three_dots_options" className = "fas fa-ellipsis-h options_item"></i>
                     </div>
                     <div id = "own_profile_options">
