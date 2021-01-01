@@ -419,8 +419,6 @@ html {
 }
 #name_options_divcontainer #own_profile_options .options_item {
   margin-left: 25px;
-  height: 50px;
-  width: 80px;
 }
 #name_options_divcontainer #three_dots_options {
   transform: scale(1.5);
@@ -434,10 +432,6 @@ html {
 }
 #name_options_divcontainer #other_profile_options .options_item {
   margin-left: 15px;
-}
-#name_options_divcontainer #other_profile_options .followed {
-  background-color: var(--main-bg-color);
-  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 #name_options_divcontainer #profile_page_username_header {
   font-size: 23px;
@@ -469,6 +463,16 @@ html {
 }
 #name_options_divcontainer #edit_profile:focus {
   outline: 0;
+}
+
+.following_user {
+  background-color: var(--main-bg-color) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  margin-right: -4px;
+}
+
+.following_icon {
+  color: black;
 }
 
 #meta_info_user_normalviewport {
@@ -523,6 +527,7 @@ html {
   background-color: #0095f6;
   border-radius: 4px;
   cursor: pointer;
+  color: white;
 }
 
 .arrow_tip_down::before {
@@ -534,7 +539,7 @@ html {
   left: 11px;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid white;
+  border-top: 6px solid;
 }
 
 #user_toggle_profile_views_container {

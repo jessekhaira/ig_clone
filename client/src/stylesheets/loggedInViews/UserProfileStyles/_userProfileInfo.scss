@@ -73,8 +73,6 @@
 
         .options_item {
             margin-left: 25px;
-            height: 50px;
-            width: 80px;
         }
     }
 
@@ -92,10 +90,6 @@
             margin-left: 15px;            
         }
 
-        .followed {
-            background-color: var(--main-bg-color);
-            border: 1px solid rgba(0,0,0,0.2);
-        }
     }
 
     
@@ -133,11 +127,17 @@
     #edit_profile:focus {
         outline: 0;
     }
-    
-
 }
 
+.following_user {
+    background-color: var(--main-bg-color) !important;
+    border: 1px solid rgba(0,0,0,0.2) !important;
+    margin-right: -4px;
+}
 
+.following_icon {
+    color: black;
+}
 #meta_info_user_normalviewport {
     display: flex;
     margin-top: 2px;
@@ -199,6 +199,7 @@
     background-color: #0095f6;
     border-radius: 4px;
     cursor: pointer;
+    color: white;
 }
 
 .arrow_tip_down::before {
@@ -210,5 +211,5 @@
     left: 11px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid white;
+    border-top: 6px solid;
 }

@@ -87,22 +87,57 @@ function UserProfileInformation (props) {
         }
         else {
             setDisplay(['flex', 'none'], other_profile_options, own_profile_options);
+        }        
+        if (user_following_currUser === 'true') {
+            followingUserStyles(); 
         }
-
-        if (user_following_currUser) {
-            // document.getElementById('follow_user').innerHTML = ''
+        else {
+            console.log(user_following_currUser);
+            notFollowingUserStyles(); 
         }
     }
 
+    function followingUserStyles() {
+        document.getElementById('follow_user').classList.add('following_user');
+        const arrow_tip_down = document.getElementById('options_profile_arrowdown');
+        arrow_tip_down.classList.add('following_user');
+        arrow_tip_down.style.color = 'black';
+        const message_user = document.getElementById('message_user');
+        const follow_descr = document.getElementById('follow_descr'); 
+        const profile_icon_follow = document.getElementById('follow_icon_profile');
+        const checkmark_icon_follow = document.getElementById('follow_icon_checkmark');
+        setDisplay(['block', 'none', 'inline', 'inline'], message_user, follow_descr, profile_icon_follow, checkmark_icon_follow); 
+    }
+
+    function notFollowingUserStyles() {
+        document.getElementById('follow_user').classList.remove('following_user');
+        const arrow_tip_down = document.getElementById('options_profile_arrowdown');
+        arrow_tip_down.classList.remove('following_user');
+        arrow_tip_down.style.color = 'white';
+        const message_user = document.getElementById('message_user');
+        const follow_descr = document.getElementById('follow_descr'); 
+        const profile_icon_follow = document.getElementById('follow_icon_profile');
+        const checkmark_icon_follow = document.getElementById('follow_icon_checkmark');
+        setDisplay(['none', 'inline', 'none', 'none'], message_user, follow_descr, profile_icon_follow, checkmark_icon_follow); 
+    }
     function showEditProfile() {
         history.push(`${history.location.pathname}/editProfile`)
     }
 
-    async function followUser(e) {
+    async function followUnfollowButtonListener(e) {
+        if (document.getElementById('message_user').style.display !== 'none') {
+            await followUser(); 
+        }
+        else {
+
+        }
+    }
+
+    async function followUser() {
         const spinner_div = document.getElementById('spinner_div_follow');
         const current_user = props.current_user; 
         const following_user = history.location.pathname.split('/')[1];
-        const paragraph_description = document.getElementById('follow_unfollow_pDescription');
+        const paragraph_description = document.getElementById('follow_descr');
         try {
             setDisplay(['none', 'block'], paragraph_description, spinner_div); 
             await checkTokenExpirationMiddleware(); 
@@ -113,7 +148,6 @@ function UserProfileInformation (props) {
                 }
             }); 
             const follow_status_json = await follow_status_raw.json(); 
-            console.log(follow_status_json); 
             if ("UnauthorizedUser" in follow_status_json) {
                 throw Error('UnauthorizedUser');
             }
@@ -143,11 +177,11 @@ function UserProfileInformation (props) {
                         <h2 id = "profile_page_username_header" ></h2>
                     </div>
                     <div id = "other_profile_options">
-                        <button id = "message_user" className = "options_item followed">
+                        <button id = "message_user" className = "options_item following_user">
                             Message
                         </button>
-                        <button id = "follow_user" className = "options_item" onClick = {followUser}>
-                           <p id ='follow_unfollow_pDescription'>Follow</p>
+                        <button id = "follow_user" className = "options_item" onClick = {followUnfollowButtonListener}>
+                           <p id ='follow_descr'>Follow</p>
                             <div id = "spinner_div_follow" className="sk-chase sk-chase-follow">
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
@@ -156,8 +190,10 @@ function UserProfileInformation (props) {
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
                                     <div className="sk-chase-dot sk-chase-dot-follow"></div>
                             </div>
+                            <i id = 'follow_icon_profile' className = "fas fa-user following_icon"></i>
+                            <i id = 'follow_icon_checkmark' className = "fas fa-check following_icon"></i>
                         </button>
-                        <div className = "arrow_tip_down options_item"></div>
+                        <div id = "options_profile_arrowdown" className = "arrow_tip_down options_item"></div>
                         <i id = "three_dots_options" className = "fas fa-ellipsis-h options_item"></i>
                     </div>
                     <div id = "own_profile_options">
