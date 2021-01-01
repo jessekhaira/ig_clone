@@ -169,6 +169,59 @@ function UserProfileInformation (props) {
             setDisplay(['none'], spinner_div); 
         }
     }
+    function addFollowingOrFollowersToDOM(array_followers_or_following, holder_div_id) {
+        const holder_div = document.getElementById(holder_div_id);
+        holder_div.textContent ='';
+        for (let user of array_followers_or_following) {
+            const user_DOMNode = createFollowOrFollowingUserDOMNodes(user);
+            holder_div.appendChild(user_DOMNode); 
+        }
+    }
+
+    function createFollowOrFollowingUserDOMNodes(user) {
+        // FF - follow/ following 
+        function createImgNameHolder() {
+            const imgNameHolderDiv = document.createElement('div');
+            imgNameHolderDiv.classList.add('img_name_holder_followerfollowing');
+
+            const profile_pic = document.createElement('img');
+            profile_pic.src = 'data:image/jpeg;base64,' + user.profile_picture;
+            profile_pic.classList.add('img_followingfollower');
+            imgNameHolderDiv.appendChild(profile_pic);
+
+            const username = document.createElement('h3');
+            username.innerHTML = `${user.username}`;
+
+            const fullname = document.createElement('p');
+            fullname.innerHTML = `${user.full_name}`;
+
+            const name_username_holder = document.createElement('div');
+            name_username_holder.classList.add('name_username_holder_followerfollowing');
+            name_username_holder.appendChild(username);
+            name_username_holder.appendChild(fullname);
+
+            imgNameHolderDiv.appendChild(name_username_holder);
+            return imgNameHolderDiv; 
+        }
+
+        function createFollowButton() {
+            const button = document.createElement('button');
+            button.classList.add('followerfollowing_userrelationship');
+            button.innerHTML = 'Following';
+            return button; 
+        }
+
+        const userFF_node = document.createElement('div');
+        userFF_node.classList.add('followerfollowing_curr_user');
+
+        const imgNameDiv = createImgNameHolder();
+        const FF_button = createFollowButton();
+
+        userFF_node.appendChild(imgNameDiv);
+        userFF_node.appendChild(FF_button);
+
+        return userFF_node; 
+    }
 
 
     return (
@@ -219,9 +272,11 @@ function UserProfileInformation (props) {
                     </div>
                     <FollowBox 
                         current_user = {props.current_user}
+                        addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
                     /> 
                     <FollowingBox 
                         current_user = {props.current_user}
+                        addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
                     />
                 </div>
                 <div id = "profile_info_bio">
