@@ -505,6 +505,89 @@ html {
   cursor: pointer;
 }
 
+.container_following_followers {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  pointer-events: auto;
+  cursor: auto;
+}
+.container_following_followers .following_followers {
+  min-height: 400px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 5%;
+}
+.container_following_followers .followerfollowing_userrelationship {
+  width: 82px;
+  background-color: white;
+  font-weight: 600;
+  height: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.container_following_followers .followerfollowing_curr_user {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.container_following_followers .img_followingfollower {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.container_following_followers .img_name_holder_followerfollowing {
+  width: 250px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container_following_followers .img_name_holder_followerfollowing .name_username_holder_followerfollowing {
+  max-width: 85%;
+  margin-left: 8px;
+}
+.container_following_followers .img_name_holder_followerfollowing h3 {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.container_following_followers .img_name_holder_followerfollowing p {
+  font-size: 13px;
+  margin-top: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.descr_cancel_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.descr_cancel_container p {
+  text-align: center;
+  font-weight: 600;
+  width: 80%;
+}
+.descr_cancel_container i {
+  transform: scale(1.5);
+}
+
 #profile_info_bio {
   width: auto;
   max-width: 500px;
