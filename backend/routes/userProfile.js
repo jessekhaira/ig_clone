@@ -190,11 +190,21 @@ router.get('/follow/:follow_user', async(req, res ,next) => {
 
 router.put('/follow/:follow_user', async (req,res,next) => {
     try {
-        const user_requesting_follow = await User.findOne({username: req.params.username}, {following:true});
+        const user_loggedin = await User.findOne({username: req.params.username}, {following:true});
         const user_to_follow = await User.findOne({username:req.params.follow_user}, {_id:true, followers:true});
-        user_requesting_follow.following.push(user_to_follow);  
-        user_to_follow.followers.push(user_requesting_follow); 
-        await user_requesting_follow.save();
+        // already following means we're stopping following the user_to_follow 
+        if (user_loggedin.following.includes(user_to_follow._id)) {
+            const following_idx= user_loggedin.following.indexOf(user_to_follow._id);
+            const follower_idx = user_to_follow.followers.indexOf(user_loggedin._id);
+            
+            user_loggedin.following.splice(following_idx,1);
+            user_to_follow.followers.splice(follower_idx, 1);
+        }
+        else {
+            user_loggedin.following.push(user_to_follow);  
+            user_to_follow.followers.push(user_loggedin); 
+        }
+        await user_loggedin.save();
         await user_to_follow.save(); 
         return res.status(200).json({'Success': 'Success'});
     }

@@ -92,7 +92,6 @@ function UserProfileInformation (props) {
             followingUserStyles(); 
         }
         else {
-            console.log(user_following_currUser);
             notFollowingUserStyles(); 
         }
     }
@@ -125,26 +124,22 @@ function UserProfileInformation (props) {
         history.push(`${history.location.pathname}/editProfile`)
     }
 
-    async function followUnfollowButtonListener(e) {
+    function followUnfollowButtonListener(e) {
         // message box being displayed been the logged in user already follows the current user
         // and clicking the follow box again indicates user wants to unfollow the given user
-        // and vice-versa 
-        if (document.getElementById('message_user').style.display === 'none') {
-            await followUser(); 
-        }
-        else {
-            await unfollowUser(); 
-        }
+        // and vice-versa -- logic handled in backend 
+        followUser(); 
     }
 
     async function followUser() {
-        console.log('yk');
         const spinner_div = document.getElementById('spinner_div_follow');
         const current_user = props.current_user; 
         const following_user = history.location.pathname.split('/')[1];
         const paragraph_description = document.getElementById('follow_descr');
+        const profile_icon_follow = document.getElementById('follow_icon_profile');
+        const checkmark_icon_follow = document.getElementById('follow_icon_checkmark');
         try {
-            setDisplay(['none', 'block'], paragraph_description, spinner_div); 
+            setDisplay(['none', 'block', 'none', 'none'], paragraph_description, spinner_div, profile_icon_follow, checkmark_icon_follow); 
             await checkTokenExpirationMiddleware(); 
             const follow_status_raw = await fetch(`/${current_user}/follow/${following_user}`, {
                 method: 'PUT',
@@ -169,10 +164,6 @@ function UserProfileInformation (props) {
         finally {
             setDisplay(['none'], spinner_div); 
         }
-    }
-
-    async function unfollowUser() {
-        
     }
 
     return (
