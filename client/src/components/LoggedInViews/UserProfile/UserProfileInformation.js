@@ -216,8 +216,14 @@ function UserProfileInformation (props) {
         function createFollowButton() {
             const button = document.createElement('button');
             button.classList.add('followerfollowing_userrelationship');
-            button.innerHTML = 'Following';
-
+            if (user.following === true) {
+                button.innerHTML = 'Following';
+                button.addEventListener('click', unFollowUserBoxButton);
+            }
+            else {
+                button.innerHTML = 'Follow';
+                button.addEventListener('click', followUserBoxButton);
+            }
             return button; 
         }
 
@@ -231,6 +237,14 @@ function UserProfileInformation (props) {
         userFF_node.appendChild(FF_button);
 
         return userFF_node; 
+    }
+
+    function unFollowUserBoxButton(e) {
+        
+    }
+
+    function followUserBoxButton(e) {
+
     }
 
     function cancelFocusFollowersFollowing(e) {
