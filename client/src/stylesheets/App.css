@@ -594,6 +594,14 @@ html {
   transform: scale(1.5);
 }
 
+.sk-chase-FFBoxes {
+  position: relative;
+  left: 170px;
+  top: 50px;
+  width: 35px;
+  height: 35px;
+}
+
 #profile_info_bio {
   width: auto;
   max-width: 500px;

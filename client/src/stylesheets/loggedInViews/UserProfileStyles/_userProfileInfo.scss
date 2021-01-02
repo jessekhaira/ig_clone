@@ -188,6 +188,7 @@
     display: none;
 
     .following_followers {
+
         min-height: 400px;
         width: 100%;
         max-height: 400px;
@@ -272,7 +273,13 @@
     }
 }
 
-
+.sk-chase-FFBoxes {
+    position: relative;
+    left: 170px;
+    top:50px;
+    width: 35px;
+    height: 35px;
+}
 
 #profile_info_bio {
     width: auto;

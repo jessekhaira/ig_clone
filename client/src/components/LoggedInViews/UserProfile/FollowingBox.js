@@ -9,10 +9,13 @@ function FollowingBox(props) {
             return; 
         }
         const following_holder_flexbox = document.getElementById('following_holder_flexbox');
+        const spinner_div = document.getElementById('spinner_followingbox');
+        const direct_following_holder = document.getElementById('following_direct_holder');
         try {
             await checkTokenExpirationMiddleware(); 
             darkenBackground();
             following_holder_flexbox.style.display = 'flex';
+            setDisplay(['flex', 'block', 'none'], following_holder_flexbox, spinner_div, direct_following_holder);
             const fetched_data_raw = await fetch(`${props.user_profile_viewing}/following`, {
                 method: 'get',
                 headers: {
@@ -33,6 +36,10 @@ function FollowingBox(props) {
                 _authenticationErrorLogOut();
             }
         }
+
+        finally {
+            setDisplay(['none', 'block'], spinner_div, direct_following_holder); 
+        }
     }
 
     function removeFocusFollowingBox(e) {
@@ -52,6 +59,14 @@ function FollowingBox(props) {
                     <div className = 'descr_cancel_container'>
                         <p>Following</p>
                         <i id = 'cancel_X' onClick = {props.cancelFocusFollowersFollowing} className = "fas fa-times X"></i> 
+                    </div>
+                    <div id = 'spinner_followingbox' className="sk-chase sk-chase-FFBoxes">
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
+                            <div className="sk-chase-dot sk-chase-dot-follow"></div>
                     </div>
                     <div id = 'following_direct_holder' className = "followersfollowing_direct_holder">
                     </div>

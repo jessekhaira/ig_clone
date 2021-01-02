@@ -90,7 +90,6 @@ function UserProfileInformation (props) {
         else {
             setDisplay(['flex', 'none'], other_profile_options, own_profile_options);
         }       
-        console.log(user_following_currUser); 
         if (user_following_currUser === 'true') {
             followingUserStyles(); 
         }
@@ -169,10 +168,10 @@ function UserProfileInformation (props) {
             setDisplay(['none'], spinner_div); 
         }
     }
+
     function addFollowingOrFollowersToDOM(array_followers_or_following, holder_div_id) {
         const holder_div = document.getElementById(holder_div_id);
         holder_div.textContent ='';
-        document.getElementById('followers_direct_holder').textContent = ''; 
         for (let user of array_followers_or_following) {
             const user_DOMNode = createFollowOrFollowingUserDOMNodes(user);
             holder_div.appendChild(user_DOMNode); 
