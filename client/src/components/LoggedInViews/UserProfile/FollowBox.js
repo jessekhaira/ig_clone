@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, darkenBackground} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, lightenBackground,darkenBackground} from '../../../utility/utility_functions';
 
 
 function FollowBox(props) {
@@ -25,7 +25,7 @@ function FollowBox(props) {
                 throw Error('UnauthorizedUser');
             }
             props.addFollowingOrFollowersToDOM(followers_for_currUser, 'followers_direct_holder'); 
-            // document.addEventListener('click', removeFocusFollowingBox); 
+            document.addEventListener('click', removeFocusFollowersBox); 
         }
         catch(err) {
             err = String(err);
@@ -34,6 +34,16 @@ function FollowBox(props) {
             }
         }
     }
+
+    function removeFocusFollowersBox(e) {
+        if (e.target.id === 'follower_holder_flexbox') {
+            document.removeEventListener('click', removeFocusFollowersBox);
+            lightenBackground();
+            document.getElementById('follower_holder_flexbox').style.display = 'none'; 
+        }
+    }
+
+
     
 
     return(
