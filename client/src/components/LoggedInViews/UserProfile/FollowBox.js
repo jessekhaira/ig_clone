@@ -1,17 +1,37 @@
 import React from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, darkenBackground} from '../../../utility/utility_functions';
 
 
-function FollowBox() {
+function FollowBox(props) {
     async function seeAllFollowers(e) {
+        if (document.getElementById('follower_holder_flexbox').contains(e.target)) {
+            return; 
+        }
         const follower_holder_flexbox = document.getElementById('follower_holder_flexbox');
         try {
             await checkTokenExpirationMiddleware(); 
             darkenBackground();
             follower_holder_flexbox.style.display = 'flex';
+            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/followers`, {
+                method: 'get',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            }); 
+
+            const followers_for_currUser = (await fetched_data_raw.json()).followers;
+            console.log(followers_for_currUser);
+            if (followers_for_currUser === undefined) {
+                throw Error('UnauthorizedUser');
+            }
+            props.addFollowingOrFollowersToDOM(followers_for_currUser, 'followers_direct_holder'); 
+            // document.addEventListener('click', removeFocusFollowingBox); 
         }
         catch(err) {
-            
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
         }
     }
     
@@ -26,17 +46,7 @@ function FollowBox() {
                         <p>Followers</p>
                         <i className = "fas fa-times X"></i> 
                     </div>
-                    <div className = "followersfollowing_direct_holder">
-                        <div className = "followerfollowing_curr_user">
-                            <div className = "img_name_holder_followerfollowing">
-                                <img className = "img_followingfollower" src = 'https://feedback.seekingalpha.com/s/cache/a1/e2/a1e22c9b37ea25351c6b703c1e441c1b.png'></img>
-                                <div className = 'name_username_holder_followerfollowing'>
-                                    <h3>Batman</h3>
-                                    <p>Batman</p>
-                                </div>
-                            </div>
-                            <button className = 'followerfollowing_userrelationship'>Following</button>
-                        </div>
+                    <div id = 'followers_direct_holder' className = "followersfollowing_direct_holder">
                     </div>
                 </div>
             </div>

@@ -208,6 +208,7 @@ function UserProfileInformation (props) {
             const button = document.createElement('button');
             button.classList.add('followerfollowing_userrelationship');
             button.innerHTML = 'Following';
+
             return button; 
         }
 
@@ -223,6 +224,10 @@ function UserProfileInformation (props) {
         return userFF_node; 
     }
 
+    function cancelFocusFollowersFollowing() {
+        document.getElementById('following_holder_flexbox').style.display = 'none'; 
+        lightenBackground();
+    }
 
     return (
         <div id = "user_profile_info_container">
@@ -271,12 +276,14 @@ function UserProfileInformation (props) {
                         <p className = "post_info_descr">posts</p>
                     </div>
                     <FollowBox 
-                        current_user = {props.current_user}
+                        user_profile_viewing = {user_profile_viewing}
                         addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
+                        cancelFocusFollowersFollowing = {cancelFocusFollowersFollowing}
                     /> 
                     <FollowingBox 
-                        current_user = {props.current_user}
+                        user_profile_viewing = {user_profile_viewing}
                         addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
+                        cancelFocusFollowersFollowing = {cancelFocusFollowersFollowing}
                     />
                 </div>
                 <div id = "profile_info_bio">

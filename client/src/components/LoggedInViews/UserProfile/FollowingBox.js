@@ -13,7 +13,7 @@ function FollowingBox(props) {
             await checkTokenExpirationMiddleware(); 
             darkenBackground();
             following_holder_flexbox.style.display = 'flex';
-            const fetched_data_raw = await fetch(`${props.current_user}/following`, {
+            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/following`, {
                 method: 'get',
                 headers: {
                     authorization: localStorage.getItem('accessToken')
@@ -24,7 +24,6 @@ function FollowingBox(props) {
             if (users_following_currUser === undefined) {
                 throw Error('UnauthorizedUser');
             }
-            
             props.addFollowingOrFollowersToDOM(users_following_currUser, 'following_direct_holder'); 
             document.addEventListener('click', removeFocusFollowingBox); 
         }
@@ -34,12 +33,6 @@ function FollowingBox(props) {
                 _authenticationErrorLogOut();
             }
         }
-    }
-
-
-    function cancelFocusFollowersFollowing() {
-        document.getElementById('following_holder_flexbox').style.display = 'none'; 
-        lightenBackground();
     }
 
     function removeFocusFollowingBox(e) {
@@ -58,7 +51,7 @@ function FollowingBox(props) {
                 <div id = 'users_following_thisUser' className = 'following_followers'>
                     <div className = 'descr_cancel_container'>
                         <p>Following</p>
-                        <i id = 'cancel_X' onClick = {cancelFocusFollowersFollowing} className = "fas fa-times X"></i> 
+                        <i id = 'cancel_X' onClick = {props.cancelFocusFollowersFollowing} className = "fas fa-times X"></i> 
                     </div>
                     <div id = 'following_direct_holder' className = "followersfollowing_direct_holder">
                     </div>

@@ -178,9 +178,13 @@ router.put('/profilePhoto', [
 ]);
 
 // Follow + Following controllers 
-router.get('/follow', async(req,res,next) => {
+router.get('/followers', async(req,res,next) => {
     try {
-        console.log('xzx');
+        const populate_query = {profile_picture: true, full_name:true, username: true};
+        const users_following_curruser = await User.findOne({username: req.params.username}, {followers:true})
+                                        .populate({path:'followers', model: 'User', select: populate_query}); 
+        const returned_obj = convertArrayPicBuffers2Base64(users_following_curruser.followers, 'profile_picture');
+        return res.status(200).json({'followers': returned_obj}); 
     }
     catch(err) {
         next(err);
