@@ -172,10 +172,19 @@ function UserProfileInformation (props) {
     function addFollowingOrFollowersToDOM(array_followers_or_following, holder_div_id) {
         const holder_div = document.getElementById(holder_div_id);
         holder_div.textContent ='';
+        document.getElementById('followers_direct_holder').textContent = ''; 
         for (let user of array_followers_or_following) {
             const user_DOMNode = createFollowOrFollowingUserDOMNodes(user);
             holder_div.appendChild(user_DOMNode); 
         }
+    }
+
+    function redirectToUsersProfile(e) {
+        e.preventDefault();
+        history.push(`/${e.target.innerHTML}`);
+        lightenBackground();
+        const holder_div = e.target.closest('.container_following_followers');
+        holder_div.style.display = 'none';
     }
 
     function createFollowOrFollowingUserDOMNodes(user) {
@@ -191,6 +200,7 @@ function UserProfileInformation (props) {
 
             const username = document.createElement('h3');
             username.innerHTML = `${user.username}`;
+            username.addEventListener('click', redirectToUsersProfile);
 
             const fullname = document.createElement('p');
             fullname.innerHTML = `${user.full_name}`;
@@ -224,8 +234,13 @@ function UserProfileInformation (props) {
         return userFF_node; 
     }
 
-    function cancelFocusFollowersFollowing() {
-        document.getElementById('following_holder_flexbox').style.display = 'none'; 
+    function cancelFocusFollowersFollowing(e) {
+        if (e.target.id === 'follower_cancel') {
+            document.getElementById('follower_holder_flexbox').style.display = 'none';
+        }
+        else {
+            document.getElementById('following_holder_flexbox').style.display = 'none'; 
+        }
         lightenBackground();
     }
 

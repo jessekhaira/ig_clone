@@ -54,7 +54,7 @@ function FollowBox(props) {
                 <div id = 'users_following_thisUser' className = 'following_followers'>
                     <div className = 'descr_cancel_container'>
                         <p>Followers</p>
-                        <i className = "fas fa-times X"></i> 
+                        <i className = "fas fa-times X" onClick = {props.cancelFocusFollowersFollowing} id = 'follower_cancel'></i> 
                     </div>
                     <div id = 'followers_direct_holder' className = "followersfollowing_direct_holder">
                     </div>
