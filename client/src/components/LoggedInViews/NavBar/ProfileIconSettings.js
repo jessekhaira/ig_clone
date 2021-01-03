@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
-import {_authenticationErrorLogOut, checkTokenExpirationMiddleware} from '../../utility/utility_functions'; 
+import {_authenticationErrorLogOut, checkTokenExpirationMiddleware} from '../../../utility/utility_functions'; 
 
 function ProfileIconSettings(props) {
     function _logout() {

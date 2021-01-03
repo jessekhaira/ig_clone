@@ -3,9 +3,9 @@ import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import {ProfileIconSettings} from './ProfileIconSettings';
 import {Notifications} from './Notifications';
-import {_toggleDisplays, _setDisplayNone} from '../../utility/utility_functions';
+import {_toggleDisplays, _setDisplayNone} from '../../../utility/utility_functions'; 
 import {SearchBar} from './SearchBar';
-import {setDisplay} from '../../utility/utility_functions';
+import {setDisplay} from '../../../utility/utility_functions';
 import jwt_decode from 'jwt-decode';
 
 /**
