@@ -255,19 +255,21 @@ function UserProfileInformation (props) {
         const button = e.target.closest('.followerfollowing_userrelationship');
         const spinner_div = button.children[1];
         const descr_div = button.children[0]; 
+        const username_to_follow_or_unfollow = button.closest('.followerfollowing_curr_user').querySelectorAll('h3')[0].innerHTML;
+        console.log(username_to_follow_or_unfollow); 
         if (descr_div.innerHTML === 'Following') {
-            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, true);
+            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, true, username_to_follow_or_unfollow);
         }
         else {
-            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, false);
+            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, false, username_to_follow_or_unfollow);
         }
     }
 
-    async function followUnfollowBoxButtonRequest(button, spinner_div, descr_div, curr_following) {
+    async function followUnfollowBoxButtonRequest(button, spinner_div, descr_div, curr_following, username_to_follow_or_unfollow) {
         try {
             setDisplay(['block', 'none'], spinner_div, descr_div);
             button.removeEventListener('click', clickHandlerBoxButtons);
-            const unfollowStatusRaw = await fetch(`/${props.current_user}/follow/${user_profile_viewing}`, {
+            const unfollowStatusRaw = await fetch(`/${props.current_user}/follow/${username_to_follow_or_unfollow}`, {
                 method: 'PUT',
                 headers: {
                     authorization: localStorage.getItem('accessToken')
@@ -281,6 +283,8 @@ function UserProfileInformation (props) {
             if (curr_following) {
                 descr_div.innerHTML = 'Follow';
                 button.classList.add('followUserButtonBoxes');
+                const num_following = Number(document.getElementById('following_count').innerHTML);
+                document.getElementById('following_count').innerHTML = (num_following === 0 ? 0: num_following-1);
             }
             else {
                 descr_div.innerHTML = 'Following';
