@@ -16,7 +16,7 @@ function FollowingBox(props) {
             darkenBackground();
             following_holder_flexbox.style.display = 'flex';
             setDisplay(['flex', 'block', 'none'], following_holder_flexbox, spinner_div, direct_following_holder);
-            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/following`, {
+            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/${props.current_user}/followingBox`, {
                 method: 'get',
                 headers: {
                     authorization: localStorage.getItem('accessToken')

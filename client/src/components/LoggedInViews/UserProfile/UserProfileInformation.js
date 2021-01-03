@@ -216,13 +216,13 @@ function UserProfileInformation (props) {
         function createFollowButton() {
             const button = document.createElement('button');
             button.classList.add('followerfollowing_userrelationship');
-            if (user.following === true) {
+            if (user.curr_user_following_this_user === true) {
                 button.innerHTML = 'Following';
-                button.addEventListener('click', unFollowUserBoxButton);
+                button.classList.remove('followUserButtonBoxes');
             }
             else {
                 button.innerHTML = 'Follow';
-                button.addEventListener('click', followUserBoxButton);
+                button.classList.add('followUserButtonBoxes');
             }
             return button; 
         }
@@ -305,11 +305,13 @@ function UserProfileInformation (props) {
                     </div>
                     <FollowBox 
                         user_profile_viewing = {user_profile_viewing}
+                        current_user = {props.current_user}
                         addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
                         cancelFocusFollowersFollowing = {cancelFocusFollowersFollowing}
                     /> 
                     <FollowingBox 
                         user_profile_viewing = {user_profile_viewing}
+                        current_user = {props.current_user}
                         addFollowingOrFollowersToDOM = {addFollowingOrFollowersToDOM}
                         cancelFocusFollowersFollowing = {cancelFocusFollowersFollowing}
                     />

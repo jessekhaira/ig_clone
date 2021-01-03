@@ -520,6 +520,10 @@ html {
   cursor: auto;
   display: none;
 }
+.container_following_followers .followUserButtonBoxes {
+  background-color: #0095f6 !important;
+  color: white;
+}
 .container_following_followers .following_followers {
   min-height: 400px;
   width: 100%;

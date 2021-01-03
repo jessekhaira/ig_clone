@@ -177,17 +177,17 @@ router.put('/profilePhoto', [
     }
 ]);
 
-// Follow + Following controllers 
-router.get('/followers', async(req,res,next) => {
+// Follow + Following Box Controllers (user clicks to see a list of all the users they are following or are followers of)
+router.get('/:loggedInUser/followersBox', async(req,res,next) => {
     try {
         const populate_query = {profile_picture: true, full_name:true, username: true};
-        const users_following_curruser = await User.findOne({username: req.params.username}, {followers:true, following:true})
-                                        .populate({path:'followers', model: 'User', select: populate_query}); 
-        const returned_obj = convertArrayPicBuffers2Base64(users_following_curruser.followers, 'profile_picture');
-         
+        const usersFollowingCurrActiveUser = await User.findOne({username: req.params.username}, {followers:true, following:true})
+                                        .populate({path:'followers', model: 'User', select: populate_query});
+        const loggedInUser = await User.findOne({username: req.params.loggedInUser}, {following:true}); 
+        const returned_obj = convertArrayPicBuffers2Base64(usersFollowingCurrActiveUser.followers, 'profile_picture');
         for (let i =0; i< returned_obj.length; i++) {
             const user_who_follows_currUser = returned_obj[i];
-            user_who_follows_currUser['curr_user_following_this_user'] = users_following_curruser.following.includes(user_who_follows_currUser._id);
+            user_who_follows_currUser['curr_user_following_this_user'] = loggedInUser.following.includes(user_who_follows_currUser._id);
         }
         return res.status(200).json({'followers': returned_obj}); 
     }
@@ -196,13 +196,20 @@ router.get('/followers', async(req,res,next) => {
     }
 });
 
-router.get('/following', async(req,res,next) => {
+
+router.get('/:loggedInUser/followingBox', async(req,res,next) => {
     try {
         const populate_query = {profile_picture: true, full_name:true, username: true};
-        const users_following_curruser = await User.findOne({username: req.params.username}, {following:true})
-                                        .populate({path:'following', model: 'User', select: populate_query}); 
-        const returned_obj = convertArrayPicBuffers2Base64(users_following_curruser.following, 'profile_picture');
-        
+        const usersFollowingCurrActiveUser = await User.findOne({username: req.params.username}, {following:true})
+                                        .populate({path:'following', model: 'User', select: populate_query});
+
+        const loggedInUser = await User.findOne({username: req.params.loggedInUser}, {following:true}); 
+        const returned_obj = convertArrayPicBuffers2Base64(usersFollowingCurrActiveUser.following, 'profile_picture');
+        // following endpoint so automatically the user will be following all the users within this box
+        for (let i =0; i< returned_obj.length; i++) {
+            const user_who_follows_currUser = returned_obj[i];
+            user_who_follows_currUser['curr_user_following_this_user'] = loggedInUser.following.includes(user_who_follows_currUser._id);
+        }
         return res.status(200).json({'following': returned_obj}); 
     }
     catch(err) {

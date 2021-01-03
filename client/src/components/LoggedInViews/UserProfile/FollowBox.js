@@ -14,7 +14,7 @@ function FollowBox(props) {
             await checkTokenExpirationMiddleware(); 
             darkenBackground();
             setDisplay(['flex', 'block', 'none'], follower_holder_flexbox, spinner_div, direct_follower_holder);
-            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/followers`, {
+            const fetched_data_raw = await fetch(`${props.user_profile_viewing}/${props.current_user}/followersBox`, {
                 method: 'get',
                 headers: {
                     authorization: localStorage.getItem('accessToken')

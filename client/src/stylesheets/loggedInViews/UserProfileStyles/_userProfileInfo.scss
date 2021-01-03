@@ -187,6 +187,11 @@
     cursor: auto;
     display: none;
 
+    .followUserButtonBoxes {
+        background-color:#0095f6 !important;
+        color: white;
+    }
+
     .following_followers {
 
         min-height: 400px;
