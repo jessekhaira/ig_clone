@@ -1,0 +1,9 @@
+@import './homePagePosts.scss';
+@import './homePageStories.scss';
+@import './suggestionsForYou.scss'; 
+
+#home_page_div {
+    @include flexbox-center();
+    min-height: 90vh;
+    height: auto;
+}
