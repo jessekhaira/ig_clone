@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {HomePagePosts} from './HomePagePosts';
+import {SuggestionsForYouHomePage} from './SuggestionsForYou';
 
 /**
  * This class represents a React Component that renders the template for
@@ -14,7 +15,8 @@ class HomePage extends React.Component{
     render() {
         return(
             <div id = "home_page_div">
-                <h1>Home Page not implemented yet. Try again later?</h1>
+                <HomePagePosts />
+                <SuggestionsForYouHomePage /> 
             </div>
         )
     }
