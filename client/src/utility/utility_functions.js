@@ -20,6 +20,38 @@ export function infiniteScroll() {
     }
 }
 
+export function createPostOptionsDiv() {
+    function createlikeCommentAndDMIcon() {
+        const holder_div = document.createElement('div');
+        holder_div.classList.add('likeCommentDMFlexboxContainer'); 
+        const heart_icon = document.createElement('i');
+        heart_icon.classList.add('fa-heart');
+
+        const comment_icon = document.createElement('i');
+        comment_icon.classList.add('fa-comment');
+
+        const dm_icon = document.createElement('i');
+        dm_icon.classList.add('fa-paper-plane');
+
+        for (const icon of [heart_icon, comment_icon, dm_icon]) {
+            icon.classList.add('far');
+            holder_div.appendChild(icon);
+        }
+        return holder_div;
+    }
+
+    function createSavedIcon() {
+        const saved_container = document.createElement('div');
+        const saved_icon = document.createElement('i');
+        saved_icon.classList.add('far');
+        saved_icon.classList.add('fa-bookmark');
+        saved_container.appendChild(saved_icon);
+        return saved_container;
+    }
+    return [createlikeCommentAndDMIcon(), createSavedIcon()];
+
+}
+
 export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_classname, spinner_dot_classname, num_dots = 6) {
     const spinner_holder = document.createElement('div');
     spinner_holder.classList.add('sk-chase');

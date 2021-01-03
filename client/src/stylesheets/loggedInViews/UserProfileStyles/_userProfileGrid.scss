@@ -228,14 +228,14 @@
         }
     }
 
-    #commentIconsFlexboxContainer {
+    .commentIconsFlexboxContainer {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 35px;
     }
 
-    #likeCommentDMFlexboxContainer {
+    .likeCommentDMFlexboxContainer {
         display: flex;
         justify-content: flex-start;
         align-items: center;

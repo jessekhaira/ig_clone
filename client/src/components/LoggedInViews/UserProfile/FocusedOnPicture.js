@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, createPostOptionsDiv} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 
 
@@ -13,7 +13,21 @@ function FocusedOnImage (props) {
             setDisplay(['flex', 'none'], document.getElementById('delete_image'), document.getElementById('report_image')); 
 
         }
-    })
+    });
+
+    useEffect(() => {
+        const commentIconsFlexboxContainer = document.getElementsByClassName('commentIconsFlexboxContainer')[0];
+        commentIconsFlexboxContainer.textContent = ''; 
+        const [likeCommentIcons, savedIcon] = createPostOptionsDiv();
+        for(let i=0; i<likeCommentIcons.children.length; i++) {
+            likeCommentIcons.children[i].classList.add('focus_icons');
+        }
+        savedIcon.children[0].classList.add('focus_icons');
+        commentIconsFlexboxContainer.appendChild(likeCommentIcons);
+        commentIconsFlexboxContainer.appendChild(savedIcon); 
+    });
+
+
     function togglePictureOptions(e) {
         e.stopPropagation();
         const pictureOptionsHolder = document.getElementById('focusedPictureOptions');
@@ -73,15 +87,7 @@ function FocusedOnImage (props) {
                     </div>
 
                     <div id = 'like_add_comment_div'>
-                        <div id = 'commentIconsFlexboxContainer'>
-                            <div id = 'likeCommentDMFlexboxContainer'>
-                                <i id = 'heart_focus' className = 'far fa-heart focus_icons'></i>
-                                <i id = 'comment_focus' className = 'far fa-comment focus_icons'></i>
-                                <i id = 'dm_focus' className = 'far fa-paper-plane focus_icons'></i>
-                            </div>
-                            <div id = 'savedFlexboxContainer'>
-                                <i id = 'saved_focus' className = 'focus_icons far fa-bookmark'></i>
-                            </div>
+                        <div className = 'commentIconsFlexboxContainer'>
                         </div>
                         <div id = 'usersWhoLikedBox'>
                             <p>Liked by</p>

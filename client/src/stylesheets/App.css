@@ -335,12 +335,37 @@ html {
   min-height: 90vh;
 }
 
+#home_page_stories_top_holder {
+  width: 100%;
+  height: 118px;
+  background-color: black;
+  margin-top: 90px;
+}
+
+#suggestions_for_you_top_holder {
+  width: 293px;
+  min-height: 50vh;
+  background-color: white;
+  align-self: flex-start;
+}
+
 #home_page_div {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 90vh;
   height: auto;
+}
+
+#posts_stories_holder {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 90vh;
+  width: 100%;
+  max-width: 614px;
+  background-color: white;
+  margin-right: 28px;
 }
 
 #DMInbox_div {
@@ -944,13 +969,13 @@ html {
   font-weight: 600;
   text-overflow: ellipsis;
 }
-#focused_container #commentIconsFlexboxContainer {
+#focused_container .commentIconsFlexboxContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 35px;
 }
-#focused_container #likeCommentDMFlexboxContainer {
+#focused_container .likeCommentDMFlexboxContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
