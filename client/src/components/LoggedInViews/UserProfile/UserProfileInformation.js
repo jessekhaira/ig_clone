@@ -314,6 +314,7 @@ function UserProfileInformation (props) {
         <div id = "user_profile_info_container">
             <div id = "profile_page_profpic_divcontainer">
                 <img id = "profile_page_profpic"></img>
+                <div className = 'overlay_div_blackout userpg_profpic_blackout'></div>
             </div>
             <div id = "profile_info_directparentdiv">
                 <div id = "name_options_divcontainer">

@@ -46,6 +46,12 @@ html {
   display: none;
 }
 
+.userpg_profpic_blackout {
+  right:0;
+  top:0;
+  border-radius: 50%;
+}
+
 
 // loader animation -- used for many elements so included in globals
 .sk-chase {
