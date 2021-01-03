@@ -244,8 +244,8 @@ router.put('/follow/:follow_user', async (req,res,next) => {
             user_loggedin.following.push(user_to_follow);  
             user_to_follow.followers.push(user_loggedin); 
         }
-        // await user_loggedin.save();
-        // await user_to_follow.save(); 
+        await user_loggedin.save();
+        await user_to_follow.save(); 
         return res.status(200).json({'Success': 'Success'});
     }
     catch(err) {

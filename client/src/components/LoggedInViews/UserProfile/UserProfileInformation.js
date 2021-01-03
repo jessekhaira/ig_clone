@@ -280,15 +280,25 @@ function UserProfileInformation (props) {
             if ("UnauthorizedUser" in unfollowStatus) {
                 throw Error('UnauthorizedUser');
             }
+
+            // we want to increment and decrement following count only if the user is following and unfollowing users
+            // from their own homepage -- not following or unfollowing users from others pages -> why theres an if statement
+            // nested inside here
             if (curr_following) {
                 descr_div.innerHTML = 'Follow';
-                button.classList.add('followUserButtonBoxes');
-                const num_following = Number(document.getElementById('following_count').innerHTML);
-                document.getElementById('following_count').innerHTML = (num_following === 0 ? 0: num_following-1);
+                button.classList.add('followUserButtonBoxes');                
+                if (user_profile_viewing === props.current_user) {
+                    const num_following = Number(document.getElementById('following_count').innerHTML);
+                    document.getElementById('following_count').innerHTML = (num_following === 0 ? 0: num_following-1);
+                }
             }
             else {
                 descr_div.innerHTML = 'Following';
                 button.classList.remove('followUserButtonBoxes');
+                if (user_profile_viewing === props.current_user) {
+                    const num_following = Number(document.getElementById('following_count').innerHTML);
+                    document.getElementById('following_count').innerHTML = num_following+1; 
+                }
             }
             button.addEventListener('click', clickHandlerBoxButtons); 
             setDisplay(['inline'], descr_div);
