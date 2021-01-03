@@ -78,7 +78,6 @@ function FocusedOnImage (props) {
                                 <div id = 'report_image' className = 'optionsFocusedOnPicture'>Report Post</div>
                                 <div id = 'delete_image' className = 'optionsFocusedOnPicture' onClick = {deleteImage}>Delete Picture</div>
                                 <div id = 'cancel_options_image' className = 'optionsFocusedOnPicture' onClick = {props.cancelPictureOptions}>Cancel</div>
-
                             </div>
                         </div>
                     </div>
