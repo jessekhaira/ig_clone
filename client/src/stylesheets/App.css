@@ -552,6 +552,11 @@ html {
   justify-content: space-around;
   align-items: center;
 }
+.container_following_followers .followerfollowing_curr_user button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .container_following_followers .img_followingfollower {
   width: 35px;
   height: 35px;

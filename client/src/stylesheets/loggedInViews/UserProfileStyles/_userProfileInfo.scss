@@ -224,6 +224,10 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+
+        button {
+            @include flexbox-center();
+        }
     }
 
     .img_followingfollower {

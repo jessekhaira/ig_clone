@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
 import {FollowBox} from './FollowBox';
 import {FollowingBox} from './FollowingBox';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
+import {checkTokenExpirationMiddleware, createSpinnersProgrammatically,_authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 
 function UserProfileInformation (props) {
     const history = useHistory(); 
@@ -136,15 +136,13 @@ function UserProfileInformation (props) {
 
     async function followUser() {
         const spinner_div = document.getElementById('spinner_div_follow');
-        const current_user = props.current_user; 
-        const following_user = history.location.pathname.split('/')[1];
         const paragraph_description = document.getElementById('follow_descr');
         const profile_icon_follow = document.getElementById('follow_icon_profile');
         const checkmark_icon_follow = document.getElementById('follow_icon_checkmark');
         try {
             setDisplay(['none', 'block', 'none', 'none'], paragraph_description, spinner_div, profile_icon_follow, checkmark_icon_follow); 
             await checkTokenExpirationMiddleware(); 
-            const follow_status_raw = await fetch(`/${current_user}/follow/${following_user}`, {
+            const follow_status_raw = await fetch(`/${props.current_user}/follow/${user_profile_viewing}`, {
                 method: 'PUT',
                 headers: {
                     authorization: localStorage.getItem('accessToken')
@@ -216,12 +214,18 @@ function UserProfileInformation (props) {
         function createFollowButton() {
             const button = document.createElement('button');
             button.classList.add('followerfollowing_userrelationship');
+            const spinner = createSpinnersProgrammatically('boxButtonSpinner', 'sk-chase-follow', 'sk-chase-dot-follow');
+            const descr_paragraph = document.createElement('p');
+            descr_paragraph.style.display = 'inline';
+            button.appendChild(descr_paragraph);
+            button.appendChild(spinner); 
+            button.addEventListener('click', clickHandlerBoxButtons); 
             if (user.curr_user_following_this_user === true) {
-                button.innerHTML = 'Following';
+                button.children[0].innerHTML = 'Following';
                 button.classList.remove('followUserButtonBoxes');
             }
             else {
-                button.innerHTML = 'Follow';
+                button.children[0].innerHTML = 'Follow'; 
                 button.classList.add('followUserButtonBoxes');
             }
             return button; 
@@ -239,12 +243,53 @@ function UserProfileInformation (props) {
         return userFF_node; 
     }
 
-    function unFollowUserBoxButton(e) {
-        
+    async function clickHandlerBoxButtons(e) {
+        const button = e.target.closest('.followerfollowing_userrelationship');
+        const spinner_div = button.children[1];
+        const descr_div = button.children[0]; 
+        if (descr_div.innerHTML === 'Following') {
+            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, true);
+        }
+        else {
+            followUnfollowBoxButtonRequest(button, spinner_div, descr_div, false);
+        }
     }
 
-    function followUserBoxButton(e) {
+    async function followUnfollowBoxButtonRequest(button, spinner_div, descr_div, curr_following) {
+        try {
+            setDisplay(['block', 'none'], spinner_div, descr_div);
+            button.removeEventListener('click', clickHandlerBoxButtons);
+            const unfollowStatusRaw = await fetch(`/${props.current_user}/follow/${user_profile_viewing}`, {
+                method: 'PUT',
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                }
+            }); 
+            const unfollowStatus = await unfollowStatusRaw.json();
 
+            if ("UnauthorizedUser" in unfollowStatus) {
+                throw Error('UnauthorizedUser');
+            }
+            if (curr_following) {
+                descr_div.innerHTML = 'Follow';
+                button.classList.add('followUserButtonBoxes');
+            }
+            else {
+                descr_div.innerHTML = 'Following';
+                button.classList.remove('followUserButtonBoxes');
+            }
+            button.addEventListener('click', clickHandlerBoxButtons); 
+            setDisplay(['inline'], descr_div);
+        }
+        catch(err) {
+            err = String(err);
+            if(err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut();
+            }
+        }
+        finally {
+            setDisplay(['none'], spinner_div);
+        }
     }
 
     function cancelFocusFollowersFollowing(e) {

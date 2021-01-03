@@ -20,6 +20,24 @@ export function infiniteScroll() {
     }
 }
 
+export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_classname, spinner_dot_classname, num_dots = 6) {
+    const spinner_holder = document.createElement('div');
+    spinner_holder.classList.add('sk-chase');
+    spinner_holder.classList.add(spinner_holder_classname);
+    spinner_holder.id = spinner_holder_id; 
+
+    function createSpinnerDot(){
+        const spinner_dot = document.createElement('div');
+        spinner_dot.classList.add('sk-chase-dot');
+        spinner_dot.classList.add(spinner_dot_classname);
+        return spinner_dot;
+    }
+    for (let i =0; i<num_dots; i++) {
+        spinner_holder.appendChild(createSpinnerDot());
+    }
+    return spinner_holder; 
+}
+
 export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
     [...document.getElementsByClassName('overlay_div_blackout')].map((x) => {
         x.style.display ='block'; 
