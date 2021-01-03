@@ -212,6 +212,9 @@ function UserProfileInformation (props) {
         }
 
         function createFollowButton() {
+            // edge case -- logged in user should not have button available to follow themselves 
+            // prevent button from being shown in case logged in user has same name as the users
+            // whose profile is being viewed
             const button = document.createElement('button');
             button.classList.add('followerfollowing_userrelationship');
             const spinner = createSpinnersProgrammatically('boxButtonSpinner', 'sk-chase-follow', 'sk-chase-dot-follow');
@@ -227,6 +230,11 @@ function UserProfileInformation (props) {
             else {
                 button.children[0].innerHTML = 'Follow'; 
                 button.classList.add('followUserButtonBoxes');
+            }
+
+            if (props.current_user === user.username) {
+                button.style.visibility = 'hidden';
+                button.style.pointerEvents = 'none'; 
             }
             return button; 
         }
