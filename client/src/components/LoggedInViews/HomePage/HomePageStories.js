@@ -3,20 +3,20 @@ import React from 'react';
 
 /**
  * This function represents a React component that renders the section of the homepage 
- * responsible for loading in the posts for a given user. 
+ * responsible for loading in user stories 
  * @class @public 
  */
-class HomePagePosts extends React.Component{
+class HomePageStories extends React.Component{
     constructor(props) {
         super(props); 
     }
 
     render() {
         return(
-            <div id = 'home_page_posts_top_holder'>
+            <div id = 'home_page_stories_top_holder'>
             </div>
         )
     }
 }
 
-export {HomePagePosts}; 
+export {HomePageStories}; 
