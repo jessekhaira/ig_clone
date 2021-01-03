@@ -6,7 +6,7 @@ import {NavBar} from './NavBar/NavBar';
 import {connect} from 'react-redux';
 import {mapStateToProps_loggedInComponents,  mapDispatchToProps_loggedInComponents} from '../../redux/react-redux-maps/LoggedInReactRedux';
 import {Explore} from './Explore';
-import {HomePage} from './HomePage'; 
+import {HomePage} from './HomePage/HomePage'; 
 import {DMInbox} from './DMInbox';
 
 class LoggedInViews extends React.Component{
