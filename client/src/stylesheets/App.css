@@ -357,6 +357,13 @@ html {
   min-height: 90vh;
 }
 
+#home_page_posts_plus_spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 #home_page_posts_top_holder .homepage_post {
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 60px;
@@ -465,6 +472,11 @@ html {
   outline: 0;
   resize: none;
   margin-left: 10px;
+}
+
+#inf_scroll_homepage {
+  height: 28px;
+  width: 28px;
 }
 
 .post_num_liked {

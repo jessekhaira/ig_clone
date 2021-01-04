@@ -1,5 +1,9 @@
-#home_page_posts_top_holder {
 
+#home_page_posts_plus_spinner {
+    @include flexbox-center();
+    flex-direction: column;
+}
+#home_page_posts_top_holder {
     .homepage_post {
         border: 1px solid rgba(0,0,0,0.2);
         margin-bottom: 60px;
@@ -124,6 +128,11 @@
             margin-left: 10px;
         }
     }
+}
+
+#inf_scroll_homepage {
+    height: 28px;
+    width: 28px;
 }
 
 .post_num_liked {
