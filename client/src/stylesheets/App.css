@@ -339,7 +339,44 @@ html {
   border: 1px solid;
   margin-bottom: 60px;
   width: 100%;
-  height: 900px;
+  max-height: 900px;
+}
+#home_page_posts_top_holder .profile_pic_username_options_holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#home_page_posts_top_holder .profile_pic_username_holder {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  text-overflow: ellipsis;
+}
+#home_page_posts_top_holder .ellipis_post {
+  margin-right: 35px;
+  transform: scale(1.4);
+  cursor: pointer;
+}
+#home_page_posts_top_holder .username_homepage_post {
+  margin-left: 15px;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 455px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+#home_page_posts_top_holder .homepage_post_imageHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 600px;
+  background-color: black;
+  border: 1px solid;
+}
+#home_page_posts_top_holder .homepage_post_img {
+  width: 100%;
+  height: auto;
 }
 
 #home_page_stories_top_holder {
@@ -795,6 +832,13 @@ html {
   cursor: pointer;
 }
 
+.profilePicturePost {
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 #num_comments_post {
   color: white;
   display: inline;
@@ -963,12 +1007,6 @@ html {
   justify-content: space-between;
   align-items: center;
   max-width: 90%;
-}
-#focused_container #info_img_divcontainer .profilePicturePost {
-  margin-left: 5px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
 }
 #focused_container #info_img_divcontainer #usernameFocus {
   margin-left: 8px;

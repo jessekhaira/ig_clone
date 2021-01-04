@@ -4,6 +4,46 @@
         border: 1px solid;
         margin-bottom: 60px;
         width: 100%;
-        height: 900px;
+        max-height: 900px;
+    }
+
+    .profile_pic_username_options_holder {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .profile_pic_username_holder {
+        display: flex;
+        align-items: center;
+        margin-left: 25px;
+        text-overflow: ellipsis;
+    }
+
+    .ellipis_post {
+        margin-right: 35px;
+        transform: scale(1.4);
+        cursor: pointer;
+    }
+
+    .username_homepage_post {
+        margin-left: 15px;
+        font-size: 15px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 455px;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .homepage_post_imageHolder {
+        @include flexbox-center();
+        max-height: 600px;
+        background-color: black;
+        border: 1px solid;
+    }
+    
+    .homepage_post_img {
+        width:100%;
+        height: auto;
     }
 }

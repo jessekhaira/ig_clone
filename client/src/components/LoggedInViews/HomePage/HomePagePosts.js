@@ -11,13 +11,13 @@ function HomePagePosts () {
             <div className = 'homepage_post'>
                 <div className = 'profile_pic_username_options_holder'>
                     <div className = 'profile_pic_username_holder'>
-                        <img className = 'homepage_profile_pic'></img>
-                        <h3 className = 'username_homepage_post'>Batman</h3>
+                        <img className = 'profilePicturePost homepageProfPic'  src = 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255532-stock-illustration-profile-placeholder-male-default-profile.jpg'></img>
+                        <h3 className = 'username_homepage_post'>Batmasdjasdjkasndjksanjdjaskdnjkasnkdjasnkjdaasjdaksdnkjasdkasnkdakdnjaksndaan</h3>
                     </div>
-                    <i className = 'fas fa-ellipsis-h homepage_options'></i>
+                    <i className = 'fas fa-ellipsis-h ellipis_post'></i>
                 </div>
                 <div className = 'homepage_post_imageHolder'>
-                    <img className = 'homepage_post_img'></img>
+                    <img className = 'homepage_post_img' src = 'https://i.pinimg.com/originals/22/2b/8e/222b8e6849b3a3a66c0bb7002b0e4603.jpg'></img>
                 </div>
                 <div className = 'commentIconsFlexboxContainer'>
                 </div>
