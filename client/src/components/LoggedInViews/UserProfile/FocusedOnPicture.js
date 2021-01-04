@@ -68,7 +68,7 @@ function FocusedOnImage (props) {
                 <div id = 'info_img_divcontainer'>
                     <div id = 'profileNamePictureDiv'>
                         <div id = 'profileNamePictureFlexboxFocus'>
-                            <img id = 'profilePictureFocus'></img>
+                            <img id = 'profileFocus' className = 'profilePicturePost'></img>
                             <p id = 'usernameFocus'></p>
                         </div>
                         <div id = 'optionsProfileDiv'>

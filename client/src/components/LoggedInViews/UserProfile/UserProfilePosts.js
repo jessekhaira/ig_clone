@@ -218,7 +218,7 @@ function UserProfilePosts (props) {
             if ('UnauthorizedUser' in img_info_object) {
                 throw Error('UnauthorizedUser'); 
             }
-            insertPhotoIntoDOM(img_info_object.photo_obj, user_profile_viewing); 
+            insertPhotoIntoDOM(img_info_object.photo_obj); 
             document.addEventListener('click', removeFocusOnImage); 
         }
         catch(err){
@@ -235,7 +235,7 @@ function UserProfilePosts (props) {
             lightenBackground(); 
             document.getElementById('focused_container').style.display = 'none'; 
             document.getElementById('photo_focused_on').src = "data:,"
-            document.getElementById('profilePictureFocus').src = "data:,"
+            document.getElementById('profileFocus').src = "data:,"
             document.getElementById('usernameFocus').innerHTML = '';
             document.getElementById('focusedPictureOptions').style.display = 'none';
             document.removeEventListener('click', removeFocusOnImage); 
@@ -258,7 +258,7 @@ function UserProfilePosts (props) {
         document.getElementById('photo_focused_on').setAttribute('id_backend', photo.id); 
         //insert profile pic and username 
         document.getElementById('usernameFocus').innerHTML = `${user_profile_viewing}`;
-        document.getElementById('profilePictureFocus').src = 'data:image/jpeg;base64,' + photo.profile_picture.profile_picture; 
+        document.getElementById('profileFocus').src = 'data:image/jpeg;base64,' + photo.profile_picture.profile_picture; 
         
         //insert date 
         document.getElementById('date_added').innerHTML = photo.created_at; 
