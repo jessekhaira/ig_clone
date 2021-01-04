@@ -228,28 +228,6 @@
         }
     }
 
-    .commentIconsFlexboxContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 35px;
-    }
-
-    .likeCommentDMFlexboxContainer {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 200px;
-        height: 100%;
-        margin-left: 13px;
-    }
-
-    .focus_icons {
-        transform: scale(1.5);
-        margin-right: 15px;
-        cursor: pointer;
-    }
-
     #like_add_comment_div {
         display: flex;
         flex-direction: column;
@@ -303,6 +281,8 @@
     }
 
 }
+
+
 
 
 .sk-chase-infscroll:before {

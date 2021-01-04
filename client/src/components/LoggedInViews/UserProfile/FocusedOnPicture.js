@@ -21,6 +21,8 @@ function FocusedOnImage (props) {
         const [likeCommentIcons, savedIcon] = createPostOptionsDiv();
         for(let i=0; i<likeCommentIcons.children.length; i++) {
             likeCommentIcons.children[i].classList.add('focus_icons');
+            likeCommentIcons.children[i].classList.add('homepage_icons');
+
         }
         savedIcon.children[0].classList.add('focus_icons');
         commentIconsFlexboxContainer.appendChild(likeCommentIcons);

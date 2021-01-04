@@ -52,6 +52,28 @@ html {
   border-radius: 50%;
 }
 
+.likeCommentDMFlexboxContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 200px;
+  height: 100%;
+  margin-left: 13px;
+}
+
+.focus_icons {
+  transform: scale(1.5);
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.commentIconsFlexboxContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+}
+
 .sk-chase {
   display: none;
   width: 18px;
@@ -365,6 +387,8 @@ html {
   max-width: 455px;
   white-space: nowrap;
   cursor: pointer;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 #home_page_posts_top_holder .homepage_post_imageHolder {
   display: flex;
@@ -377,6 +401,55 @@ html {
 #home_page_posts_top_holder .homepage_post_img {
   width: 100%;
   height: auto;
+}
+#home_page_posts_top_holder .homepage_post_options {
+  margin-left: 15px;
+}
+#home_page_posts_top_holder .likesHomepageHolder p {
+  display: inline;
+}
+#home_page_posts_top_holder .iconsHomePageContainer {
+  height: 100px;
+}
+#home_page_posts_top_holder .homepage_main_icon_holder {
+  margin-left: 0px;
+}
+#home_page_posts_top_holder .username_caption_holder {
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+#home_page_posts_top_holder .username_caption_holder .username_for_caption {
+  margin-left: 0px;
+  font-weight: 600;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#home_page_posts_top_holder .username_caption_holder .caption_homepage_post {
+  display: inline;
+  margin-left: 3px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#home_page_posts_top_holder .comment_holder {
+  margin-top: 5px;
+}
+#home_page_posts_top_holder .comment_holder p {
+  display: inline;
+  color: #8e8e8e;
+  font-weight: 400;
+  font-size: 14px;
+}
+#home_page_posts_top_holder .comment_holder .num_comments_homepagepost {
+  margin-left: 3px;
+}
+
+.post_num_liked {
+  margin-left: 3px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #home_page_stories_top_holder {
@@ -1014,25 +1087,6 @@ html {
   overflow: hidden;
   font-weight: 600;
   text-overflow: ellipsis;
-}
-#focused_container .commentIconsFlexboxContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 35px;
-}
-#focused_container .likeCommentDMFlexboxContainer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 200px;
-  height: 100%;
-  margin-left: 13px;
-}
-#focused_container .focus_icons {
-  transform: scale(1.5);
-  margin-right: 15px;
-  cursor: pointer;
 }
 #focused_container #like_add_comment_div {
   display: flex;

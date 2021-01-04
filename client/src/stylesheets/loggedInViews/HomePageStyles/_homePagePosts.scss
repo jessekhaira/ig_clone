@@ -33,17 +33,77 @@
         max-width: 455px;
         white-space: nowrap;
         cursor: pointer;
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
-
     .homepage_post_imageHolder {
         @include flexbox-center();
         max-height: 600px;
         background-color: black;
         border: 1px solid;
     }
-    
+
     .homepage_post_img {
         width:100%;
         height: auto;
     }
+
+    .homepage_post_options {
+        margin-left: 15px;
+    }
+
+    .likesHomepageHolder {
+        p {
+            display: inline;
+        }
+    }
+
+    .iconsHomePageContainer {
+        height: 100px;
+    }
+
+    .homepage_main_icon_holder {
+        margin-left: 0px;
+    }
+
+    .username_caption_holder {
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+        .username_for_caption {
+            margin-left: 0px;
+            font-weight: 600;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .caption_homepage_post {
+            display: inline;
+            margin-left: 3px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+    }
+
+    .comment_holder {
+        margin-top: 5px;
+        p {
+            display: inline;
+            color: #8e8e8e;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .num_comments_homepagepost {
+            margin-left: 3px;
+        }
+    }
+}
+
+.post_num_liked {
+    margin-left: 3px;
+    font-weight: bold;
+    cursor: pointer;
 }

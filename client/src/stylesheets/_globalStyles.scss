@@ -52,6 +52,29 @@ html {
   border-radius: 50%;
 }
 
+.likeCommentDMFlexboxContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 200px;
+  height: 100%;
+  margin-left: 13px;
+}
+
+.focus_icons {
+  transform: scale(1.5);
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.commentIconsFlexboxContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+}
+
+
 
 // loader animation -- used for many elements so included in globals
 .sk-chase {
