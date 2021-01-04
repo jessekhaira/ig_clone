@@ -21,10 +21,25 @@ function HomePagePosts () {
         commentIconsFlexboxContainer.appendChild(savedIcon); 
     });
 
+    useEffect(() => {
+        try {
+        }
+        catch(err) {
+
+        }
+    })
 
     return(
         <div id = 'home_page_posts_plus_spinner'>
             <div id = 'home_page_posts_top_holder'>
+                <div id = 'main_post_spinner' className="sk-chase">
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                    <div className="sk-chase-dot sk-chase-infscroll"></div>
+                </div>
                 <div className = 'homepage_post'>
                     <div className = 'profile_pic_username_options_holder'>
                         <div className = 'profile_pic_username_holder'>

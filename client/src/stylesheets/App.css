@@ -364,6 +364,11 @@ html {
   flex-direction: column;
 }
 
+#main_post_spinner {
+  height: 45px;
+  width: 45px;
+}
+
 #home_page_posts_top_holder .homepage_post {
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 60px;
