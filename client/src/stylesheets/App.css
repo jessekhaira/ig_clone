@@ -358,7 +358,7 @@ html {
 }
 
 #home_page_posts_top_holder .homepage_post {
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 60px;
   width: 100%;
   max-height: 900px;
@@ -367,11 +367,11 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px;
 }
 #home_page_posts_top_holder .profile_pic_username_holder {
   display: flex;
   align-items: center;
-  margin-left: 25px;
   text-overflow: ellipsis;
 }
 #home_page_posts_top_holder .ellipis_post {
@@ -444,6 +444,27 @@ html {
 }
 #home_page_posts_top_holder .comment_holder .num_comments_homepagepost {
   margin-left: 3px;
+}
+#home_page_posts_top_holder .add_comment_holder {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  margin-left: 0px;
+}
+#home_page_posts_top_holder .add_comment_holder p {
+  margin-right: 15px;
+  color: #0095f6;
+  font-size: 13px;
+  font-weight: 600;
+}
+#home_page_posts_top_holder .add_comment_holder textarea {
+  width: 80%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  padding-top: 15px;
+  border: none;
+  outline: 0;
+  resize: none;
+  margin-left: 10px;
 }
 
 .post_num_liked {

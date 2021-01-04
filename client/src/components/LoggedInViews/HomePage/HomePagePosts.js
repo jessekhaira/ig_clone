@@ -42,17 +42,17 @@ function HomePagePosts () {
                     </div>
                     <div className = 'username_caption_holder'>
                         <p className = 'username_homepage_post username_for_caption'>Batmandksajkdaasdksandksamkdaskdasksajkdakjdsjdaskndkasdaskjdnaskjdnkjasndkjas</p>
-                        <p className = 'caption_homepage_post'>Awesome capiton!!</p>
+                        <p className = 'caption_homepage_post'></p>
                     </div>
                     <div className = 'comment_holder'>
                         <p>View all</p>
                         <p className = 'num_comments_homepagepost'>1000 comments</p>
                     </div>
                     <p className = 'date_posted'></p>
-                    <div className = 'add_comment_holder'>
-                        <textarea className = 'homepage_textarea'></textarea>
+                </div>
+                <div className = 'add_comment_holder'>
+                        <textarea className = 'homepage_textarea' placeholder = 'Add a comment...'></textarea>
                         <p>Post</p>
-                    </div>
                 </div>
             </div>
         </div>
