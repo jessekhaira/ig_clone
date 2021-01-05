@@ -381,12 +381,15 @@ html {
   margin-bottom: 60px;
   width: 100%;
   max-height: 900px;
+  z-index: 3;
+  background-color: white;
 }
 #home_page_posts_top_holder .profile_pic_username_options_holder {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 #home_page_posts_top_holder .profile_pic_username_holder {
   display: flex;
@@ -417,8 +420,8 @@ html {
   background-color: black;
 }
 #home_page_posts_top_holder .homepage_post_img {
-  display: inline-block;
   width: 100%;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
   height: auto;
 }
 #home_page_posts_top_holder .homepage_post_options {
@@ -538,7 +541,6 @@ html {
   min-height: 90vh;
   width: 100%;
   max-width: 614px;
-  background-color: white;
   margin-right: 28px;
 }
 
