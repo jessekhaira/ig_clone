@@ -65,7 +65,9 @@ class LoggedInViews extends React.Component{
 
 
             <Route path = '/' render = {(props) => (
-              <HomePage /> 
+              <HomePage 
+                current_user = {this.props.current_user}
+              /> 
             )} /> 
 
           </Switch>

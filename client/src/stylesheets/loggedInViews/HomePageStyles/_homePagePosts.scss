@@ -4,12 +4,16 @@
     flex-direction: column;
 }
 
-#main_post_spinner {
-    height: 45px;
-    width: 45px;
-}
 
 #home_page_posts_top_holder {
+    @include flexbox-center();
+    flex-direction: column;
+    #main_post_spinner {
+        height: 45px;
+        width: 45px;
+        align-self: center;
+        justify-self: flex-start;
+    }
     .homepage_post {
         border: 1px solid rgba(0,0,0,0.2);
         margin-bottom: 60px;
@@ -50,21 +54,30 @@
         @include flexbox-center();
         max-height: 600px;
         background-color: black;
-        border: 1px solid;
     }
 
     .homepage_post_img {
+        display: inline-block;
         width:100%;
         height: auto;
     }
 
     .homepage_post_options {
         margin-left: 15px;
+        margin-top: 5px;
     }
 
     .likesHomepageHolder {
         p {
             display: inline;
+            font-size: 14px;
+        }
+
+        .post_num_liked {
+            margin-left: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
         }
     }
 
@@ -108,7 +121,15 @@
 
         .num_comments_homepagepost {
             margin-left: 3px;
+            cursor: pointer;
         }
+    }
+
+    .date_posted {
+        margin-top: 5px;
+        margin-bottom: 8px;
+        font-size: 11px;
+        color: #8e8e8e;
     }
 
     .add_comment_holder {
@@ -122,6 +143,7 @@
             color: #0095f6;
             font-size: 13px;
             font-weight: 600;
+            cursor: pointer;
         }
 
         textarea {
@@ -139,10 +161,4 @@
 #inf_scroll_homepage {
     height: 28px;
     width: 28px;
-}
-
-.post_num_liked {
-    margin-left: 3px;
-    font-weight: bold;
-    cursor: pointer;
 }

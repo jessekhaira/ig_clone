@@ -364,11 +364,18 @@ html {
   flex-direction: column;
 }
 
-#main_post_spinner {
+#home_page_posts_top_holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#home_page_posts_top_holder #main_post_spinner {
   height: 45px;
   width: 45px;
+  align-self: center;
+  justify-self: flex-start;
 }
-
 #home_page_posts_top_holder .homepage_post {
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 60px;
@@ -408,17 +415,25 @@ html {
   align-items: center;
   max-height: 600px;
   background-color: black;
-  border: 1px solid;
 }
 #home_page_posts_top_holder .homepage_post_img {
+  display: inline-block;
   width: 100%;
   height: auto;
 }
 #home_page_posts_top_holder .homepage_post_options {
   margin-left: 15px;
+  margin-top: 5px;
 }
 #home_page_posts_top_holder .likesHomepageHolder p {
   display: inline;
+  font-size: 14px;
+}
+#home_page_posts_top_holder .likesHomepageHolder .post_num_liked {
+  margin-left: 3px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
 }
 #home_page_posts_top_holder .iconsHomePageContainer {
   height: 100px;
@@ -456,6 +471,13 @@ html {
 }
 #home_page_posts_top_holder .comment_holder .num_comments_homepagepost {
   margin-left: 3px;
+  cursor: pointer;
+}
+#home_page_posts_top_holder .date_posted {
+  margin-top: 5px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #8e8e8e;
 }
 #home_page_posts_top_holder .add_comment_holder {
   display: flex;
@@ -468,6 +490,7 @@ html {
   color: #0095f6;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
 }
 #home_page_posts_top_holder .add_comment_holder textarea {
   width: 80%;
@@ -482,12 +505,6 @@ html {
 #inf_scroll_homepage {
   height: 28px;
   width: 28px;
-}
-
-.post_num_liked {
-  margin-left: 3px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 #home_page_stories_top_holder {

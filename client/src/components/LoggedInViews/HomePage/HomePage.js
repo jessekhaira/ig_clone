@@ -17,7 +17,9 @@ class HomePage extends React.Component{
             <div id = "home_page_div">
                 <div id = 'posts_stories_holder'>
                     <HomePageStories /> 
-                    <HomePagePosts />
+                    <HomePagePosts
+                        current_user = {this.props.current_user}
+                    />
                 </div>
                 <SuggestionsForYouHomePage /> 
             </div>
