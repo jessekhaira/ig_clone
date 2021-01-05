@@ -401,6 +401,9 @@ html {
   transform: scale(1.4);
   cursor: pointer;
 }
+#home_page_posts_top_holder #no_posts_found_homepage {
+  display: none;
+}
 #home_page_posts_top_holder .username_homepage_post {
   margin-left: 15px;
   font-size: 15px;

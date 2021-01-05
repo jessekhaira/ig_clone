@@ -39,11 +39,17 @@ function HomePagePosts (props) {
      * every post using a helper function, and then insert the nodes into the DOM appropriately. 
      */
     function fillInPosts(homePagePostsObjects) {
-        homePagePostsObjects = makePracObjects();
-        const homePagePostHolder = document.getElementById('home_page_posts_top_holder');
-        for (let post of homePagePostsObjects) {
-            const post_DOMNode = createPostNode(post);
-            homePagePostHolder.appendChild(post_DOMNode);
+        if (homePagePostsObjects.length === 0) {
+            document.getElementById('no_posts_found_homepage').style.display = 'block'; 
+        }
+        else {
+            document.getElementById('no_posts_found_homepage').style.display = 'none'; 
+            homePagePostsObjects = makePracObjects();
+            const homePagePostHolder = document.getElementById('home_page_posts_top_holder');
+            for (let post of homePagePostsObjects) {
+                const post_DOMNode = createPostNode(post);
+                homePagePostHolder.appendChild(post_DOMNode);
+            }
         }
     }
 
@@ -223,22 +229,14 @@ function HomePagePosts (props) {
     function makePracObjects() {
 
         const output = [];
-        for (let i=0; i<65; i++) {
+        for (let i=0; i<12; i++) {
             const post_obj = {};
             post_obj['liked_by'] = 200200;
             post_obj['num_comments'] = 35;
             post_obj['prof_pic'] = 'https://i.pinimg.com/originals/22/2b/8e/222b8e6849b3a3a66c0bb7002b0e4603.jpg';
             post_obj['username'] = 'Basjrnasjidnij1n3jin1j2i3n21io3j20193i0912i90dsuj0ivonjdsnvka';
             post_obj['date_posted'] = 'December 23, 2020'
-            if (i < 25) {
-                post_obj['img'] = 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255532-stock-illustration-profile-placeholder-male-default-profile.jpg';
-            }
-            else if (i>25 && i <35){
-                post_obj['img'] = 'https://i.redd.it/1ge3xnq5zfl11.jpg';
-            }
-            else {
-                post_obj['img'] = 'https://apod.nasa.gov/apod/image/9712/orionfull_jcc_big.jpg';
-            }
+            post_obj['img'] = 'https://apod.nasa.gov/apod/image/9712/orionfull_jcc_big.jpg';
             output.push(post_obj);
         }
         return output; 
@@ -254,6 +252,9 @@ function HomePagePosts (props) {
                     <div className="sk-chase-dot sk-chase-infscroll"></div>
                     <div className="sk-chase-dot sk-chase-infscroll"></div>
                     <div className="sk-chase-dot sk-chase-infscroll"></div>
+                </div>
+                <div id = 'no_posts_found_homepage'>
+                    <h3>No posts found!</h3>
                 </div>
             </div>
             <div id = 'inf_scroll_homepage' className="sk-chase">
