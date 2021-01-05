@@ -53,6 +53,13 @@ const userprofile_router = require('./routes/userProfile').userProfileRouter;
  */
 const explore_router = require('./routes/explore').explore_router; 
 
+/**
+ * Express router to mount home page related functions.
+ * @type {object}
+ * @const 
+ */
+const homepage_router = require('./routes/homePage').homepage_router; 
+
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(compression());
@@ -72,6 +79,7 @@ app.use('/accounts/register', register_router);
 app.use('/accounts/refreshToken', refresh_token_router); 
 app.use('/loggedIn/navbar', navbar_router);
 app.use('/explore', explore_router);
+app.use('/homepage', homepage_router); 
 app.use('/:username', userprofile_router);
 
 

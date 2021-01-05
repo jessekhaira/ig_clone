@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, normalizeCounts,createPostOptionsDiv} from '../../../utility/utility_functions';
+import React, { useEffect, useState } from 'react';
+import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, infiniteScroll, setDisplay, normalizeCounts,createPostOptionsDiv} from '../../../utility/utility_functions';
 
 
 /**
@@ -8,39 +8,66 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, 
  */
 function HomePagePosts (props) {
 
+    const [sliceHomePagePostRequesting, setSliceHomePagePostRequesting] = useState(1);
+
+    /**
+     * This effect hook is needed for infinite scrolling -- state updates asynchronously, and the function contained
+     * within this hook will only execute when the sliceHomePagePostRequesting value changes (IE: user scrolls to
+     * bottom of page for pagination, which is done by the document event listener).
+     */
     useEffect(() => {
-
-        async function fetchHomePagePosts() {
-            try {
-                const spinner_div = document.getElementById('main_post_spinner');
-                spinner_div.style.display = 'block';
-
-                const homePagePostsRaw = await fetch(`/homepage/${props.current_user}/1`, {
-                    headers: {
-                        authorization: localStorage.getItem('accessToken')
-                    },
-                    method: 'GET'
-                });
-                const homePagePostsObjects = await homePagePostsRaw.json();
-                console.log(homePagePostsObjects); 
-
-                spinner_div.style.display = 'none';
-                fillInPosts(homePagePostsObjects); 
-            }
-            catch(err) {
-
-            }
+        if (sliceHomePagePostRequesting === 1) {
+            fetchHomePagePosts(document.getElementById('main_post_spinner'), props.current_user);
         }
-        fetchHomePagePosts(); 
-    }, []);
+        else {
+            fetchHomePagePosts(document.getElementById('inf_scroll_homepage'), props.current_user);
+        }
+    }, [sliceHomePagePostRequesting])
+
+
+    async function fetchHomePagePosts(spinner_div, curr_user) {
+        try {
+            spinner_div.style.display = 'block';
+            document.removeEventListener('scroll', infScrollHomePage); 
+            const homePagePostsRaw = await fetch(`/homepage/Batman/${sliceHomePagePostRequesting}`, {
+                headers: {
+                    authorization: localStorage.getItem('accessToken')
+                },
+                method: 'GET'
+            });
+            const homePagePostsObjects = await homePagePostsRaw.json();
+            spinner_div.style.display = 'none';
+            document.addEventListener('scroll', infScrollHomePage); 
+            fillInPosts(homePagePostsObjects); 
+        }
+        catch(err) {
+
+        }
+
+        return () => document.removeEventListener('scroll', infScrollHomePage); 
+    }
+
+
+    async function infScrollHomePage(e) {
+        if (infiniteScroll()) {
+            document.removeEventListener('scroll', infScrollHomePage); 
+            setSliceHomePagePostRequesting(sliceHomePagePostRequesting+1);
+        }
+    }
+
 
     /** 
      * This function accepts an arary of post objects for a given users homepage from the server, will create DOM nodes for
      * every post using a helper function, and then insert the nodes into the DOM appropriately. 
      */
     function fillInPosts(homePagePostsObjects) {
+        // only show no posts found if we receive an array of length 0 and our posts holder has 0 children in it 
         if (homePagePostsObjects.length === 0) {
-            document.getElementById('no_posts_found_homepage').style.display = 'block'; 
+            // no homepage posts found -- remove infinite scrolling 
+            document.removeEventListener('scroll', infScrollHomePage); 
+            if (document.getElementById('home_page_posts_top_holder').children.length === 0) {
+                document.getElementById('no_posts_found_homepage').style.display = 'block'; 
+            }
         }
         else {
             document.getElementById('no_posts_found_homepage').style.display = 'none'; 
@@ -55,7 +82,7 @@ function HomePagePosts (props) {
 
     /** 
      * This function accepts an object representing a post, returned from the server, and will insert the posts contents
-     * into a DOM node and return them appropriately. 
+     * into a singular DOM node (holding multiple children DOM nodes) and return them appropriately. 
      */
     function createPostNode(post) {
         function createProfilePicUsernameOptionsHolder() {
