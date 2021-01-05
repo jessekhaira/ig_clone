@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, infiniteScroll, setDisplay, normalizeCounts,createPostOptionsDiv} from '../../../utility/utility_functions';
+import jwt_decode from 'jwt-decode';
 
 
 /**
@@ -7,7 +8,7 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, infiniteScro
  * responsible for loading in the posts for a given user. 
  */
 function HomePagePosts (props) {
-
+    const curr_user = jwt_decode(localStorage.getItem('accessToken')).username;
     const [sliceHomePagePostRequesting, setSliceHomePagePostRequesting] = useState(1);
 
     /**
@@ -17,19 +18,20 @@ function HomePagePosts (props) {
      */
     useEffect(() => {
         if (sliceHomePagePostRequesting === 1) {
-            fetchHomePagePosts(document.getElementById('main_post_spinner'), props.current_user);
+            fetchHomePagePosts(document.getElementById('main_post_spinner'));
         }
         else {
-            fetchHomePagePosts(document.getElementById('inf_scroll_homepage'), props.current_user);
+            fetchHomePagePosts(document.getElementById('inf_scroll_homepage'));
         }
     }, [sliceHomePagePostRequesting])
 
 
-    async function fetchHomePagePosts(spinner_div, curr_user) {
+    async function fetchHomePagePosts(spinner_div) {
         try {
+            await checkTokenExpirationMiddleware(); 
             spinner_div.style.display = 'block';
             document.removeEventListener('scroll', infScrollHomePage); 
-            const homePagePostsRaw = await fetch(`/homepage/Batman/${sliceHomePagePostRequesting}`, {
+            const homePagePostsRaw = await fetch(`/homepage/${curr_user}/${sliceHomePagePostRequesting}`, {
                 headers: {
                     authorization: localStorage.getItem('accessToken')
                 },

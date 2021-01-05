@@ -2,6 +2,7 @@ import React from 'react';
 import {HomePagePosts} from './HomePagePosts';
 import {HomePageStories} from './HomePageStories';
 import {SuggestionsForYouHomePage} from './SuggestionsForYou';
+import jwt_decode from 'jwt-decode';
 
 /**
  * This class represents a React Component that renders a users home page. 
@@ -21,7 +22,9 @@ class HomePage extends React.Component{
                         current_user = {this.props.current_user}
                     />
                 </div>
-                <SuggestionsForYouHomePage /> 
+                <SuggestionsForYouHomePage 
+                    current_user = {this.props.current_user}
+                /> 
             </div>
         )
     }

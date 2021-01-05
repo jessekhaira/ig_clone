@@ -32,18 +32,30 @@ router.use((req, res, next) => {
     }
 });
 
+/**
+ * This API Endpoint is out of the scope of main project -- just going to return
+ * users own information. But in the future could deploy a machine learning algorithm 
+ * behind this endpoint for link prediction so user recieves really good suggetstions 
+ * for individuals to follow. 
+ */
+router.get('/:userid/suggested', async (req, res, next) => {
+    try {
+        console.log(req.params.userid); 
+    }
+    catch(err) {
+        return next(err); 
+    }
+})
 
 router.get('/:userid/:slicepostsreq', async(req,res,next) => {
     try {
-        console.log(req.params.userid);
-        console.log(req.params.slicepostsreq);
-
         return res.status(200).json({'homePagePosts': true});
     }
     catch(err) {
-        next(err); 
+        return next(err); 
     }
 });
+
 
 // handle all the error handling logic for the /users endpoints 
 // within this middleware function -- nice and organized 

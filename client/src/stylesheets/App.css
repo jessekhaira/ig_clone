@@ -522,7 +522,8 @@ html {
   display: flex;
   overflow-x: auto;
   align-items: center;
-  padding: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 .home_page_story {
@@ -557,6 +558,20 @@ html {
   min-height: 50vh;
   background-color: white;
   align-self: flex-start;
+}
+
+#own_user_info_holder {
+  margin-top: 70px;
+}
+#own_user_info_holder h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+#own_user_info_holder p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
 }
 
 #home_page_div {
