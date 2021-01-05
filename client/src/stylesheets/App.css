@@ -515,11 +515,41 @@ html {
 
 #home_page_stories_top_holder {
   width: 100%;
-  height: 118px;
   background-color: white;
   margin-top: 90px;
   margin-bottom: 24px;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  overflow-x: auto;
+  align-items: center;
+  padding: 15px;
+}
+
+.home_page_story {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+.story_profile_pic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.story_username {
+  font-size: 12px;
+}
+
+.img_wrapper_element {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
 }
 
 #suggestions_for_you_top_holder {
