@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs'); 
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
+const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 require('dotenv').config({path: path.resolve(".env")}); 
 
 /**
@@ -35,12 +36,20 @@ router.use((req, res, next) => {
 /**
  * This API Endpoint is out of the scope of main project -- just going to return
  * users own information. But in the future could deploy a machine learning algorithm 
- * behind this endpoint for link prediction so user recieves really good suggetstions 
- * for individuals to follow. 
+ * behind this endpoint for link prediction, or take a simpler approach to suggest users
+ * to follow for current user. 
  */
-router.get('/:userid/suggested', async (req, res, next) => {
+router.get('/:username/suggested', async (req, res, next) => {
     try {
-        console.log(req.params.userid); 
+        const returned_fields = {username:true, full_name:true, profile_picture:true};
+        const user = await User.findOne({username: req.params.username}, returned_fields);
+        const return_obj = {};
+        return_obj['username'] = user.username;
+        return_obj['full_name'] = user.full_name;
+        return_obj['profile_picture'] = convertBuffer2Base64(user, 'profile_picture');
+        
+        return res.status(200).json({'profile_info': return_obj, 'suggested_users_to_follow':[]}); 
+
     }
     catch(err) {
         return next(err); 

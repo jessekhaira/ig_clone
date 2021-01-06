@@ -560,18 +560,86 @@ html {
   align-self: flex-start;
 }
 
+#prof_pic_suggested {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#username_fullname_suggested_own {
+  margin-left: 20px;
+}
+
 #own_user_info_holder {
-  margin-top: 70px;
+  margin-top: 110px;
+  display: flex;
+  align-items: center;
 }
 #own_user_info_holder h4 {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 180px;
+  margin: 0px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 #own_user_info_holder p {
+  margin: 0px;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 170px;
+}
+
+#suggestions_group_holder {
+  margin-top: 10px;
+}
+#suggestions_group_holder h3 {
+  font-size: 14px;
+  color: #8e8e8e;
+  font-weight: 600;
+}
+#suggestions_group_holder #suggestions_descr_holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#suggestions_group_holder p {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.suggestion_individual_holder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.suggestion_individual_holder .img_suggestion {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.suggestion_individual_holder .username_suggestion_holder {
+  margin-left: 10px;
+}
+.suggestion_individual_holder .username_suggestion_holder p {
+  margin: 0px;
+  font-size: 10px;
+  color: #8e8e8e;
+}
+.suggestion_individual_holder .username_suggestion_holder h5 {
+  margin: 0px;
+  cursor: pointer;
+}
+.suggestion_individual_holder .follow_suggested {
+  margin: 0px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0095f6;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 #home_page_div {
