@@ -25,6 +25,7 @@
     height: 55px;
     border-radius: 50%;
     padding: 3px;
+    z-index: 3;
 }
 
 .story_username {
@@ -36,5 +37,10 @@
     border-radius: 50%;
     width: 55px;
     height: 55px;
+    position: relative;
+    z-index: 1;
 }
+
+
+
 

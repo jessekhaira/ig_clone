@@ -1,8 +1,11 @@
 #suggestions_for_you_top_holder {
     width: 293px;
-    min-height: 50vh;
+    min-height: 250px;
     background-color: white;
     align-self: flex-start;
+    position: fixed;
+    background-color: var(--main-bg-color);
+    margin-left: 690px;
 }
 
 #prof_pic_suggested {
@@ -35,6 +38,10 @@
         text-overflow: ellipsis;
         max-width: 170px;
     }
+
+    .text_suggestions_blue_small {
+        margin-left: auto;
+    }
 }
 
 
@@ -51,6 +58,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
     }
 
     p {
@@ -85,12 +93,13 @@
         }
     }
 
-    .follow_suggested {
-        margin: 0px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #0095f6;
-        cursor: pointer;
-        margin-left: auto;
-    }
+}
+
+.text_suggestions_blue_small {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0095f6;
+    cursor: pointer;
+    margin-left: auto;
 }

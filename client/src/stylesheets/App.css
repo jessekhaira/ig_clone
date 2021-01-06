@@ -540,6 +540,7 @@ html {
   height: 55px;
   border-radius: 50%;
   padding: 3px;
+  z-index: 3;
 }
 
 .story_username {
@@ -551,13 +552,18 @@ html {
   border-radius: 50%;
   width: 55px;
   height: 55px;
+  position: relative;
+  z-index: 1;
 }
 
 #suggestions_for_you_top_holder {
   width: 293px;
-  min-height: 50vh;
+  min-height: 250px;
   background-color: white;
   align-self: flex-start;
+  position: fixed;
+  background-color: var(--main-bg-color);
+  margin-left: 690px;
 }
 
 #prof_pic_suggested {
@@ -590,6 +596,9 @@ html {
   text-overflow: ellipsis;
   max-width: 170px;
 }
+#own_user_info_holder .text_suggestions_blue_small {
+  margin-left: auto;
+}
 
 #suggestions_group_holder {
   margin-top: 10px;
@@ -603,6 +612,7 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 #suggestions_group_holder p {
   font-size: 13px;
@@ -633,7 +643,8 @@ html {
   margin: 0px;
   cursor: pointer;
 }
-.suggestion_individual_holder .follow_suggested {
+
+.text_suggestions_blue_small {
   margin: 0px;
   font-size: 12px;
   font-weight: 600;
@@ -652,12 +663,13 @@ html {
 
 #posts_stories_holder {
   display: flex;
+  position: relative;
+  right: 160px;
   flex-direction: column;
   height: auto;
   min-height: 90vh;
   width: 100%;
   max-width: 614px;
-  margin-right: 28px;
 }
 
 #DMInbox_div {

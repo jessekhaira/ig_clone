@@ -11,10 +11,11 @@
 
 #posts_stories_holder {
     display: flex;
+    position: relative;
+    right: 160px;
     flex-direction: column;
     height: auto;
     min-height: 90vh;
     width: 100%;
     max-width: 614px;
-    margin-right: 28px;
 }

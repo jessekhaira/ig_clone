@@ -55,9 +55,10 @@ function SuggestionsForYouHomePage (props) {
             <div id = 'own_user_info_holder'>
                 <img id = 'prof_pic_suggested'></img>
                 <div id = 'username_fullname_suggested_own'>
-                    <h4 id = 'username_suggested'>Batman123123o2i13j12n3j12n3kj12n3jk21n3kj123kj123k21</h4>
-                    <p id = 'fullname_suggested'>Batman123123o2i13j12n3j12n3kj12n3jk21n3kj123kj123k211232312312321</p>
+                    <h4 id = 'username_suggested'></h4>
+                    <p id = 'fullname_suggested'></p>
                 </div>
+                <p className = "text_suggestions_blue_small">Switch</p>
             </div>
 
             <div id = 'suggestions_group_holder'>
@@ -71,7 +72,7 @@ function SuggestionsForYouHomePage (props) {
                         <h5>Placeholder 1</h5>
                         <p>Suggested for you.</p>
                     </div>
-                    <p className = 'follow_suggested'>Follow</p>
+                    <p className = 'text_suggestions_blue_small'>Follow</p>
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
@@ -80,7 +81,7 @@ function SuggestionsForYouHomePage (props) {
                         <h5>Placeholder 2</h5>
                         <p>Suggested for you.</p>
                     </div>
-                    <p className = 'follow_suggested'>Follow</p>
+                    <p className = 'text_suggestions_blue_small'>Follow</p>
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
@@ -89,7 +90,7 @@ function SuggestionsForYouHomePage (props) {
                         <h5>Placeholder 3</h5>
                         <p>Suggested for you.</p>
                     </div>
-                    <p className = 'follow_suggested'>Follow</p>
+                    <p className = 'text_suggestions_blue_small'>Follow</p>
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
@@ -98,7 +99,7 @@ function SuggestionsForYouHomePage (props) {
                         <h5>Placeholder 4</h5>
                         <p>Suggested for you.</p>
                     </div>
-                    <p className = 'follow_suggested'>Follow</p>
+                    <p className = 'text_suggestions_blue_small'>Follow</p>
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
@@ -107,7 +108,7 @@ function SuggestionsForYouHomePage (props) {
                         <h5>Placeholder 5</h5>
                         <p>Suggested for you.</p>
                     </div>
-                    <p className = 'follow_suggested'>Follow</p>
+                    <p className = 'text_suggestions_blue_small'>Follow</p>
                 </div>
             </div>
         </div>
