@@ -69,7 +69,7 @@ function SuggestionsForYouHomePage (props) {
                 <div className = 'suggestion_individual_holder'>
                     <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
-                        <h5>Placeholder 1</h5>
+                        <h5>Placeholder 12</h5>
                         <p>Suggested for you.</p>
                     </div>
                     <p className = 'text_suggestions_blue_small'>Follow</p>
@@ -78,7 +78,7 @@ function SuggestionsForYouHomePage (props) {
                 <div className = 'suggestion_individual_holder'>
                     <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
-                        <h5>Placeholder 2</h5>
+                        <h5>Placeholder 13</h5>
                         <p>Suggested for you.</p>
                     </div>
                     <p className = 'text_suggestions_blue_small'>Follow</p>
@@ -87,7 +87,7 @@ function SuggestionsForYouHomePage (props) {
                 <div className = 'suggestion_individual_holder'>
                     <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
-                        <h5>Placeholder 3</h5>
+                        <h5>Placeholder 14</h5>
                         <p>Suggested for you.</p>
                     </div>
                     <p className = 'text_suggestions_blue_small'>Follow</p>
@@ -96,7 +96,7 @@ function SuggestionsForYouHomePage (props) {
                 <div className = 'suggestion_individual_holder'>
                     <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
-                        <h5>Placeholder 4</h5>
+                        <h5>Placeholder 15</h5>
                         <p>Suggested for you.</p>
                     </div>
                     <p className = 'text_suggestions_blue_small'>Follow</p>
@@ -105,7 +105,7 @@ function SuggestionsForYouHomePage (props) {
                 <div className = 'suggestion_individual_holder'>
                     <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
-                        <h5>Placeholder 5</h5>
+                        <h5>Placeholder 16</h5>
                         <p>Suggested for you.</p>
                     </div>
                     <p className = 'text_suggestions_blue_small'>Follow</p>
