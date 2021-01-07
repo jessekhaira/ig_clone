@@ -67,7 +67,7 @@ function SuggestionsForYouHomePage (props) {
                     <p>See all</p>
                 </div> 
                 <div className = 'suggestion_individual_holder'>
-                    <img className = 'img_suggestion' src = 'https://lh3.googleusercontent.com/proxy/wabyVXu0CFTL-o76GfEq6j7SGVZowuMMJwMyiQLogU5P-hWZmwYb08uCaokVJG9tcZHIWcvrdnMlX6kfhzbqR-ZjfBNH-plPshQeFJE5IduLBXcx0N9LNeBqOGs0qm4rMs5yGXaHsEYwuR88IEr-blJKEQ6O5K9GxA'></img>
+                    <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
                         <h5>Placeholder 1</h5>
                         <p>Suggested for you.</p>
@@ -76,7 +76,7 @@ function SuggestionsForYouHomePage (props) {
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
-                    <img className = 'img_suggestion' src = 'https://lh3.googleusercontent.com/proxy/wabyVXu0CFTL-o76GfEq6j7SGVZowuMMJwMyiQLogU5P-hWZmwYb08uCaokVJG9tcZHIWcvrdnMlX6kfhzbqR-ZjfBNH-plPshQeFJE5IduLBXcx0N9LNeBqOGs0qm4rMs5yGXaHsEYwuR88IEr-blJKEQ6O5K9GxA'></img>
+                    <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
                         <h5>Placeholder 2</h5>
                         <p>Suggested for you.</p>
@@ -85,7 +85,7 @@ function SuggestionsForYouHomePage (props) {
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
-                    <img className = 'img_suggestion' src = 'https://lh3.googleusercontent.com/proxy/wabyVXu0CFTL-o76GfEq6j7SGVZowuMMJwMyiQLogU5P-hWZmwYb08uCaokVJG9tcZHIWcvrdnMlX6kfhzbqR-ZjfBNH-plPshQeFJE5IduLBXcx0N9LNeBqOGs0qm4rMs5yGXaHsEYwuR88IEr-blJKEQ6O5K9GxA'></img>
+                    <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
                         <h5>Placeholder 3</h5>
                         <p>Suggested for you.</p>
@@ -94,7 +94,7 @@ function SuggestionsForYouHomePage (props) {
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
-                    <img className = 'img_suggestion' src = 'https://lh3.googleusercontent.com/proxy/wabyVXu0CFTL-o76GfEq6j7SGVZowuMMJwMyiQLogU5P-hWZmwYb08uCaokVJG9tcZHIWcvrdnMlX6kfhzbqR-ZjfBNH-plPshQeFJE5IduLBXcx0N9LNeBqOGs0qm4rMs5yGXaHsEYwuR88IEr-blJKEQ6O5K9GxA'></img>
+                    <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
                         <h5>Placeholder 4</h5>
                         <p>Suggested for you.</p>
@@ -103,7 +103,7 @@ function SuggestionsForYouHomePage (props) {
                 </div>
 
                 <div className = 'suggestion_individual_holder'>
-                    <img className = 'img_suggestion' src = 'https://lh3.googleusercontent.com/proxy/wabyVXu0CFTL-o76GfEq6j7SGVZowuMMJwMyiQLogU5P-hWZmwYb08uCaokVJG9tcZHIWcvrdnMlX6kfhzbqR-ZjfBNH-plPshQeFJE5IduLBXcx0N9LNeBqOGs0qm4rMs5yGXaHsEYwuR88IEr-blJKEQ6O5K9GxA'></img>
+                    <img className = 'img_suggestion' src = 'https://www.newotani.co.jp/fileadmin/res/en/tokyo/offers/rosegarden/kv_01.jpg'></img>
                     <div className = 'username_suggestion_holder'>
                         <h5>Placeholder 5</h5>
                         <p>Suggested for you.</p>
