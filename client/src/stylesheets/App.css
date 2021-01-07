@@ -642,6 +642,7 @@ html {
 .suggestion_individual_holder .username_suggestion_holder h5 {
   margin: 0px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .text_suggestions_blue_small {
@@ -2251,6 +2252,22 @@ html {
 
   #posts_stories_holder {
     right: 0px;
+  }
+}
+@media (max-width: 600px) {
+  #home_page_posts_top_holder .username_homepage_post {
+    max-width: 320px;
+  }
+  #home_page_posts_top_holder .homepage_post {
+    border: none;
+    background-color: inherit;
+  }
+  #home_page_posts_top_holder .add_comment_holder {
+    display: none;
+  }
+
+  #home_page_stories_top_holder {
+    margin-top: 60px;
   }
 }
 

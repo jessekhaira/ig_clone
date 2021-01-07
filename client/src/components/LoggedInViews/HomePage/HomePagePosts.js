@@ -161,15 +161,11 @@ function HomePagePosts (props) {
         function createCommentHolder() {
             const commentHolder = document.createElement('div');
             commentHolder.classList.add('comment_holder');
-
-            const descr_p = document.createElement('p');
-            descr_p.innerHTML = 'Liked by';
             
             const num_comments = document.createElement('p');
             num_comments.classList.add('num_comments_homepagepost');
-            num_comments.innerHTML = `${normalizeCounts(post.num_comments)} comments`;
+            num_comments.innerHTML = `View all ${normalizeCounts(post.num_comments)} comments`;
 
-            commentHolder.appendChild(descr_p);
             commentHolder.appendChild(num_comments);
             return commentHolder;
         }

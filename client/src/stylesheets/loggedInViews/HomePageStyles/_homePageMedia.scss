@@ -8,3 +8,25 @@
     }
 
 }
+
+@media (max-width: 600px) {
+
+    #home_page_posts_top_holder {
+        .username_homepage_post {
+            max-width: 320px;
+        }
+
+        .homepage_post {
+            border: none;
+            background-color: inherit;
+        }
+        
+        .add_comment_holder {
+            display: none;
+        }
+    }
+
+    #home_page_stories_top_holder {
+        margin-top: 60px;
+    }
+}
