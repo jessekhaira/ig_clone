@@ -2244,5 +2244,14 @@ html {
     max-height: none;
   }
 }
+@media (max-width: 1000px) {
+  #suggestions_for_you_top_holder {
+    display: none;
+  }
+
+  #posts_stories_holder {
+    right: 0px;
+  }
+}
 
 /*# sourceMappingURL=App.css.map */
