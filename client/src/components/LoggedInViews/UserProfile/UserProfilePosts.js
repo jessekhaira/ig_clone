@@ -122,6 +122,9 @@ function UserProfilePosts (props) {
         }
     }
 
+    /** Utility function called by the createPhotos function to create DOM nodes for all the
+     * photos in the returned object from the served. 
+     */
     function createSinglePhotoContainer(photo) {
         function createGridPhotoInfoDiv() {
             const info_photo = document.createElement('div');
