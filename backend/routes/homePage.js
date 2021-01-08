@@ -1,6 +1,7 @@
 const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
+const Photos = require('../models/photos').photosModel; 
 const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
 const fs = require('fs'); 
@@ -56,9 +57,33 @@ router.get('/:username/suggested', async (req, res, next) => {
     }
 })
 
+/** This endpoint was mostly out of the scope of the project -- IG's algorithm for returning home page posts
+ * is quite advanced, but this represents a basic algorithm that fetches the 12 most recent posts for a user
+ * including their followers. 
+ */
 router.get('/:userid/:slicepostsreq', async(req,res,next) => {
     try {
-        return res.status(200).json({'homePagePosts': true});
+        const returned_fields = {photos:true, following:true, profile_picture: true};
+        const user_logged_in = await User.findOne({username:req.params.userid}, returned_fields)
+                                         .populate({path:'following', model:'User', populate: {path: 'photos', model: 'photos', options: { sort: { 'created_at': -1 }}}})
+                                         .populate({path:'photos', model: 'photos', options: { sort: { 'created_at': -1 }}});
+        
+        const homepage_posts = [];
+        const photo_obj = {}; 
+        photo_obj['liked_by'] = user_logged_in.photos[0].likes.length;
+        photo_obj['num_comments'] = user_logged_in.photos[0].comments.length;
+        photo_obj['prof_pic'] = (convertBuffer2Base64(user_logged_in, 'profile_picture')).profile_picture;
+        photo_obj['username'] = req.params.userid;
+        const dateObj = user_logged_in.photos[0]['created_at']; 
+        const month = dateObj.getUTCMonth() + 1; 
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        photo_obj['date_posted'] = day + '/' + month + '/' + year;
+        photo_obj['img'] = convertBuffer2Base64(user_logged_in.photos[0], 'data_photo');
+        photo_obj['img'] = photo_obj['img'].data_photo;
+        homepage_posts.push(photo_obj);
+        return res.status(200).json({homepage_posts: homepage_posts});
+
     }
     catch(err) {
         return next(err); 

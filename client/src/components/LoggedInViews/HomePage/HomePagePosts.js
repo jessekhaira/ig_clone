@@ -37,13 +37,19 @@ function HomePagePosts (props) {
                 },
                 method: 'GET'
             });
-            const homePagePostsObjects = await homePagePostsRaw.json();
+            const homePagePostsObjects = (await homePagePostsRaw.json()).homepage_posts;
+            if (homePagePostsObjects == null) {
+                throw Error('UnauthorizedUser');
+            } 
             spinner_div.style.display = 'none';
             document.addEventListener('scroll', infScrollHomePage); 
             fillInPosts(homePagePostsObjects); 
         }
         catch(err) {
-
+            err = String(err);
+            if (err.includes('UnauthorizedUser')) {
+                _authenticationErrorLogOut(); 
+            }
         }
 
         return () => document.removeEventListener('scroll', infScrollHomePage); 
@@ -73,8 +79,8 @@ function HomePagePosts (props) {
         }
         else {
             document.getElementById('no_posts_found_homepage').style.display = 'none'; 
-            homePagePostsObjects = makePracObjects();
             const homePagePostHolder = document.getElementById('home_page_posts_top_holder');
+            console.log(homePagePostsObjects);
             for (let post of homePagePostsObjects) {
                 const post_DOMNode = createPostNode(post);
                 homePagePostHolder.appendChild(post_DOMNode);
@@ -98,7 +104,8 @@ function HomePagePosts (props) {
             const profilePic = document.createElement('img');
             profilePic.classList.add('profilePicturePost');
             profilePic.classList.add('homepageProfPic');
-            profilePic.src = post.prof_pic;
+            console.log(post.prof_pic); 
+            profilePic.src = 'data:image/jpeg;base64,' + post.prof_pic;
 
             const username = document.createElement('h3');
             username.classList.add('username_homepage_post');
@@ -124,7 +131,7 @@ function HomePagePosts (props) {
             img_holder.classList.add('homepage_post_imageHolder');
             const main_img = document.createElement('img');
             main_img.classList.add('homepage_post_img');
-            main_img.src = post.img; 
+            main_img.src = 'data:image/jpeg;base64,' + post.img;
             img_holder.appendChild(main_img);
             return img_holder;
         }
@@ -164,7 +171,8 @@ function HomePagePosts (props) {
             
             const num_comments = document.createElement('p');
             num_comments.classList.add('num_comments_homepagepost');
-            num_comments.innerHTML = `View all ${normalizeCounts(post.num_comments)} comments`;
+            num_comments.innerHTML = (post.num_comments === 0 ? `No comments`:
+                `View all ${normalizeCounts(post.num_comments)} comments`); 
 
             commentHolder.appendChild(num_comments);
             return commentHolder;
