@@ -8,8 +8,20 @@ import jwt_decode from 'jwt-decode';
  * responsible for loading in the posts for a given user. 
  */
 function HomePagePosts (props) {
-    const curr_user = props.current_user;
     const [sliceHomePagePostRequesting, setSliceHomePagePostRequesting] = useState(1);
+    let curr_user = props.current_user; 
+
+    useEffect(() => {
+        if (curr_user === '') {
+            try {
+                curr_user = (jwt_decode(localStorage.getItem('accessToken'))).username;
+            }
+            catch(err) {
+                console.log(err);
+                return; 
+            }
+        }
+    });
     /**
      * This effect hook is needed for infinite scrolling -- state updates asynchronously, and the function contained
      * within this hook will only execute when the sliceHomePagePostRequesting value changes (IE: user scrolls to
@@ -17,15 +29,15 @@ function HomePagePosts (props) {
      */
     useEffect(() => {
         if (sliceHomePagePostRequesting === 1) {
-            fetchHomePagePosts(document.getElementById('main_post_spinner'));
+            fetchHomePagePosts(curr_user, document.getElementById('main_post_spinner'));
         }
         else {
-            fetchHomePagePosts(document.getElementById('inf_scroll_homepage'));
+            fetchHomePagePosts(curr_user, document.getElementById('inf_scroll_homepage'));
         }
     }, [sliceHomePagePostRequesting])
 
 
-    async function fetchHomePagePosts(spinner_div) {
+    async function fetchHomePagePosts(curr_user, spinner_div) {
         try {
             await checkTokenExpirationMiddleware(); 
             spinner_div.style.display = 'block';
@@ -47,7 +59,7 @@ function HomePagePosts (props) {
         catch(err) {
             err = String(err);
             if (err.includes('UnauthorizedUser')) {
-                _authenticationErrorLogOut(); 
+                // _authenticationErrorLogOut(); 
             }
         }
 
@@ -102,7 +114,6 @@ function HomePagePosts (props) {
             const profilePic = document.createElement('img');
             profilePic.classList.add('profilePicturePost');
             profilePic.classList.add('homepageProfPic');
-            console.log(post.prof_pic); 
             profilePic.src = 'data:image/jpeg;base64,' + post.prof_pic;
 
             const username = document.createElement('h3');

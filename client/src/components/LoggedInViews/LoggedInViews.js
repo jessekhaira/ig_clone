@@ -15,8 +15,6 @@ class LoggedInViews extends React.Component{
   }
 
   componentDidMount() {
-    // all of the user info can technically be stored in the local storage 
-    // redux really just used for practice  
     const curr_user = jwt_decode(localStorage.getItem('refreshToken'));
     if (this.props.current_user === '') {
       this.props.set_curr_user(curr_user.username); 
@@ -67,6 +65,7 @@ class LoggedInViews extends React.Component{
             <Route path = '/' render = {(props) => (
               <HomePage 
                 current_user = {this.props.current_user}
+                set_curr_user = {this.props.set_curr_user} 
               /> 
             )} /> 
 

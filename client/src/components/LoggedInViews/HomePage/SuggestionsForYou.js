@@ -9,9 +9,16 @@ import jwt_decode from 'jwt-decode';
  * is out of the scope for this project, so placeholders are used for completeness. 
  */
 function SuggestionsForYouHomePage (props) {
-    const curr_user = jwt_decode(localStorage.getItem('accessToken')).username;
-
+    let curr_user = props.current_user; 
     useEffect(() => {
+        if (curr_user === '') {
+            try {
+                curr_user = (jwt_decode(localStorage.getItem('accessToken'))).username;
+            }
+            catch(err) {
+                return; 
+            }
+        }
         fetchSuggested(); 
     }, []);
 
