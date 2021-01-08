@@ -59,12 +59,12 @@ router.get('/:username/suggested', async (req, res, next) => {
 
 /** This endpoint was mostly out of the scope of the project -- IG's algorithm for returning home page posts
  * is quite advanced, but this represents a basic algorithm that fetches the 12 most recent posts for a user
- * including their followers. 
+ * including their followers that is compatible with infinite scrolling working in the frontend.  
  */
-router.get('/:userid/:slicepostsreq', async(req,res,next) => {
+router.get('/:username/:slicepostsreq', async(req,res,next) => {
     try {
         const returned_fields = {photos:true, following:true, profile_picture: true, username: true};
-        const user_logged_in = await User.findOne({username:req.params.userid}, returned_fields)
+        const user_logged_in = await User.findOne({username:req.params.username}, returned_fields)
                                          .populate({path:'following', model:'User', populate: {path: 'photos', model: 'photos'}})
                                          .populate({path:'photos', model: 'photos'});
         
@@ -73,7 +73,8 @@ router.get('/:userid/:slicepostsreq', async(req,res,next) => {
         // we are returning 12 posts at a time
         // the 12 posts are the posts that have been posted the most recently 
         // when user wants more posts, scrolling to bottom increases value for slice post req by one compared to
-        // previous request, and appropriate values are returned 
+        // previous request, and appropriate values are returned (IE: the slice we are returning has to be in correct
+        // order relative to all posts stored)
         const endIdxCurrSliceHomepage = req.params.slicepostsreq*12; 
         const all_posts_following_self_sorted = (getAllPostsHomepage(user_logged_in)).slice(endIdxCurrSliceHomepage-12,endIdxCurrSliceHomepage); 
         for (let post of all_posts_following_self_sorted) {

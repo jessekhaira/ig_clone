@@ -8,9 +8,8 @@ import jwt_decode from 'jwt-decode';
  * responsible for loading in the posts for a given user. 
  */
 function HomePagePosts (props) {
-    const curr_user = jwt_decode(localStorage.getItem('accessToken')).username;
+    const curr_user = props.current_user;
     const [sliceHomePagePostRequesting, setSliceHomePagePostRequesting] = useState(1);
-
     /**
      * This effect hook is needed for infinite scrolling -- state updates asynchronously, and the function contained
      * within this hook will only execute when the sliceHomePagePostRequesting value changes (IE: user scrolls to
