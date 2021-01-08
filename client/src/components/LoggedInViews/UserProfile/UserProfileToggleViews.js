@@ -52,6 +52,8 @@ function UserProfileToggleViews (props) {
 
         try {
             setDisplay(['block', 'none', 'none'], spinner_div_upload, add_icon, error_upload);
+            document.getElementById('uploadPhoto').disabled = true;
+            document.getElementById('labelUploadPhotos').style.cursor = 'auto';
             await checkTokenExpirationMiddleware(); 
             const img = e.target.files[0]; 
             let formInfo = new FormData();
@@ -64,6 +66,8 @@ function UserProfileToggleViews (props) {
                 body: formInfo
             });
             let photoUploadStatus = await photoUploadStatusRaw.json();
+            document.getElementById('uploadPhoto').disabled = false;
+            document.getElementById('labelUploadPhotos').style.cursor = 'pointer';
             // two separate errors we have to deal with -- user being unauthorized
             // resulting in a logout, and the server having an issue processing the image 
             // in the first place 

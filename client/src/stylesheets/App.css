@@ -1423,10 +1423,19 @@ html {
   cursor: pointer;
 }
 #edit_profile_topleveldiv #error_success_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: red;
   width: 100%;
   text-align: center;
   position: relative;
+  white-space: wrap;
+}
+#edit_profile_topleveldiv #error_success_p {
+  max-width: 250px;
+  text-align: center;
+  margin: 0px;
 }
 #edit_profile_topleveldiv #edit_profile_header {
   display: flex;

@@ -70,7 +70,6 @@ function EditProfile(props) {
         const spinner_div = document.getElementById('spinner_div_editprofile');
         const submit_p_tag = document.getElementById('submit_descr');
         const error_success_div = document.getElementById('error_success_div');
-        error_success_div.innerHTML = ''; 
         if (checkIfInputsValid()) {
             try {
                 await checkTokenExpirationMiddleware(); 
@@ -103,8 +102,9 @@ function EditProfile(props) {
                     localStorage.setItem('refreshToken', json_res.refreshToken);
                     props.set_curr_user(document.getElementById('change_username').value); 
                 }
-                error_success_div.innerHTML = 'Success!';
-                error_success_div.style.color = 'green'; 
+                const p_success = document.getElementById('error_success_p');
+                p_success.innerHTML = 'Success!';
+                p_success.style.color = 'green'; 
 
             }
             catch(err) {
@@ -115,19 +115,23 @@ function EditProfile(props) {
                 setDisplay(['none', 'block'], spinner_div, submit_p_tag); 
             }
         }
+        else {
+            const p_error = document.getElementById('error_success_p')
+            p_error.style.color = 'red'; 
+        }
     }
 
     function putRequestFailedError(err) {
-        const error_success_div = document.getElementById('error_success_div');
-        error_success_div.style.color = 'red'; 
+        const p_error = document.getElementById('error_success_p')
+        p_error.style.color = 'red'; 
         if (err.includes('UnauthorizedUser')) {
             _authenticationErrorLogOut(); 
         }
         else if (err.includes('DuplicateEmail')) {
-            error_success_div.innerHTML = 'Email address is already registered. Select another one.';
+            p_error.innerHTML = 'Email address is already registered. Select another one.';
         }
         else if (err.includes('DuplicateUsername')) {
-            error_success_div.innerHTML = 'Username is already registered. Select another one. '
+            p_error.innerHTML = 'Username is already registered. Select another one. '
         }
     }
 
@@ -136,23 +140,23 @@ function EditProfile(props) {
      * validations fails, appropriate error is displayed inside the component. 
      */
     function checkIfInputsValid() {
-        const error_success_div = document.getElementById('error_success_div');
-        error_success_div.style.color = 'red'; 
+        const error_p = document.getElementById('error_success_p');
         if(document.getElementById('change_name').value.length <1) {
-            error_success_div.innerHTML = 'Name must have atleast one character.'
+            error_p.style.color = 'red'; 
+            error_p.innerHTML = 'Name must have atleast one character.'
             return false; 
         }
         else if (document.getElementById('change_bio').value.length >150) {
-            error_success_div.innerHTML = 'Bio must be less than or equal to 150 characters.'
+            error_p.innerHTML = 'Bio must be less than or equal to 150 characters.'
             return false; 
         }
         else if (!_validateUsername(document.getElementById('change_username').value)) {
-            error_success_div.innerHTML = 'Username must have atleast one character and contain only letters, numbers, underscores and periods.';
+            error_p.innerHTML = 'Username must have atleast one character and contain only letters, numbers, underscores and periods.';
             return false; 
         }
 
         else if (!_validateEmail(document.getElementById('change_email').value)) {
-            error_success_div.innerHTML = 'Please enter a valid email.';
+            error_p.innerHTML = 'Please enter a valid email.';
             return false; 
         }
         return true; 
@@ -273,7 +277,9 @@ function EditProfile(props) {
                         </div> 
                     </div>
 
-                    <div id = "error_success_div"></div>
+                    <div id = "error_success_div">
+                        <p id = 'error_success_p'></p>
+                    </div>
                     <div id = "profile_buttons">
                         <button id = "submit_editprofile" className = "edit_profile_buttons" onClick = {updateProfileClick}>
                             <p id = "submit_descr">Submit</p>

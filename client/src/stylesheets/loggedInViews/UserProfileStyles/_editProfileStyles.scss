@@ -103,10 +103,18 @@
     }
 
     #error_success_div {
+        @include flexbox-center(); 
         color: red;
         width: 100%;
         text-align: center;
         position: relative;
+        white-space: wrap;
+    }
+
+    #error_success_p {
+        max-width: 250px;
+        text-align: center;
+        margin: 0px;
     }
     #edit_profile_header {
         @include flexbox-center();
