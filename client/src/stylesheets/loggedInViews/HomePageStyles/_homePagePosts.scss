@@ -19,7 +19,6 @@
         border: 1px solid rgba(0,0,0,0.2);
         margin-bottom: 60px;
         width: 100%;
-        max-height: 1200px;
         z-index: 3;
         background-color: white;
 
@@ -68,6 +67,7 @@
         width:100%;
         border-top: 2px solid rgba(0,0,0,0.1);
         height: auto;
+        max-height: 800px;
     }
 
     .homepage_post_options {
