@@ -63,25 +63,28 @@ router.get('/:username/suggested', async (req, res, next) => {
  */
 router.get('/:userid/:slicepostsreq', async(req,res,next) => {
     try {
-        const returned_fields = {photos:true, following:true, profile_picture: true};
+        const returned_fields = {photos:true, following:true, profile_picture: true, username: true};
         const user_logged_in = await User.findOne({username:req.params.userid}, returned_fields)
                                          .populate({path:'following', model:'User', populate: {path: 'photos', model: 'photos', options: { sort: { 'created_at': -1 }}}})
                                          .populate({path:'photos', model: 'photos', options: { sort: { 'created_at': -1 }}});
         
         const homepage_posts = [];
-        const photo_obj = {}; 
-        photo_obj['liked_by'] = user_logged_in.photos[0].likes.length;
-        photo_obj['num_comments'] = user_logged_in.photos[0].comments.length;
-        photo_obj['prof_pic'] = (convertBuffer2Base64(user_logged_in, 'profile_picture')).profile_picture;
-        photo_obj['username'] = req.params.userid;
-        const dateObj = user_logged_in.photos[0]['created_at']; 
-        const month = dateObj.getUTCMonth() + 1; 
-        const day = dateObj.getUTCDate();
-        const year = dateObj.getUTCFullYear();
-        photo_obj['date_posted'] = day + '/' + month + '/' + year;
-        photo_obj['img'] = convertBuffer2Base64(user_logged_in.photos[0], 'data_photo');
-        photo_obj['img'] = photo_obj['img'].data_photo;
-        homepage_posts.push(photo_obj);
+        const endIdxCurrSliceHomepage = req.params.slicepostsreq*12; 
+        const all_posts_following_self_sorted = (getAllPostsHomepage(user_logged_in)).slice(endIdxCurrSliceHomepage-12,endIdxCurrSliceHomepage); 
+        for (let post of all_posts_following_self_sorted) {
+            const photo_obj = {}; 
+            photo_obj['liked_by'] = post.likes.length;
+            photo_obj['num_comments'] = post.comments.length;
+            photo_obj['prof_pic'] = post.profile_picture.toString('base64')
+            photo_obj['username'] = post.username;
+            const dateObj = post.created_at;
+            const month = dateObj.getUTCMonth() + 1; 
+            const day = dateObj.getUTCDate();
+            const year = dateObj.getUTCFullYear();
+            photo_obj['date_posted'] = day + '/' + month + '/' + year;
+            photo_obj['img'] = post.data_photo.toString('base64');
+            homepage_posts.push(photo_obj);
+        }
         return res.status(200).json({homepage_posts: homepage_posts});
 
     }
@@ -90,6 +93,20 @@ router.get('/:userid/:slicepostsreq', async(req,res,next) => {
     }
 });
 
+function getAllPostsHomepage(user_logged_in) {
+    const all_posts = []; 
+    for (let photo of user_logged_in.photos) {
+        const post_obj = {};
+        post_obj['profile_picture'] = user_logged_in.profile_picture;
+        post_obj['username'] = user_logged_in.username;
+        post_obj['created_at'] = photo.created_at;
+        post_obj['data_photo'] = photo.data_photo; 
+        post_obj['likes'] = photo.likes;
+        post_obj['comments'] = photo.comments;
+        all_posts.push(post_obj);
+    }
+    return all_posts; 
+}
 
 // handle all the error handling logic for the /users endpoints 
 // within this middleware function -- nice and organized 
