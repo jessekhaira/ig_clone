@@ -80,7 +80,6 @@ function HomePagePosts (props) {
         else {
             document.getElementById('no_posts_found_homepage').style.display = 'none'; 
             const homePagePostHolder = document.getElementById('home_page_posts_top_holder');
-            console.log(homePagePostsObjects);
             for (let post of homePagePostsObjects) {
                 const post_DOMNode = createPostNode(post);
                 homePagePostHolder.appendChild(post_DOMNode);

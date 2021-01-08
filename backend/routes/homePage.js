@@ -65,10 +65,15 @@ router.get('/:userid/:slicepostsreq', async(req,res,next) => {
     try {
         const returned_fields = {photos:true, following:true, profile_picture: true, username: true};
         const user_logged_in = await User.findOne({username:req.params.userid}, returned_fields)
-                                         .populate({path:'following', model:'User', populate: {path: 'photos', model: 'photos', options: { sort: { 'created_at': -1 }}}})
-                                         .populate({path:'photos', model: 'photos', options: { sort: { 'created_at': -1 }}});
+                                         .populate({path:'following', model:'User', populate: {path: 'photos', model: 'photos'}})
+                                         .populate({path:'photos', model: 'photos'});
         
         const homepage_posts = [];
+        // the frontend implements infinite scrolling
+        // we are returning 12 posts at a time
+        // the 12 posts are the posts that have been posted the most recently 
+        // when user wants more posts, scrolling to bottom increases value for slice post req by one compared to
+        // previous request, and appropriate values are returned 
         const endIdxCurrSliceHomepage = req.params.slicepostsreq*12; 
         const all_posts_following_self_sorted = (getAllPostsHomepage(user_logged_in)).slice(endIdxCurrSliceHomepage-12,endIdxCurrSliceHomepage); 
         for (let post of all_posts_following_self_sorted) {
@@ -105,6 +110,21 @@ function getAllPostsHomepage(user_logged_in) {
         post_obj['comments'] = photo.comments;
         all_posts.push(post_obj);
     }
+
+    for (let following_user of user_logged_in.following) {
+        for (let photo of following_user.photos) {
+            const post_obj = {};
+            post_obj['profile_picture'] = following_user.profile_picture;
+            post_obj['username'] = following_user.username;
+            post_obj['created_at'] = photo.created_at;
+            post_obj['data_photo'] = photo.data_photo;
+            post_obj['likes'] = photo.likes;
+            post_obj['comments'] = photo.comments;
+            all_posts.push(post_obj);
+        }
+    }
+
+    all_posts.sort((a,b) => (a.created_at > b.created_at) ? -1: 1);
     return all_posts; 
 }
 
