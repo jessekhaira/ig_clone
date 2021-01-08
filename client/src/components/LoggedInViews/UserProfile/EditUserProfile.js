@@ -172,7 +172,7 @@ function EditProfile(props) {
         document.getElementsByClassName('photo_upload_inputs')[0].click(); 
     }
 
-    async function uploadPhoto(e) {
+    async function uploadProfilePic(e) {
         const photo_spinner = document.getElementById('spinner_div_picedit');
         const img_displayed = document.getElementById('edit_profile_profilepic');
         try {
@@ -180,6 +180,7 @@ function EditProfile(props) {
             const img = e.target.files[0]; 
             let formInfo = new FormData();
             formInfo.append('image', img); 
+            document.getElementById('img_input').disabled = true;
             let uploadStatusRaw = await fetch(`/${props.current_user}/profilePhoto`, {
                 method: 'PUT',
                 headers: {
@@ -187,6 +188,7 @@ function EditProfile(props) {
                 },
                 body: formInfo
             });
+            document.getElementById('img_input').disabled = false;
             let json_uploadStatus = await uploadStatusRaw.json();
             if ('UnauthorizedUser' in json_uploadStatus) {
                 throw Error('UnauthorizedUser')
@@ -239,7 +241,7 @@ function EditProfile(props) {
                             <h3>{props.current_user}</h3>
                         </div>
                         <label htmlFor = "update_profile_picture" className = "edit_profile_labels" onClick = {redirectClickInput}>Change Profile Photo</label>
-                        <input type="file" id="img_input" name="img" className = "photo_upload_inputs" accept="image/*" onChange = {uploadPhoto} />
+                        <input type="file" id="img_input" name="img" className = "photo_upload_inputs" accept="image/*" onChange = {uploadProfilePic} />
                     </div>
                     <div className = "edit_profile_div">
                         <div className = "labeldiv_editprofile">
