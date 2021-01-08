@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs'); 
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
+const dateDifferential = require('../utility/utilityFunctions').getDateDifferential;
 const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffer2Base64; 
 require('dotenv').config({path: path.resolve(".env")}); 
 
@@ -83,11 +84,7 @@ router.get('/:username/:slicepostsreq', async(req,res,next) => {
             photo_obj['num_comments'] = post.comments.length;
             photo_obj['prof_pic'] = post.profile_picture.toString('base64')
             photo_obj['username'] = post.username;
-            const dateObj = post.created_at;
-            const month = dateObj.getUTCMonth() + 1; 
-            const day = dateObj.getUTCDate();
-            const year = dateObj.getUTCFullYear();
-            photo_obj['date_posted'] = day + '/' + month + '/' + year;
+            photo_obj['date_posted'] = dateDifferential(post.created_at, new Date(Date.now()));
             photo_obj['img'] = post.data_photo.toString('base64');
             homepage_posts.push(photo_obj);
         }

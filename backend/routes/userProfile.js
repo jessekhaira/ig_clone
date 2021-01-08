@@ -10,6 +10,7 @@ const convertBuffer2Base64 = require('../utility/utilityFunctions').convertBuffe
 const create_access_refresh_tokens = require('../utility/utilityFunctions').create_access_refresh_tokens; 
 const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
 const fileUpload = require('express-fileupload');
+const getDateDifferential = require('../utility/utilityFunctions').getDateDifferential;
 const sharp = require('sharp');
 /**
  * Express router to mount user profile related functions. 
@@ -298,6 +299,7 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         photos = photos.slice(endIdxImageSlice-12, endIdxImageSlice);
         const return_obj = []; 
         const base64_300x300_photos =[]; 
+        // have to resize every photo to be 300x300 in order for the grid to look uniform and clean
         for (let photo of photos) {
             photo = photo.toObject(); 
             photo['data_photo'] = await sharp(photo.data_photo.buffer).resize(300, 300).toBuffer();
@@ -331,11 +333,7 @@ router.get('/:grid_img_id', async (req, res, next) => {
         photo_obj['data_photo'] =  convertBuffer2Base64(grid_img, 'data_photo');
         photo_obj['num_likes'] = grid_img.likes.length; 
         photo_obj['comments'] = grid_img.comments;
-        const dateObj = grid_img['created_at']; 
-        const month = dateObj.getUTCMonth() + 1; 
-        const day = dateObj.getUTCDate();
-        const year = dateObj.getUTCFullYear();
-        photo_obj['created_at'] = day + '/' + month + '/' + year;
+        photo_obj['created_at'] = getDateDifferential(grid_img['created_at'], new Date(Date.now())); 
 
         photo_obj['profile_picture'] = convertBuffer2Base64(profile_pic, 'profile_picture');
         return res.status(200).json({photo_obj}); 
