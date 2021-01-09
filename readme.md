@@ -46,6 +46,15 @@ When user logs in, they are redirected to their profile page
 <br> 
 <br> 
 
+Looking at another users profile that is not followed
+<br> 
+<kbd>
+  <img src="./screenshots/profile_page_notfollowing.png" width="600">
+</kbd>
+<br> 
+<br> 
+<br> 
+
 Showing the responsiveness of user profiles
 <br> 
 <kbd>
