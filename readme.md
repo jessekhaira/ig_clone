@@ -37,7 +37,7 @@ When user logs in, they are redirected to their profile page
   <img src="./screenshots/user_profile.png" width="600">
 </kbd>
 
-Showing responsiveness of the user profile route
+Showing the responsiveness of user profiles
 <br> 
 <kbd>
   <img src="./screenshots/responsive_user_profile.png" width="600">
