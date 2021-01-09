@@ -1,37 +1,12 @@
 {
-  "name": "backend",
+  "name": "IG_Clone",
   "version": "0.0.0",
   "private": true,
   "engines": {
     "node": "12.18.0"
   },
   "scripts": {
-    "start": "cd client && npm install && npm run build && cd .. && cd backend && node app.js",
-    "test": "NODE_ENV=TESTING jest --testTimeout=10000 --detectOpenHandles",
-    "heroku-postbuild": "cd client && npm install && npm run build"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "compression": "^1.7.4",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "express": "~4.16.1",
-    "express-fileupload": "^1.2.0",
-    "express-validator": "^6.6.1",
-    "fs": "0.0.1-security",
-    "helmet": "^4.2.0",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.15",
-    "mongoose-beautiful-unique-validation": "^7.1.1",
-    "mongoose-post-find": "0.0.2",
-    "morgan": "~1.9.1",
-    "nodemon": "^2.0.6",
-    "path": "^0.12.7",
-    "sharp": "^0.27.0",
-    "supertest": "^6.0.1"
+    "start": "cd client && npm install && npm run build && cd .. && cd backend && npm install && node app.js",
+    "heroku-postbuild": "cd client && npm install && npm run build && cd.. && cd backend && npm install"
   }
 }
