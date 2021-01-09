@@ -339,7 +339,6 @@ router.get('/:grid_img_id', async (req, res, next) => {
         return res.status(200).json({photo_obj}); 
     }
     catch(err) {
-        console.log(String(err));
         return next(err); 
     }
 }); 

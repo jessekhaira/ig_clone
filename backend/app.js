@@ -90,16 +90,12 @@ app.get('*', (req, res) => {
 const port = process.env.PORT; 
 let mongoDB = process.env.MONGO_URL;
 let db;
-// use different databases for development and for deployment (and technically for testing too)
-if (process.env.NODE_ENV === 'DEVELOPMENT') {
+// should use different databases for development, production and testing
+if (process.env.NODE_ENV === 'DEVELOPMENT' || process.env.NODE_ENV === 'production') {
   // dev database 
   mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
-}
-
-else if (process.env.NODE_ENV === 'PRODUCTION') {
-  // production database
 }
 
 // don't want to create a server if we're testing -- testing will handle creating server given

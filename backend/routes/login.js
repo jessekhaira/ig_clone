@@ -30,7 +30,6 @@ router.post('/', [
 
     
     async (req, res, next) => {
-        console.log(req.body);
         const username_or_email = req.body.username_or_email;
         const password = req.body.password; 
         // find user 
