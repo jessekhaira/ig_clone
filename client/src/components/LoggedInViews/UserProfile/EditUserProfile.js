@@ -8,7 +8,6 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, _validateEma
  */
 function EditProfile(props) { 
     const history = useHistory(); 
-    
     /**
      * This effect is called every single time the component is mounted, and makes an async request
      * to the backend to retrieve all the information for the user to fill out the form within this 
