@@ -43,4 +43,18 @@ Viewing all users this user is following
 <br> 
 <img src="./screenshots/see_all_following.png" width="600">
 
+Looking up other users through the search bar
+<br>
+<img src="./screenshots/search_bar.png" width="600">
+
+Focusing in on one image by clicking on it 
+<br>
+<img src="./screenshots/focused_in_pic.png" width="600">
+
+Focused in on one image responsive
+<br>
+<img src="./screenshots/focused_in_pic_responsive.png" width="600">
+
+
+
 ## Installation
