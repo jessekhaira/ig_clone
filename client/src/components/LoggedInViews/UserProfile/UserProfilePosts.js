@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut,infiniteScroll, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 import { useHistory } from 'react-router';
 import {FocusedOnImage} from './FocusedOnPicture';
@@ -10,7 +10,7 @@ import {FocusedOnImage} from './FocusedOnPicture';
 function UserProfilePosts (props) {
     const history = useHistory();
     const user_profile_viewing = history.location.pathname.split('/')[1];
-
+    const storedFocusImages = useRef({});
     const [imgNumRequest, setNumTimesImageReq] = useState(1);
     
     useEffect(() => {
@@ -23,7 +23,6 @@ function UserProfilePosts (props) {
         const spinner_div = document.getElementById('spinner_div_photos');
         fetchPosts(spinner_div,1); 
         setNumTimesImageReq(2); 
-        return () => window.removeEventListener('scroll', infScrollUserProfile); 
     }, [history.location.pathname]);
 
     async function fetchPosts(spinner_div, timesRequested) {
@@ -207,27 +206,44 @@ function UserProfilePosts (props) {
         const grid_photo_div_ancestor = e.target.closest('.grid_photo_div');
         const grid_img = grid_photo_div_ancestor.querySelectorAll('img')[0];
         darkenBackground(showPhotoInformation, hidePhotoInformation); 
-        try {
-            await checkTokenExpirationMiddleware();
-            // first make the focused on div visible 
-            document.getElementById('focused_container').style.display = 'block'; 
-            const img_info_raw = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
-                headers: {
-                    authorization: localStorage.getItem('accessToken')
-                },
-                method: 'get'
-            }); 
-            const img_info_object = await img_info_raw.json(); 
-            if ('UnauthorizedUser' in img_info_object) {
-                throw Error('UnauthorizedUser'); 
-            }
-            insertPhotoIntoDOM(img_info_object.photo_obj); 
-            document.addEventListener('click', removeFocusOnImage); 
+        document.getElementById('focused_container').style.display = 'block'; 
+        // store information in local state and only make API call if we have to 
+        if (grid_img.id in storedFocusImages.current) {
+            insertPhotoIntoDOM(storedFocusImages.current[grid_img.id]);
+            // if we dont add this with a setTimeout, we wont get image focused
+            setTimeout(() => document.addEventListener('click', removeFocusOnImage),
+                1); 
         }
-        catch(err){
-            err = String(err);
-            if (err.includes('UnauthorizedUser')) {
-                _authenticationErrorLogOut(); 
+        else {
+            try {
+                await checkTokenExpirationMiddleware();
+                // first make the focused on div visible 
+                const img_info_raw = await fetch(`${user_profile_viewing}/${grid_img.id}`, {
+                    headers: {
+                        authorization: localStorage.getItem('accessToken')
+                    },
+                    method: 'get'
+                }); 
+                const img_info_object = await img_info_raw.json(); 
+                if ('UnauthorizedUser' in img_info_object) {
+                    throw Error('UnauthorizedUser'); 
+                }
+                const photo_obj = img_info_object.photo_obj;
+                storedFocusImages.current[grid_img.id] = {
+                    data_photo: photo_obj.data_photo,
+                    profile_picture: photo_obj.profile_picture,
+                    created_at: photo_obj.created_at,
+                    num_likes: photo_obj.num_likes,
+                    id: photo_obj.id
+                };
+                insertPhotoIntoDOM(photo_obj); 
+                document.addEventListener('click', removeFocusOnImage); 
+            }
+            catch(err){
+                err = String(err);
+                if (err.includes('UnauthorizedUser')) {
+                    _authenticationErrorLogOut(); 
+                }
             }
         }
         
@@ -256,6 +272,7 @@ function UserProfilePosts (props) {
 
 
     function insertPhotoIntoDOM(photo) {
+        console.log(photo); 
         // insert image
         document.getElementById('photo_focused_on').src = 'data:image/jpeg;base64,' + photo.data_photo.data_photo;
         document.getElementById('photo_focused_on').setAttribute('id_backend', photo.id); 
