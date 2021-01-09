@@ -73,5 +73,17 @@ Focused in on one image responsive
   <img src="./screenshots/focused_in_pic_responsive.png" width="600">
 </kbd>
 
+Viewing homepage posts 
+<br>
+<kbd>
+  <img src="./screenshots/homepage.png" width="600">
+</kbd>
+
+Responsive homepage posts
+<br>
+<kbd>
+  <img src="./screenshots/homepage_responsive.png" width="600">
+</kbd>
+
 
 ## Installation
