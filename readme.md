@@ -131,7 +131,7 @@ git clone https://github.com/13jk59/ig_clone.git
 cd backend
 touch .env
 ```
-Then you will need to go into the .env file and add the following properties:
+Then, go into the .env file and add the following properties:
 - NODE_ENV='production'
 - MONGO_URL= '...' (IE: Setup a Mongo DB database and obtain the key for that instance and insert here) 
 - ACESS_TOKEN_SECRET = '...' 
