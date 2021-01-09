@@ -33,30 +33,34 @@ router.post('/', [
         const username_or_email = req.body.username_or_email;
         const password = req.body.password; 
         // find user 
-        const user = await User.findOne({
-            $or: [
-                {'email': username_or_email},
-                {'username': username_or_email}
-            ]
-        });
+        try {
+            const user = await User.findOne({
+                $or: [
+                    {'email': username_or_email},
+                    {'username': username_or_email}
+                ]
+            });
 
-        if (!user) {
-            return res.status(401).json({message: "Username or email is invalid"});
+            if (!user) {
+                return res.status(401).json({message: "Username or email is invalid"});
+            }
+            const pw_verification = await user.verifyPassword(password); 
+            if (pw_verification === false) {
+                return res.status(401).json({message: "Password is incorrect"})
+            }
+            else {
+                // if user is found, password is verified, then we make a jwt
+                // access token and request token and return both of them to the client
+                const [accessToken, refreshToken] = create_access_refresh_tokens(user.username);
+                // update refresh token in the db for the user to be this new refresh token 
+                user.refreshToken = refreshToken;
+                await user.save(); 
+                return res.status(201).json({accessToken, refreshToken}); 
+            }
         }
-        const pw_verification = await user.verifyPassword(password); 
-        if (pw_verification === false) {
-            return res.status(401).json({message: "Password is incorrect"})
+        catch(err) {
+            return res.status(500).json({'Error': 'Error processing login request'});
         }
-        else {
-            // if user is found, password is verified, then we make a jwt
-            // access token and request token and return both of them to the client
-            const [accessToken, refreshToken] = create_access_refresh_tokens(user.username);
-            // update refresh token in the db for the user to be this new refresh token 
-            user.refreshToken = refreshToken;
-            await user.save(); 
-            return res.status(201).json({accessToken, refreshToken}); 
-        }
-    }
 ]
 ); 
 

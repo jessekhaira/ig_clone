@@ -62,7 +62,7 @@ router.post('/', [
         let validation_err_msg = err_email_or_username.properties.message; 
         res.status(400).json({message:validation_err_msg});
       }
-      catch(err) {
+      catch(Err) {
         res.status(400).json({message:'There was an error during registration. Try again later?'});
       }
     }
