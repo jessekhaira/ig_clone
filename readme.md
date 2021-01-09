@@ -1,10 +1,10 @@
 # Instagram Clone
-This is an application I built using Mongo, Express, React, Sass, and Redux that clones Instagram. Given that instagram is a massive application, the scope of the project was limited to implementing the specific features of instagram shown below.
+This is an application I built using Mongo, Express, React, Sass, and Redux that clones Instagram. Given that instagram is a massive application, the scope of the project was limited to implementing the specific features of instagram outlined below. 
 
 The project is deployed and can be seen at:https://instagramwebclone.herokuapp.com/. A note that since the project is deployed on the free tier of Heroku, it will run slowly. 
 
 ## Features
-- User can register for an account, requiring their email, username, name and password.
+- Individuals can register for an account, which requires their email, username, name and password
 - User can login using their credentials (email/username, password). Logged in users obtain Json Web Tokens (access token, refresh token)
 - User can upload a profile picture and edit their name, username, email and password after registration
 - User can upload images
