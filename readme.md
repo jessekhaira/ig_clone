@@ -125,7 +125,7 @@ Responsive homepage posts
 </kbd>
 
 
-## Installation
+## Local Installation
 ```
 git clone https://github.com/13jk59/ig_clone.git
 cd backend
