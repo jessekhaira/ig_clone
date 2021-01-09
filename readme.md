@@ -37,10 +37,10 @@ Showing responsiveness of the user profile route
 
 Viewing all users that follow this user 
 <br> 
-<img src="./screenshots/see_all_following.png" width="600">
+<img src="./screenshots/see_all_followers.png" width="600">
 
 Viewing all users this users follows  
 <br> 
-<img src="./screenshots/see_all_followers.png" width="600">
+<img src="./screenshots/see_all_following.png" width="600">
 
 ## Installation
