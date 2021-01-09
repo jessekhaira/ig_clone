@@ -21,5 +21,13 @@ The project is deployed and can be seen at:https://instagramwebclone.herokuapp.c
 ## Screenshots
 Login page 
 <br> 
-<img src="./screenshots/login.png" width="700">
+<img src="./screenshots/login.png" width="600">
+
+Register page
+<br> 
+<img src="./screenshots/register.png" width="600">
+
+When user logs in, they are redirected to their profile page and see their own grid images
+<br> 
+<img src="./screenshots/user_profile.png" width="600">
 ## Installation
