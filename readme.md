@@ -21,7 +21,7 @@ The project is deployed and can be seen at:https://instagramwebclone.herokuapp.c
 ## Screenshots
 Login page 
 <br> 
-<img src="./screenshots/login.png" width="600">
+<img style = "border: 1px solid" src="./screenshots/login.png" width="600">
 
 Register page
 <br> 
