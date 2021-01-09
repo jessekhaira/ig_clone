@@ -65,4 +65,8 @@ router.post('/', [
 ]
 ); 
 
+router.get('/', (req,res,next) => {
+    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+});
+
 exports.login_router = router; 
