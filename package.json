@@ -7,8 +7,7 @@
   },
   "scripts": {
     "start": "cd client && npm install && npm run build && cd .. && cd backend && node app.js",
-    "test": "NODE_ENV=TESTING jest --testTimeout=10000 --detectOpenHandles",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "test": "NODE_ENV=TESTING jest --testTimeout=10000 --detectOpenHandles"
   },
   "jest": {
     "testEnvironment": "node"
