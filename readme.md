@@ -28,66 +28,91 @@ Login page
 <br> 
 <br> 
 
-
-
 Register page
 <br> 
 <kbd>
-  <img src="./screenshots/register.png" width="500">
+  <img src="./screenshots/register.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 When user logs in, they are redirected to their profile page 
 <br> 
 <kbd>
-  <img src="./screenshots/user_profile.png" width="500">
+  <img src="./screenshots/user_profile.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Showing the responsiveness of user profiles
 <br> 
 <kbd>
-  <img src="./screenshots/responsive_user_profile.png" width="500">
+  <img src="./screenshots/responsive_user_profile.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Viewing all users that are followers of this user
 <br> 
 <kbd>
-  <img src="./screenshots/see_all_followers.png" width="500">
+  <img src="./screenshots/see_all_followers.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Viewing all users this user is following
 <br> 
 <kbd>
-  <img src="./screenshots/see_all_following.png" width="500">
+  <img src="./screenshots/see_all_following.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Looking up other users through the search bar
 <br>
 <kbd>
-  <img src="./screenshots/search_bar.png" width="500">
+  <img src="./screenshots/search_bar.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Focusing in on one image by clicking on it 
 <br>
 <kbd>
-  <img src="./screenshots/focused_in_pic.png" width="500">
+  <img src="./screenshots/focused_in_pic.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Focused in on one image responsive
 <br>
 <kbd>
-  <img src="./screenshots/focused_in_pic_responsive.png" width="500">
+  <img src="./screenshots/focused_in_pic_responsive.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Viewing homepage posts 
 <br>
 <kbd>
-  <img src="./screenshots/homepage.png" width="500">
+  <img src="./screenshots/homepage.png" width="600">
 </kbd>
+<br> 
+<br> 
+<br> 
 
 Responsive homepage posts
 <br>
 <kbd>
-  <img src="./screenshots/homepage_responsive.png" width="500">
+  <img src="./screenshots/homepage_responsive.png" width="600">
 </kbd>
 
 
