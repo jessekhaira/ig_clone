@@ -27,7 +27,20 @@ Register page
 <br> 
 <img src="./screenshots/register.png" width="600">
 
-When user logs in, they are redirected to their profile page and see their own grid images
+When user logs in, they are redirected to their profile page 
 <br> 
 <img src="./screenshots/user_profile.png" width="600">
+
+Showing responsiveness of the user profile route
+<br> 
+<img src="./screenshots/responsive_user_profile.png" width="600">
+
+Viewing all users that follow this user 
+<br> 
+<img src="./screenshots/see_all_following.png" width="600">
+
+Viewing all users this users follows  
+<br> 
+<img src="./screenshots/see_all_followers.png" width="600">
+
 ## Installation
