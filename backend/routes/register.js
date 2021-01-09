@@ -49,7 +49,7 @@ router.post('/', [
       // sending back access token and refresh token 
       await new_user.save(); 
 
-      res.status(201).json({
+      return res.status(201).json({
         accessToken,
         refreshToken
       });
@@ -60,10 +60,10 @@ router.post('/', [
       try {
         const err_email_or_username = err.errors.email || err.errors.username;
         let validation_err_msg = err_email_or_username.properties.message; 
-        res.status(400).json({message:validation_err_msg});
+        return res.status(400).json({message:validation_err_msg});
       }
       catch(Err) {
-        res.status(400).json({message:'There was an error during registration. Try again later?'});
+       return res.status(400).json({message:'There was an error during registration. Try again later?'});
       }
     }
   }
