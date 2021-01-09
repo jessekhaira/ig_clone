@@ -7,6 +7,6 @@
   },
   "scripts": {
     "start": "cd client && npm install && npm run build && cd .. && cd backend && npm install && node app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build && cd .. && cd backend && npm install"
+    "heroku-postbuild": "cd client && npm install && npm run build && cd .. && cd backend && npm install && node app.js"
   }
 }
