@@ -33,7 +33,7 @@ router.post('/', [
     const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
     // whenever a new user signs up, we assign a default profile picture 
-    const default_profile_picture = await readFile(path.resolve('routes/generic_profile_pic.jpg')); 
+    const default_profile_picture = await readFile(path.resolve('backend/routes/generic_profile_pic.jpg')); 
     let new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
