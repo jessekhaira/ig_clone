@@ -1,12 +1,7 @@
 const express = require('express');
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
-const jwt = require('jsonwebtoken'); 
 const path = require('path'); 
-const fs = require('fs'); 
-const util = require('util');
-const readFile = util.promisify(fs.readFile);
-require('dotenv').config({path: path.resolve(".env")}); 
 const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').convertArrayPicBuffers2Base64; 
 
 /**
@@ -24,8 +19,6 @@ router.post('/search', [
         // logic is going to be kept simple here for ease of implementation
         // but you can tailor the search results to the specific user and 
         // get more advanced 
-
-        const img = await readFile(path.resolve('routes/generic_profile_pic.jpg'));
         const query = {
             "$or": [
                 {
@@ -49,7 +42,7 @@ router.post('/search', [
             return res.json({searchResults:users_found_profilePicturesBase64Encoded});
         }
         catch(err) {
-            next(err); 
+            return res.json({'Error': 'Error Processing'})
         }
 
     }
