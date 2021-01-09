@@ -61,6 +61,7 @@ router.post('/', [
         catch(err) {
             return res.status(500).json({'Error': 'Error processing login request'});
         }
+    }
 ]
 ); 
 
