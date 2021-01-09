@@ -27,36 +27,51 @@ Login page
 
 Register page
 <br> 
-<img src="./screenshots/register.png" width="600">
+<kbd>
+  <img src="./screenshots/register.png" width="600">
+</kbd>
 
 When user logs in, they are redirected to their profile page 
 <br> 
-<img src="./screenshots/user_profile.png" width="600">
+<kbd>
+  <img src="./screenshots/user_profile.png" width="600">
+</kbd>
 
 Showing responsiveness of the user profile route
 <br> 
-<img src="./screenshots/responsive_user_profile.png" width="600">
+<kbd>
+  <img src="./screenshots/responsive_user_profile.png" width="600">
+</kbd>
 
 Viewing all users that are followers of this user
 <br> 
-<img src="./screenshots/see_all_followers.png" width="600">
+<kbd>
+  <img src="./screenshots/see_all_followers.png" width="600">
+</kbd>
 
 Viewing all users this user is following
 <br> 
-<img src="./screenshots/see_all_following.png" width="600">
+<kbd>
+  <img src="./screenshots/see_all_following.png" width="600">
+</kbd>
 
 Looking up other users through the search bar
 <br>
-<img src="./screenshots/search_bar.png" width="600">
+<kbd>
+  <img src="./screenshots/search_bar.png" width="600">
+</kbd>
 
 Focusing in on one image by clicking on it 
 <br>
-<img src="./screenshots/focused_in_pic.png" width="600">
+<kbd>
+  <img src="./screenshots/focused_in_pic.png" width="600">
+</kbd>
 
 Focused in on one image responsive
 <br>
-<img src="./screenshots/focused_in_pic_responsive.png" width="600">
-
+<kbd>
+  <img src="./screenshots/focused_in_pic_responsive.png" width="600">
+</kbd>
 
 
 ## Installation
