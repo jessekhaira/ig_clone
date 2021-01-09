@@ -23,7 +23,11 @@ Login page
 <br> 
 <kbd>
   <img src="./screenshots/login.png" width="600">
-</kbd>\
+</kbd>
+<br> 
+<br> 
+<br> 
+
 
 
 Register page
