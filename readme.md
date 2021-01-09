@@ -24,6 +24,8 @@ Login page
 <kbd>
   <img src="./screenshots/login.png" width="600">
 </kbd>
+<br> 
+
 
 Register page
 <br> 
