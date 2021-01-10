@@ -11,14 +11,15 @@ const convertArrayPicBuffers2Base64 = require('../utility/utilityFunctions').con
  */
 const router = express.Router();
 
+/**
+ * This endpoint responds to POST requests targetting the search endpoint. This endpoint accepts a search query 
+ * within the request body, which is validated, and then is used to search the Mongo database for any users that 
+ * match the query.
+ */
 router.post('/search', [
     validator.body('search_query'),
     async (req, res, next) => {
         const search_query = req.body.search_query;
-        // assuming user is searching for users
-        // logic is going to be kept simple here for ease of implementation
-        // but you can tailor the search results to the specific user and 
-        // get more advanced 
         const query = {
             "$or": [
                 {
