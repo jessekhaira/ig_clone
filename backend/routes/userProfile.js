@@ -19,12 +19,16 @@ const sharp = require('sharp');
  */
 const router = express.Router({ mergeParams: true });
 
+/** This function represents a controller located behind endpoints that just return the static 
+ * files for the application */
 function returnJS_Views(req,res,next) {
     return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 }
 
-// deals with case when page is refreshed and the user is logged in -- returns the appropriate view
-// for the home page and for the users own profile page 
+/**
+ * deals with request from client when the page is refreshed and user is logged in -- 
+ * returns the appropriate views in that case 
+**/ 
 router.get('/', (req,res,next) => {
     return returnJS_Views(req, res, next); 
 });
