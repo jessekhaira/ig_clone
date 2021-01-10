@@ -49,6 +49,10 @@ router.post('/search', [
     }
 ]);
 
+/**
+ * GET requests to the /navbar endpoint just return the static views -- happen when user refreshes page after being logged
+ * in. 
+ */
 router.get('/', (req,res,next) => {
     return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 });
