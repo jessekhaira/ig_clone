@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, createPostOptionsDiv} from '../../../utility/utility_functions';
-import { useHistory } from 'react-router';
 
 
+/**
+ * This function represents a React functional component utilizing Hooks. This component is rendered 
+ * whenever the user click on an image in the User Profile photo grid. 
+ */
 function FocusedOnImage (props) {
-    const [cachedGridImgInfo, setCachedGridInfo] = useState({});
     useEffect(() => {
         if (props.current_user !== props.user_profile_viewing) {
             setDisplay(['none', 'flex'], document.getElementById('delete_image'), document.getElementById('report_image'));

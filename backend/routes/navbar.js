@@ -50,7 +50,7 @@ router.post('/search', [
 ]);
 
 /**
- * GET requests to the /navbar endpoint just return the static views -- happen when user refreshes page after being logged
+ * GET requests to the /navbar endpoint just return the frontend files -- happen when user refreshes page after being logged
  * in. 
  */
 router.get('/', (req,res,next) => {
