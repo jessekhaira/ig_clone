@@ -20,7 +20,8 @@ const sharp = require('sharp');
 const router = express.Router({ mergeParams: true });
 
 /** This function represents a controller located behind endpoints that just return the static 
- * files for the application */
+ * files for the application 
+**/
 function returnJS_Views(req,res,next) {
     return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 }
@@ -33,7 +34,10 @@ router.get('/', (req,res,next) => {
     return returnJS_Views(req, res, next); 
 });
 
-// deals with user refreshing on the dm inbox page -- not implemented 
+/**
+ * deals with user refreshing on the dm inbox page -- not implemented 
+ * 
+**/
 router.get('/inbox', (req,res,next) => {
     return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 });
