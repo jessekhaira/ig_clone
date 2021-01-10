@@ -7,6 +7,11 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, 
  * whenever the user click on an image in the User Profile photo grid. 
  */
 function FocusedOnImage (props) {
+
+    /**
+     * The delete button and report button DOM elements displays are set appropriately depending on if the user is 
+     * viewing their own profile pictures or others profile pictures (IE: user cant delete others images). 
+     */
     useEffect(() => {
         if (props.current_user !== props.user_profile_viewing) {
             setDisplay(['none', 'flex'], document.getElementById('delete_image'), document.getElementById('report_image'));
