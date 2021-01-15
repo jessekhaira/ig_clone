@@ -14,6 +14,10 @@ function UserProfileInformation (props) {
     const history = useHistory(); 
     const user_profile_viewing = history.location.pathname.split('/')[1];
 
+    /**
+     * This hook has the responsibility of making the initial call to the server to fetch the given users 
+     * profile information, and then displaying that information approriately in the DOM. 
+     */
     useEffect(() => {
         async function fetchInformation() {  
             await aysncCallToMountInformation();
