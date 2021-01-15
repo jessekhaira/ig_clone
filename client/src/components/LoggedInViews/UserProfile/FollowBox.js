@@ -2,6 +2,11 @@ import React from 'react';
 import {checkTokenExpirationMiddleware, setDisplay,_authenticationErrorLogOut, lightenBackground,darkenBackground} from '../../../utility/utility_functions';
 
 
+/**
+ * This function represents a react functional component utilizing hooks. This component is a sub-component of 
+ * the UserProfileInformation component, responsible for rendering the followers box for the users whose profile 
+ * page is being viewed.
+ */
 function FollowBox(props) {
     async function seeAllFollowers(e) {
         if (document.getElementById('follower_holder_flexbox').contains(e.target)) {
