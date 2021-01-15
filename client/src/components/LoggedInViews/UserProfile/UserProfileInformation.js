@@ -5,6 +5,11 @@ import {FollowBox} from './FollowBox';
 import {FollowingBox} from './FollowingBox';
 import {checkTokenExpirationMiddleware, createSpinnersProgrammatically,_authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground, lightenBackground} from '../../../utility/utility_functions';
 
+/**
+ * This function represents a react functional component utilizing hooks. This component is responsible for 
+ * rendering the section of a users profile page containing the number of followers they have, the number of 
+ * individuals they are following, the total number of posts they have posted, and so on. 
+ */
 function UserProfileInformation (props) {
     const history = useHistory(); 
     const user_profile_viewing = history.location.pathname.split('/')[1];
