@@ -9,8 +9,9 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, 
 function FocusedOnImage (props) {
 
     /**
-     * The delete button and report button DOM elements displays are set appropriately depending on if the user is 
-     * viewing their own profile pictures or others profile pictures (IE: user cant delete others images). 
+     * The delete button and report button DOM elements displays are set appropriately within this hook,
+     * depending on if the user is viewing their own profile pictures or others profile pictures 
+     * (IE: user cant delete others images). 
      */
     useEffect(() => {
         if (props.current_user !== props.user_profile_viewing) {
@@ -22,6 +23,10 @@ function FocusedOnImage (props) {
         }
     });
 
+    /**
+     * This effect hook has the purpose of adding icons for liking a post, commenting on a post, etc 
+     * programmatically to the appropriate containers in the DOM.
+     */
     useEffect(() => {
         const commentIconsFlexboxContainer = document.getElementsByClassName('commentIconsFlexboxContainer')[0];
         commentIconsFlexboxContainer.textContent = ''; 
