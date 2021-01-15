@@ -41,7 +41,10 @@ function FocusedOnImage (props) {
         commentIconsFlexboxContainer.appendChild(savedIcon); 
     });
 
-
+    /**
+     * This method is the event handler when the 3 ellipsis options icon is clicked for a given post. This event handler
+     * has the responsibility of showing the options for a given post. 
+     */
     function togglePictureOptions(e) {
         e.stopPropagation();
         const pictureOptionsHolder = document.getElementById('focusedPictureOptions');
