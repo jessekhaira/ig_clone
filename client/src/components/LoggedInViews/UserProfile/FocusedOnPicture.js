@@ -9,9 +9,8 @@ import {checkTokenExpirationMiddleware, _authenticationErrorLogOut, setDisplay, 
 function FocusedOnImage (props) {
 
     /**
-     * The delete button and report button DOM elements displays are set appropriately within this hook,
-     * depending on if the user is viewing their own profile pictures or others profile pictures 
-     * (IE: user cant delete others images). 
+     * The effect has the responsibility of showing the appropriate options for a post,depending on if the user 
+     * is viewing their own profile pictures or others profile pictures (IE: user cant delete others images). 
      */
     useEffect(() => {
         if (props.current_user !== props.user_profile_viewing) {
