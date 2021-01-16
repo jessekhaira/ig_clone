@@ -1,5 +1,10 @@
 import jwt_decode from "jwt-decode";
 
+/**
+ * This function has the purpose of recieving an input string which represents an email
+ * address, and then carrying out a simple regex validation of that string. 
+ * @param {String} email_inp Input string representing an email address 
+ */
 export function _validateEmail(email_inp) {
     // must follow regex pattern xyz@__.com 
     const regex_pattern = /\S+@\S+\.\S+/;
