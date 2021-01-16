@@ -11,6 +11,11 @@ export function _validateEmail(email_inp) {
     return regex_pattern.test(email_inp); 
 }
 
+/**
+ * This function has the purpose of recieving an input string which represents a username
+ * and then carrying out a simple regex validation of that string. 
+ * @param {String} username_inp Input string representing a username 
+ */
 export function _validateUsername(username_inp) {
     // Usernames can only use letters, numbers, underscores and periods.
     const regex_pattern = /^[a-zA-Z0-9_]+$/;
