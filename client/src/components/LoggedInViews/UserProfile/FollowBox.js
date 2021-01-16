@@ -8,6 +8,13 @@ import {checkTokenExpirationMiddleware, setDisplay,_authenticationErrorLogOut, l
  * page is currently being viewed.
  */
 function FollowBox(props) {
+
+    /**
+     * This function is the event handler for onClick events for the top level div with id 'follower_info_div'.
+     * When the user clicks on any element contained within the div element, this event handler will send an
+     * HTTP GET request to the server to obtain a list of all the users that are followers of the current user
+     * (while displaying a spinner and hiding elements appropriately).
+     */
     async function seeAllFollowers(e) {
         if (document.getElementById('follower_holder_flexbox').contains(e.target)) {
             return; 
