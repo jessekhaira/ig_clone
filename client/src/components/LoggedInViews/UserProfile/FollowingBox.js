@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import {checkTokenExpirationMiddleware, lightenBackground,_authenticationErrorLogOut, normalizeCounts, setDisplay, darkenBackground} from '../../../utility/utility_functions';
 
 
+/**
+ * This function represents a react functional component utilizing hooks. This component is a sub-component of 
+ * the UserProfileInformation component, responsible for rendering the following box for the users whose profile 
+ * page is currently being viewed.
+ */
 function FollowingBox(props) {
 
     async function seeAllFollowing(e) {

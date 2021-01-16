@@ -5,7 +5,7 @@ import {checkTokenExpirationMiddleware, setDisplay,_authenticationErrorLogOut, l
 /**
  * This function represents a react functional component utilizing hooks. This component is a sub-component of 
  * the UserProfileInformation component, responsible for rendering the followers box for the users whose profile 
- * page is being viewed.
+ * page is currently being viewed.
  */
 function FollowBox(props) {
     async function seeAllFollowers(e) {
