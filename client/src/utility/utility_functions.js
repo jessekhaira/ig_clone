@@ -22,6 +22,10 @@ export function _validateUsername(username_inp) {
     return regex_pattern.test(username_inp); 
 }
 
+/**
+ * This function has the responsibility of indicating whether a current user has scrolled all the way
+ * down to the bottom of the DOM, for the purposes of infinite scrolling.
+ */
 export function infiniteScroll() {
     const usersCurrentScrollFromTop = window.innerHeight + document.documentElement.scrollTop + 1; 
     const totalScrollHeightPage = document.documentElement.scrollHeight; 
