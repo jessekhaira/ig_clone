@@ -71,6 +71,9 @@ export function createPostOptionsDiv() {
 
 }
 
+/**
+ * This function has the responsibility of creating a spinner for something that is loading programmatically.
+ */
 export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_classname, spinner_dot_classname, num_dots = 6) {
     const spinner_holder = document.createElement('div');
     spinner_holder.classList.add('sk-chase');
