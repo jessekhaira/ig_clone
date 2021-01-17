@@ -1,6 +1,12 @@
 import React from 'react';
 
 
+/**
+ * This class represents a React Component responsible for rendering the section of the UI rendering
+ * the Explore view. This component was out of the scope for the current project 
+ * 
+ * @class @public
+ */
 class Explore extends React.Component{
     constructor(props) {
         super(props); 
