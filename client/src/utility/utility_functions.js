@@ -40,6 +40,10 @@ export function infiniteScroll() {
  * on. 
  */
 export function createPostOptionsDiv() {
+    /**
+     * Function responsible for creating a div that contains the like icon, comment icon, and DM icon,
+     * and applying the appropriate styles. 
+     */
     function createlikeCommentAndDMIcon() {
         const holder_div = document.createElement('div');
         holder_div.classList.add('likeCommentDMFlexboxContainer'); 
