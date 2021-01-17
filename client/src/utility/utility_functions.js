@@ -34,6 +34,11 @@ export function infiniteScroll() {
     }
 }
 
+/**
+ * This function is used to create the options for whenever a user is viewing a given post. This means
+ * including the icons involved with a given post, like the heart icon, comment icon, saved icon, and so
+ * on. 
+ */
 export function createPostOptionsDiv() {
     function createlikeCommentAndDMIcon() {
         const holder_div = document.createElement('div');
