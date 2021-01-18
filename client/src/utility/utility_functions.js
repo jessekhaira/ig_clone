@@ -63,6 +63,9 @@ export function createPostOptionsDiv() {
         return holder_div;
     }
 
+    /**
+     * Function responsible for creating a div that contains the saved icon, present within posts.
+     */
     function createSavedIcon() {
         const saved_container = document.createElement('div');
         const saved_icon = document.createElement('i');
@@ -76,7 +79,7 @@ export function createPostOptionsDiv() {
 }
 
 /**
- * This function has the responsibility of creating a spinner for something that is loading programmatically.
+ * This function creates a spinner.  
  */
 export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_classname, spinner_dot_classname, num_dots = 6) {
     const spinner_holder = document.createElement('div');
