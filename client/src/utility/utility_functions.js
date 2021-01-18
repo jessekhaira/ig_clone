@@ -100,8 +100,9 @@ export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_
 }
 
 /**
- * This function has the responsibility of darkening the background elements on a web page, whenever the user
- * wants to focus in on a single element (IE: clicking on a post in a profile page, clicking on follow box, etc).
+ * This function has the responsibility of darkening the appropriate elements on a web page, whenever the user
+ * wants to focus in on a single element (IE: clicking on a post in a profile page, clicking on follow box, 
+ * etc).
  */
 export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
     [...document.getElementsByClassName('overlay_div_blackout')].map((x) => {
@@ -123,6 +124,11 @@ export function darkenBackground(showPhotoInformation, hidePhotoInformation) {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'; 
 }
 
+/**
+ * This function has the responsibility of lightening the elements on a web page after the user has
+ * focused in on a single element and has decided to focus out (IE: user clicked to view all followers,
+ * and is clicking out to get back to browsing). 
+ */
 export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
     [...document.getElementsByClassName('overlay_div_blackout')].map((x) => {
         x.style.display = 'none';
