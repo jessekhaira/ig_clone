@@ -252,6 +252,10 @@ export function _toggleDisplays(display, ...args) {
     }
 }
 
+/**
+ * This function takes in a variable number of arguments representing DOM objects, and sets
+ * the display of every single one of the objects to none. 
+ */
 export function _setDisplayNone(...args) {
     for (let elem of args) {
         elem.style.display = 'none'; 
