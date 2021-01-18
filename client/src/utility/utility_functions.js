@@ -64,7 +64,7 @@ export function createPostOptionsDiv() {
     }
 
     /**
-     * Function responsible for creating a div that contains the saved icon, present within posts.
+     * Function responsible for creating a div that contains an icon representing an option to save a post.
      */
     function createSavedIcon() {
         const saved_container = document.createElement('div');
@@ -148,6 +148,7 @@ export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
     document.getElementsByTagName('body')[0].style.overflow = 'auto'; 
 
 }
+
 
 export function normalizeCounts(...args) {
     const output_normalized = [];
