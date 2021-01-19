@@ -241,6 +241,10 @@ export async function checkTokenExpirationMiddleware() {
 }
 
 
+/**
+ * This function has the responsibiliy of removing the JWT accesss tokens from the localStorage and refreshing
+ * the page, which will effectively log the user out of the application. 
+ */
 export function _authenticationErrorLogOut() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
