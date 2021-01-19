@@ -264,6 +264,14 @@ export function displayErrorInHTMLElement(err_msg, err_node, display) {
     err_node.style.display = display; 
 }
 
+
+/**
+ * This function accepts a String representing a CSS display, and a variable number of arguments 
+ * each of which is expected to be DOM objects. The display of every DOM object is toggled between
+ * none, and the string display which is provided as input to the function.
+ * 
+ * @param display String representing the display which to change every input argument to 
+ */
 export function _toggleDisplays(display, ...args) {
     for (let elem of args) {
         elem.style.display = (elem.style.display === display ? 'none': display);
