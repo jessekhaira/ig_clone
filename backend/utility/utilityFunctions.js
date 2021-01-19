@@ -2,6 +2,10 @@ const path = require('path');
 require('dotenv').config({path: path.resolve(".env")}); 
 const jwt = require('jsonwebtoken'); 
 
+/**
+ * Object with a mapping between string numbers and the month they represent. Useful when processing
+ * date information. 
+ */
 const monthMapping = {
     1: 'JANUARY',
     2: 'FEBRUARY',
