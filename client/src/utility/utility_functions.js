@@ -155,6 +155,15 @@ export function lightenBackground(showPhotoInformation, hidePhotoInformation) {
 }
 
 
+/**
+ * This function accepts a variable number of arguments, which are assumed to be Numbers. This function
+ * then has the responsibility to return an array of Strings, containing the normalized version of the
+ * Numbers in String format. 
+ * 
+ * For example, if a user has 10,000,000 followers, that number will be normalized to 10m. 
+ * 
+ * @returns {String[]} Array of Strings of the same length as the input, representing the input counts normalized
+ */
 export function normalizeCounts(...args) {
     const output_normalized = [];
     for(let arg of args) {
