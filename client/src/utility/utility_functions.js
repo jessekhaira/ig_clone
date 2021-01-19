@@ -79,7 +79,8 @@ export function createPostOptionsDiv() {
 }
 
 /**
- * This function creates a spinner.  
+ * This function creates a spinner, which has the purpose of indicating to the user that an asynchronous
+ * action is currently occuring. 
  */
 export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_classname, spinner_dot_classname, num_dots = 6) {
     const spinner_holder = document.createElement('div');
@@ -87,6 +88,10 @@ export function createSpinnersProgrammatically(spinner_holder_id,spinner_holder_
     spinner_holder.classList.add(spinner_holder_classname);
     spinner_holder.id = spinner_holder_id; 
 
+    /**
+     * The spinner container contains a certain number of dots, and this function has the responsibility of 
+     * creating the dots.
+     */
     function createSpinnerDot(){
         const spinner_dot = document.createElement('div');
         spinner_dot.classList.add('sk-chase-dot');
