@@ -37,6 +37,11 @@ function convertArrayPicBuffers2Base64(documents, property) {
     return return_arr; 
 }
 
+/**
+ * This function accepts two arguments: a Mongoose document and a string. The string represents the property in the 
+ * mongoose document that holds a buffer representing an image. The Mongoose document is converted to a Javascript
+ * object, and the binary buffer is converted to a base64 encoded string. 
+ */
 function convertBuffer2Base64(doc, property) {
     doc = doc.toObject(); 
     doc[property] = doc[property].toString('base64'); 
