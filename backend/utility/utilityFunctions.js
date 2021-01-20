@@ -48,6 +48,10 @@ function convertBuffer2Base64(doc, property) {
     return doc; 
 }
 
+/**
+ * This function accepts two numbers representing dates, and returns the differential in time between the dates. 
+ * According to the differential in time between the dates, the appropriate time is returned.
+ */
 function getDateDifferential(date1, date2) {
     const diffMilliseconds = Math.abs(date2 - date1);
     const diffMinutes = Math.ceil(diffMilliseconds/(1000*60));
