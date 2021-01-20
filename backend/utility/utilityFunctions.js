@@ -21,6 +21,13 @@ const monthMapping = {
     12: 'DECEMBER'
 };
 
+
+/**
+ * This function has the responsibility of converting an array of objects, each representing a Mongoose document, 
+ * to an array of Javascript objects with the purpose of converting binart vuffers representing images to base64 
+ * encoded strings.
+ * 
+ */
 function convertArrayPicBuffers2Base64(documents, property) {
     let return_arr = []; 
     for (let doc of documents) {
