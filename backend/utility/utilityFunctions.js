@@ -61,6 +61,7 @@ function getDateDifferential(date1, date2) {
     const diffHours = Math.ceil(diffMinutes/60);
     const diffDays = Math.ceil(diffHours / (24)); 
 
+    // based on the time differential, return the appropriate period of time (ie: minutes, hours, etc)
     if (diffMinutes < 60) {
         let descr_text = diffMinutes === 1? `MINUTE AGO`: `MINUTES AGO`;
         return `${diffMinutes} ${descr_text}`;
