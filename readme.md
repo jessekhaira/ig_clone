@@ -1,4 +1,5 @@
 # Instagram Clone
+## Description 
 This is an application I built using Mongo, Express, React, Sass, and Redux that clones the core features of Instagram. Given that instagram is a massive application, the scope of the project was limited to implementing the specific features of instagram outlined below. 
 
 The project is deployed at https://instagramwebclone.herokuapp.com/. 
