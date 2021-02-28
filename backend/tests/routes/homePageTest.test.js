@@ -3,7 +3,6 @@ require("dotenv").config({ path: path.resolve(".env") });
 const request = require('supertest'); 
 const app = require('../../app');
 const mongoose = require('mongoose');
-const { default: expectCt } = require("helmet/dist/middlewares/expect-ct");
 const mongoDB = process.env.MONGO_URL;
 
 const db = mongoose.connect(mongoDB, {
