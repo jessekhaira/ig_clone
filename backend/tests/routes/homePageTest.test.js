@@ -10,7 +10,7 @@ const db = mongoose.connect(mongoDB, {
   useUnifiedTopology: true,
 });
 
-let token; 
+let token;
 
 // need to set up the token to use for all routes
 beforeAll((done) => {
@@ -21,7 +21,7 @@ beforeAll((done) => {
         password: process.env.pw
       })
       .end((err, response) => {
-          token = response.body.accessToken;
+          token = response.body.accessToken; 
           done(); 
       })
 });
@@ -31,13 +31,22 @@ afterAll(() => {
 });
 
 describe('GET /', () => {
-
     test('Should require authorization', async () => {
-        const result = await request(app).get('/batman/suggested');
+        const result = await request(app).get('/homepage/Batman/suggested');
         expect(result.statusCode).toBe(500);
         expect(result.type).toBe('application/json');
     });
 
+
+    test('Should return suggested users in res body', async () => {
+        const result = await request(app)
+        .get('/homepage/Batman/suggested')
+        .set('Authorization', `${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+        
+        expect(result.body.suggested_users_to_follow.length).toEqual(0);
+    })
 });
 
 
