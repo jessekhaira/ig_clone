@@ -40,18 +40,20 @@ describe('GET /', () => {
 
 
     test('Should return suggested users in res body', async (done) => {
-        const result = await request(app)
+        request(app)
         .get('/homepage/Batman/suggested')
         .set('Authorization', `${token}`)
         .expect(200)
-        .expect('Content-Type', /json/);
-        
-        expect(result.body.suggested_users_to_follow.length).toEqual(0);
+        .expect('Content-Type', /json/)
+        .then((res) => {
+            expect(res.body.suggested_users_to_follow.length).toEqual(0);
+
+        })
         done(); 
     })
 
     test('Test should return appropriate slice of homepage posts for user', async (done) =>{
-        const result = await request(app)
+        request(app)
         .get('/homepage/Batman/1')
         .set('Authorization', `${token}`)
         .expect(200)
