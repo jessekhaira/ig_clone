@@ -31,14 +31,15 @@ afterAll(() => {
 });
 
 describe('GET /', () => {
-    test('Should require authorization', async () => {
+    test('Test should fail as no JWT included in HTTP req', async (done) => {
         const result = await request(app).get('/homepage/Batman/suggested');
         expect(result.statusCode).toBe(500);
         expect(result.type).toBe('application/json');
+        done(); 
     });
 
 
-    test('Should return suggested users in res body', async () => {
+    test('Should return suggested users in res body', async (done) => {
         const result = await request(app)
         .get('/homepage/Batman/suggested')
         .set('Authorization', `${token}`)
@@ -46,7 +47,24 @@ describe('GET /', () => {
         .expect('Content-Type', /json/);
         
         expect(result.body.suggested_users_to_follow.length).toEqual(0);
+        done(); 
     })
+
+    test('Test should return appropriate slice of homepage posts for user', async (done) =>{
+        const result = await request(app)
+        .get('/homepage/Batman/1')
+        .set('Authorization', `${token}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then((res) => {
+            const res_homepage_post = res.body.homepage_posts[0];
+            expect(res_homepage_post).toHaveProperty('liked_by');
+            expect(res_homepage_post).toHaveProperty('liked_by');
+
+        })
+        done(); 
+    })
+
 });
 
 
