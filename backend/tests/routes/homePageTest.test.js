@@ -40,33 +40,40 @@ describe('GET /', () => {
 
 
     test('Should return suggested users in res body', async (done) => {
-        request(app)
+        let results = await request(app)
         .get('/homepage/Batman/suggested')
         .set('Authorization', `${token}`)
         .expect(200)
-        .expect('Content-Type', /json/)
-        .then((res) => {
-            expect(res.body.suggested_users_to_follow.length).toEqual(0);
+        .expect('Content-Type', /json/);
 
-        })
+        try {
+            expect(results.body.suggested_users_to_follow.length).toEqual(0); 
+        }
+        catch(err) {
+            done(err); 
+        }
         done(); 
     })
 
     test('Test should return appropriate slice of homepage posts for user', async (done) =>{
-        request(app)
+        let results = await request(app)
         .get('/homepage/Batman/1')
         .set('Authorization', `${token}`)
         .expect(200)
         .expect('Content-Type', /json/)
-        .then((res) => {
-            const res_homepage_post = res.body.homepage_posts[0];
+
+        try {
+            const res_homepage_post = results.body.homepage_posts[0];
             expect(res_homepage_post).toHaveProperty('liked_by');
             expect(res_homepage_post).toHaveProperty('num_comments');
             expect(res_homepage_post).toHaveProperty('prof_pic');
             expect(res_homepage_post).toHaveProperty('username');
             expect(res_homepage_post).toHaveProperty('date_posted');
             expect(res_homepage_post).toHaveProperty('img');
-        })
+        }
+        catch(err) {
+            done(err);
+        }
         done(); 
     })
 
