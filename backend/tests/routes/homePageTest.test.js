@@ -59,8 +59,11 @@ describe('GET /', () => {
         .then((res) => {
             const res_homepage_post = res.body.homepage_posts[0];
             expect(res_homepage_post).toHaveProperty('liked_by');
-            expect(res_homepage_post).toHaveProperty('liked_by');
-
+            expect(res_homepage_post).toHaveProperty('num_comments');
+            expect(res_homepage_post).toHaveProperty('prof_pic');
+            expect(res_homepage_post).toHaveProperty('username');
+            expect(res_homepage_post).toHaveProperty('date_posted');
+            expect(res_homepage_post).toHaveProperty('img');
         })
         done(); 
     })
