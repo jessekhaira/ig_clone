@@ -45,4 +45,18 @@ describe("tests for the log in route", () => {
       done();
   })
 
+    test("test log in failed -- username/email", async function test_log_in(done) {
+      const res = await request(app) 
+        .post('/accounts/login')
+        .send({
+          username_or_email: '12312',
+          password: process.env.pw
+        })
+        .expect(401)
+        .expect('Content-Type', /json/)
+        
+        expect(res.body['message']).toEqual("Username or email is invalid"); 
+        done();
+  })
+
 });
