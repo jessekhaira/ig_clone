@@ -24,7 +24,6 @@ test('Test if refresh token GET route functioning properly', async (done) => {
                                  .expect(201);
 
     let [access_token, refresh_token] = [login_tokens_res.body.accessToken, login_tokens_res.body.refreshToken];
-
     
     let new_access_token_res = await request(app)
                                       .get('/accounts/refreshToken')
