@@ -9,6 +9,7 @@ const compression = require('compression');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
 /**
  * Express router to mount login related functions.
  * @type {object}
