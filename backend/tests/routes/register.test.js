@@ -29,3 +29,18 @@ test('test register failure -- username already taken', async (done) => {
   expect(results.body).toHaveProperty('message')
   done(); 
 }); 
+
+test('test register failure -- email already taken', async (done) => {
+  let results = await request(app)
+                      .post('/accounts/register')
+                      .send({
+                        'email': process.env.user_email,
+                        'full_name': 'testing',
+                        'username_inp': 'testing',
+                        'pw_inp': process.env.pw,
+                        'date_of_birth': 'testing'
+                      })
+                      .expect(400); 
+  expect(results.body).toHaveProperty('message')
+  done(); 
+}); 
