@@ -1,9 +1,9 @@
+const path = require("path");
+require("dotenv").config({ path: path.resolve(".env") });
 const request = require('supertest'); 
 const app = require('../../app');
-const path = require("path");
 const mongoose = require('mongoose');
 const mongoDB = process.env.MONGO_URL;
-require('dotenv').config({path: path.resolve('.env')}); 
 
 const db = mongoose.connect(mongoDB, {
   useNewUrlParser: true,
@@ -11,5 +11,21 @@ const db = mongoose.connect(mongoDB, {
 });
 
 afterAll(() => {
-    mongoose.connection.close(); 
-})
+  mongoose.connection.close();
+});
+
+
+test('test register failure -- username already taken', async (done) => {
+  let results = await request(app)
+                      .post('/accounts/register')
+                      .send({
+                        'email': 'testing',
+                        'full_name': 'testing',
+                        'username_inp': process.env.user,
+                        'pw_inp': process.env.pw,
+                        'date_of_birth': 'testing'
+                      })
+                      .expect(400); 
+  expect(results.body).toHaveProperty('message')
+  done(); 
+}); 
