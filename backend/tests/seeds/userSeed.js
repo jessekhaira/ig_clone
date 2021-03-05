@@ -1,6 +1,6 @@
 const user_holder = [];
 
-for (let i=0; i<100; i++) {
+for (let i=0; i<20; i++) {
     const curr_user_obj = {};
     const email = `testUser${i}@gmail.com`;
     const username = `testUser${i}`;
