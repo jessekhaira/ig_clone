@@ -4,13 +4,11 @@ const request = require('supertest');
 const app = require('../../app');
 const mongoose = require('mongoose');
 const mongoDB = process.env.MONGO_URL;
-
-const db = mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
+const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
 let token;
+
+
+setupLocalDatabase(`testHomepage`); 
 
 // need to set up the token to use for all routes
 beforeAll((done) => {
@@ -24,10 +22,6 @@ beforeAll((done) => {
           token = response.body.accessToken; 
           done(); 
       })
-});
-
-afterAll(() => {
-    mongoose.connection.close();
 });
 
 describe('GET /', () => {

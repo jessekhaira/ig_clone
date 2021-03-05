@@ -1,0 +1,19 @@
+const user_holder = [];
+
+for (let i=0; i<100; i++) {
+    const curr_user_obj = {};
+    const email = `testUser${i}@gmail.com`;
+    const username = `testUser${i}`;
+    const full_name = `testUser`;
+    const password = `123456`;
+    const date_of_birth = Date.now(); 
+    curr_user_obj.email = email;
+    curr_user_obj.username = username;
+    curr_user_obj.full_name = full_name;
+    curr_user_obj.password = password;
+    curr_user_obj.date_of_birth = date_of_birth; 
+
+    user_holder.push(curr_user_obj); 
+}
+
+module.exports = user_holder; 
