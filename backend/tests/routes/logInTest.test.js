@@ -7,7 +7,7 @@ const setupLocalDatabase = require('../database_setup').setupLocalDatabase;
 setupLocalDatabase(`logInTestDB`);
 
 describe("Testing POST API endpoints for /accounts/login endpoint", () => {
-  test("test log in succeeded username", async function test_log_in(done) {
+  test("test log in succeeded username and user able to visit profile w/ token", async function test_log_in(done) {
       const res = await request(app)
         .post('/accounts/login')
         .send({
@@ -18,7 +18,15 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
         .expect('Content-Type', /json/)
         
         expect(res.body).toHaveProperty('accessToken');
-        expect(res.body).toHaveProperty('refreshToken'); 
+        expect(res.body).toHaveProperty('refreshToken');
+        
+        const accessUser = await request(app)
+          .get(`/testUser15`)
+          .set(`Authorization`, res.body.accessToken)
+          .expect(200)
+          .expect('Content-Type', 'text/html; charset=UTF-8');
+
+        console.log(accessUser.headers); 
         done(); 
   })
 
