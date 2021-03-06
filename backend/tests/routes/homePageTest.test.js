@@ -1,16 +1,11 @@
-const path = require("path");
-require("dotenv").config({ path: path.resolve(".env") });
 const request = require('supertest'); 
 const app = require('../../app');
 const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
-let token;
-
-
 setupLocalDatabase(`testHomepage`); 
 
 
 describe('GET /', () => {
-
+    let token;
     afterEach(async (done) => {
         let results = await request(app)
         .post('/accounts/login')
