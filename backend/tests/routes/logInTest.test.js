@@ -26,7 +26,6 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
           .expect(200)
           .expect('Content-Type', 'text/html; charset=UTF-8');
 
-        console.log(accessUser.headers); 
         done(); 
   })
 
