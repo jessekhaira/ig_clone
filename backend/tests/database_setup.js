@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const user_seed = require('./seeds/userSeed'); 
+const user_seed = require('./testDBSeed').user_holder;
+const photo_seed = require('./testDBSeed').photo_holder;
 const User = require('../models/users').userModel; 
-// const photos = require('../models/photos').photosModel; 
+const photos = require('../models/photos').photosModel; 
 
 async function setupDatabaseConnection(localDatabaseName) {
     await mongoose.connect(`mongodb://127.0.0.1/${localDatabaseName}`, {
@@ -48,14 +49,16 @@ async function deleteCollectionsFromDatabase() {
 
 module.exports = {
     setupLocalDatabase(localDatabaseName) {
-        beforeAll(async () => {
+        beforeAll(async (done) => {
             await setupDatabaseConnection(localDatabaseName); 
             await seedDatabaseUsingModel(); 
+            done();
         });
 
-        afterAll(async () => {
+        afterAll(async (done) => {
             await deleteCollectionsFromDatabase(); 
             await mongoose.connection.close();
+            done();
         });          
     }
 }
