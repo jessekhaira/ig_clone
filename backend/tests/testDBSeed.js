@@ -17,11 +17,9 @@ for (let i=0; i<20; i++) {
     user_holder.push(curr_user_obj); 
 }
 
-for (let i=0; i<10; i++) {
-    const curr_photo_obj = {};
+for (let i=0; i<3; i++) {
     const dummy_post = fs.readFileSync(__dirname + '/../routes/generic_profile_pic.jpg'); 
-    curr_photo_obj.data_photo = dummy_post;
-    photo_holder.push(curr_photo_obj);
+    photo_holder.push(dummy_post);
 }
 
 

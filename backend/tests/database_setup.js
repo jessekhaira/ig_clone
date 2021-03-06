@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const user_seed = require('./testDBSeed').user_holder;
 const photo_seed = require('./testDBSeed').photo_holder;
 const User = require('../models/users').userModel; 
-const photos = require('../models/photos').photosModel; 
+const Photo = require('../models/photos').photosModel; 
 
 async function setupDatabaseConnection(localDatabaseName) {
     await mongoose.connect(`mongodb://127.0.0.1/${localDatabaseName}`, {
@@ -20,12 +20,14 @@ async function setupDatabaseConnection(localDatabaseName) {
 
 
 async function seedDatabaseUsingModel() {
-    const objects_to_add = [user_seed];
-    const models = [User]; 
-    for (let i=0; i<objects_to_add.length; i++) {
-        const list_objects_add = objects_to_add[i];
-        const Model = models[i];
-        Model.create(list_objects_add); 
+    for (let userObj of user_seed) {
+        let new_user = new User(userObj);
+        for (let buffer_data_photo of photo_seed) {
+            let new_photo = new Photo({data_photo: buffer_data_photo, photo_posted_by: new_user});
+            new_user.photos.push(new_photo);
+            await new_user.save(); 
+            await new_photo.save(); 
+        }
     }
 }
 

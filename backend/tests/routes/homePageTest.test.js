@@ -63,19 +63,15 @@ describe('GET /', () => {
         .expect(200)
         .expect('Content-Type', /json/)
 
-        console.log(results.body);
-        // try {
-        //     const res_homepage_post = results.body.homepage_posts[0];
-        //     expect(res_homepage_post).toHaveProperty('liked_by');
-        //     expect(res_homepage_post).toHaveProperty('num_comments');
-        //     expect(res_homepage_post).toHaveProperty('prof_pic');
-        //     expect(res_homepage_post).toHaveProperty('username');
-        //     expect(res_homepage_post).toHaveProperty('date_posted');
-        //     expect(res_homepage_post).toHaveProperty('img');
-        // }
-        // catch(err) {
-        //     done(err);
-        // }
+        const res_homepage_post = results.body.homepage_posts[0];
+
+        expect(results.body.homepage_posts.length).toEqual(3); 
+        expect(res_homepage_post).toHaveProperty('liked_by');
+        expect(res_homepage_post).toHaveProperty('num_comments');
+        expect(res_homepage_post).toHaveProperty('prof_pic');
+        expect(res_homepage_post).toHaveProperty('username');
+        expect(res_homepage_post).toHaveProperty('date_posted');
+        expect(res_homepage_post).toHaveProperty('img');
         done(); 
     })
 
