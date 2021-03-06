@@ -1,7 +1,7 @@
 const request = require('supertest'); 
 const app = require('../../app');
 const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
-setupLocalDatabase(`logInTestDB`);
+setupLocalDatabase(`refreshTokenRouteTest`);
 
 
 test('Test if refresh token GET route functioning properly', async (done) => {
