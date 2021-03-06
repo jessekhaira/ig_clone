@@ -2,25 +2,17 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(".env") });
 const request = require('supertest'); 
 const app = require('../../app');
-const mongoose = require('mongoose');
-const mongoDB = process.env.MONGO_URL;
+const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
 
-const db = mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-afterAll(() => {
-  mongoose.connection.close();
-});
+setupLocalDatabase(`logInTestDB`);
 
 describe("Testing POST API endpoints for /accounts/login endpoint", () => {
   test("test log in succeeded username", async function test_log_in(done) {
       const res = await request(app)
         .post('/accounts/login')
         .send({
-          username_or_email: process.env.user,
-          password: process.env.pw 
+          username_or_email: `testUser15`,
+          password: `123456` 
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -34,8 +26,8 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
       const res = await request(app) 
         .post('/accounts/login')
         .send({
-          username_or_email: process.env.user_email,
-          password: process.env.pw 
+          username_or_email: `testUser15@gmail.com`,
+          password: `123456` 
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -63,7 +55,7 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
       const res = await request(app) 
         .post('/accounts/login')
         .send({
-          username_or_email: process.env.user,
+          username_or_email: `testUser15@gmail.com`,
           password: '123'
         })
         .expect(401)
