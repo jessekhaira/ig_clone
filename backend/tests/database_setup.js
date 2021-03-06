@@ -20,13 +20,23 @@ async function setupDatabaseConnection(localDatabaseName) {
 
 
 async function seedDatabaseUsingModel() {
-    for (let userObj of user_seed) {
+    const saved_users = []; 
+    for (let [i,userObj] of user_seed.entries()) {
         let new_user = new User(userObj);
         for (let buffer_data_photo of photo_seed) {
             let new_photo = new Photo({data_photo: buffer_data_photo, photo_posted_by: new_user});
             new_user.photos.push(new_photo);
             await new_user.save(); 
             await new_photo.save(); 
+        }
+        if (i % 2 == 0) {
+            saved_users.push(new_user);
+        }
+        else if (i == 19) {
+            for (let usersToFollow of saved_users) {
+                new_user.following.push(usersToFollow);
+                await new_user.save(); 
+            }
         }
     }
 }
