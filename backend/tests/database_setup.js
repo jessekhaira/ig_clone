@@ -31,10 +31,18 @@ async function seedDatabaseUsingModel() {
 async function deleteCollectionsFromDatabase() {
     const collections = Object.keys(mongoose.connection.collections);
     for (const objDrop of collections) {
-        console.log(objDrop);
-        await mongoose.connection.collections[objDrop].drop(); 
+        try {
+            await mongoose.connection.collections[objDrop].drop(); 
+        }
+        catch(error) {
+            if (error.message === "ns not found") return;
+            // This error occurs when you use it.todo. You can
+            // safely ignore this error too
+            if (error.message.includes("a background operation is currently running"))
+                return;
+            console.log(error.message);
+        }
     }
-    console.log(await User.find({}));
 }
 
 
@@ -45,9 +53,9 @@ module.exports = {
             await seedDatabaseUsingModel(); 
         });
 
-        afterAll(() => {
+        afterAll(async () => {
             await deleteCollectionsFromDatabase(); 
-            mongoose.connection.close();
+            await mongoose.connection.close();
         });          
     }
 }
