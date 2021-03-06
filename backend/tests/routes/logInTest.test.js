@@ -1,7 +1,6 @@
 const request = require('supertest'); 
 const app = require('../../app');
 const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
-
 setupLocalDatabase(`logInTestDB`);
 
 describe("Testing POST API endpoints for /accounts/login endpoint", () => {
