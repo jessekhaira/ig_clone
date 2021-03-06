@@ -17,14 +17,14 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
         .expect(201)
         .expect('Content-Type', /json/)
         
-        expect(res.body).toHaveProperty('accessToken');
-        expect(res.body).toHaveProperty('refreshToken');
-        
-        await request(app)
-          .get(`/testUser15`)
-          .set(`Authorization`, res.body.accessToken)
-          .expect(200)
-          .expect('Content-Type', 'text/html; charset=UTF-8');
+      expect(res.body).toHaveProperty('accessToken');
+      expect(res.body).toHaveProperty('refreshToken');
+      
+      await request(app)
+        .get(`/testUser15`)
+        .set(`Authorization`, res.body.accessToken)
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8');
 
         done(); 
   })
@@ -38,9 +38,16 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
         })
         .expect(201)
         .expect('Content-Type', /json/)
-        
-        expect(res.body).toHaveProperty('accessToken');
-        expect(res.body).toHaveProperty('refreshToken'); 
+      
+      expect(res.body).toHaveProperty('accessToken');
+      expect(res.body).toHaveProperty('refreshToken'); 
+
+      await request(app)
+        .get(`/testUser15`)
+        .set(`Authorization`, res.body.accessToken)
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8');
+
         done();
   })
 
