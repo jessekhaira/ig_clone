@@ -2,8 +2,6 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(".env") });
 const request = require('supertest'); 
 const app = require('../../app');
-const mongoose = require('mongoose');
-const mongoDB = process.env.MONGO_URL;
 const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
 let token;
 
