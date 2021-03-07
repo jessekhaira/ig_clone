@@ -61,5 +61,26 @@ describe('testing /loggedIn/navbar GET and POST endpoints using mock objects cre
         done(); 
     }); 
 
+    test('test search succeeds with appropriate results', async(done) => {
+        let results = await request(app)
+        .post('/loggedIn/navbar/search')
+        .set('Authorization', accessToken)
+        .send({
+            search_query: 'te'
+        })
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+        // every mock object created in local DB w/ 'te' anywhere in the name should match
+        // and have objects that return the appropriate properties 
+        expect(results.body.searchResults.length).toEqual(21);
+        for (let obj of results.body.searchResults) {
+            expect(obj).toHaveProperty('profile_picture');
+            expect(obj).toHaveProperty('username');
+            expect(obj).toHaveProperty('full_name'); 
+        }
+        done(); 
+    })
+
 
 });
