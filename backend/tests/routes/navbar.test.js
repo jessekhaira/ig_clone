@@ -5,7 +5,7 @@ const setupLocalDatabase = require('../database_setup').setupLocalDatabase;
 setupLocalDatabase(`navbarTestDatabase`);
 
 
-describe('testing post route for searching for users in our db, using mock objects created in local db', () => {
+describe('testing /loggedIn/navbar GET and POST endpoints using mock objects created in local db', () => {
     let accessToken; 
 
     beforeAll(async (done) => {
@@ -30,6 +30,16 @@ describe('testing post route for searching for users in our db, using mock objec
         done(); 
     });
 
+
+    test('test that base GET request returns back HTML', async (done) => {
+        await request(app)
+        .get(`/testing123`)
+        .set(`Authorization`, accessToken)
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8');
+        done(); 
+    }); 
+
     test('test search fails if we do not provide valid access token', async (done) => {
         let results = await request(app)
         .post('/loggedIn/navbar')
@@ -37,5 +47,19 @@ describe('testing post route for searching for users in our db, using mock objec
 
         expect(results.body).toHaveProperty('UnauthorizedUser'); 
         done(); 
-    })
+    }); 
+
+
+    test('test search succeeds', async (done) => {
+        let results = await request(app)
+        .post('/loggedIn/navbar/search')
+        .set('Authorization', accessToken)
+        .send({
+            search_query: 'test'
+        })
+        .expect(200); 
+        done(); 
+    }); 
+
+
 });
