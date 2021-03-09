@@ -19,6 +19,24 @@ const sharp = require('sharp');
  */
 const router = express.Router({ mergeParams: true });
 
+router.use((req, res, next) => {
+    // have to verify the jwt to get access to any of the routes below so thats what we do first thing 
+    try {
+        // dealing with a bug where we refresh on the editprofile page and lose the current view
+        // so in that case, we just return the react view (and when react view is returned, we query for
+        // information with our token defined)
+        if (req.headers.authorization === undefined && req.path === '/editProfile') {
+            return returnJS_Views(req, res, next); 
+        }
+        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
+        return next(); 
+    }
+    catch(err) {
+        return next(err);
+    }
+})
+
+
 /** This function represents a controller located behind endpoints that just return the static 
  * files for the application 
 **/
@@ -42,23 +60,6 @@ router.get('/inbox', (req,res,next) => {
     return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 });
 
-
-router.use((req, res, next) => {
-    // have to verify the jwt to get access to any of the routes below so thats what we do first thing 
-    try {
-        // dealing with a bug where we refresh on the editprofile page and lose the current view
-        // so in that case, we just return the react view (and when react view is returned, we query for
-        // information with our token defined)
-        if (req.headers.authorization === undefined && req.path === '/editProfile') {
-            return returnJS_Views(req, res, next); 
-        }
-        jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
-        return next(); 
-    }
-    catch(err) {
-        return next(err);
-    }
-})
 
 router.get('/editProfile', async(req,res,next) => {
     try {
