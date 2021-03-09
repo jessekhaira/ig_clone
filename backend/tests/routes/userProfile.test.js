@@ -37,10 +37,25 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 
     test('test that base GET request returns back HTML', async (done) => {
         await request(app)
-        .get(`/testing123`)
-        .set(`Authorization`, accessToken)
-        .expect(200)
-        .expect('Content-Type', 'text/html; charset=UTF-8');
+            .get(`/testing123`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', 'text/html; charset=UTF-8');
+        done(); 
+    });
+
+
+    test('test that GET request to /editProfile endpoint returns appropriate response', async (done) => {
+        let results = (await request(app)
+            .get(`/testing123/editProfile`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
+
+        expect(results).toHaveProperty('full_name');
+        expect(results).toHaveProperty('profile_picture');
+        expect(results).toHaveProperty('email');
+        expect(results).toHaveProperty('profile_description');     
         done(); 
     });
 
