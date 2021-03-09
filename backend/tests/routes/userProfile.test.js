@@ -59,4 +59,22 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done(); 
     });
 
+    test('test that GET request to /profileInfo endpoint returns appropriate response', async (done) => {
+        let results = (await request(app)
+            .get(`/testing123/profileInfo`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
+        
+        expect(results.full_name).toEqual('testing');
+        expect(results).toHaveProperty('profile_picture');
+        expect(results.number_posts).toEqual(0);
+        expect(results.number_followers).toEqual(0);
+        expect(results.number_following).toEqual(0);
+        expect(results.username).toEqual('testing123');
+        expect(results).toHaveProperty('profile_description');  
+        done();           
+    })
+
+
 }); 
