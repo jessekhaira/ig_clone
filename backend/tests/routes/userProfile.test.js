@@ -25,6 +25,7 @@ beforeAll(async (done) => {
 
 
 describe('Grouping tests that test GET endpoints built off /:userprofile route', () => {
+
     test('Make sure GET request fails when no token is attached', async (done) => {
         let results = await request(app)
             .get(`/testing123`)
@@ -33,4 +34,14 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         expect(results.body).toHaveProperty('UnauthorizedUser');
         done();
     }); 
+
+    test('test that base GET request returns back HTML', async (done) => {
+        await request(app)
+        .get(`/testing123`)
+        .set(`Authorization`, accessToken)
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8');
+        done(); 
+    });
+
 }); 
