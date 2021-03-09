@@ -87,7 +87,19 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
-    
+
+
+    // test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
+    //     let results = (await request(app)
+    //         .get(`/testing123/testUser3/followersBox`)
+    //         .set(`Authorization`, accessToken)
+    //         .expect(200)
+    //         .expect('Content-Type', /json/)).body;
+        
+    //     expect(results).toHaveProperty('profile_picture');
+    //     done();           
+    // });
+
 
 
 

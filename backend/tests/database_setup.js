@@ -33,10 +33,12 @@ async function seedDatabaseUsingModel() {
             saved_users.push(new_user);
         }
         else if (i == 19) {
-            for (let usersToFollow of saved_users) {
-                new_user.following.push(usersToFollow);
-                await new_user.save(); 
+            for (let userToFollow of saved_users) {
+                new_user.following.push(userToFollow);
+                userToFollow.followers.push(new_user);
+                await userToFollow.save(); 
             }
+            await new_user.save(); 
         }
     }
 }
