@@ -89,16 +89,22 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 
 
 
-    // test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
-    //     let results = (await request(app)
-    //         .get(`/testing123/testUser3/followersBox`)
-    //         .set(`Authorization`, accessToken)
-    //         .expect(200)
-    //         .expect('Content-Type', /json/)).body;
+    test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
+        let results = (await request(app)
+            .get(`/testUser2/testing123/followersBox`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
         
-    //     expect(results).toHaveProperty('profile_picture');
-    //     done();           
-    // });
+        let follower = results.followers[0];
+        expect(results.followers.length).toEqual(1);
+        expect(follower).toHaveProperty("profile_picture");
+        expect(follower).toHaveProperty("_id");
+        expect(follower.username).toEqual("testUser19");
+        expect(follower.full_name).toEqual("testUser");
+        expect(follower.curr_user_following_this_user).toEqual(false);
+        done();           
+    });
 
 
 
