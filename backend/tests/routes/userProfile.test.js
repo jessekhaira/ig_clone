@@ -19,6 +19,25 @@ beforeAll(async (done) => {
         'date_of_birth': Date.now()
         }); 
 
+
+    const testing123 = await User.findOne({username: 'testing123'});
+    const testUser2 = await User.findOne({username: 'testUser2'});
+    for (let i=0; i<20; i++) {
+        if (i === 2 || i === 19) {
+            continue; 
+        }
+        const testUserX = await User.findOne({username: `testUser${i}`});
+        testUserX.following.push(testUser2);
+        testUser2.followers.push(testUserX); 
+
+        testing123.following.push(testUserX); 
+        testUserX.followers.push(testing123); 
+        await testUserX.save(); 
+    }
+    await testUser2.save();
+    await testing123.save();
+
+
     accessToken = results.body.accessToken; 
     done(); 
 });
@@ -70,7 +89,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         expect(results).toHaveProperty('profile_picture');
         expect(results.number_posts).toEqual(0);
         expect(results.number_followers).toEqual(0);
-        expect(results.number_following).toEqual(0);
+        expect(results.number_following).toEqual(18);
         expect(results.username).toEqual('testing123');
         expect(results).toHaveProperty('profile_description');  
         done();           
@@ -96,17 +115,22 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
             .expect(200)
             .expect('Content-Type', /json/)).body;
         
-        let follower = results.followers[0];
-        expect(results.followers.length).toEqual(1);
-        expect(follower).toHaveProperty("profile_picture");
-        expect(follower).toHaveProperty("_id");
-        expect(follower.username).toEqual("testUser19");
-        expect(follower.full_name).toEqual("testUser");
-        expect(follower.curr_user_following_this_user).toEqual(false);
+        expect(results.followers.length).toEqual(19);
+
+        for (let follower of results.followers) {
+            expect(follower).toHaveProperty("profile_picture");
+            expect(follower).toHaveProperty("_id");
+            expect(follower).toHaveProperty("username");
+            expect(follower.full_name).toEqual("testUser");
+            if (follower.username === 'testUser19') {
+                expect(follower.curr_user_following_this_user).toEqual(false);
+            }
+            else {
+                expect(follower.curr_user_following_this_user).toEqual(true);
+            } 
+        }
         done();           
     });
-
-
 
 
 }); 
