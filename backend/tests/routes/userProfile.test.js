@@ -158,7 +158,6 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
             expect(object).toHaveProperty('username');
             expect(object).toHaveProperty('full_name');
             expect(object).toHaveProperty('curr_user_following_this_user');
-
             expect(object.curr_user_following_this_user).toEqual(true); 
         }
         done();           

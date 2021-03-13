@@ -4,6 +4,12 @@ const photo_seed = require('./testDBSeed').photo_holder;
 const User = require('../models/users').userModel; 
 const Photo = require('../models/photos').photosModel; 
 
+/**
+ * This function sets up a local database connection with MongoDB with the name given in the input 
+ * to use for testing purposes. 
+ * @param {String} localDatabaseName Name representing the name of the local database
+ * @returns {undefined} 
+ */
 async function setupDatabaseConnection(localDatabaseName) {
     await mongoose.connect(`mongodb://127.0.0.1/${localDatabaseName}`, {
         useNewUrlParser: true,
