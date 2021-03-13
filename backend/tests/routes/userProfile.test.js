@@ -132,7 +132,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
-    test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
+    test('test that GET request to /:loggedInUser/followingBox endpoint returns appropriate response', async (done) => {
         let results = (await request(app)
             .get(`/testUser3/testing123/followingBox`)
             .set(`Authorization`, accessToken)
@@ -143,6 +143,27 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         expect(results.following[0].curr_user_following_this_user).toEqual(false); 
         done();           
     });
+
+    test('test that GET request to /:loggedInUser/followingBox endpoint returns appropriate response', async (done) => {
+        let results = (await request(app)
+            .get(`/testing123/testing123/followingBox`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
+
+        expect(results.following.length).toEqual(18);
+        for (let object of results.following) {
+            expect(object).toHaveProperty('profile_picture');
+            expect(object).toHaveProperty('_id');
+            expect(object).toHaveProperty('username');
+            expect(object).toHaveProperty('full_name');
+            expect(object).toHaveProperty('curr_user_following_this_user');
+
+            expect(object.curr_user_following_this_user).toEqual(true); 
+        }
+        done();           
+    });
+
 
 
 }); 
