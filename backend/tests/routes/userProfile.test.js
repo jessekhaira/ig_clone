@@ -132,5 +132,17 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
+    test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
+        let results = (await request(app)
+            .get(`/testUser3/testing123/followingBox`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
+
+        expect(results.following.length).toEqual(1);
+        expect(results.following[0].curr_user_following_this_user).toEqual(false); 
+        done();           
+    });
+
 
 }); 
