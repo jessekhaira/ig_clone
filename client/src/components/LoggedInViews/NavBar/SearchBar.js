@@ -160,10 +160,10 @@ function SearchBar(props) {
         <div id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
             <div className = 'overlay_div_blackout'></div>
             <div id = "icon_input_div">
-                <i class="fas fa-search search_icon"></i>
+                <i className="fas fa-search search_icon"></i>
                 <div id = "inp_display_text" >Search</div>
                 <input id = "search_input" type = "text" placeholder = "Search" autoComplete = "off"></input>
-                <i id = "delete_inp_text_icon" class="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
+                <i id = "delete_inp_text_icon" className="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
             <div id = "search_dropdown_container">
             </div>
