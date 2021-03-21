@@ -10,8 +10,6 @@ function SearchBar(props) {
 
     function _clickOnSearchBar(e) {
         e.preventDefault();  
-        const search_bar = document.getElementById('search_bar');
-        const icon_input_div = document.getElementById('icon_input_div');
         const inp_tag = document.getElementById('search_input');
         const delete_inp_text_icon = document.getElementById('delete_inp_text_icon'); 
         const search_dropdown = document.getElementById('search_dropdown_container');
@@ -157,13 +155,13 @@ function SearchBar(props) {
     }
 
    return(
-        <div id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
+        <div role = 'button' aria-label = 'container that holds search bar' id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
             <div className = 'overlay_div_blackout'></div>
             <div id = "icon_input_div">
                 <i className="fas fa-search search_icon"></i>
                 <div id = "inp_display_text" >Search</div>
                 <input id = "search_input" type = "text" placeholder = "Search" autoComplete = "off"></input>
-                <i id = "delete_inp_text_icon" className="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
+                <i role = 'button' aria-label = 'deletes text written in search bar when clicked' id = "delete_inp_text_icon" className="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
             <div id = "search_dropdown_container">
             </div>
