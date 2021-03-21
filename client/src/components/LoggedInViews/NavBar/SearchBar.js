@@ -155,7 +155,7 @@ function SearchBar(props) {
     }
 
    return(
-        <div role = 'button' aria-label = 'container that holds search bar' id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
+        <div role = 'search' aria-label = 'container that holds search bar' id = "search_bar" onClick = {_clickOnSearchBar} onChange = {_sendSearchRequest}>
             <div className = 'overlay_div_blackout'></div>
             <div id = "icon_input_div">
                 <i className="fas fa-search search_icon"></i>
@@ -163,7 +163,7 @@ function SearchBar(props) {
                 <input id = "search_input" type = "text" placeholder = "Search" autoComplete = "off"></input>
                 <i role = 'button' aria-label = 'deletes text written in search bar when clicked' id = "delete_inp_text_icon" className="fas fa-times-circle position_icon" onClick = {_searchDelete}></i>
             </div>
-            <div id = "search_dropdown_container">
+            <div role = 'search' aria-label = 'container that holds search results' id = "search_dropdown_container">
             </div>
             <div id = "spinner_div_notifications" className="sk-chase sk-chase-search-bar">
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
@@ -173,7 +173,7 @@ function SearchBar(props) {
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
             </div>
-            <div className = "top_triangle search_triangle"></div>
+            <div role = "search" aria-label = "triangle used for decoration for search bubble" className = "top_triangle search_triangle"></div>
         </div>
    )
 }
