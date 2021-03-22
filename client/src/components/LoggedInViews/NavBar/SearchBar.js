@@ -53,7 +53,6 @@ function SearchBar(props) {
                     div_containingResult.classList.add('firstSearchResult');
                 }
                 search_dropdown_container.appendChild(div_containingResult);
-    
             }
         }
     }
@@ -97,7 +96,8 @@ function SearchBar(props) {
         searchContainer.appendChild(searchImgDiv);
         searchContainer.appendChild(namesDiv);
     
-        searchContainer.addEventListener('click', _searchResultReRouteOnClick)
+        searchContainer.addEventListener('click', _searchResultReRouteOnClick);
+
         return searchContainer; 
     }
 
@@ -125,6 +125,7 @@ function SearchBar(props) {
         if (input_tag.value.length > 0) {
             try {
                 setDisplay(['none', 'block', 'block', 'block'], delete_inp_text_icon, spinner_div, search_dropdown, search_triangle);
+                
                 let search_results = await fetch('/loggedIn/navbar/search', {
                     method: 'post', 
                     headers: {
@@ -138,9 +139,8 @@ function SearchBar(props) {
 
                 const json_search_results = await search_results.json();
                 // erase old search results and display new ones
-                console.log(json_search_results);
-                // search_dropdown.textContent = ''; 
-                // addSearchResultDivs(json_search_results.searchResults); 
+                search_dropdown.textContent = ''; 
+                addSearchResultDivs(json_search_results.searchResults); 
             }
             catch(err) {
                 console.log(err);
