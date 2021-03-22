@@ -1,12 +1,8 @@
 import {SearchBar} from '../../components/LoggedInViews/NavBar/SearchBar';
 import {searchBarBlurHelper} from '../../components/LoggedInViews/NavBar/NavBar';
-import {rest} from 'msw';
-import {setupServer} from 'msw/node'
-import '@testing-library/jest-dom';
-import * as React from 'react';
-import {render,screen, waitFor} from '@testing-library/react';
+import {setup_test} from './setup-jest-tests'
+import {render,screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {readFileSync} from 'fs';
 
 let search_bar = null;
 let inp_text_label = null; 
@@ -15,26 +11,9 @@ let delete_inp_text_icon = null;
 let search_dropdown_container = null;
 let search_triangle = null;
 let searchBarBlurMock = null;
+let spinner_holder = null;
 
-const server = setupServer(
-    rest.post('/loggedIn/navbar/search', (req, res, ctx) => {
-        const return_array = [];
-        for (let i =0 ; i<5; i++) {
-            const object = {};
-            object.username = `testing${i}`;
-            object.full_name = `testing${i+50}`;
-            object._id = `123123123`;
-            object.profile_picture = readFileSync(__dirname + '/generic_profile_pic.jpg', {encoding: 'base64'}); 
-            return_array.push(object);
-        }
-        
-        return res(ctx.json({searchResults: return_array}));
-    })
-);
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+setup_test();
 
 
 beforeEach(() => {
@@ -48,6 +27,7 @@ beforeEach(() => {
     delete_inp_text_icon = screen.getByRole('button', {name: /deletes/i});
     search_dropdown_container = screen.getByRole('search', {name: /search results/});
     search_triangle = screen.getByRole('search', {name: /triangle/});
+    spinner_holder = screen.getByRole('search', {name: /spinner container/});
 });
 
 
@@ -106,24 +86,32 @@ describe('testing synchronous event handlers in search bar component', (done) =>
 
 describe('testing async functions, and things related to async functions in search bar component', () => {
     test('testing async onChange event handler for search bar', async () => {
-        userEvent.type(screen.getByRole('textbox'), 'batman');
-        // thread sleep to allow UI to update 
-        await new Promise(r => setTimeout(r, 2000));
-        let i = 0;
-        expect(search_dropdown_container.children.length).toEqual(5);
-        for (const child of search_dropdown_container.children) {
-            if (i === 0) {
-                expect(child.classList.contains('firstSearchResult')).toEqual(true);
+        // have to run test twice since our results shouldn't be stacking on top of each other in the
+        // search dropdown container
+        for (let j=0; j<2;j++) {
+            userEvent.type(screen.getByRole('textbox'), 'batman');
+            // thread sleep to allow UI to update 
+            await new Promise(r => setTimeout(r, 500));
+            let i = 0;
+            expect(search_dropdown_container.children.length).toEqual(5);
+            for (const child of search_dropdown_container.children) {
+                if (i === 0) {
+                    expect(child.classList.contains('firstSearchResult')).toEqual(true);
+                }
+                expect(child.children.length).toEqual(2);
+                expect(screen.getByText(`testing${i}`)).toBeInTheDocument();
+                expect(screen.getByText(`testing${i+50}`)).toBeInTheDocument();
+                const images = search_dropdown_container.querySelectorAll('img'); 
+                expect(images.length).toEqual(5); 
+                for (let img of images) {
+                    expect(img.src.length).toBeGreaterThan(0); 
+                }
+                i++;
             }
-            expect(child.children.length).toEqual(2);
-            expect(screen.getByText(`testing${i}`)).toBeInTheDocument();
-            expect(screen.getByText(`testing${i+50}`)).toBeInTheDocument();
-            const images = search_dropdown_container.querySelectorAll('img'); 
-            expect(images.length).toEqual(5); 
-            for (let img of images) {
-                expect(img.src.length).toBeGreaterThan(0); 
-            }
-            i++;
+            
+            expect(delete_inp_text_icon.style.display).toEqual('block');
+            expect(spinner_holder.style.display).toEqual('none');
         }
+
     }); 
 })

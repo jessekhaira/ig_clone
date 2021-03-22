@@ -165,7 +165,7 @@ function SearchBar(props) {
             </div>
             <div role = 'search' aria-label = 'container that holds search results' id = "search_dropdown_container">
             </div>
-            <div id = "spinner_div_notifications" className="sk-chase sk-chase-search-bar">
+            <div role = 'search' aria-label = 'spinner container' id = "spinner_div_notifications" className="sk-chase sk-chase-search-bar">
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
