@@ -27,13 +27,28 @@ afterAll(() => server.close())
 
 
 describe('testing synchronous event handlers in search bar component', () => {
-    test('test search bar click event handler when input tag is empty', () => {
-        render(<SearchBar />);
-        let search_bar = screen.getByRole('search', {name: /search bar/}); 
-        const inp_text_label = screen.getByText('Search');
-        const search_input_tag = screen.getByRole('textbox');
-        const delete_inp_text_icon = screen.getByRole('button', {name: /deletes/i});
+    let search_bar = null;
+    let inp_text_label = null; 
+    let search_input_tag = null;
+    let delete_inp_text_icon = null; 
+    let search_dropdown_container = null;
+    let search_triangle = null;
+    let searchBarBlurMock = null;
 
+    beforeEach(() => {
+        searchBarBlurMock = jest.fn(() => {
+            searchBarBlurHelper(); 
+        });
+        render(<SearchBar _searchBarBlur = {searchBarBlurMock}/>);
+        search_bar = screen.getByRole('search', {name: /search bar/}); 
+        inp_text_label = screen.getByText('Search');
+        search_input_tag = screen.getByRole('textbox');
+        delete_inp_text_icon = screen.getByRole('button', {name: /deletes/i});
+        search_dropdown_container = screen.getByRole('search', {name: /search results/});
+        search_triangle = screen.getByRole('search', {name: /triangle/});
+    });
+
+    test('test search bar click event handler when input tag is empty', () => {
         for (const obj of [inp_text_label, search_input_tag, delete_inp_text_icon]) {
             expect(obj.style.display).toEqual('');
         }
@@ -47,14 +62,9 @@ describe('testing synchronous event handlers in search bar component', () => {
     });
 
     test('test search bar click event handler when input tag has a value', () => {
-        render(<SearchBar />);
-        let search_bar = screen.getByRole('search', {name: /search bar/}); 
-        const search_input_tag = screen.getByRole('textbox');
         search_input_tag.value = 'testing';
 
-        const search_dropdown_container = screen.getByRole('search', {name: /search results/}); 
-        const search_triangle = screen.getByRole('search', {name: /triangle/});
-
+        console.log(search_dropdown_container);
         for (const obj of [search_dropdown_container, search_triangle]) {
             expect(obj.style.display).toEqual('');
         }
@@ -67,19 +77,9 @@ describe('testing synchronous event handlers in search bar component', () => {
     });
 
     test('test click event handler on icon for deleting text in search bar', () => {
-        const searchBarBlurMock = jest.fn(() => {
-            searchBarBlurHelper(); 
-        });
-        render(<SearchBar _searchBarBlur = {searchBarBlurMock}/>);
         userEvent.click(search_bar);
 
-        const search_input_tag = screen.getByRole('textbox');
         search_input_tag.value = 'testing';
-        const delete_inp_text_icon = screen.getByRole('button', {name: /deletes/i});
-        const inp_text_label = screen.getByText('Search');
-        const search_dropdown_container = screen.getByRole('search', {name: /search results/}); 
-        const search_triangle = screen.getByRole('search', {name: /triangle/});
-
 
         userEvent.click(delete_inp_text_icon); 
 
@@ -103,6 +103,6 @@ describe('testing synchronous event handlers in search bar component', () => {
 
 describe('testing async event handlers search bar', () => {
     test('testing async onChange event handler for search bar', async () => {
-        
+        // userEvent.type(screen.get)
     }); 
 })
