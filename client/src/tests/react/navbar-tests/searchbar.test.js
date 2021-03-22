@@ -1,7 +1,7 @@
 import {SearchBar} from '../../../components/LoggedInViews/NavBar/SearchBar';
 import {searchBarBlurHelper} from '../../../components/LoggedInViews/NavBar/NavBar';
 import {setup_test} from '../test-setup/setup-jest-tests';
-import {render,screen} from '@testing-library/react';
+import {render,screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 let search_bar = null;
@@ -85,7 +85,7 @@ describe('testing synchronous event handlers in search bar component', (done) =>
 });
 
 describe('testing async functions, and things related to async functions in search bar component', () => {
-    test('testing async onChange event handler for search bar', async () => {
+    test('testing async onChange event handler for search bar when results are returned', async () => {
         // have to run test twice since our results shouldn't be stacking on top of each other in the
         // search dropdown container
         for (let j=0; j<2;j++) {
@@ -101,6 +101,8 @@ describe('testing async functions, and things related to async functions in sear
                     expect(child.classList.contains('firstSearchResult')).toEqual(true);
                 }
                 expect(child.children.length).toEqual(2);
+                // make sure username, fullname, and profile picture are inserted appropriately into 
+                // the search resuts
                 expect(screen.getByText(`testing${i}`)).toBeInTheDocument();
                 expect(screen.getByText(`testing${i+50}`)).toBeInTheDocument();
                 const images = search_dropdown_container.querySelectorAll('img'); 
@@ -114,6 +116,15 @@ describe('testing async functions, and things related to async functions in sear
             expect(delete_inp_text_icon.style.display).toEqual('block');
             expect(spinner_holder.style.display).toEqual('none');
         }
-
     }); 
-})
+
+    test('testing async onChange event handler for search bar when there are no results', async () => {
+        for (let j=0; j<2;j++) {
+            // clear textbox before running
+            screen.getByRole('textbox').value = ''; 
+            userEvent.type(screen.getByRole('textbox'), 'zzzzz');
+            await waitFor(() => expect(screen.getByText(/No results/)).toBeInTheDocument());
+            expect(search_dropdown_container.children.length).toEqual(1);
+        }
+    })
+}); 
