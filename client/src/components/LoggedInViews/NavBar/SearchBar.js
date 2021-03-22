@@ -35,7 +35,6 @@ function SearchBar(props) {
         props._searchBarBlur(); 
         document.getElementById('search_input').value = '';
         document.getElementById('inp_display_text').innerHTML = 'Search';
-
     }
 
     function addSearchResultDivs(search_results) {
