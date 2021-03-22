@@ -1,6 +1,5 @@
 import {SearchBar} from '../../components/LoggedInViews/NavBar/SearchBar';
 import {searchBarBlurHelper} from '../../components/LoggedInViews/NavBar/NavBar';
-import AppWrapper from '../../components/AppWrapper'; 
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import {render,screen} from '@testing-library/react';
@@ -9,16 +8,9 @@ import userEvent from '@testing-library/user-event';
 
 
 describe('testing search bar component', () => {
-    let search_bar = null;
-    // beforeEach(() => {
-    //     render(<SearchBar />);
-    //     search_bar = screen.getByRole('search', {name: /search bar/}); 
-    // });
-
-
     test('test search bar click event handler when input tag is empty', () => {
         render(<SearchBar />);
-        search_bar = screen.getByRole('search', {name: /search bar/}); 
+        let search_bar = screen.getByRole('search', {name: /search bar/}); 
         const inp_text_label = screen.getByText('Search');
         const search_input_tag = screen.getByRole('textbox');
         const delete_inp_text_icon = screen.getByRole('button', {name: /deletes/i});
@@ -37,7 +29,7 @@ describe('testing search bar component', () => {
 
     test('test search bar click event handler when input tag has a value', () => {
         render(<SearchBar />);
-        search_bar = screen.getByRole('search', {name: /search bar/}); 
+        let search_bar = screen.getByRole('search', {name: /search bar/}); 
         const search_input_tag = screen.getByRole('textbox');
         search_input_tag.value = 'testing';
 
@@ -73,10 +65,11 @@ describe('testing search bar component', () => {
         userEvent.click(delete_inp_text_icon); 
 
         expect(searchBarBlurMock).toBeCalled();
-        
         expect(search_input_tag.value).toEqual('');
         expect(inp_text_label.innerHTML).toEqual('Search');
         
+        // test for search bar blur helper here as well -- since we just called the method in a logical spot it will be
+        // used so makes sense to test here
         for (let [i,obj] of [search_dropdown_container, search_triangle, search_input_tag, inp_text_label, delete_inp_text_icon].entries()) {
             if (i !== 3) {
                 expect(obj.style.display).toEqual('none');
