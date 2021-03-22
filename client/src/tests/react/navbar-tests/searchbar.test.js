@@ -1,6 +1,6 @@
-import {SearchBar} from '../../components/LoggedInViews/NavBar/SearchBar';
-import {searchBarBlurHelper} from '../../components/LoggedInViews/NavBar/NavBar';
-import {setup_test} from './setup-jest-tests'
+import {SearchBar} from '../../../components/LoggedInViews/NavBar/SearchBar';
+import {searchBarBlurHelper} from '../../../components/LoggedInViews/NavBar/NavBar';
+import {setup_test} from '../test-setup/setup-jest-tests';
 import {render,screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -89,8 +89,10 @@ describe('testing async functions, and things related to async functions in sear
         // have to run test twice since our results shouldn't be stacking on top of each other in the
         // search dropdown container
         for (let j=0; j<2;j++) {
-            userEvent.type(screen.getByRole('textbox'), 'batman');
-            // thread sleep to allow UI to update 
+            // clear textbox before running
+            screen.getByRole('textbox').value = ''; 
+            userEvent.type(screen.getByRole('textbox'), 'tttt');
+            // thread sleep to allow DOM to update 
             await new Promise(r => setTimeout(r, 500));
             let i = 0;
             expect(search_dropdown_container.children.length).toEqual(5);
