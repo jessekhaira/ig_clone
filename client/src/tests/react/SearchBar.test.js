@@ -1,13 +1,32 @@
 import {SearchBar} from '../../components/LoggedInViews/NavBar/SearchBar';
 import {searchBarBlurHelper} from '../../components/LoggedInViews/NavBar/NavBar';
+import {rest} from 'msw';
+import {setupServer} from 'msw/node'
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import {render,screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+const server = setupServer(
+    rest.post('/loggedIn/navbar/search', (req, res, ctx) => {
+      const return_array = [];
+      for (let i =0 ; i<5; i++) {
+          const object = {};
+          object.username = `testing${i}`;
+          object.full_name = `testing${i-1}`;
+          object._id = `123123123`;
+          object.profile_picture = ``
+      }
+      return res(ctx.json({ greeting: 'hello there' }))
+    })
+)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 
-describe('testing search bar component', () => {
+describe('testing synchronous event handlers in search bar component', () => {
     test('test search bar click event handler when input tag is empty', () => {
         render(<SearchBar />);
         let search_bar = screen.getByRole('search', {name: /search bar/}); 
@@ -78,8 +97,12 @@ describe('testing search bar component', () => {
                 expect(obj.style.display).toEqual('block');
             }
         }
-
     })
+});
 
 
+describe('testing async event handlers search bar', () => {
+    test('testing async onChange event handler for search bar', async () => {
+        
+    }); 
 })

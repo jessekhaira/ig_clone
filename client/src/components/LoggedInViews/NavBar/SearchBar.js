@@ -138,8 +138,9 @@ function SearchBar(props) {
 
                 const json_search_results = await search_results.json();
                 // erase old search results and display new ones
-                search_dropdown.textContent = ''; 
-                addSearchResultDivs(json_search_results.searchResults); 
+                console.log(json_search_results);
+                // search_dropdown.textContent = ''; 
+                // addSearchResultDivs(json_search_results.searchResults); 
             }
             catch(err) {
                 console.log(err);
