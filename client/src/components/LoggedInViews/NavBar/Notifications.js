@@ -103,7 +103,7 @@ function Notifications(props) {
 
     return(
         <div id = "heartIconContainer">
-            <i id = "heart_icon" class="far fa-heart navbar_icons margin_class" onClick = {fetchNotifications}></i>
+            <i id = "heart_icon" className="far fa-heart navbar_icons margin_class" onClick = {fetchNotifications}></i>
             <div className = "top_triangle notif_triangle"></div>
             <div className = "new_notifications"></div>
             <div id ="heartIconDropdown">

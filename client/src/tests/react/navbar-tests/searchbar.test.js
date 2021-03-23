@@ -1,7 +1,6 @@
-import {SearchBar} from '../../../components/LoggedInViews/NavBar/SearchBar';
-import {setup_test} from '../test-setup/setup-jest-tests';
-import {render,screen, waitFor} from '@testing-library/react';
+import {screen, wait, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {setup_parent_component} from '../test-setup/logged-in-component-setup';
 
 let search_bar = null;
 let inp_text_label = null; 
@@ -12,12 +11,10 @@ let search_triangle = null;
 let searchBarBlurMock = null;
 let spinner_holder = null;
 
-setup_test();
+setup_parent_component(); 
 
 
 beforeEach(() => {
-    searchBarBlurMock = jest.fn(); 
-    render(<SearchBar _searchBarBlur = {searchBarBlurMock}/>);
     search_bar = screen.getByRole('search', {name: /search bar/}); 
     inp_text_label = screen.getByText('Search');
     search_input_tag = screen.getByRole('textbox');
@@ -28,7 +25,7 @@ beforeEach(() => {
 });
 
 
-describe('testing synchronous event handlers in search bar component', (done) => {
+describe('testing synchronous event handlers in search bar component', () => {
     test('test search bar click event handler when input tag is empty', () => {
         for (const obj of [inp_text_label, search_input_tag, delete_inp_text_icon]) {
             expect(obj.style.display).toEqual('');
@@ -39,7 +36,6 @@ describe('testing synchronous event handlers in search bar component', (done) =>
         expect(inp_text_label.style.display).toEqual('none');
         expect(search_input_tag.style.display).toEqual('block');
         expect(delete_inp_text_icon.style.display).toEqual('block');
-
     });
 
     test('test search bar click event handler when input tag has a value', () => {
@@ -63,22 +59,25 @@ describe('testing synchronous event handlers in search bar component', (done) =>
 
         userEvent.click(delete_inp_text_icon); 
 
-        expect(searchBarBlurMock).toHaveBeenCalledTimes(1);
         expect(search_input_tag.value).toEqual('');
         expect(inp_text_label.innerHTML).toEqual('Search');
-        
+        for (let [i,obj] of [search_dropdown_container, search_triangle, search_input_tag, inp_text_label, delete_inp_text_icon].entries()) {
+            if (i !== 3) {
+                expect(obj.style.display).toEqual('none');
+            }
+            else {
+                expect(obj.style.display).toEqual('block');
+            }
+        }
     });
 
-});
-
-describe('testing async functions, and things related to async functions in search bar component', () => {
     test('testing async onChange event handler for search bar when results are returned', async () => {
         // have to run test twice since our results shouldn't be stacking on top of each other in the
         // search dropdown container
         for (let j=0; j<2;j++) {
             // clear textbox before running
             screen.getByRole('textbox').value = ''; 
-            userEvent.type(screen.getByRole('textbox'), 'tttt');
+            userEvent.type(screen.getByRole('textbox'), 't');
             // thread sleep to allow DOM to update 
             await new Promise(r => setTimeout(r, 500));
             let i = 0;
@@ -109,9 +108,10 @@ describe('testing async functions, and things related to async functions in sear
         for (let j=0; j<2;j++) {
             // clear textbox before running
             screen.getByRole('textbox').value = ''; 
-            userEvent.type(screen.getByRole('textbox'), 'zzzzz');
-            await waitFor(() => expect(screen.getByText(/No results/)).toBeInTheDocument());
+            userEvent.type(screen.getByRole('textbox'), 'zz');
+            await waitFor(() => expect(screen.getByText(/no results found/i)).toBeInTheDocument()); 
             expect(search_dropdown_container.children.length).toEqual(1);
         }
     })
+    
 }); 

@@ -1,9 +1,6 @@
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
-import {readFileSync} from 'fs';
-import '@testing-library/jest-dom';
 import {createArrayUserObjects} from './user-seed';
-import * as React from 'react';
 
 const server = setupServer(
     rest.post('/loggedIn/navbar/search', (req, res, ctx) => {
@@ -21,13 +18,12 @@ const server = setupServer(
         else {
             return res(ctx.json({error: 'test_failure'}));
         }
+    }),
+
+    rest.get('/*', (req, res, ctx) => {
+        return res(ctx.json({error: 'xd'}));
     })
 );
 
-function setup_test() {
-    beforeAll(() => server.listen());
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
-}
 
-export {setup_test} 
+export {server} 
