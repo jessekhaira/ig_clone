@@ -279,4 +279,4 @@ function searchBarBlurHelper() {
 
 const navbar_withrouter = withRouter(NavBar); 
 
-export {navbar_withrouter as NavBar, searchBarBlurHelper};  
+export {navbar_withrouter as NavBar};  

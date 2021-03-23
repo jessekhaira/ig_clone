@@ -1,5 +1,4 @@
 import {SearchBar} from '../../../components/LoggedInViews/NavBar/SearchBar';
-import {searchBarBlurHelper} from '../../../components/LoggedInViews/NavBar/NavBar';
 import {setup_test} from '../test-setup/setup-jest-tests';
 import {render,screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -17,9 +16,7 @@ setup_test();
 
 
 beforeEach(() => {
-    searchBarBlurMock = jest.fn(() => {
-        searchBarBlurHelper(); 
-    });
+    searchBarBlurMock = jest.fn(); 
     render(<SearchBar _searchBarBlur = {searchBarBlurMock}/>);
     search_bar = screen.getByRole('search', {name: /search bar/}); 
     inp_text_label = screen.getByText('Search');
@@ -66,20 +63,10 @@ describe('testing synchronous event handlers in search bar component', (done) =>
 
         userEvent.click(delete_inp_text_icon); 
 
-        expect(searchBarBlurMock).toBeCalled();
+        expect(searchBarBlurMock).toHaveBeenCalledTimes(1);
         expect(search_input_tag.value).toEqual('');
         expect(inp_text_label.innerHTML).toEqual('Search');
         
-        // test for search bar blur helper here as well -- since we just called the method in a logical spot it will be
-        // used so makes sense to test here
-        for (let [i,obj] of [search_dropdown_container, search_triangle, search_input_tag, inp_text_label, delete_inp_text_icon].entries()) {
-            if (i !== 3) {
-                expect(obj.style.display).toEqual('none');
-            }
-            else {
-                expect(obj.style.display).toEqual('block');
-            }
-        }
     });
 
 });
