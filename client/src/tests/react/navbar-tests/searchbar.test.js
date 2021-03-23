@@ -79,7 +79,7 @@ describe('testing synchronous event handlers in search bar component', () => {
             screen.getByRole('textbox').value = ''; 
             userEvent.type(screen.getByRole('textbox'), 't');
             // thread sleep to allow DOM to update 
-            await new Promise(r => setTimeout(r, 500));
+            await new Promise(r => setTimeout(r, 1000));
             let i = 0;
             expect(search_dropdown_container.children.length).toEqual(5);
             for (const child of search_dropdown_container.children) {
