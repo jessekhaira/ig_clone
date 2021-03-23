@@ -11,7 +11,6 @@ function UserProfileToggleViews (props) {
             document.getElementById('add_post_div').style.display = 'flex'; 
         }
         else {
-            console.log(props.current_user);
             document.getElementById('add_post_div').style.display = 'none'; 
         }
     })
