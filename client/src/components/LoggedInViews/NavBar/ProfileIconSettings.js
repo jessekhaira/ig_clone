@@ -49,8 +49,8 @@ function ProfileIconSettings(props) {
     return(
         <div id = "profile_icon" className = "margin_class">
             <img id = "profile_img" className = "options_imgs"></img>
-            <div className = "top_triangle profile_triangle"></div>
-            <div id = "profile_settings">
+            <div role = "navigation" aria-label = "container used as arrow tip" className = "top_triangle profile_triangle"></div>
+            <div role="navigation" aria-label = "container containing all profile settings" id = "profile_settings">
                 <Link to = {`/${props.current_user}`}>
                     <div id = "go_to_profile_div" className = "profile_settings_options">
                         <div className = "profile_settings_icons">
