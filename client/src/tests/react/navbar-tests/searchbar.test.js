@@ -52,7 +52,7 @@ describe('testing synchronous event handlers in search bar component', () => {
         }
     });
 
-    test('test click event handler on icon for deleting text in search bar', () => {
+    test('test click event handler on icon for deleting text in search bar -- should blur search bar', () => {
         userEvent.click(search_bar);
 
         search_input_tag.value = 'testing';
