@@ -35,97 +35,94 @@ beforeEach(() => {
 });
 
 
-describe('testing synchronous event handlers in search bar component', () => {
-    test('test search bar click event handler when input tag is empty', () => {
-        for (const obj of [inp_text_label, search_input_tag, delete_inp_text_icon]) {
-            expect(obj.style.display).toEqual('');
-        }
+test('test search bar click event handler when input tag is empty', () => {
+    for (const obj of [inp_text_label, search_input_tag, delete_inp_text_icon]) {
+        expect(obj.style.display).toEqual('');
+    }
 
-        userEvent.click(search_bar); 
+    userEvent.click(search_bar); 
 
-        expect(inp_text_label.style.display).toEqual('none');
-        expect(search_input_tag.style.display).toEqual('block');
-        expect(delete_inp_text_icon.style.display).toEqual('block');
-    });
+    expect(inp_text_label.style.display).toEqual('none');
+    expect(search_input_tag.style.display).toEqual('block');
+    expect(delete_inp_text_icon.style.display).toEqual('block');
+});
 
-    test('test search bar click event handler when input tag has a value', () => {
-        search_input_tag.value = 'testing';
+test('test search bar click event handler when input tag has a value', () => {
+    search_input_tag.value = 'testing';
 
-        for (const obj of [search_dropdown_container, search_triangle]) {
-            expect(obj.style.display).toEqual('');
-        }
+    for (const obj of [search_dropdown_container, search_triangle]) {
+        expect(obj.style.display).toEqual('');
+    }
 
-        userEvent.click(search_bar);
-        
-        for (const obj of [search_dropdown_container, search_triangle]) {
-            expect(obj.style.display).toEqual('block');
-        }
-    });
+    userEvent.click(search_bar);
+    
+    for (const obj of [search_dropdown_container, search_triangle]) {
+        expect(obj.style.display).toEqual('block');
+    }
+});
 
-    test('test click event handler on icon for deleting text in search bar -- should blur search bar', () => {
-        userEvent.click(search_bar);
+test('test click event handler on icon for deleting text in search bar -- should blur search bar', () => {
+    userEvent.click(search_bar);
 
-        search_input_tag.value = 'testing';
+    search_input_tag.value = 'testing';
 
-        userEvent.click(delete_inp_text_icon); 
+    userEvent.click(delete_inp_text_icon); 
 
-        expect(search_input_tag.value).toEqual('');
-        expect(inp_text_label.innerHTML).toEqual('Search');
-        ensureSearchBarBlurredProperly();
-    });
+    expect(search_input_tag.value).toEqual('');
+    expect(inp_text_label.innerHTML).toEqual('Search');
+    ensureSearchBarBlurredProperly();
+});
 
-    test('testing async onChange event handler for search bar when results are returned', async () => {
-        // running test twice since our results shouldn't be stacking on top of each other in the
-        // search dropdown container
-        for (let j=0; j<2;j++) {
-            screen.getByRole('textbox').value = ''; 
-            userEvent.type(screen.getByRole('textbox'), 't');
-            await waitFor(() => 
-                expect(delete_inp_text_icon.style.display).toEqual('block') &&
-                expect(spinner_holder.style.display).toEqual('none')
-            );
-            expect(search_dropdown_container.children.length).toEqual(5);
-            for (const [i,child] of [...search_dropdown_container.children].entries()) {
-                if (i === 0) {
-                    expect(child.classList.contains('firstSearchResult')).toEqual(true);
-                }
-                expect(child.children.length).toEqual(2);
-                // make sure username, fullname, and profile picture are inserted appropriately into 
-                // the search resuts
-                expect(screen.getByText(`testing${i}`)).toBeInTheDocument();
-                expect(screen.getByText(`testing${i+50}`)).toBeInTheDocument();
-                const images = search_dropdown_container.querySelectorAll('img'); 
-                expect(images.length).toEqual(5); 
-                for (let img of images) {
-                    expect(img.src.length).toBeGreaterThan(0); 
-                }
+test('testing async onChange event handler for search bar when results are returned', async () => {
+    // running test twice since our results shouldn't be stacking on top of each other in the
+    // search dropdown container
+    for (let j=0; j<2;j++) {
+        screen.getByRole('textbox').value = ''; 
+        userEvent.type(screen.getByRole('textbox'), 't');
+        await waitFor(() => 
+            expect(delete_inp_text_icon.style.display).toEqual('block') &&
+            expect(spinner_holder.style.display).toEqual('none')
+        );
+        expect(search_dropdown_container.children.length).toEqual(5);
+        for (const [i,child] of [...search_dropdown_container.children].entries()) {
+            if (i === 0) {
+                expect(child.classList.contains('firstSearchResult')).toEqual(true);
+            }
+            expect(child.children.length).toEqual(2);
+            // make sure username, fullname, and profile picture are inserted appropriately into 
+            // the search resuts
+            expect(screen.getByText(`testing${i}`)).toBeInTheDocument();
+            expect(screen.getByText(`testing${i+50}`)).toBeInTheDocument();
+            const images = search_dropdown_container.querySelectorAll('img'); 
+            expect(images.length).toEqual(5); 
+            for (let img of images) {
+                expect(img.src.length).toBeGreaterThan(0); 
             }
         }
-    }); 
-
-    test('testing async onChange event handler for search bar when there are no results', async () => {
-        for (let j=0; j<2;j++) {
-            // clear textbox before running
-            screen.getByRole('textbox').value = ''; 
-            userEvent.type(screen.getByRole('textbox'), 'zz');
-            await waitFor(() => expect(screen.getByText(/no results found/i)).toBeInTheDocument()); 
-            expect(search_dropdown_container.children.length).toEqual(1);
-        }
-    });
-
-    test('testing that we re-route to page when we click on search result', async () => {
-        userEvent.type(screen.getByRole('textbox'), 't');
-        await waitFor(() => expect(search_dropdown_container.children.length).toEqual(5));
-        const search_result = search_dropdown_container.children[0];
-        userEvent.click(search_result);
-        ensureSearchBarBlurredProperly(); 
-        expect(search_input_tag.value).toEqual('');
-        expect(inp_text_label.innerHTML).toEqual('Search');
-        expect(mockHistoryPush).toHaveBeenCalledWith('/testing0');
-    })
-    
+    }
 }); 
 
+test('testing async onChange event handler for search bar when there are no results', async () => {
+    for (let j=0; j<2;j++) {
+        // clear textbox before running
+        screen.getByRole('textbox').value = ''; 
+        userEvent.type(screen.getByRole('textbox'), 'zz');
+        await waitFor(() => expect(screen.getByText(/no results found/i)).toBeInTheDocument()); 
+        expect(search_dropdown_container.children.length).toEqual(1);
+    }
+});
+
+test('testing that we re-route to page when we click on search result', async () => {
+    userEvent.type(screen.getByRole('textbox'), 't');
+    await waitFor(() => expect(search_dropdown_container.children.length).toEqual(5));
+    const search_result = search_dropdown_container.children[0];
+    userEvent.click(search_result);
+    ensureSearchBarBlurredProperly(); 
+    expect(search_input_tag.value).toEqual('');
+    expect(inp_text_label.innerHTML).toEqual('Search');
+    expect(mockHistoryPush).toHaveBeenCalledWith('/testing0');
+})
+    
 function ensureSearchBarBlurredProperly() {
     for (let [i,obj] of [search_dropdown_container, search_triangle, search_input_tag, inp_text_label, delete_inp_text_icon].entries()) {
         if (i !== 3) {

@@ -11,28 +11,25 @@ let profile_img = null;
 let rootDivContainer = null; 
 
 
-describe('group of tests, focusing on returning true data from api', () => {
+test('testing that image loads correctly into profile_img when component mounts', async() => {
+    profile_img = screen.getByAltText(/navbar/);
+    await waitFor(() => expect(profile_img.src.length).toBeGreaterThan(1000));
+});
 
-    test('testing that image loads correctly into profile_img when component mounts', async() => {
-        profile_img = screen.getByAltText(/navbar/);
-        await waitFor(() => expect(profile_img.src.length).toBeGreaterThan(1000));
-    });
+test('testing document click listener in NavBar component as it relates to profile icon settings', () => {
+    // should be toggling these elements appearing and disspearing appropriately
+    // at the start, we also test that the profile icon settings component mounts correctly 
+    rootDivContainer = screen.getByRole('navigation', {name: /overall container/}); 
 
-    test('testing document click listener in NavBar component as it relates to profile icon settings', () => {
-        // should be toggling these elements appearing and disspearing appropriately
-        // at the start, we also test that the profile icon settings component mounts correctly 
-        rootDivContainer = screen.getByRole('navigation', {name: /overall container/}); 
-
-        for (let i=0; i<7; i++) {
-            if (i%2 === 0) {
-                expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBe(null);
-                expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
-            }
-            else {
-                expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBeInTheDocument();
-                expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
-            }
-            userEvent.click(rootDivContainer);
+    for (let i=0; i<7; i++) {
+        if (i%2 === 0) {
+            expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBe(null);
+            expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
         }
-    });
+        else {
+            expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBeInTheDocument();
+            expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
+        }
+        userEvent.click(rootDivContainer);
+    }
 });

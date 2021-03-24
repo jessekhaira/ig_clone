@@ -6,19 +6,16 @@ import { MemoryRouter } from 'react-router-dom';
 
 setup_parent_component(true);
 
-
-describe('group of tests, focusing on when api returns errors for profile icon settings', () => {
-    beforeEach(() => {
-        delete window.location
-        window.location = { reload: jest.fn() }
-    })
-
-    test('', async () => {
-        await waitFor(() => 
-            expect(localStorage.getItem('accessToken')).toBe(null) 
-        )   
-        expect(localStorage.getItem('refreshToken')).toBe(null);
-        expect(window.location.reload).toHaveBeenCalled();
-    })
-    
+beforeEach(() => {
+    delete window.location
+    window.location = { reload: jest.fn() }
 })
+
+test('', async () => {
+    await waitFor(() => 
+        expect(localStorage.getItem('accessToken')).toBe(null) 
+    )   
+    expect(localStorage.getItem('refreshToken')).toBe(null);
+    expect(window.location.reload).toHaveBeenCalled();
+});
+
