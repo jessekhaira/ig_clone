@@ -64,7 +64,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
     });
 
 
-    test('test that GET request to /editProfile endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /editProfile endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testing123/editProfile`)
             .set(`Authorization`, accessToken)
@@ -78,7 +78,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done(); 
     });
 
-    test('test that GET request to /profileInfo endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /profileInfo endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testing123/profileInfo`)
             .set(`Authorization`, accessToken)
@@ -95,7 +95,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
-    test('test that GET request to /profilePhoto endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /profilePhoto endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testing123/profilePhoto`)
             .set(`Authorization`, accessToken)
@@ -108,7 +108,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 
 
 
-    test('test that GET request to /:loggedInUser/followersBox endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /:loggedInUser/followersBox endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testUser2/testing123/followersBox`)
             .set(`Authorization`, accessToken)
@@ -132,7 +132,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
-    test('test that GET request to /:loggedInUser/followingBox endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /:loggedInUser/followingBox endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testUser3/testing123/followingBox`)
             .set(`Authorization`, accessToken)
@@ -144,7 +144,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
-    test('test that GET request to /:loggedInUser/followingBox endpoint returns appropriate response', async (done) => {
+    test('testing GET request to /:loggedInUser/followingBox endpoint', async (done) => {
         let results = (await request(app)
             .get(`/testing123/testing123/followingBox`)
             .set(`Authorization`, accessToken)
@@ -163,6 +163,23 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         done();           
     });
 
+    test('test GET request to /follow/:follow_user -- our testing123 user should be following appropriate people', async () => {
+        for (let i=0; i<20; i++) {
+            let results = (await request(app)
+                .get(`/testing123/follow/testUser${i}`)
+                .set('Authorization', accessToken)
+                .expect(200)
+                .expect('Content-Type', /json/)
+            ).body; 
+
+            if (i === 2 || i === 19) {
+                expect(results.UserFollowingCurrUser).toBe('false');
+            }
+            else {
+                expect(results.UserFollowingCurrUser).toBe('true')
+            }
+        }
+    })
 
 
 }); 
