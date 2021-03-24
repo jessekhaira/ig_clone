@@ -32,9 +32,7 @@ function ProfileIconSettings(props) {
             }
             const base64_image = 'data:image/jpeg;base64,' + profile_icon_json.profile_picture[0].profile_picture;
             const profile_img = document.getElementById('profile_img'); 
-            if (base64_image !== profile_img.src) {
-                profile_img.src = base64_image; 
-            } 
+            profile_img.src = base64_image; 
         }
         catch(err) {
             err = String(err);
