@@ -1,6 +1,6 @@
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
-import {createArrayUserObjects} from './user-seed';
+import {createArrayUserObjects, getProfileImageBase64Encoded} from './user-seed';
 
 const server = setupServer(
     rest.post('/loggedIn/navbar/search', (req, res, ctx) => {
@@ -19,6 +19,12 @@ const server = setupServer(
             return res(ctx.json({error: 'test_failure'}));
         }
     }),
+
+    rest.get('/testing123/profilePhoto', (req, res, ctx) => {
+        const prof_pic = getProfileImageBase64Encoded(); 
+        const return_obj = {profile_picture: [{profile_picture: prof_pic}]};
+        return res(ctx.json(return_obj)); 
+    }), 
 
     rest.get('/*', (req, res, ctx) => {
         return res(ctx.json({error: 'xd'}));

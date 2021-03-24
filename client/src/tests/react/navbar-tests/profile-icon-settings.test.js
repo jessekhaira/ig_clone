@@ -6,14 +6,37 @@ import { MemoryRouter } from 'react-router-dom';
 setup_parent_component(); 
 let profile_settings_container_div = null;
 let profile_triangle = null; 
-
-test('test to make sure before we click on the profile icon, no settings appear', () => {
-    expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBe(null);
-    expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
-});
+let profile_img = null; 
+let rootDivContainer = null; 
 
 describe('', () => {
+    beforeEach(() => {
+        rootDivContainer = screen.getByRole('navigation', {name: /overall container/}); 
+        profile_img = screen.getByAltText(/navbar/);
+        userEvent.click(rootDivContainer);
+    });
 
-    test('testing if profile icon settings mounted correctly', () => {
-    })
+    test('testing that image loads correctly into profile_img when component mounts', async() => {
+        await waitFor(() => expect(profile_img.src.length).toBeGreaterThan(1000));
+    });
+
+    test('testing document click listener in NavBar component as it relates to profile icon settings', () => {
+        // should be toggling these elements appearing and disspearing appropriately
+        // at the start, we also test that the profile icon settings component mounts correctly 
+        for (let i=0; i<7; i++) {
+            if (i%2 == 1) {
+                expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBe(null);
+                expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
+            }
+            else {
+                expect(screen.queryByRole('navigation', {name: /arrow tip/})).toBeInTheDocument();
+                expect(screen.queryByRole('navigation', {name: /all profile settings/})).toBe(null);
+            }
+            userEvent.click(rootDivContainer);
+        }
+    });
+
+    test('testin', () => {
+
+    });
 })

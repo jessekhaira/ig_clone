@@ -13,4 +13,8 @@ function createArrayUserObjects() {
     return return_array;
 }
 
-export {createArrayUserObjects}; 
+function getProfileImageBase64Encoded() {
+    return readFileSync(__dirname + '/generic_profile_pic.jpg', {encoding: 'base64'}); 
+}
+
+export {createArrayUserObjects, getProfileImageBase64Encoded}; 
