@@ -25,7 +25,7 @@ router.use((req, res, next) => {
         // dealing with a bug where we refresh on the editprofile page and lose the current view
         // so in that case, we just return the react view (and when react view is returned, we query for
         // information with our token defined)
-        if (req.headers.authorization === undefined && req.path === '/editProfile') {
+        if (req.headers.authorization === undefined && (req.path === '/editProfile' || req.path === '/')) {
             return returnJS_Views(req, res, next); 
         }
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);

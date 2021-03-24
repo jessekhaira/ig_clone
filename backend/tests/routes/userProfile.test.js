@@ -44,10 +44,18 @@ beforeAll(async (done) => {
 
 
 describe('Grouping tests that test GET endpoints built off /:userprofile route', () => {
-
-    test('Make sure GET request fails when no token is attached', async (done) => {
+    test('If token is undefined, and we\'re targetting base endpoint, ensure views returned', async (done) => {
+        await request(app)
+        .get(`/testing123`)
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8');
+        done(); 
+    });
+    
+    test('Make sure GET request fails when incorrect token attached', async (done) => {
         let results = await request(app)
             .get(`/testing123`)
+            .set('Authorization', 'incorrect_jwt')
             .expect(500);
 
         expect(results.body).toHaveProperty('UnauthorizedUser');

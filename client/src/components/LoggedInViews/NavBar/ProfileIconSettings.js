@@ -44,7 +44,7 @@ function ProfileIconSettings(props) {
 
     return(
         <div role = "navigation" aria-label = "overall container for the profile icon settings" id = "profile_icon" className = "margin_class">
-            <img alt = "profile img on navbar" id = "profile_img" className = "options_imgs"></img>
+            <img alt = "profile img on navbar" id = "profile_img" className = "options_imgs hide-text"></img>
             <div role = "navigation" aria-label = "container used as arrow tip" className = "top_triangle profile_triangle"></div>
             <div role="navigation" aria-label = "direct parent of profile icon settings" id = "profile_settings">
                 <Link to = {`/${props.current_user}`}>
