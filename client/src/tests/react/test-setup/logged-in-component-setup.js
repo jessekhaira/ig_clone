@@ -8,9 +8,11 @@ import '@testing-library/jest-dom';
 import * as React from 'react';
 
 
-function setup_parent_component() {
+function setup_parent_component(sendBackErrorsAPITests=false) {
 
-    beforeAll(() => server.listen());
+    beforeAll(() => {
+        server.listen()
+    });
 
     beforeEach(() => {
         const state = {
@@ -18,11 +20,22 @@ function setup_parent_component() {
                 current_user: 'testing123'
             }
         }
+
+        localStorage.clear(); 
         const mockStore = configureMockStore();
         const store = mockStore(state);
 
-        const mock_access_token = sign({username: 'testing123'}, 'testing', {expiresIn: '20m'});
-        const mock_refresh_token = sign({username: 'testing123'}, 'testing', {expiresIn: '20m'});
+        let mock_access_token = null;
+        let mock_refresh_token = null; 
+        if (!(sendBackErrorsAPITests)) {
+            mock_access_token = sign({username: 'testing123'}, 'testing', {expiresIn: '20m'});
+            mock_refresh_token = sign({username: 'testing123'}, 'testing', {expiresIn: '20m'});
+        }
+        else {
+            mock_access_token = sign({username: 'error123'}, 'testing', {expiresIn: '20m'});
+            mock_refresh_token = sign({username: 'error123'}, 'testing', {expiresIn: '20m'});
+        }
+
         localStorage.setItem('accessToken', mock_access_token);
         localStorage.setItem('refreshToken', mock_refresh_token);
 
@@ -34,13 +47,14 @@ function setup_parent_component() {
     });
 
     afterEach(() => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-
+        localStorage.clear(); 
         server.resetHandlers();
     });
 
-    afterAll(() => server.close());
+    afterAll(() => {
+        localStorage.clear(); 
+        server.close()
+    });
 
 }
 

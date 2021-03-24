@@ -1,6 +1,7 @@
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
 import {createArrayUserObjects, getProfileImageBase64Encoded} from './user-seed';
+import jwt_decode from "jwt-decode";
 
 const server = setupServer(
     rest.post('/loggedIn/navbar/search', (req, res, ctx) => {
@@ -20,14 +21,19 @@ const server = setupServer(
         }
     }),
 
-    rest.get('/testing123/profilePhoto', (req, res, ctx) => {
+    rest.get('/:username/profilePhoto', (req, res, ctx) => {
+        const decoded_jwt = jwt_decode(req.headers.map.authorization);
+        const username = decoded_jwt.username;
+        if (username === 'error123') {
+            return res(ctx.json({UnauthorizedUser: 'error'}))
+        }
         const prof_pic = getProfileImageBase64Encoded(); 
         const return_obj = {profile_picture: [{profile_picture: prof_pic}]};
         return res(ctx.json(return_obj)); 
     }), 
 
     rest.get('/*', (req, res, ctx) => {
-        return res(ctx.json({error: 'xd'}));
+        return res(ctx.json({error: 'error'}));
     })
 );
 
