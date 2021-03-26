@@ -189,7 +189,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         }
     });
 
-    test('testing GET request to /posts/:slice_posts_requesting endpoint', async () => {
+    test('testing GET request to /posts/:slice_posts_requesting endpoint for user with no posts', async () => {
         let results = (await request(app)
             .get(`/testing123/posts/1`)
             .set('Authorization', accessToken)
@@ -198,7 +198,18 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         ).body; 
 
         expect(results.photos.length).toBe(0);
-
     })
+
+    test('testing GET request to /posts/:slice_posts_requesting endpoint for user with posts', async () => {
+        let results = (await request(app)
+            .get(`/testUser9/posts/1`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body; 
+
+        expect(results.photos.length).toBe(3);
+    })
+
 
 }); 
