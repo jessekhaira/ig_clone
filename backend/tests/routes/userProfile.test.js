@@ -187,6 +187,18 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
                 expect(results.UserFollowingCurrUser).toBe('true')
             }
         }
+    });
+
+    test('testing GET request to /posts/:slice_posts_requesting endpoint', async () => {
+        let results = (await request(app)
+            .get(`/testing123/posts/1`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body; 
+
+        expect(results.photos.length).toBe(0);
+
     })
 
 }); 
