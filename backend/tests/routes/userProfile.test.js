@@ -209,7 +209,34 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         ).body; 
 
         expect(results.photos.length).toBe(3);
-    })
+    });
 
+    test(`
+        testing GET request to /posts/:slice_posts_requesting endpoint for user with posts -- 
+        but slice post requesting is more then we have available`,
+    async () => {
+        let results = (await request(app)
+            .get(`/testUser9/posts/2`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body; 
+
+        expect(results.photos.length).toBe(0);
+    });
+
+    test(`testing GET request to /posts/:slice_posts_requesting endpoint for user not registered on site`, async () => {
+        let results = (await request(app)
+            .get(`/unregistered/posts/1`)
+            .set('Authorization', accessToken)
+            .expect(500)
+            .expect('Content-Type', /json/)
+        ).body; 
+
+        expect(results).toHaveProperty('userNotFound');
+    });
+
+
+    
 
 }); 
