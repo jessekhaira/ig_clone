@@ -1,12 +1,9 @@
 import {screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {setup_parent_component} from '../test-setup/logged-in-component-setup';
-import { MemoryRouter } from 'react-router-dom';
 
 setup_parent_component();
 
-let profile_settings_container_div = null;
-let profile_triangle = null; 
 let profile_img = null; 
 let rootDivContainer = null; 
 let logoutButton = null;
