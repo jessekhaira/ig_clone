@@ -46,10 +46,10 @@ test('testing logout button on profile icon settings -- specifically props.remov
     logoutButton = screen.getByRole('button', {name: "button used for logging out"});
     expect(localStorage.getItem('accessToken').length).toBeGreaterThan(10);
     expect(localStorage.getItem('refreshToken').length).toBeGreaterThan(10);
-    expect(screen.queryByRole('button', {name: /go to testing123/})).toBeInTheDocument(); 
+    expect(screen.queryByRole('link', {name: /go to testing123/})).toBeInTheDocument(); 
 
     userEvent.click(logoutButton);
     expect(localStorage.getItem('accessToken')).toBe(null);
     expect(localStorage.getItem('refreshToken')).toBe(null);
-    expect(screen.queryByRole('button', {name: /go to testing123/})).toBe(null); 
+    expect(screen.queryByRole('link', {name: /go to testing123/})).toBe(null); 
 })
