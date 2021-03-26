@@ -9,6 +9,7 @@ let profile_settings_container_div = null;
 let profile_triangle = null; 
 let profile_img = null; 
 let rootDivContainer = null; 
+let logoutButton = null;
 
 beforeEach(() => {
     profile_img = screen.getByAltText("profile img on navbar");
@@ -37,3 +38,18 @@ test('testing document click listener in NavBar component as it relates to profi
         userEvent.click(rootDivContainer);
     }
 });
+
+
+test('testing logout button on profile icon settings -- specifically props.remove_curr_user function', async () => {
+    userEvent.click(rootDivContainer);
+    // checking that JWTs are present before logging out, and not present after logging out 
+    logoutButton = screen.getByRole('button', {name: "button used for logging out"});
+    expect(localStorage.getItem('accessToken').length).toBeGreaterThan(10);
+    expect(localStorage.getItem('refreshToken').length).toBeGreaterThan(10);
+    expect(screen.queryByRole('button', {name: /go to testing123/})).toBeInTheDocument(); 
+
+    userEvent.click(logoutButton);
+    expect(localStorage.getItem('accessToken')).toBe(null);
+    expect(localStorage.getItem('refreshToken')).toBe(null);
+    expect(screen.queryByRole('button', {name: /go to testing123/})).toBe(null); 
+})

@@ -6,7 +6,10 @@ import configureMockStore from "redux-mock-store";
 import {sign} from 'jsonwebtoken';
 import '@testing-library/jest-dom';
 import * as React from 'react';
+import thunk from 'redux-thunk';
+import {removeCurrUser} from '../../../redux/customMiddleware';
 
+const middlewares = [removeCurrUser, thunk];
 
 function setup_parent_component(sendBackErrorsAPITests=false) {
 
@@ -22,7 +25,7 @@ function setup_parent_component(sendBackErrorsAPITests=false) {
         }
 
         localStorage.clear(); 
-        const mockStore = configureMockStore();
+        const mockStore = configureMockStore(middlewares);
         const store = mockStore(state);
 
         let mock_access_token = null;

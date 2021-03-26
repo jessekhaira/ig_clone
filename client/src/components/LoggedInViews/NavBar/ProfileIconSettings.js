@@ -48,7 +48,7 @@ function ProfileIconSettings(props) {
             <div role = "navigation" aria-label = "container used as arrow tip" className = "top_triangle profile_triangle"></div>
             <div role="navigation" aria-label = "direct parent of profile icon settings" id = "profile_settings">
                 <Link to = {`/${props.current_user}`}>
-                    <div id = "go_to_profile_div" className = "profile_settings_options">
+                    <div role = 'button' aria-label = {`go to ${props.current_user} profile page`} id = "go_to_profile_div" className = "profile_settings_options">
                         <div className = "profile_settings_icons">
                             <img alt = "Default Profile Figure" className = "icons_settings" src = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"></img>
                         </div>
@@ -86,7 +86,7 @@ function ProfileIconSettings(props) {
                 </div>
 
                 <hr id = "hr_settings"></hr>
-                <div id = "log_out_div" className = "profile_settings_options" onClick = {_logout}>
+                <div role = "button" aria-label = "button used for logging out" id = "log_out_div" className = "profile_settings_options" onClick = {_logout}>
                     <div className = "profile_settings_descr logout">
                         <p>Log Out</p>
                     </div>
