@@ -236,7 +236,33 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         expect(results).toHaveProperty('userNotFound');
     });
 
+    test('testing GET request to /:grid_img_id endpoint', async () => {
+        let gridImgIDsResults = (await request(app)
+            .get(`/testUser9/posts/1`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body; 
 
+        const gridImgID = gridImgIDsResults.photos[0].id;
+
+        let results = (await request(app)
+            .get(`/testUser9/${gridImgID}`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body; 
+
+        expect(results).toHaveProperty('photo_obj');
+        let photoInformation = results.photo_obj;
+        console.log(photoInformation);
+        expect(photoInformation).toHaveProperty('data_photo');
+        expect(photoInformation).toHaveProperty('num_likes');
+        expect(photoInformation).toHaveProperty('comments');
+        expect(photoInformation).toHaveProperty('id');
+        expect(photoInformation).toHaveProperty('profile_picture');
+
+    })
     
 
 }); 
