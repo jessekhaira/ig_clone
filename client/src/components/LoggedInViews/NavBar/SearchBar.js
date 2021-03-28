@@ -3,6 +3,10 @@ import {useHistory} from 'react-router-dom';
 import {setDisplay} from '../../../utility/utility_functions';
 
 
+/**
+ * This function represents a react component utilizing hooks, meant to render the section of the 
+ * UI corresponding to the search bar. 
+ */
 function SearchBar(props) {
     // we have to be able to programmatically navigate based on search results so we need the
     // history hook 
