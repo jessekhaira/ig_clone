@@ -57,7 +57,7 @@ class NavBar extends React.Component{
         if (e.target.id === 'profile_icon' || e.target.id === 'profile_img') {
             this._turnOnProfileLight();
         }
-        else if (e.target.id === 'notifications_div' || e.target.id === 'heart_icon') {
+        else if (e.target.id === 'heart_icon') {
             this._turnOnNotificationsLight(e); 
         }
 
