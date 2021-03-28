@@ -15,22 +15,25 @@ test('testing useEffect for notifications component setting displays', async() =
     expect(screen.queryByRole('navigation', {name: /enhance display/})).toBe(null);
 });
 
+test('testing async useEffect -- new notifications light should be turned on by default', async() => {
+    await waitFor(() => expect(screen.getByRole('navigation', {name: /light indicating/}))); 
+});
+
 test('testing document click listener added in navbar -- as it relates to notifications, clicking on heart icon', async() => {
     // should toggle approriately
     for (let i=0; i<7; i++) {
         if (i%2 === 1) {
-            expect(screen.queryByRole('listbox', {name: /holding notifications/})).toBeInTheDocument(null);
-            expect(screen.queryByRole('navigation', {name: /enhance display/})).toBeInTheDocument(null);
+            expect(screen.queryByRole('listbox', {name: /holding notifications/})).toBeInTheDocument();
+            expect(screen.queryByRole('navigation', {name: /enhance display/})).toBeInTheDocument();
+            await waitFor(() => expect(screen.queryByRole('navigation', {name: /light indicating/})).toBe(null));
+
         }
         else {
             expect(screen.queryByRole('listbox', {name: /holding notifications/})).toBe(null);
             expect(screen.queryByRole('navigation', {name: /enhance display/})).toBe(null);
+            await waitFor(() => expect(screen.queryByRole('navigation', {name: /light indicating/})).toBeInTheDocument()); 
         }
         userEvent.click(screen.getByRole('button', {name: /heart icon/}));
     }
 });
-
-test('testing async useEffect -- new notifications light should be turned on by default', async() => {
-    await waitFor(() => expect(screen.getByRole('navigation', {name: /light indicating/}))); 
-})
 
