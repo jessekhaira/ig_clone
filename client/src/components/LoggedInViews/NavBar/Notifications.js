@@ -105,7 +105,7 @@ function Notifications(props) {
         <div id = "heartIconContainer">
             <i role = 'button' aria-label = "heart icon acts as button to generate dropdown" id = "heart_icon" className="far fa-heart navbar_icons margin_class" onClick = {fetchNotifications}></i>
             <div role = "navigation" aria-label = "triangle used to enhance display" className = "top_triangle notif_triangle"></div>
-            <div className = "new_notifications"></div>
+            <div role = "navigation" aria-label = "light indicating whether new notifications are available" className = "new_notifications"></div>
             <div role = "listbox" aria-label = "container holding notifications and follow requests" id ="heartIconDropdown">
                 <div id = "spinner_div_notifications" className="sk-chase sk-chase-notif">
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>

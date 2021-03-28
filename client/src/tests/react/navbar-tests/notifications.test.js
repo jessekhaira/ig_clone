@@ -1,4 +1,4 @@
-import {screen, waitFor} from '@testing-library/react';
+import {screen, wait, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {setup_parent_component} from '../test-setup/logged-in-component-setup';
 
@@ -8,6 +8,7 @@ setup_parent_component();
 let heartIconDropdown = null;
 let notif_triangle = null; 
 let heart_icon = null;
+let notif_light = null; 
 
 test('testing useEffect for notifications component setting displays', async() => {
     expect(screen.queryByRole('listbox', {name: /holding notifications/})).toBe(null);
@@ -28,4 +29,8 @@ test('testing document click listener added in navbar -- as it relates to notifi
         userEvent.click(screen.getByRole('button', {name: /heart icon/}));
     }
 });
+
+test('testing async useEffect -- new notifications light should be turned on by default', async() => {
+    await waitFor(() => expect(screen.getByRole('navigation', {name: /light indicating/}))); 
+})
 
