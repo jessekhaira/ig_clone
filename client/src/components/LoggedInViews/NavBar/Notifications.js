@@ -115,7 +115,7 @@ function Notifications(props) {
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                 </div>
-                <div id = "follow_requests_container" onClick = {showFollowRequests}>
+                <div role = "button" aria-label = "button that will toggle showing notifications" id = "follow_requests_container" onClick = {showFollowRequests}>
                     <div id = "follow_req_info_container">
                         <div id = "num_follow_req">1</div>
                         <div className = "follow_req_info">
