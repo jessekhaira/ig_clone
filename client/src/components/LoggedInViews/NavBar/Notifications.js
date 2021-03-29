@@ -71,9 +71,9 @@ function Notifications(props) {
         const new_notif_circle = document.getElementsByClassName('new_notifications')[0];
         const follower_requests_actual = document.getElementById('follow_requests_div');
         setDisplay(['none','none','block', 'none', 'none'], follow_req_display, notif_div, spinner_div, new_notif_circle, follower_requests_actual);
+        setCurrentlyFetchingNotif(true); 
 
         try {
-            setCurrentlyFetchingNotif(true); 
             const dummyNotifications = await fetchDummyNotifications(); 
             const follow_req = dummyNotifications.follow_requests;
             setFollowRequests(follow_req); 
