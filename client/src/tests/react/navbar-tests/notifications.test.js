@@ -9,6 +9,7 @@ let heartIconDropdown = null;
 let notif_triangle = null; 
 let heart_icon = null;
 let notif_light = null; 
+let follow_requests_container = null; 
 
 test('testing useEffect for notifications component setting displays', async() => {
     expect(screen.queryByRole('listbox', {name: /holding notifications/})).toBe(null);
@@ -38,5 +39,10 @@ test(`testing document click listener added in navbar -- as it relates to notifi
     }
 });
 
-
+test('testing onclick event handler fetch notifications', async() => {
+    heart_icon = screen.getByRole('button', {name: /heart icon/});
+    userEvent.click(heart_icon);
+    await waitFor(() => expect(screen.queryByRole('listbox', {name: /notifications container/})).toBeInTheDocument());
+    expect(screen.getByRole('listbox', {name: /notifications container/}).children.length).toBe(8);
+})
 

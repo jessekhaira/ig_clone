@@ -22,7 +22,6 @@ function Notifications(props) {
         }
     });
 
-
     /**
      * This effect acts to query the backend whether or not this particular user has any new notifications.
      * Call should be done every time the component mounts unless the heart icon dropdown is already displaying
@@ -115,7 +114,7 @@ function Notifications(props) {
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                     <div className="sk-chase-dot sk-chase-dot-notif"></div>
                 </div>
-                <div role = "button" aria-label = "button that will toggle showing notifications" id = "follow_requests_container" onClick = {showFollowRequests}>
+                <div role = "listbox" aria-label = "box that contains information about follow requests" id = "follow_requests_container" onClick = {showFollowRequests}>
                     <div id = "follow_req_info_container">
                         <div id = "num_follow_req">1</div>
                         <div className = "follow_req_info">
@@ -125,7 +124,7 @@ function Notifications(props) {
                     </div>
                     <div className = "side_triangle"></div>
                 </div>
-                <div id = "notificationDiv">
+                <div role = "listbox" aria-label = "notifications container" id = "notificationDiv">
                 </div>
                 <div id ="follow_requests_div">
                 </div>
