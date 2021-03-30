@@ -42,9 +42,9 @@ test('test search bar click event handler when input tag is empty', () => {
 
     userEvent.click(search_bar); 
 
-    expect(inp_text_label.style.display).toEqual('none');
-    expect(search_input_tag.style.display).toEqual('block');
-    expect(delete_inp_text_icon.style.display).toEqual('block');
+    expect(inp_text_label).not.toBeVisible();
+    expect(search_input_tag).toBeVisible();
+    expect(delete_inp_text_icon).toBeVisible();
 });
 
 test('test search bar click event handler when input tag has a value', () => {
