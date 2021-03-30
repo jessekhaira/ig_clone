@@ -126,10 +126,10 @@ test('testing that we re-route to page when we click on search result', async ()
 function ensureSearchBarBlurredProperly() {
     for (let [i,obj] of [search_dropdown_container, search_triangle, search_input_tag, inp_text_label, delete_inp_text_icon].entries()) {
         if (i !== 3) {
-            expect(obj.style.display).toEqual('none');
+            expect(obj).not.toBeVisible();
         }
         else {
-            expect(obj.style.display).toEqual('block');
+            expect(obj).toBeVisible();
         }
     }
 }
