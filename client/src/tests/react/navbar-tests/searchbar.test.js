@@ -37,7 +37,7 @@ beforeEach(() => {
 
 test('test search bar click event handler when input tag is empty', () => {
     for (const obj of [inp_text_label, search_input_tag, delete_inp_text_icon]) {
-        expect(obj.style.display).toEqual('');
+        expect(obj.style.display).toBe('');
     }
 
     userEvent.click(search_bar); 
@@ -51,13 +51,13 @@ test('test search bar click event handler when input tag has a value', () => {
     search_input_tag.value = 'testing';
 
     for (const obj of [search_dropdown_container, search_triangle]) {
-        expect(obj.style.display).toEqual('');
+        expect(obj.style.display).toBe('');
     }
 
     userEvent.click(search_bar);
     
     for (const obj of [search_dropdown_container, search_triangle]) {
-        expect(obj.style.display).toEqual('block');
+        expect(obj).toBeVisible();
     }
 });
 
