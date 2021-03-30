@@ -43,6 +43,22 @@ test('testing onclick event handler fetch notifications', async() => {
     heart_icon = screen.getByRole('button', {name: /heart icon/});
     userEvent.click(heart_icon);
     await waitFor(() => expect(screen.queryByRole('listbox', {name: /notifications container/})).toBeInTheDocument());
-    expect(screen.getByRole('listbox', {name: /notifications container/}).children.length).toBe(8);
+    const notification_info = [
+        ['1231213', 'liked your photo', '30s'], 
+        ['user_2', '2d'], 
+        ['user_12321321321321412518231931232130123891239123', '5m','commented: 123123213213213 12321 3123 21312 321 12 3123 0111010101100101 1010101101010101 101101010210101010101101010191919']
+    ];
+
+    for (let notif of notification_info) {
+        for (let value of notif) {
+            if (value.includes('liked')) {
+                expect(screen.queryAllByText(value).length).toBeGreaterThan(0); 
+            }
+            else{
+                expect(screen.queryByText(value)).toBeInTheDocument(); 
+            }
+        }
+    }
+
 })
 
