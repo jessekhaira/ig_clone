@@ -36,6 +36,10 @@ router.use((req, res, next) => {
     }
 })
 
+router.get('/', (req,res,next) => {
+    return returnJS_Views(req, res, next);
+})
+
 
 /** This function represents a controller located behind endpoints that just return the static 
  * files for the application 

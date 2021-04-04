@@ -16,7 +16,7 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
         
       expect(res.body).toHaveProperty('accessToken');
       expect(res.body).toHaveProperty('refreshToken');
-      
+
       await request(app)
         .get(`/testUser15`)
         .set(`Authorization`, res.body.accessToken)
@@ -39,6 +39,7 @@ describe("Testing POST API endpoints for /accounts/login endpoint", () => {
       expect(res.body).toHaveProperty('accessToken');
       expect(res.body).toHaveProperty('refreshToken'); 
 
+      done();
       await request(app)
         .get(`/testUser15`)
         .set(`Authorization`, res.body.accessToken)
