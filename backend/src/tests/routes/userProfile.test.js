@@ -255,7 +255,6 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 
         expect(results).toHaveProperty('photo_obj');
         let photoInformation = results.photo_obj;
-        console.log(photoInformation);
         expect(photoInformation).toHaveProperty('data_photo');
         expect(photoInformation).toHaveProperty('num_likes');
         expect(photoInformation).toHaveProperty('comments');
