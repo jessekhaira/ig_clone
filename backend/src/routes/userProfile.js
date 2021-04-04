@@ -25,7 +25,7 @@ router.use((req, res, next) => {
         // dealing with a bug where we refresh on the editprofile page and lose the current view
         // so in that case, we just return the react view (and when react view is returned, we query for
         // information with our token defined)
-        if (req.headers.authorization === undefined && (req.path === '/editProfile' || req.path === '/')) {
+        if (req.headers.authorization === undefined && (req.path === '/editProfile' || req.path === '/' || req.path === '/inbox/')) {
             return returnJS_Views(req, res, next); 
         }
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
@@ -41,24 +41,9 @@ router.use((req, res, next) => {
  * files for the application 
 **/
 function returnJS_Views(req,res,next) {
-    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+    return res.sendFile(path.join(__dirname, '../../../client/build/index.html'))
 }
 
-/**
- * deals with request from client when the page is refreshed and user is logged in -- 
- * returns the appropriate views in that case 
-**/ 
-router.get('/', (req,res,next) => {
-    return returnJS_Views(req, res, next); 
-});
-
-/**
- * deals with user refreshing on the dm inbox page -- not implemented 
- * 
-**/
-router.get('/inbox', (req,res,next) => {
-    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
-});
 
 
 router.get('/editProfile', async(req,res,next) => {

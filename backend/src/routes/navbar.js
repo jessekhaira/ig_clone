@@ -54,7 +54,7 @@ router.post('/search', [
  * in. 
  */
 router.get('/', (req,res,next) => {
-    return res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+    return res.sendFile(path.join(__dirname, '../../../client/build/index.html'))
 });
 
 

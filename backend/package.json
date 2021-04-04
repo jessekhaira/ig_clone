@@ -6,7 +6,7 @@
     "node": "12.18.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./src/app.js",
     "test": "NODE_ENV=TESTING jest --testTimeout=10000 --detectOpenHandles"
   },
   "jest": {

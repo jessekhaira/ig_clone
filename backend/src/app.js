@@ -62,7 +62,7 @@ const explore_router = require('./routes/explore').explore_router;
 const homepage_router = require('./routes/homePage').homepage_router; 
 
 require('dotenv').config();
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../../client/build')));
 app.use(compression());
 app.use(helmet({
   contentSecurityPolicy: false
@@ -86,7 +86,8 @@ app.use('/:username', userprofile_router);
 
 // SPA - backend is purely API, views are handled by React 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'))
+  console.log(__dirname);
+  res.sendFile(path.join(__dirname, '/../client/build/index.html'))
 });
 const port = process.env.PORT; 
 let mongoDB = process.env.MONGO_URL;
