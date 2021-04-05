@@ -1,5 +1,5 @@
 //dependencies
-const express = require('express');
+import express, {Request, Response} from 'express';
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -84,13 +84,14 @@ app.use('/homepage', homepage_router);
 app.use('/:username', userprofile_router);
 
 
-// SPA - backend is purely API, views are handled by React 
-app.get('*', (req, res) => {
+app.get('*', (req:Request, res:Response) => {
   console.log(__dirname);
   res.sendFile(path.join(__dirname, '/../client/build/index.html'))
 });
-const port = process.env.PORT; 
-let mongoDB = process.env.MONGO_URL;
+
+
+const port:string = process.env.PORT; 
+const mongoDB = process.env.MONGO_URL;
 let db;
 // should use different databases for development, production and testing
 if (process.env.NODE_ENV === 'DEVELOPMENT' || process.env.NODE_ENV === 'production') {
