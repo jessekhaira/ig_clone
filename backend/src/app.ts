@@ -1,12 +1,12 @@
 //dependencies
 import express, {Request, Response} from 'express';
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const helmet = require('helmet');
-const compression = require('compression'); 
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+import path from 'path'; 
+import cookieParser from 'cookie-parser'; 
+import logger from 'morgan'; 
+import helmet from 'helmet';
+import compression from 'compression';
+import mongoose from 'mongoose'; 
+import bodyParser from 'body-parser'; 
 
 const app = express();
 
