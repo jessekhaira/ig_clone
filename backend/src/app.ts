@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import mongoose from 'mongoose'; 
 import bodyParser from 'body-parser'; 
-
+import dotenv from 'dotenv'; 
 const app = express();
 
 /**
@@ -61,7 +61,7 @@ const explore_router = require('./routes/explore').explore_router;
  */
 const homepage_router = require('./routes/homePage').homepage_router; 
 
-require('dotenv').config();
+dotenv.config();
 app.use(express.static(path.join(__dirname, '../../client/build')));
 app.use(compression());
 app.use(helmet({
