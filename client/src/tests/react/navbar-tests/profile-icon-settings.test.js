@@ -50,3 +50,4 @@ test('testing logout button on profile icon settings -- specifically props.remov
     expect(localStorage.getItem('refreshToken')).toBe(null);
     expect(screen.queryByRole('link', {name: /go to testing123/})).toBe(null); 
 })
+

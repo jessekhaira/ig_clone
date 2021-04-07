@@ -91,12 +91,11 @@ app.get('*', (req:Request, res:Response) => {
 
 const port = process.env.PORT; 
 const mongoDB = process.env.MONGO_URL;
-let db;
 // should use different databases for development, production and testing
 if (process.env.NODE_ENV === 'DEVELOPMENT' || process.env.NODE_ENV === 'production') {
   // dev database 
   mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-  db = mongoose.connection;
+  const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
 }
 
