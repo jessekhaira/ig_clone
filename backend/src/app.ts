@@ -89,7 +89,7 @@ app.get('*', (req:Request, res:Response) => {
 });
 
 
-const port:string = process.env.PORT; 
+const port = process.env.PORT; 
 const mongoDB = process.env.MONGO_URL;
 let db;
 // should use different databases for development, production and testing
