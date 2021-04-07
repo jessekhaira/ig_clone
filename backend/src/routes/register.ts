@@ -1,12 +1,14 @@
 import express, {Request, Response} from 'express';
-const validator = require('express-validator');
+import {body} from 'express-validator';
+import dotenv from 'dotenv'; 
+import jwt from 'jsonwebtoken';
+import path from 'path'; 
+import fs from 'fs'; 
+import util from 'util'; 
 const User = require('../models/users').userModel; 
-const jwt = require('jsonwebtoken'); 
-const path = require('path'); 
-const fs = require('fs'); 
-const util = require('util');
+
 const readFile = util.promisify(fs.readFile);
-require('dotenv').config({path: path.resolve(".env")}); 
+dotenv.config({path: path.resolve(".env")}); 
 
 /**
  * Express router to mount register related functions.
@@ -23,11 +25,11 @@ const router = express.Router();
  * @param {callback} middleware - Express middleware
  */
 router.post('/', [
-  validator.body('email'),
-  validator.body('full_name'),
-  validator.body('username_inp'),
-  validator.body('pw_inp'),
-  validator.body('date_of_birth'),
+  body('email'),
+  body('full_name'),
+  body('username_inp'),
+  body('pw_inp'),
+  body('date_of_birth'),
   async function(req:Request,res:Response) {
     const accessToken = jwt.sign({username: req.body.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
     const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
@@ -59,7 +61,7 @@ router.post('/', [
       // used or email being used already
       try {
         const err_email_or_username = err.errors.email || err.errors.username;
-        const validation_err_msg = err_email_or_username.properties.message; 
+        const validation_err_msg:string = err_email_or_username.properties.message; 
         return res.status(400).json({message:validation_err_msg});
       }
       catch(Err) {
