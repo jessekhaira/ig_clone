@@ -1,4 +1,4 @@
-const express = require('express');
+import express, {Request, Response} from 'express';
 const validator = require('express-validator');
 const User = require('../models/users').userModel; 
 const jwt = require('jsonwebtoken'); 
@@ -28,13 +28,13 @@ router.post('/', [
   validator.body('username_inp'),
   validator.body('pw_inp'),
   validator.body('date_of_birth'),
-  async function(req,res,next) {
+  async function(req:Request,res:Response) {
     const accessToken = jwt.sign({username: req.body.username}, process.env.ACESS_TOKEN_SECRET, {expiresIn: '20m'});
     const refreshToken = jwt.sign({username: req.body.username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3d'});
 
     // whenever a new user signs up, we assign a default profile picture 
     const default_profile_picture = await readFile(__dirname + '/generic_profile_pic.jpg'); 
-    let new_user = new User({
+    const new_user = new User({
       email: req.body.email,
       full_name: req.body.full_name,
       username: req.body.username,
@@ -59,7 +59,7 @@ router.post('/', [
       // used or email being used already
       try {
         const err_email_or_username = err.errors.email || err.errors.username;
-        let validation_err_msg = err_email_or_username.properties.message; 
+        const validation_err_msg = err_email_or_username.properties.message; 
         return res.status(400).json({message:validation_err_msg});
       }
       catch(Err) {
@@ -69,7 +69,7 @@ router.post('/', [
   }
 ]);
 
-router.get('/', (req,res,next) => {
+router.get('/', (req:Request, res:Response) => {
   return res.sendFile(path.join(__dirname, '../../../client/build/index.html'))
 });
 
