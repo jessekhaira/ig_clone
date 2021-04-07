@@ -67,7 +67,7 @@ function FollowBox(props) {
     
 
     return(
-        <div id = "follower_info_div" className = "meta_info_user_divcontainer" onClick = {seeAllFollowers}>
+        <div role = 'button' aria-label = 'button that is used to see all followers' id = "follower_info_div" className = "meta_info_user_divcontainer" onClick = {seeAllFollowers}>
             <p id = "follower_count" className = "post_info_counts"></p>
             <p className = "post_info_descr">followers</p>
             <div id = 'follower_holder_flexbox' className = 'container_following_followers'>
