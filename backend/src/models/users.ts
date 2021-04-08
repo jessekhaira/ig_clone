@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt'); 
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt'; 
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 /**
  * Schema for users
