@@ -13,7 +13,8 @@
         "ecmaVersion": 12
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "jest"
     ],
     "rules": {
         "no-console": ["error", {"allow": ["warn", "error"] }] 

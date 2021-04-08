@@ -1,14 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, {Document, Schema, Types} from 'mongoose';
 import bcrypt from 'bcrypt'; 
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
-const Schema = mongoose.Schema;
 
 /**
  * Schema for users
  * @constructor User 
  */
-const userSchema = new Schema({
+const userSchema: Schema = new Schema({
     // values provided through POST request from frontend
     email: {type: String, required: true, unique: "This email is already registered to an user"}, 
     full_name: {type: String, required: true}, 
@@ -45,14 +44,29 @@ const userSchema = new Schema({
 userSchema.plugin(beautifyUnique);
 
 
+interface IUser extends Document {
+    email: string;
+    full_name: string;
+    username: string;
+    password: string;
+    date_of_birth: Date;
+    profile_description: string;
+    profile_picture: Buffer;
+    refreshToken: string;
+    followers: Array<Types.ObjectId>;
+    following: Array<Types.ObjectId>;
+    photos: Array<Types.ObjectId>;
+    hashPassword(pw_to_verify:string):Promise<string>; 
+}
+
 
 /**
  * @alias User.prototype.hashPassword Generates an encrypted password hash for this user given the plain text password
  * @alias User.prototype.verifyPassword Verifies whether a plain text password matches the encrypted password stored
  */
 userSchema.methods = {
-    hashPassword: plain_text_pw => bcrypt.hash(plain_text_pw, 10),
-    verifyPassword: async function (pw_to_verify) {
+    hashPassword: (plain_text_pw:string) => bcrypt.hash(plain_text_pw, 10),
+    verifyPassword: async function (pw_to_verify:string) {
         return await bcrypt.compare(pw_to_verify, this.password); 
     }
 }
@@ -60,15 +74,14 @@ userSchema.methods = {
 /**
  * Register a callback function that will run every time that a user document is saved with a pre hook. 
  */
-userSchema.pre(
+userSchema.pre<IUser>(
     // only want this to run if the password has changed -- ie we can update followers and followibng
     // but pw wont change
     'save', async function (next) {
         if (!this.isModified('password')) {
             return next(); 
         }
-
-        let user = this;
+        const user = this;
         const password = user.password;
         const hashedPassword = await user.hashPassword(password);
         user.password = hashedPassword;
@@ -77,5 +90,8 @@ userSchema.pre(
 ); 
 
 
-let User = mongoose.model('User', userSchema); 
+
+
+const User = mongoose.model<IUser>('User', userSchema); 
 exports.userModel = User; 
+export {IUser}; 
