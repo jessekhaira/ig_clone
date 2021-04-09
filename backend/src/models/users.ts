@@ -57,6 +57,7 @@ interface IUser extends Document {
     following: Array<Types.ObjectId>;
     photos: Array<Types.ObjectId>;
     hashPassword(pw_to_verify:string):Promise<string>; 
+    verifyPassword(pw_to_verify:string): Promise<boolean>; 
 }
 
 
@@ -94,4 +95,4 @@ userSchema.pre<IUser>(
 
 const User = mongoose.model<IUser>('User', userSchema); 
 exports.userModel = User; 
-export {IUser}; 
+export {IUser, User}; 

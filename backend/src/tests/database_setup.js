@@ -66,19 +66,21 @@ async function deleteCollectionsFromDatabase() {
     }
 }
 
+function setupLocalDatabase(localDatabaseName) {
+    beforeAll(async (done) => {
+        await setupDatabaseConnection(localDatabaseName); 
+        await seedDatabaseUsingModel(); 
+        done();
+    });
+
+
+    afterAll(async (done) => {
+        await deleteCollectionsFromDatabase(); 
+        await mongoose.connection.close();
+        done();
+    });    
+}
 
 module.exports = {
-    setupLocalDatabase(localDatabaseName) {
-        beforeAll(async (done) => {
-            await setupDatabaseConnection(localDatabaseName); 
-            await seedDatabaseUsingModel(); 
-            done();
-        });
-
-        afterAll(async (done) => {
-            await deleteCollectionsFromDatabase(); 
-            await mongoose.connection.close();
-            done();
-        });          
-    }
-}
+    setupLocalDatabase
+};
