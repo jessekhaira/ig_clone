@@ -1,4 +1,4 @@
-const request = require('supertest'); 
+const request = require('supertest');
 const app = require('../../app');
 const User = require('../../models/users').userModel; 
 const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
