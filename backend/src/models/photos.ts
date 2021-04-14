@@ -39,3 +39,4 @@ interface IPhotos extends Document {
 
 const photos = mongoose.model('photos', photosSchema);
 exports.photosModel = photos;
+export { IPhotos, photos };
