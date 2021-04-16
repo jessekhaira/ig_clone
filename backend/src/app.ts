@@ -14,14 +14,14 @@ const app = express();
  * @type {object}
  * @const
  */
-const login_router = require('./routes/login').login_router;
+const { login_router } = require('./routes/login');
 
 /**
  * Express router to mount register related functions.
  * @type {object}
  * @const
  */
-const register_router = require('./routes/register').register_router;
+const { register_router } = require('./routes/register');
 
 /**
  * Express router to mount the function that refreshes access tokens for the client.
@@ -35,7 +35,7 @@ const refresh_token_router = require('./routes/refreshToken').refreshToken;
  * @type {object}
  * @const
  */
-const navbar_router = require('./routes/navbar').navbar_router;
+const { navbar_router } = require('./routes/navbar');
 
 /**
  * Express router to mount user profile related functions.
@@ -49,14 +49,14 @@ const userprofile_router = require('./routes/userProfile').userProfileRouter;
  * @type {object}
  * @const
  */
-const explore_router = require('./routes/explore').explore_router;
+const { explore_router } = require('./routes/explore');
 
 /**
  * Express router to mount home page related functions.
  * @type {object}
  * @const
  */
-const homepage_router = require('./routes/homePage').homepage_router;
+const { homepage_router } = require('./routes/homePage');
 
 dotenv.config();
 app.use(express.static(path.join(__dirname, '../../client/build')));
@@ -89,9 +89,15 @@ app.get('*', (req: Request, res: Response) => {
 const port = process.env.PORT;
 const mongoDB = process.env.MONGO_URL;
 // should use different databases for development, production and testing
-if (process.env.NODE_ENV === 'DEVELOPMENT' || process.env.NODE_ENV === 'production') {
+if (
+    process.env.NODE_ENV === 'DEVELOPMENT' ||
+    process.env.NODE_ENV === 'production'
+) {
     // dev database
-    void mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+    void mongoose.connect(mongoDB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 }
