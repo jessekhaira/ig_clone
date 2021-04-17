@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import validator from 'express-validator';
+import { body } from 'express-validator';
 import dotenv from 'dotenv';
 import path from 'path';
 import { create_access_refresh_tokens } from '../utility/utilityFunctions';
@@ -30,8 +30,8 @@ const router = express.Router();
  * @param {callback} middleware - Express middleware
  */
 router.post('/', [
-    validator.body('username_or_email').escape(),
-    validator.body('password').escape(),
+    body('username_or_email').escape(),
+    body('password').escape(),
 
     async (
         req: Request<

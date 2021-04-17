@@ -97,13 +97,14 @@ function create_access_refresh_tokens(username) {
     return [accessToken, refreshToken];
 }
 
+exports.convertArrayPicBuffers2Base64 = convertArrayPicBuffers2Base64;
+exports.convertBuffer2Base64 = convertBuffer2Base64;
+exports.create_access_refresh_tokens = create_access_refresh_tokens;
+exports.getDateDifferential = getDateDifferential;
+
 export {
     create_access_refresh_tokens,
     convertArrayPicBuffers2Base64,
     convertBuffer2Base64,
     getDateDifferential,
 };
-exports.convertArrayPicBuffers2Base64 = convertArrayPicBuffers2Base64;
-exports.convertBuffer2Base64 = convertBuffer2Base64;
-exports.create_access_refresh_tokens = create_access_refresh_tokens;
-exports.getDateDifferential = getDateDifferential;
