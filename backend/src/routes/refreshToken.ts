@@ -1,9 +1,10 @@
-const express = require('express');
-const validator = require('express-validator');
-const jwt = require('jsonwebtoken');
-const User = require('../models/users').userModel;
-const path = require('path');
-require('dotenv').config({ path: path.resolve('.env') });
+import express, { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import path from 'path';
+import dotenv from 'dotenv';
+import { User, IUser } from '../models/users';
+
+dotenv.config({ path: path.resolve('.env') });
 
 /**
  * Express router to mount the function that refreshes access tokens using the request tokens stored in clients local storage.
@@ -12,7 +13,12 @@ require('dotenv').config({ path: path.resolve('.env') });
  */
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+interface DecodedToken {
+    username: string;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.get('/', async (req: Request, res: Response) => {
     const refreshToken = req.headers.authorization;
     if (!refreshToken) {
         return res.status(400);
@@ -20,13 +26,16 @@ router.get('/', async (req, res) => {
     // try to create a new access token, and if there are any errors just return that the request
     // could not be processed (IE: refresh token could be expired, invalid refresh token, etc)
     try {
-        const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        const user = jwt.verify(
+            refreshToken,
+            process.env.REFRESH_TOKEN_SECRET,
+        ) as DecodedToken;
         const { username } = user;
         // check whether refresh token stored in the db for this user is the same
         // as the refresh token passed here
-        const user_db = await User.findOne({ username });
-        const db_refresh_token = user_db.refreshToken;
-        if (refreshToken !== db_refresh_token) {
+        const userDB: IUser = await User.findOne({ username });
+        const dbRefreshToken = userDB.refreshToken;
+        if (refreshToken !== dbRefreshToken) {
             return res.status(400).json({ message: 'invalid token' });
         }
         const new_access_token = jwt.sign(
@@ -41,3 +50,4 @@ router.get('/', async (req, res) => {
 });
 
 exports.refreshToken = router;
+export default router;
