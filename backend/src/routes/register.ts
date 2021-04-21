@@ -92,3 +92,4 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 exports.register_router = router;
+export default router;

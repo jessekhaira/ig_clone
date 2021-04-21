@@ -7,21 +7,10 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import login_router from './routes/login';
+import register_router from './routes/register';
 
 const app = express();
-/**
- * Express router to mount login related functions.
- * @type {object}
- * @const
- */
-const { login_router } = require('./routes/login');
-
-/**
- * Express router to mount register related functions.
- * @type {object}
- * @const
- */
-const { register_router } = require('./routes/register');
 
 /**
  * Express router to mount the function that refreshes access tokens for the client.
