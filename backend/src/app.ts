@@ -9,15 +9,9 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import login_router from './routes/login';
 import register_router from './routes/register';
+import refresh_token_router from './routes/refreshToken';
 
 const app = express();
-
-/**
- * Express router to mount the function that refreshes access tokens for the client.
- * @type {object}
- * @const
- */
-const refresh_token_router = require('./routes/refreshToken').refreshToken;
 
 /**
  * Express router to mount search related functions.
