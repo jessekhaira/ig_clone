@@ -129,7 +129,7 @@ router.get('/:username/:slicepostsreq', async (req, res, next) => {
         const all_posts_following_self_sorted = getAllPostsHomepage(
             user_logged_in,
         ).slice(endIdxCurrSliceHomepage - 12, endIdxCurrSliceHomepage);
-        for (const post of all_posts_following_self_sorted) {
+        all_posts_following_self_sorted.forEach((post) => {
             const photo_obj = {};
             photo_obj.liked_by = post.likes.length;
             photo_obj.num_comments = post.comments.length;
@@ -141,7 +141,7 @@ router.get('/:username/:slicepostsreq', async (req, res, next) => {
             );
             photo_obj.img = post.data_photo.toString('base64');
             homepage_posts.push(photo_obj);
-        }
+        });
         return res.status(200).json({ homepage_posts });
     } catch (err) {
         return next(err);
