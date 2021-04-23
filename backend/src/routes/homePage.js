@@ -65,6 +65,36 @@ router.get('/:username/suggested', async (req, res, next) => {
     }
 });
 
+function getAllPostsHomepage(user_logged_in) {
+    const all_posts = [];
+    for (const photo of user_logged_in.photos) {
+        const post_obj = {};
+        post_obj.profile_picture = user_logged_in.profile_picture;
+        post_obj.username = user_logged_in.username;
+        post_obj.created_at = photo.created_at;
+        post_obj.data_photo = photo.data_photo;
+        post_obj.likes = photo.likes;
+        post_obj.comments = photo.comments;
+        all_posts.push(post_obj);
+    }
+
+    for (const following_user of user_logged_in.following) {
+        for (const photo of following_user.photos) {
+            const post_obj = {};
+            post_obj.profile_picture = following_user.profile_picture;
+            post_obj.username = following_user.username;
+            post_obj.created_at = photo.created_at;
+            post_obj.data_photo = photo.data_photo;
+            post_obj.likes = photo.likes;
+            post_obj.comments = photo.comments;
+            all_posts.push(post_obj);
+        }
+    }
+
+    all_posts.sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
+    return all_posts;
+}
+
 /** This endpoint was mostly out of the scope of the project -- IG's algorithm for returning home page posts
  * is quite advanced, but this represents a basic algorithm that fetches the 12 most recent posts for a user
  * including their followers that is compatible with infinite scrolling working in the frontend.
@@ -117,36 +147,6 @@ router.get('/:username/:slicepostsreq', async (req, res, next) => {
         return next(err);
     }
 });
-
-function getAllPostsHomepage(user_logged_in) {
-    const all_posts = [];
-    for (const photo of user_logged_in.photos) {
-        const post_obj = {};
-        post_obj.profile_picture = user_logged_in.profile_picture;
-        post_obj.username = user_logged_in.username;
-        post_obj.created_at = photo.created_at;
-        post_obj.data_photo = photo.data_photo;
-        post_obj.likes = photo.likes;
-        post_obj.comments = photo.comments;
-        all_posts.push(post_obj);
-    }
-
-    for (const following_user of user_logged_in.following) {
-        for (const photo of following_user.photos) {
-            const post_obj = {};
-            post_obj.profile_picture = following_user.profile_picture;
-            post_obj.username = following_user.username;
-            post_obj.created_at = photo.created_at;
-            post_obj.data_photo = photo.data_photo;
-            post_obj.likes = photo.likes;
-            post_obj.comments = photo.comments;
-            all_posts.push(post_obj);
-        }
-    }
-
-    all_posts.sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
-    return all_posts;
-}
 
 // handle all the error handling logic for the /users endpoints
 // within this middleware function -- nice and organized
