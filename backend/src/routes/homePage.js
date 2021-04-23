@@ -78,8 +78,8 @@ function getAllPostsHomepage(user_logged_in) {
         all_posts.push(post_obj);
     });
 
-    for (const following_user of user_logged_in.following) {
-        for (const photo of following_user.photos) {
+    user_logged_in.following.forEach((following_user) => {
+        following_user.photos.forEach((photo) => {
             const post_obj = {};
             post_obj.profile_picture = following_user.profile_picture;
             post_obj.username = following_user.username;
@@ -88,8 +88,8 @@ function getAllPostsHomepage(user_logged_in) {
             post_obj.likes = photo.likes;
             post_obj.comments = photo.comments;
             all_posts.push(post_obj);
-        }
-    }
+        });
+    });
 
     all_posts.sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
     return all_posts;
