@@ -67,7 +67,7 @@ router.get('/:username/suggested', async (req, res, next) => {
 
 function getAllPostsHomepage(user_logged_in) {
     const all_posts = [];
-    for (const photo of user_logged_in.photos) {
+    user_logged_in.photos.forEach((photo) => {
         const post_obj = {};
         post_obj.profile_picture = user_logged_in.profile_picture;
         post_obj.username = user_logged_in.username;
@@ -76,7 +76,7 @@ function getAllPostsHomepage(user_logged_in) {
         post_obj.likes = photo.likes;
         post_obj.comments = photo.comments;
         all_posts.push(post_obj);
-    }
+    });
 
     for (const following_user of user_logged_in.following) {
         for (const photo of following_user.photos) {
