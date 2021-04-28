@@ -62,16 +62,16 @@ function getDateDifferential(date1, date2) {
 
     // based on the time differential, return the appropriate period of time (ie: minutes, hours, etc)
     if (diffMinutes < 60) {
-        const descr_text = diffMinutes === 1 ? `MINUTE AGO` : `MINUTES AGO`;
-        return `${diffMinutes} ${descr_text}`;
+        const descrText = diffMinutes === 1 ? `MINUTE AGO` : `MINUTES AGO`;
+        return `${diffMinutes} ${descrText}`;
     }
     if (diffHours < 24) {
-        const descr_text = diffHours === 1 ? 'HOUR AGO' : 'HOURS AGO';
-        return `${diffHours} ${descr_text}`;
+        const descrText = diffHours === 1 ? 'HOUR AGO' : 'HOURS AGO';
+        return `${diffHours} ${descrText}`;
     }
     if (diffDays < 8) {
-        const descr_text = diffDays === 1 ? 'DAY AGO' : 'DAYS AGO';
-        return `${diffDays} ${descr_text}`;
+        const descrText = diffDays === 1 ? 'DAY AGO' : 'DAYS AGO';
+        return `${diffDays} ${descrText}`;
     }
 
     const month = monthMapping[date1.getUTCMonth() + 1];
