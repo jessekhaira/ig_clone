@@ -28,12 +28,12 @@ const monthMapping = {
  *
  */
 function convertArrayPicBuffers2Base64(documents, property) {
-    const return_arr = [];
-    for (let doc of documents) {
+    const returnArr = [];
+    documents.forEach((doc) => {
         doc = convertBuffer2Base64(doc, property);
-        return_arr.push(doc);
-    }
-    return return_arr;
+        returnArr.push(doc);
+    });
+    return returnArr;
 }
 
 /**
