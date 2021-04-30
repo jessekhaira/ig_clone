@@ -10,14 +10,16 @@ const Photo = require('../models/photos').photosModel;
  * @param {String} localDatabaseName Name representing the name of the local database
  * @returns {undefined}
  */
-async function setupDatabaseConnection(localDatabaseName) {
+async function setupDatabaseConnection(
+    localDatabaseName: string,
+): Promise<void> {
     await mongoose.connect(
         `mongodb://127.0.0.1/${localDatabaseName}`,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
-        (err) => {
+        (err: Error) => {
             if (err) {
                 console.log(err);
             }
@@ -72,7 +74,7 @@ async function deleteCollectionsFromDatabase() {
     }
 }
 
-function setupLocalDatabase(localDatabaseName) {
+function setupLocalDatabase(localDatabaseName: string) {
     beforeAll(async (done) => {
         await setupDatabaseConnection(localDatabaseName);
         await seedDatabaseUsingModel();
