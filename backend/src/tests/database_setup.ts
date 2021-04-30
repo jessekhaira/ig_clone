@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const user_seed = require('./testDBSeed').user_holder;
-const photo_seed = require('./testDBSeed').photo_holder;
-const User = require('../models/users').userModel;
-const Photo = require('../models/photos').photosModel;
+import mongoose from 'mongoose';
+import { userSeed, photoSeed } from './testDBSeed';
+import { User, IUser } from '../models/users';
+import { photos, IPhotos } from '../models/photos';
 
 /**
  * This function sets up a local database connection with MongoDB with the name given in the input
@@ -30,10 +29,10 @@ async function setupDatabaseConnection(
 
 async function seedDatabaseUsingModel() {
     const saved_users = [];
-    for (const [i, userObj] of user_seed.entries()) {
+    for (const [i, userObj] of userSeed.entries()) {
         const new_user = new User(userObj);
-        for (const buffer_data_photo of photo_seed) {
-            const new_photo = new Photo({
+        for (const buffer_data_photo of photoSeed) {
+            const new_photo = new photos({
                 data_photo: buffer_data_photo,
                 photo_posted_by: new_user,
             });
