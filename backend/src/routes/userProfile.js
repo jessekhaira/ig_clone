@@ -4,7 +4,6 @@ const fileUpload = require('express-fileupload');
 const sharp = require('sharp');
 const User = require('../models/users').userModel;
 const Photos = require('../models/photos').photosModel;
-const comments = require('../models/comments').commentsModel;
 const jwt = require('jsonwebtoken');
 const path = require('path');
 require('dotenv').config({ path: path.resolve('.env') });
