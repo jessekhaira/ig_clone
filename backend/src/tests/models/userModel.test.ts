@@ -1,6 +1,5 @@
 import { User } from '../../models/users';
-
-const { setupLocalDatabase } = require('../database_setup');
+import { setupLocalDatabase } from '../database_setup';
 
 setupLocalDatabase(`testUserModel`);
 

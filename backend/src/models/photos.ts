@@ -37,6 +37,6 @@ interface IPhotos extends Document {
     updatedAt: Date;
 }
 
-const photos = mongoose.model('photos', photosSchema);
+const photos = mongoose.model<IPhotos>('photos', photosSchema);
 exports.photosModel = photos;
 export { IPhotos, photos };

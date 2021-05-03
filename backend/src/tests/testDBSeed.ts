@@ -2,7 +2,7 @@ import fs from 'fs';
 import { IUser } from '../models/users';
 
 const userSeed: Array<IUser> = [];
-const photoSeed = [];
+const photoSeed: Array<Buffer> = [];
 for (let i = 0; i < 20; i += 1) {
     const currUserObj = {} as IUser;
     const email = `testUser${i}@gmail.com`;

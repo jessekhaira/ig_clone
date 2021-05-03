@@ -28,27 +28,27 @@ async function setupDatabaseConnection(
 }
 
 async function seedDatabaseUsingModel() {
-    const saved_users = [];
+    const savedUsers: Array<IUser> = [];
     for (const [i, userObj] of userSeed.entries()) {
-        const new_user = new User(userObj);
-        for (const buffer_data_photo of photoSeed) {
-            const new_photo = new photos({
-                data_photo: buffer_data_photo,
-                photo_posted_by: new_user,
+        const newUser = new User(userObj);
+        for (const bufferDataPhoto of photoSeed) {
+            const newPhoto = new photos({
+                data_photo: bufferDataPhoto,
+                photo_posted_by: newUser,
             });
-            new_user.photos.push(new_photo);
-            await new_user.save();
-            await new_photo.save();
+            newUser.photos.push(newPhoto._id);
+            await newUser.save();
+            await newPhoto.save();
         }
         if (i % 2 == 0) {
-            saved_users.push(new_user);
+            savedUsers.push(newUser);
         } else if (i == 19) {
-            for (const userToFollow of saved_users) {
-                new_user.following.push(userToFollow);
-                userToFollow.followers.push(new_user);
+            for (const userToFollow of savedUsers) {
+                newUser.following.push(userToFollow._id);
+                userToFollow.followers.push(newUser._id);
                 await userToFollow.save();
             }
-            await new_user.save();
+            await newUser.save();
         }
     }
 }
@@ -90,3 +90,4 @@ function setupLocalDatabase(localDatabaseName: string) {
 module.exports = {
     setupLocalDatabase,
 };
+export { setupLocalDatabase };
