@@ -18,23 +18,23 @@ test('test followers and following', async function () {
     await user1.save();
     await user2.save();
 
-    const user3_fromDB = await User.findOne({ username: 'testUser3' }).exec();
-    const user2_fromDB = await User.findOne({ username: 'testUser2' }).exec();
-    const user1_fromDB = await User.findOne({ username: 'testUser1' }).exec();
+    const user3FromDB = await User.findOne({ username: 'testUser3' }).exec();
+    const user2FromDB = await User.findOne({ username: 'testUser2' }).exec();
+    const user1FromDB = await User.findOne({ username: 'testUser1' }).exec();
 
-    expect(user3_fromDB.followers.length).toEqual(2);
-    expect(user2_fromDB.following.length).toEqual(1);
-    expect(user1_fromDB.following.length).toEqual(1);
+    expect(user3FromDB.followers.length).toEqual(2);
+    expect(user2FromDB.following.length).toEqual(1);
+    expect(user1FromDB.following.length).toEqual(1);
 });
 
 test('test password hash -- incorrect password entered should return false', async function () {
-    const user_practice = await User.findOne({ username: 'testUser3' }).exec();
-    const verify_pw = await user_practice.verifyPassword('123__practice');
-    expect(verify_pw).toEqual(false);
+    const userPractice = await User.findOne({ username: 'testUser3' }).exec();
+    const verifyPw = await userPractice.verifyPassword('123__practice');
+    expect(verifyPw).toEqual(false);
 });
 
 test('test password hash -- correct password entered should return true', async function () {
-    const user_practice = await User.findOne({ username: 'testUser3' }).exec();
-    const verify_pw = await user_practice.verifyPassword('123456');
-    expect(verify_pw).toEqual(true);
+    const userPractice = await User.findOne({ username: 'testUser3' }).exec();
+    const verifyPw = await userPractice.verifyPassword('123456');
+    expect(verifyPw).toEqual(true);
 });
