@@ -1,86 +1,78 @@
-const request = require('supertest'); 
+const request = require('supertest');
 const app = require('../../app');
-const User = require('../../models/users').userModel; 
-const setupLocalDatabase = require('../database_setup').setupLocalDatabase; 
+const User = require('../../models/users').userModel;
+const { setupLocalDatabase } = require('../database_setup');
+
 setupLocalDatabase(`navbarTestDatabase`);
 
-
 describe('testing /loggedIn/navbar GET and POST endpoints using mock objects created in local db', () => {
-    let accessToken; 
+    let accessToken;
 
     beforeAll(async (done) => {
-        // sign up new user, get access token for this user and use this user to verify our 
-        // search endpoint working correctly 
-        let results = await request(app)
-        .post('/accounts/register')
-        .send({
-          'email': 'testing@gmail.com',
-          'full_name': 'testing',
-          'username': 'testing123',
-          'pw_inp': `123456`,
-          'date_of_birth': Date.now()
-        }); 
+        // sign up new user, get access token for this user and use this user to verify our
+        // search endpoint working correctly
+        const results = await request(app).post('/accounts/register').send({
+            email: 'testing@gmail.com',
+            full_name: 'testing',
+            username: 'testing123',
+            pw_inp: `123456`,
+            date_of_birth: Date.now(),
+        });
 
-        accessToken = results.body.accessToken; 
-        done(); 
+        accessToken = results.body.accessToken;
+        done();
     });
 
     afterAll(async (done) => {
-        await User.deleteOne({ username: "testing123" });
-        done(); 
+        await User.deleteOne({ username: 'testing123' });
+        done();
     });
-
 
     test('test that base GET request returns back HTML', async (done) => {
         await request(app)
-        .get(`/testing123`)
-        .set(`Authorization`, accessToken)
-        .expect(200)
-        .expect('Content-Type', 'text/html; charset=UTF-8');
-        done(); 
-    }); 
+            .get(`/testing123`)
+            .set(`Authorization`, accessToken)
+            .expect(200)
+            .expect('Content-Type', 'text/html; charset=UTF-8');
+        done();
+    });
 
     test('test search fails if we do not provide valid access token', async (done) => {
-        let results = await request(app)
-        .post('/loggedIn/navbar')
-        .expect(500);
+        const results = await request(app).post('/loggedIn/navbar').expect(500);
 
-        expect(results.body).toHaveProperty('UnauthorizedUser'); 
-        done(); 
-    }); 
-
+        expect(results.body).toHaveProperty('UnauthorizedUser');
+        done();
+    });
 
     test('test search succeeds', async (done) => {
-        let results = await request(app)
-        .post('/loggedIn/navbar/search')
-        .set('Authorization', accessToken)
-        .send({
-            search_query: 'test'
-        })
-        .expect(200); 
-        done(); 
-    }); 
+        const results = await request(app)
+            .post('/loggedIn/navbar/search')
+            .set('Authorization', accessToken)
+            .send({
+                search_query: 'test',
+            })
+            .expect(200);
+        done();
+    });
 
-    test('test search succeeds with appropriate results', async(done) => {
-        let results = await request(app)
-        .post('/loggedIn/navbar/search')
-        .set('Authorization', accessToken)
-        .send({
-            search_query: 'te'
-        })
-        .expect(200)
-        .expect('Content-Type', /json/);
+    test('test search succeeds with appropriate results', async (done) => {
+        const results = await request(app)
+            .post('/loggedIn/navbar/search')
+            .set('Authorization', accessToken)
+            .send({
+                search_query: 'te',
+            })
+            .expect(200)
+            .expect('Content-Type', /json/);
 
         // every mock object created in local DB w/ 'te' anywhere in the name should match
-        // and have objects that return the appropriate properties 
+        // and have objects that return the appropriate properties
         expect(results.body.searchResults.length).toEqual(21);
-        for (let obj of results.body.searchResults) {
+        for (const obj of results.body.searchResults) {
             expect(obj).toHaveProperty('profile_picture');
             expect(obj).toHaveProperty('username');
-            expect(obj).toHaveProperty('full_name'); 
+            expect(obj).toHaveProperty('full_name');
         }
-        done(); 
-    })
-
-
+        done();
+    });
 });
