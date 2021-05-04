@@ -1,6 +1,7 @@
+import jwt from 'jsonwebtoken';
+
 const path = require('path');
 require('dotenv').config({ path: path.resolve('.env') });
-const jwt = require('jsonwebtoken');
 
 /**
  * Object with a mapping between string numbers and the month they represent. Useful when processing
@@ -85,7 +86,7 @@ function getDateDifferential(date1, date2) {
  * @param {String} username String representing the username of a given user
  * @returns {String[]} Array of 2 strings, with each string representing a JSON web token
  */
-function create_access_refresh_tokens(username) {
+function create_access_refresh_tokens(username: string): Array<string> {
     const accessToken = jwt.sign({ username }, process.env.ACESS_TOKEN_SECRET, {
         expiresIn: '20m',
     });
