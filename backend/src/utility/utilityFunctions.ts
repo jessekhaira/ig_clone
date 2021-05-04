@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
+import path from 'path';
+import dotenv from 'dotenv';
 
-const path = require('path');
-require('dotenv').config({ path: path.resolve('.env') });
+dotenv.config({ path: path.resolve('.env') });
 
 /**
  * Object with a mapping between string numbers and the month they represent. Useful when processing
