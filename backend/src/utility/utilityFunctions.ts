@@ -7,7 +7,7 @@ require('dotenv').config({ path: path.resolve('.env') });
  * Object with a mapping between string numbers and the month they represent. Useful when processing
  * date information.
  */
-const monthMapping = {
+const monthMapping: Record<string, string> = {
     1: 'JANUARY',
     2: 'FEBRUARY',
     3: 'MARCH',
@@ -55,8 +55,8 @@ function convertBuffer2Base64(doc, property) {
  * @param {number} date1 Number representing a date
  * @param {number} date2 Number representing a date
  */
-function getDateDifferential(date1, date2) {
-    const diffMilliseconds = Math.abs(date2 - date1);
+function getDateDifferential(date1: Date, date2: Date): string {
+    const diffMilliseconds = Math.abs(date2.getTime() - date1.getTime());
     const diffMinutes = Math.ceil(diffMilliseconds / (1000 * 60));
     const diffHours = Math.ceil(diffMinutes / 60);
     const diffDays = Math.ceil(diffHours / 24);
@@ -75,7 +75,8 @@ function getDateDifferential(date1, date2) {
         return `${diffDays} ${descrText}`;
     }
 
-    const month = monthMapping[date1.getUTCMonth() + 1];
+    const currMonthInfo = `${date1.getUTCMonth() + 1}`;
+    const month: string = monthMapping[currMonthInfo];
     const day = date1.getUTCDate();
     const year = date1.getUTCFullYear();
     return `${month} ${day}, ${year}`;
