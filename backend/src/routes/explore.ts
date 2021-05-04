@@ -19,5 +19,4 @@ router.get('/', (req: Request, res: Response) => {
     );
 });
 
-exports.explore_router = router;
 export default router;

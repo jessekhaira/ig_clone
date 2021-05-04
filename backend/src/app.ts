@@ -10,6 +10,7 @@ import dotenv from 'dotenv';
 import login_router from './routes/login';
 import register_router from './routes/register';
 import refresh_token_router from './routes/refreshToken';
+import explore_router from './routes/explore';
 
 const app = express();
 
@@ -26,13 +27,6 @@ const { navbar_router } = require('./routes/navbar');
  * @const
  */
 const userprofile_router = require('./routes/userProfile').userProfileRouter;
-
-/**
- * Express router to mount explore related functions.
- * @type {object}
- * @const
- */
-const { explore_router } = require('./routes/explore');
 
 /**
  * Express router to mount home page related functions.
