@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import dotenv from 'dotenv';
+import { Mongoose, Document } from 'mongoose';
 
 dotenv.config({ path: path.resolve('.env') });
 
@@ -24,29 +25,43 @@ const monthMapping: Record<string, string> = {
 };
 
 /**
+ * This function accepts two arguments: a Mongoose document and a string. The string represents the property in the
+ * mongoose document that holds a buffer representing an image. The Mongoose document is converted to a Javascript
+ * object, and the binary buffer is converted to a base64 encoded string.
+ */
+function convertBuffer2Base64(
+    doc: Document,
+    property: string,
+): Record<string, unknown> {
+    interface MongooseDocumentJSObjType extends Record<string, unknown> {
+        [property: string]: Buffer | string;
+    }
+    const mongooseDocumentAsJsObj = doc.toObject() as MongooseDocumentJSObjType;
+    mongooseDocumentAsJsObj[property] = mongooseDocumentAsJsObj[
+        property
+    ].toString('base64');
+    return mongooseDocumentAsJsObj;
+}
+
+/**
  * This function has the responsibility of converting an array of objects, each representing a Mongoose document,
  * to an array of Javascript objects with the purpose of converting binart vuffers representing images to base64
  * encoded strings.
  *
  */
-function convertArrayPicBuffers2Base64(documents, property) {
-    const returnArr = [];
+function convertArrayPicBuffers2Base64(
+    documents: Array<Document>,
+    property: string,
+): Array<Record<string, unknown>> {
+    const returnArr: Array<Record<string, unknown>> = [];
     documents.forEach((doc) => {
-        doc = convertBuffer2Base64(doc, property);
-        returnArr.push(doc);
+        const returnedJSObj: Record<string, unknown> = convertBuffer2Base64(
+            doc,
+            property,
+        );
+        returnArr.push(returnedJSObj);
     });
     return returnArr;
-}
-
-/**
- * This function accepts two arguments: a Mongoose document and a string. The string represents the property in the
- * mongoose document that holds a buffer representing an image. The Mongoose document is converted to a Javascript
- * object, and the binary buffer is converted to a base64 encoded string.
- */
-function convertBuffer2Base64(doc, property) {
-    doc = doc.toObject();
-    doc[property] = doc[property].toString('base64');
-    return doc;
 }
 
 /**
