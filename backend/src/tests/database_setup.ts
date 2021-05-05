@@ -27,7 +27,7 @@ async function setupDatabaseConnection(
     );
 }
 
-async function seedDatabaseUsingModel() {
+async function seedDatabaseUsingModel(): Promise<void> {
     const savedUsers: Array<IUser> = [];
     for (const [i, userObj] of userSeed.entries()) {
         const newUser = new User(userObj);
@@ -53,7 +53,7 @@ async function seedDatabaseUsingModel() {
     }
 }
 
-async function deleteCollectionsFromDatabase() {
+async function deleteCollectionsFromDatabase(): Promise<void> {
     const collections = Object.keys(mongoose.connection.collections);
     for (const objDrop of collections) {
         try {
