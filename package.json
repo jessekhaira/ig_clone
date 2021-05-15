@@ -6,7 +6,8 @@
     "node": "12.18.0"
   },
   "scripts": {
-    "start": "cd client && npm install && npm run build && cd .. && cd backend && npm install && node app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build && cd .. && cd backend && npm install"
+    "production": "( npm run setup-client ) & ( npm run setup-backend)",
+    "setup-client": "cd client && npm ci --only=production && npm run build",
+    "setup-backend": "cd backend && npm ci --only=production && npm run production"
   }
 }

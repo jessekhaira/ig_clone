@@ -4,3 +4,4 @@
 .DS_Store
 .vscode
 /backend/built
+startup_docker_image.sh
