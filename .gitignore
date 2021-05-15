@@ -3,3 +3,4 @@
 /backend/populateDatabaseDevelopment.js
 .DS_Store
 .vscode
+/backend/built

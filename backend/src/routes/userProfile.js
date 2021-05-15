@@ -4,6 +4,7 @@ const fileUpload = require('express-fileupload');
 const sharp = require('sharp');
 const User = require('../models/users').userModel;
 const Photos = require('../models/photos').photosModel;
+const Comments = require('../models/comments').commentsModel;
 const jwt = require('jsonwebtoken');
 const path = require('path');
 require('dotenv').config({ path: path.resolve('.env') });
@@ -438,6 +439,7 @@ router.get('/:grid_img_id', async (req, res, next) => {
             profile_pic,
             'profile_picture',
         );
+
         return res.status(200).json({ photo_obj });
     } catch (err) {
         return next(err);

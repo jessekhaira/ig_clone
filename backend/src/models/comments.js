@@ -1,13 +1,12 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 /**
  * Schema for comments stored in the MongoDB database
- * @constructor User 
+ * @constructor User
  */
-const commentsSchema = new Schema({
-}); 
+const commentsSchema = new Schema({});
 
-let comments = mongoose.model('comments', commentsSchema); 
-exports.commentsModel = comments; 
+const Comments = mongoose.model('comments', commentsSchema);
+exports.commentsModel = Comments;

@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "dev": "ts-node-dev ./src/app.ts",
     "build": "tsc",
-    "production": "tsc && node ./built/src/app.js",
+    "production": "tsc && NODE_ENV=production && node ./built/app.js",
     "test": "NODE_ENV=TESTING jest --testTimeout=10000 --detectOpenHandles"
   },
   "jest": {
@@ -60,7 +60,6 @@
     "@types/express-validator": "^3.0.0",
     "@types/jest": "^26.0.22",
     "@types/jsonwebtoken": "^8.5.1",
-    "@types/mongoose": "^5.10.4",
     "@types/morgan": "^1.9.2",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.20.0",

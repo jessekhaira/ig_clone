@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
-      "sourceMap": true,
       "esModuleInterop": true,
       "allowJs": true,
-      "noImplicitAny": true,
       "moduleResolution": "node",
       "lib": ["es2018"],
       "module": "commonjs",
