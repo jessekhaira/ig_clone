@@ -62,4 +62,4 @@ router.get('/', (req, res, next) => {
     );
 });
 
-exports.navbar_router = router;
+export default router;

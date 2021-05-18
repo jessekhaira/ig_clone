@@ -7,19 +7,13 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import login_router from './routes/login';
-import register_router from './routes/register';
-import refresh_token_router from './routes/refreshToken';
-import explore_router from './routes/explore';
+import loginRouter from './routes/login';
+import registerRouter from './routes/register';
+import refreshTokenRouter from './routes/refreshToken';
+import exploreRouter from './routes/explore';
+import navbarRouter from './routes/navbar';
 
 const app = express();
-
-/**
- * Express router to mount search related functions.
- * @type {object}
- * @const
- */
-const { navbar_router } = require('./routes/navbar');
 
 /**
  * Express router to mount user profile related functions.
@@ -51,11 +45,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 // Mount middleware - routers
-app.use('/accounts/login', login_router);
-app.use('/accounts/register', register_router);
-app.use('/accounts/refreshToken', refresh_token_router);
-app.use('/loggedIn/navbar', navbar_router);
-app.use('/explore', explore_router);
+app.use('/accounts/login', loginRouter);
+app.use('/accounts/register', registerRouter);
+app.use('/accounts/refreshToken', refreshTokenRouter);
+app.use('/loggedIn/navbar', navbarRouter);
+app.use('/explore', exploreRouter);
 app.use('/homepage', homepage_router);
 app.use('/:username', userprofile_router);
 
