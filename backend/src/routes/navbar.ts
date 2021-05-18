@@ -11,6 +11,10 @@ import { convertArrayPicBuffers2Base64 } from '../utility/utilityFunctions';
  */
 const router = express.Router();
 
+interface SearchPostEndpointRequestBody {
+    search_query: string;
+}
+
 /**
  * This endpoint responds to POST requests targetting the search endpoint. This endpoint accepts a search query
  * within the request body, which is validated, and then is used to search the Mongo database for any users that
@@ -18,7 +22,14 @@ const router = express.Router();
  */
 router.post('/search', [
     body('search_query'),
-    async (req, res, next) => {
+    async (
+        req: Request<
+            Record<string, never>,
+            Record<string, never>,
+            SearchPostEndpointRequestBody
+        >,
+        res: Response,
+    ) => {
         const { search_query } = req.body;
         const query = {
             $or: [
@@ -31,20 +42,20 @@ router.post('/search', [
             ],
         };
 
-        const returned_columns = {
+        const returnedColumns = {
             profile_picture: true,
             username: true,
             full_name: true,
             _id: false,
         };
         try {
-            const users_found = await User.find(query, returned_columns);
-            const users_found_profilePicturesBase64Encoded = convertArrayPicBuffers2Base64(
-                users_found,
+            const usersFound = await User.find(query, returnedColumns);
+            const usersFoundProfilePicBase64Encoded = convertArrayPicBuffers2Base64(
+                usersFound,
                 'profile_picture',
             );
             return res.json({
-                searchResults: users_found_profilePicturesBase64Encoded,
+                searchResults: usersFoundProfilePicBase64Encoded,
             });
         } catch (err) {
             return res.json({ Error: 'Error Processing' });
@@ -56,7 +67,7 @@ router.post('/search', [
  * GET requests to the /navbar endpoint just return the frontend files -- happen when user refreshes page after being logged
  * in.
  */
-router.get('/', (req, res, next) => {
+router.get('/', (req: Request, res: Response) => {
     return res.sendFile(
         path.join(__dirname, '../../../client/build/index.html'),
     );

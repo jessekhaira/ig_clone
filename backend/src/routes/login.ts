@@ -87,5 +87,4 @@ router.get('/', (req, res) => {
     );
 });
 
-exports.login_router = router;
 export default router;
