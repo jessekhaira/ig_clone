@@ -1,7 +1,7 @@
-const request = require('supertest');
-const app = require('../../app');
-const User = require('../../models/users').userModel;
-const { setupLocalDatabase } = require('../database_setup');
+import request from 'supertest'; 
+import app from '../../app';
+import { User, IUser} from '../../models/users';
+import { setupLocalDatabase } from '../database_setup';
 
 setupLocalDatabase(`navbarTestDatabase`);
 

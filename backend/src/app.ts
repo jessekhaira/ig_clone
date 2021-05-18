@@ -80,3 +80,4 @@ if (process.env.NODE_ENV !== 'TESTING') {
 }
 
 module.exports = app;
+export default app;
