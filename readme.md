@@ -8,8 +8,8 @@ The tech stack for the project included:
     - Sass
     - Redux 
 - Backend:
-    - MongoDB for the database and Mongoose for the object relational mapping
-    - Express (with TypeScript)
+    - MongoDB with Mongoose as the object relational mapping
+    - Express, Node (with TypeScript)
 - Docker to containerize and ship the application
 
 ## Features
