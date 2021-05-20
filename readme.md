@@ -1,6 +1,16 @@
 # Instagram Clone
 ## Description 
-This is an application I built using Mongo, Express, TypeScript, React, Sass, Redux and Docker, that clones the core features of instagram. I architected the application using a monolithic architecture, and dockerized and deployed the application on heroku, which can be seen at https://instagramwebclone.herokuapp.com/. 
+This is an application I built that clones the core features of instagram. I architected the application using a monolithic architecture, and dockerized and deployed the application on heroku, which can be seen at https://instagramwebclone.herokuapp.com/. 
+
+The tech stack for the project included:
+- Frontend:
+    - React
+    - Sass
+    - Redux 
+- Backend:
+    - MongoDB for the database and Mongoose for the object relational mapping
+    - Express (with TypeScript)
+- Docker to containerize and ship the application
 
 ## Features
 Given that instagram is a massive application, the scope of the project was limited to the below features:
