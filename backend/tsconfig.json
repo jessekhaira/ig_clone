@@ -3,6 +3,7 @@
       "esModuleInterop": true,
       "allowJs": true,
       "moduleResolution": "node",
+      "sourceMap": true,
       "lib": ["es2018"],
       "module": "commonjs",
       "target": "es2018",
@@ -15,4 +16,4 @@
     },
     "include": ["./src/**/*", "jest.config.js"],
     "exclude": ["node_modules", "./src/tests"]
-}
+}   
