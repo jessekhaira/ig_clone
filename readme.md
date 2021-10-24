@@ -28,7 +28,7 @@ Given that instagram is a massive application, the scope of the project was limi
 - Fully responsive Design
 
 
-## Screenshots
+## Usage
 Login page 
 <br> 
 <kbd>
