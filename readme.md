@@ -15,7 +15,7 @@ The tech stack for the project included:
 ## Features
 Given that instagram is a massive application, the scope of the project was limited to the below features:
 - Individuals can register for an account, which requires their email, username, name and password
-- User can login using their credentials (email/username, password). Logged in users obtain Json Web Tokens (access token, refresh token)
+- Build authentication system: user can login using their credentials (email/username, password)
 - User can upload a profile picture and edit their name, username, email and password after registration
 - User can upload images
 - User can see all the images they have uploaded in the order in which they were uploaded, with infinite scrolling supported for profile pages 
