@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 const User = require('../../models/users').userModel;
+const fs = require('fs');
 const { setupLocalDatabase } = require('../database_setup');
 
 setupLocalDatabase(`userProfileTest`);
@@ -272,5 +273,16 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
         expect(photoInformation).toHaveProperty('comments');
         expect(photoInformation).toHaveProperty('id');
         expect(photoInformation).toHaveProperty('profile_picture');
+    });
+});
+
+describe('Grouping tests that test PUT endpoints built off /:userprofile route', () => {
+    test("Testing put request to update profile photo, fails without token", async (done) => {
+        const photoData = fs.readFileSync(__dirname + '/photo.png');
+        const returnedData = await request(app)
+            .put(`/testing123/profilePhoto`)
+            .attach('name', __dirname + '/photo.png')
+            .expect(500)
+        done();
     });
 });

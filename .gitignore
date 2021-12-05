@@ -6,3 +6,4 @@
 /backend/built
 startup_docker_image.sh
 /node_modules
+/backend/src/tests/routes/*.png
