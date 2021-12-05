@@ -203,7 +203,7 @@ router.put('/profilePhoto', [
     fileUpload({
         createParentPath: true,
     }),
-    async (req, res) => {
+    async (req, res, next) => {
         try {
             const new_profile_photo = req.files.image.data;
             await User.findOneAndUpdate(
