@@ -286,7 +286,7 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         done();
     });
 
-    test("Testing put request to update profile photo, fails without token", async (done) => {
+    test("Testing put request to update profile photo, should succeed", async (done) => {
         const returnedData = (await request(app)
             .put(`/testing123/profilePhoto`)
             .set('Authorization', accessToken)
