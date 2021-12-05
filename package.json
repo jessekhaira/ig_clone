@@ -9,5 +9,8 @@
     "production": "( npm run setup-client ) & ( npm run setup-backend)",
     "setup-client": "cd client && npm ci --only=production && npm run build",
     "setup-backend": "cd backend && npm ci --only=production && npm run production"
+  },
+  "dependencies": {
+    "@types/jest": "^27.0.3"
   }
 }
