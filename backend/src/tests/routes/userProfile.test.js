@@ -287,12 +287,15 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
     });
 
     test("Testing put request to update profile photo, fails without token", async (done) => {
-        const photoData = fs.readFileSync(__dirname + '/photo.png');
-        const returnedData = await request(app)
+        const returnedData = (await request(app)
             .put(`/testing123/profilePhoto`)
             .set('Authorization', accessToken)
-            .attach('name', __dirname + '/photo.png')
+            .attach('image', __dirname + '/photo.png')
             .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+        
+        expect(returnedData).toHaveProperty('Success')
         done();
     });
 });
