@@ -318,7 +318,26 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(testing123.email).toBe('123@123.com');
         expect(testing123.full_name).toBe('123T');
         expect(testing123.profile_description).toBe('123123');
+        done();
+    })
 
+
+    test("Testing put request for editing profile, where username changes, should succeed", async(done) => {
+        const returnedData = (await request(app)
+            .put(`/testing123/editProfile`)
+            .set('Authorization', accessToken)
+            .send({
+                username: 'test123',
+                email: '123@123.com',
+                fullname: '123T',
+                profile_bio: '123123'
+            })
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+
+        expect(returnedData).toHaveProperty('accessToken');
+        expect(returnedData).toHaveProperty('refreshToken');
         done();
     })
 });
