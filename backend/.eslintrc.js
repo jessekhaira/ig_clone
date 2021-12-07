@@ -23,6 +23,15 @@ module.exports = {
     ],
     "rules": {
         "no-console": ["error", {"allow": ["warn", "error"] }],
-        "no-void": "off"
+        "no-void": "off",
+        'max-len': [
+            2,
+            {
+                code: 80,
+                ignoreUrls: true,
+                ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
+                ignorePattern: '../[\\w]+/.+',
+            },
+        ],
     }
 }
