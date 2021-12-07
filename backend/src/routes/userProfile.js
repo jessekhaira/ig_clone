@@ -48,8 +48,8 @@ router.get('/', (req, res, next) => {
     return returnJavaScriptViews(req, res, next);
 });
 
-/** This function represents a controller located behind endpoints that just return the static
- * files for the application
+/** This function represents a controller located behind endpoints that
+ * just return the static files for the application
  * */
 function returnJavaScriptViews(req, res, next) {
     return res.sendFile(
