@@ -22,10 +22,12 @@ const { getDateDifferential } = require('../utility/utilityFunctions');
 const router = express.Router({ mergeParams: true });
 
 router.use((req, res, next) => {
-    // have to verify the jwt to get access to any of the routes below so thats what we do first thing
+    // have to verify the jwt to get access to any of the routes
+    // below so thats what we do first thing
     try {
-        // dealing with a bug where we refresh on the editprofile page and lose the current view
-        // so in that case, we just return the react view (and when react view is returned, we query for
+        // dealing with a bug where we refresh on the edit profile
+        // page and lose the current view, so in that case, we just return
+        // the react view (and when react view is returned, we query for
         // information with our token defined)
         if (
             req.headers.authorization === undefined &&
