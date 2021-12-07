@@ -312,6 +312,13 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
             .expect('Content-Type', /json/)
         ).body;
 
+        expect(returnedData).toHaveProperty('message');
+        const testing123 = await User.findOne({ username: 'testing123' });
+        expect(testing123.username).toBe('testing123');
+        expect(testing123.email).toBe('123@123.com');
+        expect(testing123.full_name).toBe('123T');
+        expect(testing123.profile_description).toBe('123123');
+
         done();
     })
 });
