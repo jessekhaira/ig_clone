@@ -116,8 +116,9 @@ router.put('/editProfile', [
                     proposed_update,
                     { new: true },
                 );
-                // update refresh token stored for this user in the database -- making sure to update the
-                // token for the updated user in the database
+                // update refresh token stored for this user in the database --
+                // making sure to update the token for the updated user in the
+                // database
                 doc.refreshToken = refreshToken;
                 doc.save();
                 return res.status(200).json({
