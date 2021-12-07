@@ -297,4 +297,21 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(returnedData).toHaveProperty('Success')
         done();
     });
+
+    test("Testing put request for editing profile, should succeed", async(done) => {
+        const returnedData = (await request(app)
+            .put(`/testing123/editProfile`)
+            .set('Authorization', accessToken)
+            .send({
+                username: 'testing123',
+                email: '123@123.com',
+                fullname: '123T',
+                profile_bio: '123123'
+            })
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+
+        done();
+    })
 });
