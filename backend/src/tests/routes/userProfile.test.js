@@ -264,7 +264,6 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
                 .expect('Content-Type', /json/)
         ).body;
 
-        console.log(results);
 
         expect(results).toHaveProperty('photo_obj');
         const photoInformation = results.photo_obj;

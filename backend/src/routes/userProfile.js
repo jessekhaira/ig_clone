@@ -33,7 +33,7 @@ router.use((req, res, next) => {
                 req.path === '/' ||
                 req.path === '/inbox/')
         ) {
-            return returnJS_Views(req, res, next);
+            return returnJavaScriptViews(req, res, next);
         }
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         return next();
@@ -43,13 +43,13 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    return returnJS_Views(req, res, next);
+    return returnJavaScriptViews(req, res, next);
 });
 
 /** This function represents a controller located behind endpoints that just return the static
  * files for the application
  * */
-function returnJS_Views(req, res, next) {
+function returnJavaScriptViews(req, res, next) {
     return res.sendFile(
         path.join(__dirname, '../../../client/build/index.html'),
     );
