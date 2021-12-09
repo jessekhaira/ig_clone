@@ -7,7 +7,8 @@ import { User, IUser } from '../models/users';
 dotenv.config({ path: path.resolve('.env') });
 
 /**
- * Express router to mount the function that refreshes access tokens using the request tokens stored in clients local storage.
+ * Express router to mount the function that refreshes access tokens using
+ * the request tokens stored in clients local storage.
  * @type {object}
  * @const
  */
@@ -23,8 +24,9 @@ router.get('/', async (req: Request, res: Response) => {
     if (!refreshToken) {
         return res.status(400);
     }
-    // try to create a new access token, and if there are any errors just return that the request
-    // could not be processed (IE: refresh token could be expired, invalid refresh token, etc)
+    /* try to create a new access token, and if there are any errors just return
+    that the request could not be processed (IE: refresh token could be expired,
+    invalid refresh token, etc) */
     try {
         const user = jwt.verify(
             refreshToken,
