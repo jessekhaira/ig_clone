@@ -277,7 +277,6 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 
 describe('Grouping tests that test PUT endpoints built off /:userprofile route', () => {
     test("Testing put request to update profile photo, fails without token", async (done) => {
-        const photoData = fs.readFileSync(__dirname + '/photo.png');
         const returnedData = await request(app)
             .put(`/testing123/profilePhoto`)
             .attach('name', __dirname + '/photo.png')
@@ -345,4 +344,17 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(test123.profile_description).toBe('123123');
         done();
     })
+    
 });
+
+
+
+describe('Grouping tests that test POST endpoints built off /:userprofile route', () => {
+    test("Testing POST request to add new photo post, should fails without token", async (done) => {
+        const returnedData = await request(app)
+            .post(`/testing123/posts`)
+            .attach('name', __dirname + '/photo.png')
+            .expect(500)
+        done();
+    });
+})
