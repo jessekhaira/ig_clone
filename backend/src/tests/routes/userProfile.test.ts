@@ -338,6 +338,11 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
 
         expect(returnedData).toHaveProperty('accessToken');
         expect(returnedData).toHaveProperty('refreshToken');
+        const test123 = await User.findOne({ username: 'test123' });
+        expect(test123.username).toBe('test123');
+        expect(test123.email).toBe('123@123.com');
+        expect(test123.full_name).toBe('123T');
+        expect(test123.profile_description).toBe('123123');
         done();
     })
 });
