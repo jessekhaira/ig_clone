@@ -102,9 +102,10 @@ router.put('/editProfile', [
                 full_name: req.body.fullname,
                 profile_description: req.body.profile_bio,
             };
-            // if our user has updated their username then we have to issue new access
-            // and refresh tokens because the original ones will be stale as the username as changed
-            // username main thing the payload of the tokens are encoding
+            // if our user has updated their username then we have to issue
+            // new access and refresh tokens because the original ones will be
+            // stale as the username as changed. The username will be the main
+            // thing the payload of the tokens are encoding
             if (current_user_requesting_update !== req.body.username) {
                 proposed_update.username = req.body.username;
                 const [
