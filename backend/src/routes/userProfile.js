@@ -353,7 +353,8 @@ router.post('/posts', [
     fileUpload({
         createParentPath: true,
     }),
-    // have more middleware here to verify the data recieved from the user but leaving for now
+    // have more middleware here to verify the data recieved from the user but
+    // leaving for now
     async (req, res, next) => {
         try {
             const { username } = req.params;
