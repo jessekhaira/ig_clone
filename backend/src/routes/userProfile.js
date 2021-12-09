@@ -202,8 +202,9 @@ router.get('/profilePhoto', async (req, res) => {
 });
 
 router.put('/profilePhoto', [
-    // would have some middleware function that verifies the data recieved from the user
-    // for the photo but for simplicities sake, allowing through here
+    // would have some middleware function that verifies the data recieved
+    // from the user for the photo but for simplicities sake, allowing through
+    // here
     fileUpload({
         createParentPath: true,
     }),
