@@ -376,10 +376,12 @@ router.post('/posts', [
 ]);
 
 router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
-    // We need to know without keeping state in the backend of which section of posts the user
-    // is requesting, and then slice out that section of posts only. The grid is currently displaying 12
-    // posts by default, and then when the user scrolls down to the bottom, 12 more posts are fetched and shown.
-    // location of where the user is obtained with the :slice_posts_requesting parameter in the URL
+    /* We need to know without keeping state in the backend of which section
+    of posts the user is requesting, and then slice out that section of posts
+    only. The grid is currently displaying 12 posts by default, and then when
+    the user scrolls down to the bottom, 12 more posts are fetched and shown.
+    location of where the user is obtained with the :slice_posts_requesting
+    parameter in the URL */
     try {
         const query_information = {
             photos: true,
