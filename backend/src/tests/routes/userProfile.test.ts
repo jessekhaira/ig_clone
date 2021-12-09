@@ -351,10 +351,26 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
 
 describe('Grouping tests that test POST endpoints built off /:userprofile route', () => {
     test("Testing POST request to add new photo post, should fails without token", async (done) => {
-        const returnedData = await request(app)
+        const returnedData = (await request(app)
             .post(`/testing123/posts`)
-            .attach('name', __dirname + '/photo.png')
+            .attach('image', __dirname + '/photo.png')
             .expect(500)
+            .expect('Content-Type', /json/)
+        ).body;
+        
         done();
     });
+
+    test("Testing POST request to add new photo post, should succeed ", async (done) => {
+        const returnedData = (await request(app)
+            .post(`/testUser2/posts`)
+            .set('Authorization', accessToken)
+            .attach('image', __dirname + '/photo.png')
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+        
+        done();
+    });
+    
 })
