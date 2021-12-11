@@ -67,8 +67,8 @@ router.post('/', [
                 refreshToken,
             });
         } catch (err) {
-            // assuming errors that come when trying to save user to database come from username being
-            // used or email being used already
+            // assuming errors that come when trying to save user to database
+            // come from username being used or email being used already
             try {
                 const err_email_or_username =
                     err.errors.email || err.errors.username;
