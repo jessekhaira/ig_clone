@@ -8,12 +8,19 @@ setupLocalDatabase(`userProfileTest`);
 
 let accessToken;
 beforeAll(async (done) => {
-    // sign up new user, get access token for this user and use this user to verify our
-    // search endpoint working correctly
+    // create two new users specifically for testing /userProfile endpoints
     const results = await request(app).post('/accounts/register').send({
         email: 'testing@gmail.com',
         full_name: 'testing',
         username: 'testing123',
+        pw_inp: `123456`,
+        date_of_birth: Date.now(),
+    });
+
+    await request(app).post('/accounts/register').send({
+        email: 'testing2@gmail.com',
+        full_name: 'testing2',
+        username: 'testing2',
         pw_inp: `123456`,
         date_of_birth: Date.now(),
     });
@@ -342,6 +349,17 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(test123.email).toBe('123@123.com');
         expect(test123.full_name).toBe('123T');
         expect(test123.profile_description).toBe('123123');
+        done();
+    })
+
+    test("Testing PUT request to follow a given user", async (done) => {
+        const returnedData = (await request(app)
+            .put(`/testing2/follow/testUser2`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+
         done();
     })
     
