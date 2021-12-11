@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
+
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 /**

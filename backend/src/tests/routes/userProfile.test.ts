@@ -361,7 +361,7 @@ describe('Grouping tests that test POST endpoints built off /:userprofile route'
         done();
     });
 
-    test("Testing POST request to add new photo post, should succeed ", async (done) => {
+    test("Testing POST request to add one new photo post, should succeed ", async (done) => {
         const returnedData = (await request(app)
             .post(`/testUser2/posts`)
             .set('Authorization', accessToken)
@@ -369,7 +369,10 @@ describe('Grouping tests that test POST endpoints built off /:userprofile route'
             .expect(200)
             .expect('Content-Type', /json/)
         ).body;
-        
+
+        const testUser2 = await User.findOne({ username: 'testUser2' });
+        expect(testUser2.photos.length).toBe(4);
+        expect(returnedData).toHaveProperty('Message');
         done();
     });
     
