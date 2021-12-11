@@ -375,5 +375,17 @@ describe('Grouping tests that test POST endpoints built off /:userprofile route'
         expect(returnedData).toHaveProperty('Message');
         done();
     });
-    
+})
+
+
+describe('Grouping tests that test DELETE endpoints built off /:userprofile route', () => {
+    test("Testing DELETE request to delete new photo post, should fail without token", async (done) => {
+        const returnedData = (await request(app)
+            .delete(`/testing123/23`)
+            .expect(500)
+            .expect('Content-Type', /json/)
+        ).body;
+        done();
+    });
+
 })
