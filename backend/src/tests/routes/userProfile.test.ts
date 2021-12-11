@@ -389,7 +389,7 @@ describe('Grouping tests that test DELETE endpoints built off /:userprofile rout
     });
 
     test("Testing DELETE request to delete new photo post, should fail without token", async (done) => {
-        const testUser2 = await User.findOne({username: 'testUser2'});
+        let testUser2 = await User.findOne({username: 'testUser2'});
         const grid_img_id = testUser2.photos[0]._id;
         const returnedData = (await request(app)
             .delete(`/testUser2/${grid_img_id}`)
@@ -397,6 +397,11 @@ describe('Grouping tests that test DELETE endpoints built off /:userprofile rout
             .expect(200)
             .expect('Content-Type', /json/)
         ).body;
+
+        testUser2 = await User.findOne({username: 'testUser2'});
+        testUser2.photos.forEach(photo => {
+            expect(photo._id).not.toEqual(grid_img_id);
+        })
         done();
     });
 })
