@@ -1,3 +1,6 @@
+/* This module contains a router with API endpoints for the
+/:username route of the application, meant to be imported into
+the app.ts module and mounted on the application */
 const express = require('express');
 const validator = require('express-validator');
 const fileUpload = require('express-fileupload');
