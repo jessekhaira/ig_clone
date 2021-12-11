@@ -16,9 +16,10 @@ interface SearchPostEndpointRequestBody {
 }
 
 /**
- * This endpoint responds to POST requests targetting the search endpoint. This endpoint accepts a search query
- * within the request body, which is validated, and then is used to search the Mongo database for any users that
- * match the query.
+ * This endpoint responds to POST requests targetting the search endpoint. This
+ * endpoint accepts a search query within the request body, which is validated,
+ * and then is used to search the Mongo database for any users that match the
+ * query.
  */
 router.post('/search', [
     body('search_query'),
