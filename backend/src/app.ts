@@ -73,8 +73,8 @@ if (
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 }
 
-// don't want to create a server if we're testing -- testing will handle creating server given
-// the node app
+// don't want to create a server if we're testing -- testing will handle
+// creating a server given the node app
 if (process.env.NODE_ENV !== 'TESTING') {
     app.listen(port);
 }
