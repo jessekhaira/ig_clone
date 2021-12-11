@@ -222,7 +222,8 @@ router.put('/profilePhoto', [
     },
 ]);
 
-// Follow + Following Box Controllers (user clicks to see a list of all the users they are following or are followers of)
+/* Follow + Following Box Controllers (user clicks to see a list of all
+the users they are following or are followers of) */
 router.get('/:loggedInUser/followersBox', async (req, res, next) => {
     try {
         const populate_query = {
@@ -282,7 +283,8 @@ router.get('/:loggedInUser/followingBox', async (req, res, next) => {
             usersFollowingCurrActiveUser.following,
             'profile_picture',
         );
-        // following endpoint so automatically the user will be following all the users within this box
+        // following endpoint so automatically the user will be following all
+        // the users within this box
         for (let i = 0; i < returned_obj.length; i++) {
             const user_who_follows_currUser = returned_obj[i];
             user_who_follows_currUser.curr_user_following_this_user = loggedInUser.following.includes(
