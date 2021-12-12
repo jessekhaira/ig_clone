@@ -360,6 +360,9 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
             .expect('Content-Type', /json/)
         ).body;
 
+        const testing2 = await User.findOne({username: 'testing2'});
+        const testUser2 = await User.findOne({username: 'testUser2'});
+        expect(testing2.following).toContainEqual(testUser2._id);
         done();
     })
     
