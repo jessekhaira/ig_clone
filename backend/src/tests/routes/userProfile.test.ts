@@ -406,7 +406,7 @@ describe('Grouping tests that test DELETE endpoints built off /:userprofile rout
         done();
     });
 
-    test("Testing DELETE request to delete new photo post, should fail without token", async (done) => {
+    test("Testing DELETE request to delete new photo post, should succeed", async (done) => {
         let testUser2 = await User.findOne({username: 'testUser2'});
         const grid_img_id = testUser2.photos[0]._id;
         const returnedData = (await request(app)
