@@ -1,3 +1,6 @@
+/* This module contains a router with API endpoints for the
+/loggedIn/navbar route of the application, meant to be imported into
+the app.ts module and mounted on the application */
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import path from 'path';
