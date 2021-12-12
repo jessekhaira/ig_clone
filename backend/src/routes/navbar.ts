@@ -68,8 +68,8 @@ router.post('/search', [
 ]);
 
 /**
- * GET requests to the /navbar endpoint just return the frontend files -- happen when user refreshes page after being logged
- * in.
+ * GET requests to the /navbar endpoint just return the frontend files --
+ * happens when user refreshes page after being logged in.
  */
 router.get('/', (req: Request, res: Response) => {
     return res.sendFile(
