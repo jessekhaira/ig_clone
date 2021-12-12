@@ -283,7 +283,7 @@ describe('Grouping tests that test GET endpoints built off /:userprofile route',
 });
 
 describe('Grouping tests that test PUT endpoints built off /:userprofile route', () => {
-    test("Testing put request to update profile photo, fails without token", async (done) => {
+    test("Testing PUT request to update profile photo, fails without token", async (done) => {
         const returnedData = await request(app)
             .put(`/testing123/profilePhoto`)
             .attach('name', __dirname + '/photo.png')
@@ -291,7 +291,7 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         done();
     });
 
-    test("Testing put request to update profile photo, should succeed", async (done) => {
+    test("Testing PUT request to update profile photo, should succeed", async (done) => {
         const returnedData = (await request(app)
             .put(`/testing123/profilePhoto`)
             .set('Authorization', accessToken)
@@ -304,7 +304,7 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         done();
     });
 
-    test("Testing put request for editing profile, should succeed", async(done) => {
+    test("Testing PUT request for editing profile, should succeed", async(done) => {
         const returnedData = (await request(app)
             .put(`/testing123/editProfile`)
             .set('Authorization', accessToken)
@@ -328,7 +328,7 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
     })
 
 
-    test("Testing put request for editing profile, where username changes, should succeed", async(done) => {
+    test("Testing PUT request for editing profile, where username changes, should succeed", async(done) => {
         const returnedData = (await request(app)
             .put(`/testing123/editProfile`)
             .set('Authorization', accessToken)
