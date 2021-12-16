@@ -39,6 +39,7 @@ beforeAll(async (done) => {
         testUserX.followers.push(testing123);
         await testUserX.save();
     }
+
     await testUser2.save();
     await testing123.save();
 
@@ -366,8 +367,24 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(testUser2.followers).toContainEqual(testing2._id);
         expect(returnedData).toHaveProperty('Success');
         done();
-    })
-    
+    });
+
+    test("Testing PUT request to unfollow a given user", async (done) => {
+        const returnedData = (await request(app)
+            .put(`/testUser5/follow/testUser2`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+        ).body;
+
+        const testUser5 = await User.findOne({username: 'testUser5'});
+        const testUser2 = await User.findOne({username: 'testUser2'});
+        expect(testUser5.following).not.toContainEqual(testUser2._id);
+        expect(testUser2.followers).not.toContainEqual(testUser5._id);
+        expect(returnedData).toHaveProperty('Success');
+        done();
+    });    
+
 });
 
 
