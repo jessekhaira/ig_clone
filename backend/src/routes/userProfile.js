@@ -404,7 +404,8 @@ router.get('/posts/:slice_posts_requesting', async (req, res, next) => {
         photos = photos.slice(endIdxImageSlice - 12, endIdxImageSlice);
         const return_obj = [];
         const base64_300x300_photos = [];
-        // have to resize every photo to be 300x300 in order for the grid to look uniform and clean
+        // have to resize every photo to be 300x300 in order for the grid
+        // to look uniform and clean
         for (let photo of photos) {
             photo = photo.toObject();
             photo.data_photo = await sharp(photo.data_photo.buffer)
