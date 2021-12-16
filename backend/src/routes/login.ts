@@ -20,9 +20,11 @@ interface LoginRequestBody {
 const router = express.Router();
 
 /**
- * This API endpoint mounted on the login router responds to GET request to the '/login' route. It has the responsibility of sanitizing
- * the input arguments recieved, and then validating if they belong to a user in the database. If they do, the client will be notified
- * that verification was succesful and to redirect to the appropriate view.
+ * This API endpoint mounted on the login router responds to GET request to the
+ * '/login' route. It has the responsibility of sanitizing the input arguments
+ * recieved, and then validating if they belong to a user in the database. If
+ * they do, the client will be notified that verification was succesful and to
+ * redirect to the appropriate view.
  *
  * @name post/login
  * @function
