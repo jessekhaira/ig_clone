@@ -33,8 +33,8 @@ router.get('/', async (req: Request, res: Response) => {
             process.env.REFRESH_TOKEN_SECRET,
         ) as DecodedToken;
         const { username } = user;
-        // check whether refresh token stored in the db for this user is the same
-        // as the refresh token passed here
+        // check whether refresh token stored in the db for this user is the
+        // same as the refresh token passed here
         const userDB: IUser = await User.findOne({ username });
         const dbRefreshToken = userDB.refreshToken;
         if (refreshToken !== dbRefreshToken) {
