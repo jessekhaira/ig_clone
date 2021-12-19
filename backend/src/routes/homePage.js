@@ -1,3 +1,11 @@
+/* This module contains a router with API endpoints for the
+/homepage route of the application, meant to be imported into
+the app.ts module and mounted on the application object.
+
+The homepage of the application will primarily contain a stream
+of posts made by all the individuals this user follows, in chronological
+order, and also reccomended individuals to follow. The endpoints
+below reflect primarily these two things. */
 const express = require('express');
 const User = require('../models/users').userModel;
 const jwt = require('jsonwebtoken');
