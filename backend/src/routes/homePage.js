@@ -23,7 +23,8 @@ router.get('/', (req, res) => {
 });
 
 router.use((req, res, next) => {
-    // have to verify the jwt to get access to any of the routes below so thats what we do first thing
+    // have to verify the jwt to get access to any of the routes
+    // below so thats what we do first thing
     try {
         jwt.verify(req.headers.authorization, process.env.ACESS_TOKEN_SECRET);
         return next();
