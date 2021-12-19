@@ -404,7 +404,28 @@ describe('Grouping tests that test PUT endpoints built off /:userprofile route',
         expect(testUser2.followers).toContainEqual(testUser5._id);
         expect(returnedData).toHaveProperty('Success');
         done();
-    });    
+    }); 
+    
+    test("Testing PUT request to follow then unfollow a given user", async (done) => {
+        await request(app)
+        .put(`/testUser9/follow/testUser2`)
+        .set('Authorization', accessToken)
+        .expect(200)
+        .expect('Content-Type', /json/);
+        
+        const returnedData = (await request(app)
+            .put(`/testUser9/follow/testUser2`)
+            .set('Authorization', accessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)).body;
+
+        const testUser9 = await User.findOne({username: 'testUser5'});
+        const testUser2 = await User.findOne({username: 'testUser2'});
+        expect(testUser9.following).toContainEqual(testUser2._id);
+        expect(testUser2.followers).toContainEqual(testUser9._id);
+        expect(returnedData).toHaveProperty('Success');
+        done();
+    }); 
 
 });
 
