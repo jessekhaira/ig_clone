@@ -96,9 +96,11 @@ function getAllPostsHomepage(user_logged_in) {
     return all_posts;
 }
 
-/** This endpoint was mostly out of the scope of the project -- IG's algorithm for returning home page posts
- * is quite advanced, but this represents a basic algorithm that fetches the 12 most recent posts for a user
- * including their followers that is compatible with infinite scrolling working in the frontend.
+/** This endpoint was mostly out of the scope of the project --
+ * IG's algorithm for returning home page posts is quite advanced, but this
+ * represents a basic algorithm that fetches the 12 most recent posts for a user
+ * including their followers that is compatible with infinite scrolling working
+ * in the frontend.
  */
 router.get('/:username/:slicepostsreq', async (req, res, next) => {
     try {
@@ -120,12 +122,6 @@ router.get('/:username/:slicepostsreq', async (req, res, next) => {
             .populate({ path: 'photos', model: 'photos' });
 
         const homepage_posts = [];
-        // the frontend implements infinite scrolling
-        // we are returning 12 posts at a time
-        // the 12 posts are the posts that have been posted the most recently
-        // when user wants more posts, scrolling to bottom increases value for slice post req by one compared to
-        // previous request, and appropriate values are returned (IE: the slice we are returning has to be in correct
-        // order relative to all posts stored)
         const endIdxCurrSliceHomepage = req.params.slicepostsreq * 12;
         const all_posts_following_self_sorted = getAllPostsHomepage(
             user_logged_in,
