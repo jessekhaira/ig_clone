@@ -35,9 +35,9 @@ router.use((req, res, next) => {
 
 /**
  * This API Endpoint is out of the scope of main project -- just going to return
- * users own information. But in the future could deploy a machine learning algorithm
- * behind this endpoint for link prediction, or take a simpler approach to suggest users
- * to follow for current user.
+ * users own information. But in the future could deploy a machine learning
+ * algorithm behind this endpoint for link prediction, or take a simpler
+ * approach to suggest users to follow for current user.
  */
 router.get('/:username/suggested', async (req, res, next) => {
     try {
