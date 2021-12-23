@@ -67,8 +67,9 @@ function convertArrayPicBuffers2Base64(
 }
 
 /**
- * This function accepts two numbers representing dates, and returns the differential in time between the dates.
- * According to the differential in time between the dates, the appropriate time is returned.
+ * This function accepts two numbers representing dates, and returns the
+ * differential in time between the dates. According to the differential in
+ * time between the dates, the appropriate time is returned.
  *
  * @param {number} date1 Number representing a date
  * @param {number} date2 Number representing a date
@@ -79,7 +80,8 @@ function getDateDifferential(date1: Date, date2: Date): string {
     const diffHours = Math.ceil(diffMinutes / 60);
     const diffDays = Math.ceil(diffHours / 24);
 
-    // based on the time differential, return the appropriate period of time (ie: minutes, hours, etc)
+    // based on the time differential, return the appropriate period of time
+    // (ie: minutes, hours, etc)
     if (diffMinutes < 60) {
         const descrText = diffMinutes === 1 ? `MINUTE AGO` : `MINUTES AGO`;
         return `${diffMinutes} ${descrText}`;
