@@ -46,10 +46,10 @@ function convertBuffer2Base64(
 }
 
 /**
- * This function has the responsibility of converting an array of objects, each representing a Mongoose document,
- * to an array of Javascript objects with the purpose of converting binart vuffers representing images to base64
+ * This function has the responsibility of converting an array of objects,
+ * each representing a Mongoose document, to an array of Javascript objects,
+ * with the purpose of converting binary buffers representing images to base64
  * encoded strings.
- *
  */
 function convertArrayPicBuffers2Base64(
     documents: Array<Document>,
