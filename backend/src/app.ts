@@ -1,3 +1,6 @@
+/* This module defines and exports a express 
+application object which represents the application
+server for the instagram clone application. */
 import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
