@@ -1,6 +1,11 @@
 /* This module contains a router with API endpoints for the
 /:username route of the application, meant to be imported into
-the app.ts module and mounted on the application */
+the app.ts module and mounted on the application.
+
+A users profile will show a grid of photos made by this user
+in chronological order, along with options to create new posts,
+update their profile information, delete posts, and so on. */
+
 const express = require('express');
 const validator = require('express-validator');
 const fileUpload = require('express-fileupload');
