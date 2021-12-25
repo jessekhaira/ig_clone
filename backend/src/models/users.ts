@@ -1,3 +1,6 @@
+/* This module contains the definition for the schema for the
+users model inside the database, and exports both the users model
+and an interface defining the user schema */
 import mongoose, { Document, Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
