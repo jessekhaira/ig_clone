@@ -82,11 +82,12 @@ userSchema.methods = {
 };
 
 /**
- * Register a callback function that will run every time that a user document is saved with a pre hook.
+ * Register a callback function that will run every time that a user document
+ * is saved with a pre hook.
  */
 userSchema.pre<IUser>(
-    // only want this to run if the password has changed -- ie we can update followers and followibng
-    // but pw wont change
+    // only want this to run if the password has changed -- ie we can update
+    // followers and followibng but pw wont change
     'save',
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
