@@ -68,8 +68,10 @@ interface IUser extends Document {
 }
 
 /**
- * @alias User.prototype.hashPassword Generates an encrypted password hash for this user given the plain text password
- * @alias User.prototype.verifyPassword Verifies whether a plain text password matches the encrypted password stored
+ * @alias User.prototype.hashPassword Generates an encrypted password hash for
+ * this user given the plain text password
+ * @alias User.prototype.verifyPassword Verifies whether a plain text password
+ * matches the encrypted password stored
  */
 userSchema.methods = {
     hashPassword: (plain_text_pw: string) => bcrypt.hash(plain_text_pw, 10),
