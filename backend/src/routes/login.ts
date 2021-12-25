@@ -70,11 +70,13 @@ router.post('/', [
             }
 
             // if user is found, password is verified, then we make a jwt
-            // access token and request token and return both of them to the client
+            // access token and request token and return both of them to
+            // the client
             const [accessToken, refreshToken] = create_access_refresh_tokens(
                 user.username,
             );
-            // update refresh token in the db for the user to be this new refresh token
+            // update refresh token in the db for the user to be this new
+            // refresh token
             user.refreshToken = refreshToken;
             await user.save();
             return res.status(201).json({ accessToken, refreshToken });
