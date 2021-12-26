@@ -1,3 +1,6 @@
+/* This module contains the definition for the schema for the
+photos model inside the database, and exports both the photos model
+and an interface defining the photos schema */
 import mongoose, { Document, Schema, Types } from 'mongoose';
 
 /**
