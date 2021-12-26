@@ -103,9 +103,14 @@ function getDateDifferential(date1: Date, date2: Date): string {
 }
 
 /**
- * This purpose of this function is to produce JSON web tokens for a user that has been authorized.
- * @param {String} username String representing the username of a given user
- * @returns {String[]} Array of 2 strings, with each string representing a JSON web token
+ * This purpose of this function is to produce JSON web tokens for
+ * a user that has been authorized.
+ *
+ * @param {String} username String representing the
+ * username of a given user
+ *
+ * @returns {String[]} Array of 2 strings, with each string
+ * representing a JSON web token
  */
 function create_access_refresh_tokens(username: string): Array<string> {
     const accessToken = jwt.sign({ username }, process.env.ACESS_TOKEN_SECRET, {
