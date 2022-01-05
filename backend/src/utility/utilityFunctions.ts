@@ -1,3 +1,5 @@
+/* This module contains a bunch of utility functions useful across 
+a variety of modules in the backend */
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import dotenv from 'dotenv';
