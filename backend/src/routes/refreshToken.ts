@@ -1,3 +1,9 @@
+/* This module contains a router with API endpoints for the
+/accounts/refreshToken route of the application, meant to be imported
+into the app.ts module and mounted on the application.
+
+This routers supports functions whose main responsibility is refreshing 
+a users refresh JWT when it expires */
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import path from 'path';
