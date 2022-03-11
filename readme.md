@@ -1,6 +1,6 @@
 # Instagram Clone
 ## Description 
-This is an application I built that clones the core features of instagram. I architected the application using a monolithic architecture, and dockerized and deployed the application on heroku, which can be seen at https://instagramwebclone.herokuapp.com/. 
+This is an application I built that clones the core features of instagram. The application was dockerized and deployed on heroku for some time, and installation and usage instructions can be found below. 
 
 The tech stack for the project included:
 - Frontend:
