@@ -1,6 +1,6 @@
 # Instagram Clone
 ## Description 
-This web application clones the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found below. 
+This web application is a clone of the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found below[#Usage].
 
 
 ## Tech Stack
@@ -13,7 +13,7 @@ The MERN tech stack was used for the project. Specific technologies include:
     - MongoDB 
     - Express
     - Node
-- Docker to containerize and ship the application
+- Docker
 
 ## Features
 Given that instagram is a massive application, the scope of the project was limited to the following features:
