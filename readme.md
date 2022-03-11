@@ -1,6 +1,6 @@
 # Instagram Clone
 ## Description 
-This web application is a clone of the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found below[#Usage].
+This web application is a clone of the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found [below](#Usage).
 
 
 ## Tech Stack
