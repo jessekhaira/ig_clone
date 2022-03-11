@@ -1,19 +1,22 @@
 # Instagram Clone
 ## Description 
-This is an application I built that clones the core features of instagram. The application was dockerized and deployed on heroku for some time, and installation and usage instructions can be found below. 
+This web application clones the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found below. 
 
-The tech stack for the project included:
+
+## Tech Stack
+The MERN tech stack was used for the project. Specific technologies include: 
 - Frontend:
     - React
     - Sass
     - Redux 
 - Backend:
-    - MongoDB with Mongoose as the object relational mapping
-    - Express, Node (with TypeScript)
+    - MongoDB 
+    - Express
+    - Node
 - Docker to containerize and ship the application
 
 ## Features
-Given that instagram is a massive application, the scope of the project was limited to the below features:
+Given that instagram is a massive application, the scope of the project was limited to the following features:
 - Individuals can register for an account, which requires their email, username, name and password
 - Build authentication system: user can login using their credentials (email/username, password)
 - User can upload a profile picture and edit their name, username, email and password after registration
