@@ -2,8 +2,8 @@
 /backend/.env
 /backend/populateDatabaseDevelopment.js
 .DS_Store
-.vscode
 /backend/built
 startup_docker_image.sh
 /node_modules
 /backend/src/tests/routes/*.png
+/client/.env
