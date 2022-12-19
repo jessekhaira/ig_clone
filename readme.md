@@ -1,13 +1,10 @@
 # Instagram Clone
 ## Table of Contents
-
 1. [Description](#Description)
 2. [Installation](#Installation)
 3. [Features](#Features)
-4. [Usage](#Usage)
-5. [Deep Learning and Data Scraping Information](#ml_models)
-   1. [Language Model](#lang_model)
-   2. [Image Recognition](#img_recognition)
+4. [Tech Stack](#Tech Stack)
+5. [Usage](#Usage)
 
 ## Description 
 This web application is a clone of the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found [below](#Usage).
@@ -148,7 +145,7 @@ Responsive homepage posts
 </kbd>
 
 
-## Local Installation
+## Installation
 ```
 git clone https://github.com/13jk59/ig_clone.git
 cd backend
