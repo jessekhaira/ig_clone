@@ -9,18 +9,21 @@
 ## Description 
 This web application is a clone of the core features of Instagram and was dockerized and deployed on heroku for a period of time. Installation and usage instructions can be found [below](#Usage).
 
-
 ## Tech Stack
-The MERN tech stack was used for the project. Specific technologies include: 
+I built the application using a monolithic architecture, with the following tech stack:
 - Frontend:
-    - React
+    - JavaScript (React)
     - Sass
-    - Redux 
+    - HTML
+    - CSS
 - Backend:
+    - TypeScript (Node, Express)
     - MongoDB 
-    - Express
-    - Node
-- Docker
+- DevOps:
+    - Docker
+- Misc:
+    - Git
+    - Bash
 
 ## Features
 Given that instagram is a massive application, the scope of the project was limited to the following features:
@@ -36,7 +39,6 @@ Given that instagram is a massive application, the scope of the project was limi
 - Static versions of user stories and suggested users implemented on homepage
 - Static versions of notifications for user implemented
 - Fully responsive Design
-
 
 ## Usage
 Login page 
@@ -143,7 +145,6 @@ Responsive homepage posts
 <kbd>
   <img src="./screenshots/homepage_responsive.png" width="600">
 </kbd>
-
 
 ## Installation
 ```
