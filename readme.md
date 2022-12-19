@@ -3,7 +3,7 @@
 1. [Description](#Description)
 2. [Installation](#Installation)
 3. [Features](#Features)
-4. [Tech Stack](#Tech Stack)
+4. [Tech Stack](#Tech-Stack)
 5. [Usage](#Usage)
 
 ## Description 
